@@ -1,0 +1,3 @@
+include *.md setup.py
+recursive-include authomize/fill_the_right_name *.py *.yaml
+exclude authomize/fill_the_right_name/config/local.*

@@ -1,0 +1,15 @@
+.env
+.env.*
+.idea
+*.egg-info
+venv
+.vscode/
+**/config/local.*
+**/config/*.local.*
+
+
+__pycache__/
+*.py[cod]
+*$py.class
+.python-version
+svc_asset_creds.json
