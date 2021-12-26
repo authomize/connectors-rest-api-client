@@ -1,7 +1,6 @@
 from typing import Optional
 
 import requests
-from requests.exceptions import HTTPError
 
 AUTHOMIZE_API_URL = 'https://api.authomize.com'
 
