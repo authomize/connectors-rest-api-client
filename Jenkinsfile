@@ -1,9 +1,8 @@
-on_pull_request to: develop, {
+on_pull_request {
     run_linters()
     run_tests()
 }
 
 on_change to: master, {
-    // Uncomment if needed
-    // build_push_python_package()
+    build_push_python_package()
 }
