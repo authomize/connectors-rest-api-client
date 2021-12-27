@@ -22,21 +22,7 @@ class AssetsInheritance(BaseModel):
 
 
 class AvailableConnectorId(Enum):
-    aws = 'aws'
-    box = 'box'
-    dropbox = 'dropbox'
-    fileprovider = 'fileprovider'
-    github = 'github'
-    google = 'google'
-    jira = 'jira'
-    microsoft_azure_ad_sp = 'microsoft-azure-ad-sp'
-    microsoft_azure = 'microsoft-azure'
-    okta = 'okta'
-    oktaOwners = 'oktaOwners'
     restApiImport = 'restApiImport'
-    salesforce_application = 'salesforce_application'
-    salesforce_account = 'salesforce_account'
-    jiraServiceDeskItsm = 'jiraServiceDeskItsm'
 
 
 class CanonicalPrivilegeTypes(Enum):
