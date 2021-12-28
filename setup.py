@@ -4,7 +4,7 @@ from setuptools import find_namespace_packages, setup
 
 if __name__ == '__main__':
     setup(
-        version='0.0.1',
+        version='0.1.0',
         name='authomize-rest-api-client',
         author='Authomize inc.',
         author_email='info@authomize.com',
@@ -22,7 +22,7 @@ if __name__ == '__main__':
                 'flake8~=4.0',
                 'flake8-isort~=4.0',
                 'pyhamcrest~=2.0',
-                'pytest~=5.4',
+                'pytest~=6.2',
                 'pytest-html~=2.1',
             ],
             'codegen': [
