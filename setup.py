@@ -7,6 +7,7 @@ if __name__ == '__main__':
         version='0.0.2',
         name='authomize-rest-api-client',
         author='Authomize inc.',
+        license='MIT',
         author_email='info@authomize.com',
         description='Authomize REST API Python Client',
         packages=find_namespace_packages(include=['authomize.*']),
