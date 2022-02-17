@@ -34,7 +34,7 @@ class Client(BaseClient):
             raise ValueError('Missing transaction_id')
         return self.http_get(f'/v1/connectors/{connector_id}/transactions/{transaction_id}')
 
-    def apply_transaction(self, connector_id: str, transaction_id: str) -> None:
+    def apply_transaction(self, connector_id: str, transaction_id: str) -> BundleTransactionSchema:
         if not connector_id:
             raise ValueError('Missing connector_id')
         if not transaction_id:
