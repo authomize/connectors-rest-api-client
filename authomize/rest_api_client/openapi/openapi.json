@@ -305,7 +305,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/BundleTransaction"
+                  "$ref": "#/components/schemas/BundleTransactionSchema"
                 }
               }
             }
@@ -362,7 +362,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/BundleTransaction"
+                  "$ref": "#/components/schemas/BundleTransactionSchema"
                 }
               }
             }
@@ -419,7 +419,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/BundleTransaction"
+                  "$ref": "#/components/schemas/BundleTransactionSchema"
                 }
               }
             }
@@ -591,7 +591,11 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ExportResponse"
+                  "title": "Response Search V1 Connectors  Connectorid  Export Get",
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ExportResponse"
+                  }
                 }
               }
             }
@@ -635,7 +639,7 @@
             "type": "string"
           },
           "accessType": {
-            "$ref": "#/components/schemas/CanonicalPrivilegeTypes"
+            "$ref": "#/components/schemas/AccessTypes"
           },
           "accessName": {
             "title": "Accessname",
@@ -643,157 +647,8 @@
           }
         }
       },
-      "ActorType": {
-        "title": "ActorType",
-        "enum": [
-          "Authomize",
-          "User"
-        ],
-        "description": "Enum of actor type"
-      },
-      "AssetDescription": {
-        "title": "AssetDescription",
-        "required": [
-          "id",
-          "name",
-          "type"
-        ],
-        "type": "object",
-        "properties": {
-          "id": {
-            "title": "Id",
-            "type": "string"
-          },
-          "name": {
-            "title": "Name",
-            "type": "string"
-          },
-          "type": {
-            "$ref": "#/components/schemas/ResourceTypes"
-          },
-          "description": {
-            "title": "Description",
-            "type": "string"
-          },
-          "href": {
-            "title": "Href",
-            "type": "string"
-          },
-          "createdAt": {
-            "title": "Createdat",
-            "type": "string",
-            "format": "date-time"
-          },
-          "service": {
-            "title": "Service",
-            "type": "string"
-          }
-        }
-      },
-      "AssetsInheritance": {
-        "title": "AssetsInheritance",
-        "required": [
-          "fromId",
-          "toId"
-        ],
-        "type": "object",
-        "properties": {
-          "fromId": {
-            "title": "Fromid",
-            "type": "string"
-          },
-          "toId": {
-            "title": "Toid",
-            "type": "string"
-          }
-        }
-      },
-      "AvailableConnectorId": {
-        "title": "AvailableConnectorId",
-        "enum": [
-          "aws",
-          "box",
-          "dropbox",
-          "fileprovider",
-          "github",
-          "google",
-          "jira",
-          "microsoft-azure-ad-sp",
-          "microsoft-azure",
-          "okta",
-          "oktaOwners",
-          "restApiImport",
-          "salesforce_application",
-          "salesforce_account",
-          "jiraServiceDeskItsm"
-        ],
-        "description": "An enumeration."
-      },
-      "BundleTransaction": {
-        "title": "BundleTransaction",
-        "required": [
-          "sourceKey",
-          "connectorId",
-          "id",
-          "state"
-        ],
-        "type": "object",
-        "properties": {
-          "transactionCreatedAt": {
-            "title": "Transactioncreatedat",
-            "type": "string",
-            "format": "date-time"
-          },
-          "transactionLastInsertionAt": {
-            "title": "Transactionlastinsertionat",
-            "type": "string",
-            "format": "date-time"
-          },
-          "transactionUpdatedAt": {
-            "title": "Transactionupdatedat",
-            "type": "string",
-            "format": "date-time"
-          },
-          "actorId": {
-            "title": "Actorid",
-            "type": "string"
-          },
-          "actorType": {
-            "$ref": "#/components/schemas/ActorType"
-          },
-          "sourceKey": {
-            "title": "Sourcekey",
-            "type": "string"
-          },
-          "connectorId": {
-            "title": "Connectorid",
-            "type": "string"
-          },
-          "transactionType": {
-            "$ref": "#/components/schemas/TransactionType"
-          },
-          "origin": {
-            "title": "Origin",
-            "type": "string"
-          },
-          "warnings": {
-            "title": "Warnings",
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
-          },
-          "id": {
-            "title": "Id",
-            "type": "string"
-          },
-          "state": {
-            "$ref": "#/components/schemas/TransactionStateType"
-          }
-        }
-      },
-      "CanonicalPrivilegeTypes": {
-        "title": "CanonicalPrivilegeTypes",
+      "AccessTypes": {
+        "title": "AccessTypes",
         "enum": [
           "Unknown",
           "All",
@@ -823,14 +678,168 @@
           "Leave",
           "Share"
         ],
-        "description": "Groups of all permission types\nUsed in our product to normalize the names of permissions\nExample: \"file.write\" and \"user.write\" are going to be displayed as \"write\""
+        "description": "An enumeration."
+      },
+      "AssetDescription": {
+        "title": "AssetDescription",
+        "required": [
+          "id",
+          "name",
+          "type"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "title": "Id",
+            "type": "string"
+          },
+          "name": {
+            "title": "Name",
+            "type": "string"
+          },
+          "type": {
+            "$ref": "#/components/schemas/AssetTypes"
+          },
+          "description": {
+            "title": "Description",
+            "type": "string"
+          },
+          "href": {
+            "title": "Href",
+            "type": "string"
+          },
+          "createdAt": {
+            "title": "Createdat",
+            "type": "string",
+            "format": "date-time"
+          },
+          "service": {
+            "title": "Service",
+            "type": "string"
+          }
+        }
+      },
+      "AssetTypes": {
+        "title": "AssetTypes",
+        "enum": [
+          "Resource",
+          "File",
+          "Folder",
+          "Drive",
+          "Site",
+          "Application",
+          "Package",
+          "Project",
+          "Cluster",
+          "Dataset",
+          "Subscription",
+          "Table",
+          "TableRecord",
+          "Disk",
+          "Image",
+          "Instance",
+          "Snapshot",
+          "Service",
+          "Topic",
+          "Bucket",
+          "BillingAccount",
+          "Device",
+          "Calendar",
+          "Policy",
+          "GitRepository",
+          "Network",
+          "Vpc",
+          "NetworkInterface",
+          "VirtualMachine",
+          "NetworkSecurityGroup",
+          "Ticket",
+          "NetworkSubnet",
+          "NetworkAcl",
+          "RouteTable",
+          "NetworkAddress",
+          "Secret",
+          "Storage",
+          "Workspace",
+          "SharedLink",
+          "Collection",
+          "Database"
+        ],
+        "description": "An enumeration."
+      },
+      "AssetsInheritance": {
+        "title": "AssetsInheritance",
+        "required": [
+          "fromId",
+          "toId"
+        ],
+        "type": "object",
+        "properties": {
+          "fromId": {
+            "title": "Fromid",
+            "type": "string"
+          },
+          "toId": {
+            "title": "Toid",
+            "type": "string"
+          }
+        }
+      },
+      "AvailableConnectorId": {
+        "title": "AvailableConnectorId",
+        "enum": [
+          "restApiImport"
+        ],
+        "description": "An enumeration."
+      },
+      "BundleTransactionSchema": {
+        "title": "BundleTransactionSchema",
+        "required": [
+          "connectorId",
+          "id",
+          "state"
+        ],
+        "type": "object",
+        "properties": {
+          "connectorId": {
+            "title": "Connectorid",
+            "type": "string"
+          },
+          "transactionCreatedAt": {
+            "title": "Transactioncreatedat",
+            "type": "string",
+            "format": "date-time"
+          },
+          "warnings": {
+            "title": "Warnings",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "validations": {
+            "title": "Validations",
+            "type": "object"
+          },
+          "id": {
+            "title": "Id",
+            "type": "string"
+          },
+          "state": {
+            "$ref": "#/components/schemas/TransactionStateType"
+          }
+        },
+        "description": "API response schema"
       },
       "ConnectorStatus": {
         "title": "ConnectorStatus",
         "enum": [
+          "initializing",
+          "archived",
           "enabled",
           "disabled",
-          "installable"
+          "installable",
+          "validating",
+          "failure"
         ],
         "description": "An enumeration."
       },
@@ -902,6 +911,10 @@
           },
           "type": {
             "$ref": "#/components/schemas/IdentityTypes"
+          },
+          "userType": {
+            "title": "Usertype",
+            "type": "string"
           },
           "email": {
             "title": "Email",
@@ -994,7 +1007,6 @@
       "ItemsBundleSchema": {
         "title": "ItemsBundleSchema",
         "required": [
-          "services",
           "identities",
           "assets",
           "inheritanceIdentities",
@@ -1084,62 +1096,6 @@
           }
         }
       },
-      "ResourceTypes": {
-        "title": "ResourceTypes",
-        "enum": [
-          "Resource",
-          "File",
-          "Folder",
-          "Drive",
-          "Site",
-          "Application",
-          "Package",
-          "Project",
-          "Cluster",
-          "Dataset",
-          "Subscription",
-          "Table",
-          "TableRecord",
-          "Disk",
-          "Image",
-          "Instance",
-          "Snapshot",
-          "Service",
-          "Topic",
-          "Bucket",
-          "BillingAccount",
-          "Device",
-          "Calendar",
-          "Policy",
-          "GitRepository",
-          "Network",
-          "Vpc",
-          "NetworkInterface",
-          "VirtualMachine",
-          "NetworkSecurityGroup",
-          "Ticket",
-          "NetworkSubnet",
-          "NetworkAcl",
-          "RouteTable",
-          "NetworkAddress",
-          "Secret",
-          "Storage",
-          "Workspace",
-          "SharedLink",
-          "Collection",
-          "Resource_Domain",
-          "Resource_Organization",
-          "Resource_Group",
-          "Resource_ServiceAccount",
-          "Resource_User",
-          "Resource_Identity",
-          "Resource_EntitlementProxy",
-          "Resource_AccessKey",
-          "Resource_TaskPerformer",
-          "Database"
-        ],
-        "description": "An enumeration."
-      },
       "RestApiConnectorListSchema": {
         "title": "RestApiConnectorListSchema",
         "required": [
@@ -1163,7 +1119,8 @@
       "RestApiConnectorSchema": {
         "title": "RestApiConnectorSchema",
         "required": [
-          "id"
+          "id",
+          "serviceType"
         ],
         "type": "object",
         "properties": {
@@ -1204,12 +1161,8 @@
             "default": "disabled"
           },
           "serviceType": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/RestApiImportServicesType"
-              }
-            ],
-            "default": "RestApiImport"
+            "title": "Servicetype",
+            "type": "string"
           },
           "availableConnectorId": {
             "allOf": [
@@ -1228,13 +1181,6 @@
             "type": "string"
           }
         }
-      },
-      "RestApiImportServicesType": {
-        "title": "RestApiImportServicesType",
-        "enum": [
-          "RestApiImport"
-        ],
-        "description": "An enumeration."
       },
       "ServiceDescription": {
         "title": "ServiceDescription",
@@ -1279,7 +1225,7 @@
             "title": "Data",
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/BundleTransaction"
+              "$ref": "#/components/schemas/BundleTransactionSchema"
             }
           },
           "pagination": {
@@ -1290,19 +1236,13 @@
       "TransactionStateType": {
         "title": "TransactionStateType",
         "enum": [
+          "Applying",
           "Complete",
           "Failed",
           "Ingest",
           "IngestChunk",
           "PostProcess",
           "Queue"
-        ],
-        "description": "An enumeration."
-      },
-      "TransactionType": {
-        "title": "TransactionType",
-        "enum": [
-          "Insert"
         ],
         "description": "An enumeration."
       },

@@ -2,7 +2,7 @@ from apiclient_pydantic import serialize_all_methods, serialize_response
 
 from authomize.rest_api_client.client.base_client import BaseClient
 from authomize.rest_api_client.generated.schemas import (
-    BundleTransaction,
+    BundleTransactionSchema,
     ItemsBundleSchema,
     MeResponse,
     RestApiConnectorListSchema,
@@ -18,12 +18,16 @@ class Client(BaseClient):
     def list_connectors(self, params=None) -> RestApiConnectorListSchema:
         return self.http_get('/v1/connectors', params=params)
 
-    def create_transaction(self, connector_id: str) -> BundleTransaction:
+    def create_transaction(self, connector_id: str) -> BundleTransactionSchema:
         if not connector_id:
             raise ValueError('Missing connector_id')
         return self.http_post(f'/v1/connectors/{connector_id}/transactions')
 
-    def retrieve_transaction(self, connector_id: str, transaction_id: str) -> BundleTransaction:
+    def retrieve_transaction(
+        self,
+        connector_id: str,
+        transaction_id: str
+    ) -> BundleTransactionSchema:
         if not connector_id:
             raise ValueError('Missing connector_id')
         if not transaction_id:

@@ -1,14 +1,14 @@
 from authomize.rest_api_client.client import Client
 from authomize.rest_api_client.generated.schemas import (
     AccessDescription,
+    AccessTypes,
     AssetDescription,
     AssetsInheritance,
-    CanonicalPrivilegeTypes,
+    AssetTypes,
     IdentitiesInheritance,
     IdentityDescription,
     IdentityTypes,
     ItemsBundleSchema,
-    ResourceTypes,
     ServiceDescription,
     UserStatus,
 )
@@ -16,5 +16,5 @@ from authomize.rest_api_client.generated.schemas import (
 __all__ = [
     'Client', 'ItemsBundleSchema', 'IdentityDescription', 'AssetDescription',
     'IdentitiesInheritance', 'AssetsInheritance', 'AccessDescription',
-    'CanonicalPrivilegeTypes', 'UserStatus', 'IdentityTypes', 'ResourceTypes',
+    'AccessTypes', 'UserStatus', 'IdentityTypes', 'AssetTypes',
 ]
