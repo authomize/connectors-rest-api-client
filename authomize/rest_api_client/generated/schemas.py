@@ -48,6 +48,7 @@ class AssetTypes(Enum):
     Drive = 'Drive'
     Site = 'Site'
     Application = 'Application'
+    Integration = 'Integration'
     Package = 'Package'
     Project = 'Project'
     Cluster = 'Cluster'

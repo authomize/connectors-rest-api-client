@@ -728,6 +728,7 @@
           "Drive",
           "Site",
           "Application",
+          "Integration",
           "Package",
           "Project",
           "Cluster",
