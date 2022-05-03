@@ -218,6 +218,7 @@ class AssetDescription(BaseModel):
     href: Optional[str] = Field(None, title='Href')
     createdAt: Optional[datetime] = Field(None, title='Createdat')
     service: Optional[str] = Field(None, title='Service')
+    isAuxiliary: Optional[bool] = Field(None, title='IsAuxiliary')
 
 
 class BundleTransactionSchema(BaseModel):
@@ -254,6 +255,7 @@ class IdentityDescription(BaseModel):
     userName: Optional[str] = Field(None, title='Username')
     status: Optional[UserStatus] = None
     service: Optional[str] = Field(None, title='Service')
+    isAuxiliary: Optional[bool] = Field(None, title='IsAuxiliary')
 
 
 class ItemsBundleSchema(BaseModel):

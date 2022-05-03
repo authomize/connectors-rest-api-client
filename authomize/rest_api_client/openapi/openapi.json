@@ -708,6 +708,10 @@
             "title": "Href",
             "type": "string"
           },
+          "isAuxiliary": {
+            "title": "IsAuxiliary",
+            "type": "boolean"
+          },
           "createdAt": {
             "title": "Createdat",
             "type": "string",
@@ -916,6 +920,10 @@
           "userType": {
             "title": "Usertype",
             "type": "string"
+          },
+          "isAuxiliary": {
+            "title": "IsAuxiliary",
+            "type": "boolean"
           },
           "email": {
             "title": "Email",
