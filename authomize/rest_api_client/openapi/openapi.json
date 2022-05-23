@@ -383,6 +383,59 @@
             "APIKeyHeader": []
           }
         ]
+      },
+      "delete": {
+        "tags": [
+          "transactions"
+        ],
+        "summary": "Delete Transaction",
+        "description": "Delete transaction of a connector by {transactionId}.",
+        "operationId": "delete_transaction_v1_connectors__connectorId__transactions__transactionId__delete",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Connectorid",
+              "type": "string"
+            },
+            "name": "connectorId",
+            "in": "path"
+          },
+          {
+            "required": true,
+            "schema": {
+              "title": "Transactionid",
+              "type": "string"
+            },
+            "name": "transactionId",
+            "in": "path"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ]
       }
     },
     "/v1/connectors/{connectorId}/transactions/{transactionId}/apply": {
@@ -767,7 +820,14 @@
           "Workspace",
           "SharedLink",
           "Collection",
-          "Database"
+          "Database",
+          "ServerlessFunction",
+          "ServerlessApplication",
+          "Gateway",
+          "ImageRepository",
+          "Resource_BusinessAccount",
+          "LoadBalancer",
+          "Listener"
         ],
         "description": "An enumeration."
       },
@@ -839,12 +899,13 @@
         "title": "ConnectorStatus",
         "enum": [
           "initializing",
-          "archived",
-          "enabled",
-          "disabled",
-          "installable",
           "validating",
-          "failure"
+          "failure",
+          "enabled",
+          "installable",
+          "archived",
+          "disabled",
+          "deleted"
         ],
         "description": "An enumeration."
       },
@@ -996,7 +1057,8 @@
           "Alias",
           "Domain",
           "Organization",
-          "TaskPerformer"
+          "TaskPerformer",
+          "BusinessAccount"
         ],
         "description": "An enumeration."
       },
@@ -1147,7 +1209,8 @@
           },
           "createdAt": {
             "title": "Createdat",
-            "type": "string"
+            "type": "string",
+            "format": "date-time"
           },
           "lastSyncedAt": {
             "title": "Lastsyncedat",
