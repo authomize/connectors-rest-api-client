@@ -1,10 +1,8 @@
-import sys
-
 from setuptools import find_namespace_packages, setup
 
 if __name__ == '__main__':
     setup(
-        version='0.0.6',
+        version='0.0.7',
         name='authomize-rest-api-client',
         author='Authomize inc.',
         license='MIT',
