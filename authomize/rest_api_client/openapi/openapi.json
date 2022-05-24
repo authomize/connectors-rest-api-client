@@ -1170,6 +1170,28 @@
           }
         }
       },
+      "Pagination": {
+        "title": "Pagination",
+        "type": "object",
+        "properties": {
+          "limit": {
+            "title": "Limit",
+            "type": "integer",
+            "default": -1
+          },
+          "skip": {
+            "title": "Skip",
+            "type": "integer",
+            "default": 0
+          },
+          "total": {
+            "title": "Total",
+            "type": "integer",
+            "default": -1
+          }
+        },
+        "description": "Base schema for pagination"
+      },
       "RestApiConnectorListSchema": {
         "title": "RestApiConnectorListSchema",
         "required": [
@@ -1179,7 +1201,7 @@
         "type": "object",
         "properties": {
           "pagination": {
-            "$ref": "#/components/schemas/authomize__service__app__schemas__base_schema__Pagination"
+            "$ref": "#/components/schemas/Pagination"
           },
           "data": {
             "title": "Data",
@@ -1304,7 +1326,7 @@
             }
           },
           "pagination": {
-            "$ref": "#/components/schemas/authomize__arango__stores__models__Pagination"
+            "$ref": "#/components/schemas/Pagination"
           }
         }
       },
@@ -1357,51 +1379,6 @@
             "type": "string"
           }
         }
-      },
-      "authomize__arango__stores__models__Pagination": {
-        "title": "Pagination",
-        "required": [
-          "total",
-          "limit",
-          "skip"
-        ],
-        "type": "object",
-        "properties": {
-          "total": {
-            "title": "Total",
-            "type": "integer"
-          },
-          "limit": {
-            "title": "Limit",
-            "type": "integer"
-          },
-          "skip": {
-            "title": "Skip",
-            "type": "integer"
-          }
-        }
-      },
-      "authomize__service__app__schemas__base_schema__Pagination": {
-        "title": "Pagination",
-        "type": "object",
-        "properties": {
-          "limit": {
-            "title": "Limit",
-            "type": "integer",
-            "default": -1
-          },
-          "skip": {
-            "title": "Skip",
-            "type": "integer",
-            "default": 0
-          },
-          "total": {
-            "title": "Total",
-            "type": "integer",
-            "default": -1
-          }
-        },
-        "description": "Base schema for pagination"
       }
     },
     "securitySchemes": {
