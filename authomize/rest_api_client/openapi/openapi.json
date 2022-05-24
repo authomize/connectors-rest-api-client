@@ -761,14 +761,14 @@
             "title": "Href",
             "type": "string"
           },
-          "isAuxiliary": {
-            "title": "IsAuxiliary",
-            "type": "boolean"
-          },
           "createdAt": {
             "title": "Createdat",
             "type": "string",
             "format": "date-time"
+          },
+          "isAuxiliary": {
+            "title": "Isauxiliary",
+            "type": "boolean"
           },
           "service": {
             "title": "Service",
@@ -904,8 +904,7 @@
           "enabled",
           "installable",
           "archived",
-          "disabled",
-          "deleted"
+          "disabled"
         ],
         "description": "An enumeration."
       },
@@ -982,10 +981,6 @@
             "title": "Usertype",
             "type": "string"
           },
-          "isAuxiliary": {
-            "title": "IsAuxiliary",
-            "type": "boolean"
-          },
           "email": {
             "title": "Email",
             "type": "string"
@@ -1018,6 +1013,10 @@
           },
           "isExternal": {
             "title": "Isexternal",
+            "type": "boolean"
+          },
+          "isAuxiliary": {
+            "title": "Isauxiliary",
             "type": "boolean"
           },
           "hasTwoFactorAuthenticationEnabled": {
@@ -1155,6 +1154,9 @@
       },
       "NewRestApiConnectorSchema": {
         "title": "NewRestApiConnectorSchema",
+        "required": [
+          "serviceId"
+        ],
         "type": "object",
         "properties": {
           "config": {
@@ -1163,6 +1165,7 @@
           },
           "serviceId": {
             "title": "Serviceid",
+            "minLength": 1,
             "type": "string"
           }
         }
@@ -1176,7 +1179,7 @@
         "type": "object",
         "properties": {
           "pagination": {
-            "$ref": "#/components/schemas/authomize__clients__schemas__plugins_service__plugins_service__Pagination"
+            "$ref": "#/components/schemas/authomize__service__app__schemas__base_schema__Pagination"
           },
           "data": {
             "title": "Data",
@@ -1378,7 +1381,7 @@
           }
         }
       },
-      "authomize__clients__schemas__plugins_service__plugins_service__Pagination": {
+      "authomize__service__app__schemas__base_schema__Pagination": {
         "title": "Pagination",
         "type": "object",
         "properties": {
@@ -1397,7 +1400,8 @@
             "type": "integer",
             "default": -1
           }
-        }
+        },
+        "description": "Base schema for pagination"
       }
     },
     "securitySchemes": {
