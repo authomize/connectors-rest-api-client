@@ -761,14 +761,14 @@
             "title": "Href",
             "type": "string"
           },
-          "isAuxiliary": {
-            "title": "IsAuxiliary",
-            "type": "boolean"
-          },
           "createdAt": {
             "title": "Createdat",
             "type": "string",
             "format": "date-time"
+          },
+          "isAuxiliary": {
+            "title": "Isauxiliary",
+            "type": "boolean"
           },
           "service": {
             "title": "Service",
@@ -904,8 +904,7 @@
           "enabled",
           "installable",
           "archived",
-          "disabled",
-          "deleted"
+          "disabled"
         ],
         "description": "An enumeration."
       },
@@ -982,10 +981,6 @@
             "title": "Usertype",
             "type": "string"
           },
-          "isAuxiliary": {
-            "title": "IsAuxiliary",
-            "type": "boolean"
-          },
           "email": {
             "title": "Email",
             "type": "string"
@@ -1018,6 +1013,10 @@
           },
           "isExternal": {
             "title": "Isexternal",
+            "type": "boolean"
+          },
+          "isAuxiliary": {
+            "title": "Isauxiliary",
             "type": "boolean"
           },
           "hasTwoFactorAuthenticationEnabled": {
@@ -1155,6 +1154,9 @@
       },
       "NewRestApiConnectorSchema": {
         "title": "NewRestApiConnectorSchema",
+        "required": [
+          "serviceId"
+        ],
         "type": "object",
         "properties": {
           "config": {
@@ -1163,9 +1165,32 @@
           },
           "serviceId": {
             "title": "Serviceid",
+            "minLength": 1,
             "type": "string"
           }
         }
+      },
+      "Pagination": {
+        "title": "Pagination",
+        "type": "object",
+        "properties": {
+          "limit": {
+            "title": "Limit",
+            "type": "integer",
+            "default": -1
+          },
+          "skip": {
+            "title": "Skip",
+            "type": "integer",
+            "default": 0
+          },
+          "total": {
+            "title": "Total",
+            "type": "integer",
+            "default": -1
+          }
+        },
+        "description": "Base schema for pagination"
       },
       "RestApiConnectorListSchema": {
         "title": "RestApiConnectorListSchema",
@@ -1176,7 +1201,7 @@
         "type": "object",
         "properties": {
           "pagination": {
-            "$ref": "#/components/schemas/authomize__clients__schemas__plugins_service__plugins_service__Pagination"
+            "$ref": "#/components/schemas/Pagination"
           },
           "data": {
             "title": "Data",
@@ -1301,7 +1326,7 @@
             }
           },
           "pagination": {
-            "$ref": "#/components/schemas/authomize__arango__stores__models__Pagination"
+            "$ref": "#/components/schemas/Pagination"
           }
         }
       },
@@ -1352,50 +1377,6 @@
           "type": {
             "title": "Error Type",
             "type": "string"
-          }
-        }
-      },
-      "authomize__arango__stores__models__Pagination": {
-        "title": "Pagination",
-        "required": [
-          "total",
-          "limit",
-          "skip"
-        ],
-        "type": "object",
-        "properties": {
-          "total": {
-            "title": "Total",
-            "type": "integer"
-          },
-          "limit": {
-            "title": "Limit",
-            "type": "integer"
-          },
-          "skip": {
-            "title": "Skip",
-            "type": "integer"
-          }
-        }
-      },
-      "authomize__clients__schemas__plugins_service__plugins_service__Pagination": {
-        "title": "Pagination",
-        "type": "object",
-        "properties": {
-          "limit": {
-            "title": "Limit",
-            "type": "integer",
-            "default": -1
-          },
-          "skip": {
-            "title": "Skip",
-            "type": "integer",
-            "default": 0
-          },
-          "total": {
-            "title": "Total",
-            "type": "integer",
-            "default": -1
           }
         }
       }
