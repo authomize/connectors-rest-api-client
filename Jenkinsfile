@@ -4,5 +4,5 @@ on_pull_request {
 }
 
 on_change to: master, {
-    build_push_python_package()
+    build_push_pypi_python_package()
 }
