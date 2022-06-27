@@ -48,3 +48,17 @@ class BaseClient:
         if detail:
             raise ClientError(str(detail))
         response.raise_for_status()
+
+    def http_delete(self, url: str, params=None):
+        url = self.base_url + url
+        response = self.session.delete(url, params=params)
+        if response.ok:
+            return response.json()
+        try:
+            response_json = response.json()
+            detail = response_json.get('detail')
+        except Exception:
+            detail = None
+        if detail:
+            raise ClientError(str(detail))
+        response.raise_for_status()
