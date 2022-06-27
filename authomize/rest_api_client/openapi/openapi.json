@@ -1,14 +1,18 @@
 {
   "openapi": "3.0.2",
   "info": {
-    "title": "FastAPI",
-    "version": "0.1.0"
+    "title": "Connectors REST API",
+    "description": "The API key should be included in every request to the API in an ‘Authorization’ header. \n\n    curl -v -X POST \n\n    -H \"Authorization: {api_key}\" \n\n    ...\n        ",
+    "version": "0.1.0",
+    "x-logo": {
+      "url": "https://atmzstorageaccount.blob.core.windows.net/public/icons/authomize.png"
+    }
   },
   "paths": {
     "/is_alive": {
       "get": {
         "tags": [
-          "status"
+          "Status"
         ],
         "summary": "Is Alive",
         "description": "Service status.",
@@ -27,10 +31,267 @@
         }
       }
     },
+    "/me": {
+      "get": {
+        "tags": [
+          "Status"
+        ],
+        "summary": "Me",
+        "description": "API status.",
+        "operationId": "me_me_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MeResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ]
+      }
+    },
+    "/v2/apps/{appId}/data": {
+      "delete": {
+        "tags": [
+          "Apps"
+        ],
+        "summary": "Delete Application Data",
+        "description": "Delete app data by {appId}",
+        "operationId": "delete_application_data_v2_apps__appId__data_delete",
+        "parameters": [
+          {
+            "description": "Application ID",
+            "required": true,
+            "schema": {
+              "title": "Appid",
+              "type": "string",
+              "description": "Application ID"
+            },
+            "name": "appId",
+            "in": "path"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ]
+      }
+    },
+    "/v2/apps/{appId}/accounts/users": {
+      "post": {
+        "tags": [
+          "Accounts"
+        ],
+        "summary": "Create Users",
+        "description": "\n    Create new users.\n    ",
+        "operationId": "create_users_v2_apps__appId__accounts_users_post",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Appid",
+              "type": "string"
+            },
+            "name": "appId",
+            "in": "path"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "title": "Body",
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/NewUserRequestSchema"
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NewUserResponseSchema"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ]
+      }
+    },
+    "/v2/apps/{appId}/groups": {
+      "post": {
+        "tags": [
+          "Groups"
+        ],
+        "summary": "Create Groups",
+        "description": "Create new groups.",
+        "operationId": "create_groups_v2_apps__appId__groups_post",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Appid",
+              "type": "string"
+            },
+            "name": "appId",
+            "in": "path"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "title": "Body",
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/NewGroupRequestSchema"
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NewGroupResponseSchema"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ]
+      }
+    },
+    "/v2/apps/{appId}/groups/members": {
+      "post": {
+        "tags": [
+          "Groups"
+        ],
+        "summary": "Create Group Members",
+        "description": "Add group members.",
+        "operationId": "create_group_members_v2_apps__appId__groups_members_post",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Appid",
+              "type": "string"
+            },
+            "name": "appId",
+            "in": "path"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/NewGroupMembersRequestSchema"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NewGroupMembersResponseSchema"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ]
+      }
+    },
     "/v1/me": {
       "get": {
         "tags": [
-          "status"
+          "v1"
         ],
         "summary": "Me",
         "description": "API status.",
@@ -57,7 +318,7 @@
     "/v1/connectors/{connectorId}": {
       "get": {
         "tags": [
-          "connectors"
+          "v1"
         ],
         "summary": "Retrieve",
         "description": "Retrieve connector by {connectorId}.",
@@ -105,7 +366,7 @@
     "/v1/connectors": {
       "get": {
         "tags": [
-          "connectors"
+          "v1"
         ],
         "summary": "Search",
         "description": "Search connectors.",
@@ -162,7 +423,7 @@
       },
       "post": {
         "tags": [
-          "connectors"
+          "v1"
         ],
         "summary": "Post",
         "description": "Create new connector.",
@@ -209,7 +470,7 @@
     "/v1/connectors/{connectorId}/transactions": {
       "get": {
         "tags": [
-          "transactions"
+          "v1"
         ],
         "summary": "Search",
         "description": "Search transactions of a connector.",
@@ -283,7 +544,7 @@
       },
       "post": {
         "tags": [
-          "transactions"
+          "v1"
         ],
         "summary": "Create",
         "description": "Create new transaction of a connector.",
@@ -331,7 +592,7 @@
     "/v1/connectors/{connectorId}/transactions/{transactionId}": {
       "get": {
         "tags": [
-          "transactions"
+          "v1"
         ],
         "summary": "Retrieve",
         "description": "Retrieve transaction of a connector by {transactionId}.",
@@ -386,7 +647,7 @@
       },
       "delete": {
         "tags": [
-          "transactions"
+          "v1"
         ],
         "summary": "Delete Transaction",
         "description": "Delete transaction of a connector by {transactionId}.",
@@ -441,7 +702,7 @@
     "/v1/connectors/{connectorId}/transactions/{transactionId}/apply": {
       "post": {
         "tags": [
-          "transactions"
+          "v1"
         ],
         "summary": "Apply",
         "description": "Apply a transaction.",
@@ -498,7 +759,7 @@
     "/v1/connectors/{connectorId}/transactions/{transactionId}/items": {
       "post": {
         "tags": [
-          "transactions"
+          "v1"
         ],
         "summary": "Items",
         "description": "Append items to transaction.",
@@ -565,7 +826,7 @@
     "/v1/connectors/{connectorId}/export/{exportId}": {
       "get": {
         "tags": [
-          "export"
+          "v1"
         ],
         "summary": "Retrieve",
         "description": "Download link to the connector data in archive of csv forms.",
@@ -622,7 +883,7 @@
     "/v1/connectors/{connectorId}/export": {
       "get": {
         "tags": [
-          "export"
+          "v1"
         ],
         "summary": "Search",
         "description": "Download link to the connector data in archive of csv forms.",
@@ -904,7 +1165,8 @@
           "enabled",
           "installable",
           "archived",
-          "disabled"
+          "disabled",
+          "deleted"
         ],
         "description": "An enumeration."
       },
@@ -961,7 +1223,6 @@
         "title": "IdentityDescription",
         "required": [
           "id",
-          "name",
           "type"
         ],
         "type": "object",
@@ -1041,6 +1302,11 @@
           "service": {
             "title": "Service",
             "type": "string"
+          },
+          "lastLoginDate": {
+            "title": "Lastlogindate",
+            "type": "string",
+            "format": "date-time"
           }
         }
       },
@@ -1152,6 +1418,101 @@
           }
         }
       },
+      "NewGroupMembersRequestSchema": {
+        "title": "NewGroupMembersRequestSchema",
+        "required": [
+          "groupId",
+          "members"
+        ],
+        "type": "object",
+        "properties": {
+          "groupId": {
+            "title": "Groupid",
+            "type": "string",
+            "description": "he members' group id"
+          },
+          "members": {
+            "title": "Members",
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "List of the new members ids, expected to be existing members"
+          }
+        },
+        "description": "New group's members request schema\n\n:param groupId: The members' group id\n:type groupId: str\n:param members: List of the new members ids, expected to be existing members\n:type members: list[str]"
+      },
+      "NewGroupMembersResponseSchema": {
+        "title": "NewGroupMembersResponseSchema",
+        "required": [
+          "acceptedTimestamp",
+          "requestId"
+        ],
+        "type": "object",
+        "properties": {
+          "acceptedTimestamp": {
+            "title": "Acceptedtimestamp",
+            "type": "string",
+            "format": "date-time"
+          },
+          "requestId": {
+            "title": "Requestid",
+            "type": "string"
+          },
+          "numberOfAcceptedMembers": {
+            "title": "Numberofacceptedmembers",
+            "type": "integer",
+            "default": "The number of groups' members that pass validation and uploaded"
+          }
+        },
+        "description": "New group members response schema\n\n:param numberOfAcceptedMembers: The number of groups' members that pass validation and uploaded\n:type numberOfAcceptedMembers: int"
+      },
+      "NewGroupRequestSchema": {
+        "title": "NewGroupRequestSchema",
+        "required": [
+          "id",
+          "name"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "title": "Id",
+            "type": "string",
+            "description": "Group id"
+          },
+          "name": {
+            "title": "Name",
+            "type": "string",
+            "description": "Group name"
+          }
+        },
+        "description": "New group request schema\n\n:param id: Group id\n:type id: str\n:param name: Group name\n:type name: str"
+      },
+      "NewGroupResponseSchema": {
+        "title": "NewGroupResponseSchema",
+        "required": [
+          "acceptedTimestamp",
+          "requestId"
+        ],
+        "type": "object",
+        "properties": {
+          "acceptedTimestamp": {
+            "title": "Acceptedtimestamp",
+            "type": "string",
+            "format": "date-time"
+          },
+          "requestId": {
+            "title": "Requestid",
+            "type": "string"
+          },
+          "numberOfAcceptedGroups": {
+            "title": "Numberofacceptedgroups",
+            "type": "integer",
+            "default": "The number of groups that pass validation and uploaded"
+          }
+        },
+        "description": "New group response schema\n\n:param numberOfAcceptedGroups: The number of groups that pass validation and uploaded\n:type numberOfAcceptedGroups: int"
+      },
       "NewRestApiConnectorSchema": {
         "title": "NewRestApiConnectorSchema",
         "required": [
@@ -1169,6 +1530,96 @@
             "type": "string"
           }
         }
+      },
+      "NewUserRequestSchema": {
+        "title": "NewUserRequestSchema",
+        "required": [
+          "id"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "title": "Id",
+            "type": "string",
+            "description": "User ID"
+          },
+          "name": {
+            "title": "Name",
+            "type": "string",
+            "description": "User name"
+          },
+          "email": {
+            "title": "Email",
+            "type": "string",
+            "description": "User email"
+          },
+          "firstName": {
+            "title": "Firstname",
+            "type": "string",
+            "description": "User first name"
+          },
+          "lastName": {
+            "title": "Lastname",
+            "type": "string",
+            "description": "User last name"
+          },
+          "status": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/UserStatus"
+              }
+            ],
+            "description": "User status"
+          },
+          "description": {
+            "title": "Description",
+            "type": "string",
+            "description": "Description of the user"
+          },
+          "isExternal": {
+            "title": "Isexternal",
+            "type": "boolean",
+            "description": "If the user been imported from external integration"
+          },
+          "hasTwoFactorAuthenticationEnabled": {
+            "title": "Hastwofactorauthenticationenabled",
+            "type": "boolean",
+            "description": "If the user has MFA"
+          },
+          "lastLoginDate": {
+            "title": "Lastlogindate",
+            "type": "string",
+            "description": "Last time the user login into the system",
+            "format": "date-time"
+          }
+        },
+        "description": "New user request schema\n\n:param id: User id\n:type id: str\n:param name: User name\n:type name: Optional[str]\n:param email: User email\n:type email: Optional[str]\n:param firstName: User first name\n:type firstName: Optional[str]\n:param lastName: User last name\n:type lastName: Optional[str]\n:param status: User status\n:type status: Optional[UserStatus]\n:param description: Description of the user\n:type description: Optional[str]\n:param isExternal: If the user been imported from external integration\n:type isExternal: Optional[bool]\n:param hasTwoFactorAuthenticationEnabled: If the user has MFA\n:type hasTwoFactorAuthenticationEnabled: Optional[bool]\n:param lastLoginDate: Last time the user login into the system\n:type lastLoginDate: Optional[datetime]"
+      },
+      "NewUserResponseSchema": {
+        "title": "NewUserResponseSchema",
+        "required": [
+          "acceptedTimestamp",
+          "requestId",
+          "numberOfAcceptedUsers"
+        ],
+        "type": "object",
+        "properties": {
+          "acceptedTimestamp": {
+            "title": "Acceptedtimestamp",
+            "type": "string",
+            "format": "date-time"
+          },
+          "requestId": {
+            "title": "Requestid",
+            "type": "string"
+          },
+          "numberOfAcceptedUsers": {
+            "title": "Numberofacceptedusers",
+            "type": "integer",
+            "description": "The number of users that pass validation and uploaded"
+          }
+        },
+        "description": "New users response schema\n\n:param numberOfAcceptedUsers: The number of users that pass validation and uploaded\n:type numberOfAcceptedUsers: int"
       },
       "Pagination": {
         "title": "Pagination",
@@ -1188,6 +1639,10 @@
             "title": "Total",
             "type": "integer",
             "default": -1
+          },
+          "hasMore": {
+            "title": "Hasmore",
+            "type": "boolean"
           }
         },
         "description": "Base schema for pagination"
@@ -1226,7 +1681,8 @@
           },
           "serviceId": {
             "title": "Serviceid",
-            "type": "string"
+            "type": "string",
+            "default": ""
           },
           "id": {
             "title": "Id",
@@ -1388,5 +1844,27 @@
         "name": "Authorization"
       }
     }
-  }
+  },
+  "tags": [
+    {
+      "name": "Status",
+      "description": "API status"
+    },
+    {
+      "name": "Apps",
+      "description": "Application integration"
+    },
+    {
+      "name": "Accounts",
+      "description": "Integration accounts"
+    },
+    {
+      "name": "Groups",
+      "description": "Integration Groups & Members"
+    },
+    {
+      "name": "v1",
+      "description": "v1 routes"
+    }
+  ]
 }
