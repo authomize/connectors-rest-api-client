@@ -3,7 +3,7 @@
   "info": {
     "title": "Connectors REST API",
     "description": "The API key should be included in every request to the API in an ‘Authorization’ header. \n\n    curl -v -X POST \n\n    -H \"Authorization: {api_key}\" \n\n    ...\n        ",
-    "version": "0.1.0",
+    "version": "1.0.0",
     "x-logo": {
       "url": "https://atmzstorageaccount.blob.core.windows.net/public/icons/authomize.png"
     }
@@ -1018,6 +1018,10 @@
             "title": "Description",
             "type": "string"
           },
+          "logoUrl": {
+            "title": "Logourl",
+            "type": "string"
+          },
           "href": {
             "title": "Href",
             "type": "string"
@@ -1307,6 +1311,13 @@
             "title": "Lastlogindate",
             "type": "string",
             "format": "date-time"
+          },
+          "tags": {
+            "title": "Tags",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
           }
         }
       },
@@ -1484,9 +1495,17 @@
             "title": "Name",
             "type": "string",
             "description": "Group name"
+          },
+          "tags": {
+            "title": "Tags",
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Tags"
           }
         },
-        "description": "New group request schema\n\n:param id: Group id\n:type id: str\n:param name: Group name\n:type name: str"
+        "description": "New group request schema\n\n:param id: Group id\n:type id: str\n:param name: Group name\n:type name: str\n:param tags: List of optional tags\n:type tags: Optional[list[str]]"
       },
       "NewGroupResponseSchema": {
         "title": "NewGroupResponseSchema",
@@ -1591,9 +1610,17 @@
             "type": "string",
             "description": "Last time the user login into the system",
             "format": "date-time"
+          },
+          "tags": {
+            "title": "Tags",
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Tags"
           }
         },
-        "description": "New user request schema\n\n:param id: User id\n:type id: str\n:param name: User name\n:type name: Optional[str]\n:param email: User email\n:type email: Optional[str]\n:param firstName: User first name\n:type firstName: Optional[str]\n:param lastName: User last name\n:type lastName: Optional[str]\n:param status: User status\n:type status: Optional[UserStatus]\n:param description: Description of the user\n:type description: Optional[str]\n:param isExternal: If the user been imported from external integration\n:type isExternal: Optional[bool]\n:param hasTwoFactorAuthenticationEnabled: If the user has MFA\n:type hasTwoFactorAuthenticationEnabled: Optional[bool]\n:param lastLoginDate: Last time the user login into the system\n:type lastLoginDate: Optional[datetime]"
+        "description": "New user request schema\n\n:param id: User id\n:type id: str\n:param name: User name\n:type name: Optional[str]\n:param email: User email\n:type email: Optional[str]\n:param firstName: User first name\n:type firstName: Optional[str]\n:param lastName: User last name\n:type lastName: Optional[str]\n:param status: User status\n:type status: Optional[UserStatus]\n:param description: Description of the user\n:type description: Optional[str]\n:param isExternal: If the user been imported from external integration\n:type isExternal: Optional[bool]\n:param hasTwoFactorAuthenticationEnabled: If the user has MFA\n:type hasTwoFactorAuthenticationEnabled: Optional[bool]\n:param lastLoginDate: Last time the user login into the system\n:type lastLoginDate: Optional[datetime]\n:param tags: List of optional tags\n:type tags: Optional[list[str]]"
       },
       "NewUserResponseSchema": {
         "title": "NewUserResponseSchema",
@@ -1806,7 +1833,8 @@
           "Enabled",
           "Disabled",
           "Suspended",
-          "Deleted"
+          "Deleted",
+          "Unknown"
         ],
         "description": "An enumeration."
       },
