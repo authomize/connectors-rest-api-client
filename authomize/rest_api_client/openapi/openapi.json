@@ -3,7 +3,7 @@
   "info": {
     "title": "Connectors REST API",
     "description": "The API key should be included in every request to the API in an ‘Authorization’ header. \n\n    curl -v -X POST \n\n    -H \"Authorization: {api_key}\" \n\n    ...\n        ",
-    "version": "1.0.0",
+    "version": "1.0.2",
     "x-logo": {
       "url": "https://atmzstorageaccount.blob.core.windows.net/public/icons/authomize.png"
     }
@@ -1256,6 +1256,10 @@
           },
           "title": {
             "title": "Title",
+            "type": "string"
+          },
+          "department": {
+            "title": "Department",
             "type": "string"
           },
           "description": {
