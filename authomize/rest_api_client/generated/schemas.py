@@ -266,6 +266,7 @@ class AssetDescription(BaseModel):
     href: Optional[str] = Field(None, title='Href')
     createdAt: Optional[datetime] = Field(None, title='Createdat')
     isAuxiliary: Optional[bool] = Field(None, title='Isauxiliary')
+    isFederated: Optional[bool] = Field(None, title='isFederated')
     service: Optional[str] = Field(None, title='Service')
 
 

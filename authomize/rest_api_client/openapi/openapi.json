@@ -1035,6 +1035,10 @@
             "title": "Isauxiliary",
             "type": "boolean"
           },
+          "isFederated": {
+            "title": "isFederated",
+            "type": "boolean"
+          },
           "service": {
             "title": "Service",
             "type": "string"
