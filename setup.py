@@ -2,7 +2,7 @@ from setuptools import find_namespace_packages, setup
 
 if __name__ == '__main__':
     setup(
-        version='1.2.0',
+        version='1.3.0',
         name='authomize-rest-api-client',
         author='Authomize inc.',
         license='MIT',
@@ -10,7 +10,7 @@ if __name__ == '__main__':
         description='Authomize REST API Python Client',
         packages=find_namespace_packages(include=['authomize.*']),
         package_data={},
-        python_requires='>=3.8',
+        python_requires='>=3.10',
         install_requires=[
             'requests~=2.26',
             'api-client-pydantic~=1.2',
@@ -27,5 +27,5 @@ if __name__ == '__main__':
             'codegen': [
                 'datamodel-code-generator~=0.11',
             ],
-        }
+        },
     )
