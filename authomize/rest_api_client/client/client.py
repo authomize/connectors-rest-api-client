@@ -9,12 +9,17 @@ from authomize.rest_api_client.generated.schemas import (
     ItemsBundleSchema,
     MeResponse,
     NewAccountsAssociationRequestSchema,
+    NewAccountsAssociationResponseSchema,
     NewAssetsInheritanceRequestSchema,
+    NewAssetsInheritanceResponseSchema,
     NewAssetsRequestSchema,
+    NewAssetsResponseSchema,
     NewGroupingRequestSchema,
     NewGroupingResponseSchema,
-    NewGroupsAssociationRequestSchema,
+    NewGroupingsAssociationRequestSchema,
+    NewGroupingsAssociationResponseSchema,
     NewPermissionsRequestSchema,
+    NewPermissionsResponseSchema,
     NewUserRequestSchema,
     NewUserResponseSchema,
     RestApiConnectorListSchema,
@@ -84,7 +89,7 @@ class Client(BaseClient):
     def delete_app_data(
         self,
         app_id: str,
-    ):
+    ) -> SubmitResponse:
         if not app_id:
             raise ValueError('Missing app_id')
         return self.http_delete(url=f'/v2/apps/{app_id}/data')
@@ -111,7 +116,7 @@ class Client(BaseClient):
         self,
         app_id: str,
         body: list[NewPermissionsRequestSchema],
-    ):
+    ) -> NewPermissionsResponseSchema:
         if not app_id:
             raise ValueError('Missing app_id')
         return self.http_post(url=f'/v2/apps/{app_id}/access/permissions', body=json.dumps(body))
@@ -120,7 +125,7 @@ class Client(BaseClient):
         self,
         app_id: str,
         body: NewAccountsAssociationRequestSchema,
-    ):
+    ) -> NewAccountsAssociationResponseSchema:
         if not app_id:
             raise ValueError('Missing app_id')
         return self.http_post(url=f'/v2/apps/{app_id}/association/accounts', body=body.json())
@@ -128,8 +133,8 @@ class Client(BaseClient):
     def create_groupings_association(
         self,
         app_id: str,
-        body: NewGroupsAssociationRequestSchema,
-    ):
+        body: NewGroupingsAssociationRequestSchema,
+    ) -> NewGroupingsAssociationResponseSchema:
         if not app_id:
             raise ValueError('Missing app_id')
         return self.http_post(url=f'/v2/apps/{app_id}/association/groupings', body=body.json())
@@ -138,7 +143,7 @@ class Client(BaseClient):
         self,
         app_id: str,
         body: NewAssetsRequestSchema,
-    ):
+    ) -> NewAssetsResponseSchema:
         if not app_id:
             raise ValueError('Missing app_id')
         return self.http_post(url=f'/v2/apps/{app_id}/assets', body=body.json())
@@ -147,7 +152,7 @@ class Client(BaseClient):
         self,
         app_id: str,
         body: NewAssetsInheritanceRequestSchema,
-    ):
+    ) -> NewAssetsInheritanceResponseSchema:
         if not app_id:
             raise ValueError('Missing app_id')
         return self.http_post(url=f'/v2/apps/{app_id}/assets/inheritance', body=body.json())

@@ -3,7 +3,7 @@
   "info": {
     "title": "Authomize REST API",
     "description": "Authomize enables users to integrate your applications with Authomize via custom connectors. You can use the APIs described in this document to create your connector. Once data is uploaded and processed successfully, your custom connector will function in the same way as the connectors created by Authomize. \n# Authentication\nAuthomize offers two forms of authentication: API Key and OAuth2\nOAuth2 is an open protocol that enables secure authorization using a simple, standard method from web, mobile and desktop applications.\n",
-    "version": "1.2.0",
+    "version": "1.3.0",
     "x-logo": {
       "url": "https://demo.authomize.com/favicon.svg"
     }
@@ -84,7 +84,9 @@
             "description": "Successful Response",
             "content": {
               "application/json": {
-                "schema": {}
+                "schema": {
+                  "$ref": "#/components/schemas/BaseExtendedSubmitResponse"
+                }
               }
             }
           },
@@ -253,7 +255,9 @@
             "description": "Successful Response",
             "content": {
               "application/json": {
-                "schema": {}
+                "schema": {
+                  "$ref": "#/components/schemas/NewPermissionsResponseSchema"
+                }
               }
             }
           },
@@ -298,7 +302,9 @@
             "description": "Successful Response",
             "content": {
               "application/json": {
-                "schema": {}
+                "schema": {
+                  "$ref": "#/components/schemas/NewAccountsAssociationResponseSchema"
+                }
               }
             }
           },
@@ -320,19 +326,19 @@
         ]
       }
     },
-    "/v2/apps/{appId}/association/groups": {
+    "/v2/apps/{appId}/association/groupings": {
       "post": {
         "tags": [
           "Association"
         ],
-        "summary": "Create Groups Association",
+        "summary": "Create Groupings Association",
         "description": "**post_groups association**",
-        "operationId": "create_groups_association_v2_apps__appId__association_groups_post",
+        "operationId": "create_groupings_association_v2_apps__appId__association_groupings_post",
         "requestBody": {
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/NewGroupsAssociationRequestSchema"
+                "$ref": "#/components/schemas/NewGroupingsAssociationRequestSchema"
               }
             }
           },
@@ -343,7 +349,9 @@
             "description": "Successful Response",
             "content": {
               "application/json": {
-                "schema": {}
+                "schema": {
+                  "$ref": "#/components/schemas/NewGroupingsAssociationResponseSchema"
+                }
               }
             }
           },
@@ -388,7 +396,9 @@
             "description": "Successful Response",
             "content": {
               "application/json": {
-                "schema": {}
+                "schema": {
+                  "$ref": "#/components/schemas/NewAssetsResponseSchema"
+                }
               }
             }
           },
@@ -433,7 +443,9 @@
             "description": "Successful Response",
             "content": {
               "application/json": {
-                "schema": {}
+                "schema": {
+                  "$ref": "#/components/schemas/NewAssetsInheritanceResponseSchema"
+                }
               }
             }
           },
@@ -1311,6 +1323,26 @@
         ],
         "description": "An enumeration."
       },
+      "BaseExtendedSubmitResponse": {
+        "title": "BaseExtendedSubmitResponse",
+        "required": [
+          "requestId"
+        ],
+        "type": "object",
+        "properties": {
+          "acceptedTimestamp": {
+            "title": "Acceptedtimestamp",
+            "type": "string",
+            "description": "**The accepted time of the request**",
+            "format": "date-time"
+          },
+          "requestId": {
+            "title": "Requestid",
+            "type": "string",
+            "description": "**Request id**"
+          }
+        }
+      },
       "BundleTransactionSchema": {
         "title": "BundleTransactionSchema",
         "required": [
@@ -1650,14 +1682,42 @@
           "sourceId": {
             "title": "Sourceid",
             "type": "string",
-            "description": "Source account ID ##Mandatory##\n"
+            "description": "Source account ID **Mandatory**\n"
           },
           "targetId": {
             "title": "Targetid",
             "type": "string",
-            "description": "Target acount ID ##Mandatory##\n"
+            "description": "Target acount ID **Mandatory**\n"
           }
-        }
+        },
+        "description": "New accounts associations request schema"
+      },
+      "NewAccountsAssociationResponseSchema": {
+        "title": "NewAccountsAssociationResponseSchema",
+        "required": [
+          "requestId",
+          "numberOfAcceptedEntities"
+        ],
+        "type": "object",
+        "properties": {
+          "acceptedTimestamp": {
+            "title": "Acceptedtimestamp",
+            "type": "string",
+            "description": "**The accepted time of the request**",
+            "format": "date-time"
+          },
+          "requestId": {
+            "title": "Requestid",
+            "type": "string",
+            "description": "**Request id**"
+          },
+          "numberOfAcceptedEntities": {
+            "title": "Numberofacceptedentities",
+            "type": "integer",
+            "description": "**The number of entities that pass validation and uploaded**"
+          }
+        },
+        "description": "New accounts associations response schema"
       },
       "NewAssetsInheritanceRequestSchema": {
         "title": "NewAssetsInheritanceRequestSchema",
@@ -1670,14 +1730,42 @@
           "sourceId": {
             "title": "Sourceid",
             "type": "string",
-            "description": "ID of the source asset. ##Mandatory##\n"
+            "description": "ID of the source asset. **Mandatory**\n"
           },
           "targetId": {
             "title": "Targetid",
             "type": "string",
-            "description": "The ID of the iherited asset (or assets). ##Mandatory##\n"
+            "description": "The ID of the iherited asset (or assets). **Mandatory**\n"
           }
-        }
+        },
+        "description": "New assets inheritance request schema"
+      },
+      "NewAssetsInheritanceResponseSchema": {
+        "title": "NewAssetsInheritanceResponseSchema",
+        "required": [
+          "requestId",
+          "numberOfAcceptedEntities"
+        ],
+        "type": "object",
+        "properties": {
+          "acceptedTimestamp": {
+            "title": "Acceptedtimestamp",
+            "type": "string",
+            "description": "**The accepted time of the request**",
+            "format": "date-time"
+          },
+          "requestId": {
+            "title": "Requestid",
+            "type": "string",
+            "description": "**Request id**"
+          },
+          "numberOfAcceptedEntities": {
+            "title": "Numberofacceptedentities",
+            "type": "integer",
+            "description": "**The number of entities that pass validation and uploaded**"
+          }
+        },
+        "description": "New assets inheritance response schema"
       },
       "NewAssetsRequestSchema": {
         "title": "NewAssetsRequestSchema",
@@ -1690,7 +1778,7 @@
           "id": {
             "title": "Id",
             "type": "string",
-            "description": "ID of asset. ##Mandatory##\n"
+            "description": "ID of asset. **Mandatory**\n"
           },
           "name": {
             "title": "Name",
@@ -1703,13 +1791,13 @@
                 "$ref": "#/components/schemas/AssetType"
               }
             ],
-            "description": "Tthe asset types that are supported by Authomize ##Mandatory##\nAllowed values: \n   •\tApplication (federation) \n   •\tDatabase\n   •\tDrive\n   •\tFile\n   •\tFolder\n   •\tGit Repository\n   •\tIntegration\n   •\tProject\n   •\tSite\n   •\tTable\n   •\tTicket\n   •\tVirtual Machine\nIf the asset type does not exist use “other”.\n",
+            "description": "Tthe asset types that are supported by Authomize **Mandatory**\nAllowed values: \n   •\tApplication (federation) \n   •\tDatabase\n   •\tDrive\n   •\tFile\n   •\tFolder\n   •\tGit Repository\n   •\tIntegration\n   •\tProject\n   •\tSite\n   •\tTable\n   •\tTicket\n   •\tVirtual Machine\nIf the asset type does not exist use “other”.\n",
             "default": "Other"
           },
           "originType": {
             "title": "Origintype",
             "type": "string",
-            "description": "The asset types that are supported by Authomize ##Mandatory##\nAllowed values: \n   •\tApplication (federation) \n   •\tDatabase\n   •\tDrive\n   •\tFile\n   •\tFolder\n   •\tGit Repository\n   •\tIntegration\n   •\tProject\n   •\tSite\n   •\tTable\n   •\tTicket\n   •\tVirtual Machine\nIf the asset type does not exist use “other”.",
+            "description": "The asset types that are supported by Authomize **Mandatory**\nAllowed values: \n   •\tApplication (federation) \n   •\tDatabase\n   •\tDrive\n   •\tFile\n   •\tFolder\n   •\tGit Repository\n   •\tIntegration\n   •\tProject\n   •\tSite\n   •\tTable\n   •\tTicket\n   •\tVirtual Machine\nIf the asset type does not exist use “other”.",
             "default": "Group"
           },
           "createdAt": {
@@ -1736,7 +1824,35 @@
             },
             "description": "Tags associated with the asset.\n"
           }
-        }
+        },
+        "description": "New assets request schema"
+      },
+      "NewAssetsResponseSchema": {
+        "title": "NewAssetsResponseSchema",
+        "required": [
+          "requestId",
+          "numberOfAcceptedEntities"
+        ],
+        "type": "object",
+        "properties": {
+          "acceptedTimestamp": {
+            "title": "Acceptedtimestamp",
+            "type": "string",
+            "description": "**The accepted time of the request**",
+            "format": "date-time"
+          },
+          "requestId": {
+            "title": "Requestid",
+            "type": "string",
+            "description": "**Request id**"
+          },
+          "numberOfAcceptedEntities": {
+            "title": "Numberofacceptedentities",
+            "type": "integer",
+            "description": "**The number of entities that pass validation and uploaded**"
+          }
+        },
+        "description": "New assets response schema"
       },
       "NewGroupingRequestSchema": {
         "title": "NewGroupingRequestSchema",
@@ -1796,7 +1912,6 @@
       "NewGroupingResponseSchema": {
         "title": "NewGroupingResponseSchema",
         "required": [
-          "acceptedTimestamp",
           "requestId",
           "numberOfAcceptedEntities"
         ],
@@ -1821,8 +1936,8 @@
         },
         "description": "New group response schema"
       },
-      "NewGroupsAssociationRequestSchema": {
-        "title": "NewGroupsAssociationRequestSchema",
+      "NewGroupingsAssociationRequestSchema": {
+        "title": "NewGroupingsAssociationRequestSchema",
         "required": [
           "sourceId",
           "targetId"
@@ -1832,14 +1947,42 @@
           "sourceId": {
             "title": "Sourceid",
             "type": "string",
-            "description": "Grouping source ID ##Mandatory##\n"
+            "description": "Grouping source ID **Mandatory**\n"
           },
           "targetId": {
             "title": "Targetid",
             "type": "string",
-            "description": "Grouping Target Id (the grouping to associate with) ##Mandatory##\n"
+            "description": "Grouping Target Id (the grouping to associate with) **Mandatory**\n"
           }
-        }
+        },
+        "description": "New groupings associations request schema"
+      },
+      "NewGroupingsAssociationResponseSchema": {
+        "title": "NewGroupingsAssociationResponseSchema",
+        "required": [
+          "requestId",
+          "numberOfAcceptedEntities"
+        ],
+        "type": "object",
+        "properties": {
+          "acceptedTimestamp": {
+            "title": "Acceptedtimestamp",
+            "type": "string",
+            "description": "**The accepted time of the request**",
+            "format": "date-time"
+          },
+          "requestId": {
+            "title": "Requestid",
+            "type": "string",
+            "description": "**Request id**"
+          },
+          "numberOfAcceptedEntities": {
+            "title": "Numberofacceptedentities",
+            "type": "integer",
+            "description": "**The number of entities that pass validation and uploaded**"
+          }
+        },
+        "description": "New groupings associations response schema"
       },
       "NewPermissionsRequestSchema": {
         "title": "NewPermissionsRequestSchema",
@@ -1864,8 +2007,13 @@
                 "$ref": "#/components/schemas/PrivilegeType"
               }
             ],
-            "description": "Allowed values: \"Administrative\", \"Unknown\", \"Read\", \"Read Metadata\", \"Write\", \"Create\", \"Delete\", \"Execute\", \"Enable\", \"Assign\", \"Restore\", \"Import\", \"Export\", \"Update\", \"Cancel\", \"Use\", \"Delegate\", \"Join\", \"Invite\", \"Share\".  ##Mandatory##\n",
+            "description": "Allowed values: \"Administrative\", \"Unknown\", \"Read\", \"Read Metadata\", \"Write\", \"Create\", \"Delete\", \"Execute\", \"Enable\", \"Assign\", \"Restore\", \"Import\", \"Export\", \"Update\", \"Cancel\", \"Use\", \"Delegate\", \"Join\", \"Invite\", \"Share\".  **Mandatory**\n",
             "default": "Use"
+          },
+          "originPrivilegeName": {
+            "title": "Originprivilegename",
+            "type": "string",
+            "description": "The privilege name in the source system.  **Optional**\n"
           },
           "targetAssets": {
             "title": "Targetassets",
@@ -1897,6 +2045,33 @@
         },
         "description": "New permissions request schema"
       },
+      "NewPermissionsResponseSchema": {
+        "title": "NewPermissionsResponseSchema",
+        "required": [
+          "requestId",
+          "numberOfAcceptedEntities"
+        ],
+        "type": "object",
+        "properties": {
+          "acceptedTimestamp": {
+            "title": "Acceptedtimestamp",
+            "type": "string",
+            "description": "**The accepted time of the request**",
+            "format": "date-time"
+          },
+          "requestId": {
+            "title": "Requestid",
+            "type": "string",
+            "description": "**Request id**"
+          },
+          "numberOfAcceptedEntities": {
+            "title": "Numberofacceptedentities",
+            "type": "integer",
+            "description": "**The number of entities that pass validation and uploaded**"
+          }
+        },
+        "description": "New permissions response schema"
+      },
       "NewRestApiConnectorSchema": {
         "title": "NewRestApiConnectorSchema",
         "required": [
@@ -1925,7 +2100,7 @@
           "id": {
             "title": "Id",
             "type": "string",
-            "description": "Account ID ##Mandatory##\n"
+            "description": "Account ID **Mandatory**\n"
           },
           "name": {
             "title": "Name",
@@ -1990,7 +2165,6 @@
       "NewUserResponseSchema": {
         "title": "NewUserResponseSchema",
         "required": [
-          "acceptedTimestamp",
           "requestId",
           "numberOfAcceptedEntities"
         ],
@@ -2174,9 +2348,6 @@
       },
       "SubmitResponse": {
         "title": "SubmitResponse",
-        "required": [
-          "acceptedTimestamp"
-        ],
         "type": "object",
         "properties": {
           "acceptedTimestamp": {
