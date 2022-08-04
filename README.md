@@ -45,7 +45,7 @@ Automatically generated from openapi.json using [datamodel-code-generator](https
 Get openapi.json by
 
 ```
-curl https://api.authomize.com/openapi.json | jq . > authomize/rest_api_client/openapi/openapi.json
+curl https://api.authomize.com/openapi-extended.json | jq . > authomize/rest_api_client/openapi/openapi.json
 ```
 
 Update schema by
