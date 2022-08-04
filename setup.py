@@ -2,7 +2,7 @@ from setuptools import find_namespace_packages, setup
 
 if __name__ == '__main__':
     setup(
-        version='1.3.3',
+        version='1.4.0',
         name='authomize-rest-api-client',
         author='Authomize inc.',
         license='MIT',
@@ -12,7 +12,7 @@ if __name__ == '__main__':
         package_data={},
         python_requires='>=3.10',
         install_requires=[
-            'requests~=2.26',
+            'requests~=2.28.1',
             'api-client-pydantic~=1.2',
         ],
         extras_require={
@@ -20,9 +20,11 @@ if __name__ == '__main__':
                 'coverage~=5.2',
                 'flake8~=4.0',
                 'flake8-isort~=4.0',
+                'mypy~=0.910',
                 'pyhamcrest~=2.0',
                 'pytest~=6.2',
                 'pytest-html~=2.1',
+                'types-requests~=2.28.7',
             ],
             'codegen': [
                 'datamodel-code-generator~=0.11',
