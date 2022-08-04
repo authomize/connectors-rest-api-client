@@ -2,8 +2,8 @@
   "openapi": "3.0.2",
   "info": {
     "title": "Authomize REST API",
-    "description": "Authomize enables users to integrate your applications with Authomize via custom connectors. You can use the APIs described in this document to create your connector. Once data is uploaded and processed successfully, your custom connector will function in the same way as the connectors created by Authomize. \n# Authentication\nAuthomize offers two forms of authentication: API Key and OAuth2\nOAuth2 is an open protocol that enables secure authorization using a simple, standard method from web, mobile and desktop applications.\n",
-    "version": "1.3.0",
+    "description": "Authomize enables users to integrate your applications with Authomize via custom connectors. You can use the APIs described in this document to create your connector. Once data is uploaded and processed successfully, your custom connector will function in the same way as the connectors created by Authomize. \n# Authentication\nTo Authenticate use the API key, with the format: Token=<API_Key>.An API key is a token you provide when making API calls. \n \n",
+    "version": "1.3.1",
     "x-logo": {
       "url": "https://demo.authomize.com/favicon.svg"
     }
@@ -85,7 +85,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/BaseExtendedSubmitResponse"
+                  "$ref": "#/components/schemas/SubmitResponse"
                 }
               }
             }
@@ -244,7 +244,11 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/NewPermissionsRequestSchema"
+                "title": "Body",
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/NewPermissionsRequestSchema"
+                }
               }
             }
           },
@@ -291,7 +295,11 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/NewAccountsAssociationRequestSchema"
+                "title": "Body",
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/NewAccountsAssociationRequestSchema"
+                }
               }
             }
           },
@@ -332,13 +340,17 @@
           "Association"
         ],
         "summary": "Create Groupings Association",
-        "description": "**post_groups association**",
+        "description": "**post_groupings association**",
         "operationId": "create_groupings_association_v2_apps__appId__association_groupings_post",
         "requestBody": {
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/NewGroupingsAssociationRequestSchema"
+                "title": "Body",
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/NewGroupingsAssociationRequestSchema"
+                }
               }
             }
           },
@@ -385,7 +397,11 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/NewAssetsRequestSchema"
+                "title": "Body",
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/NewAssetsRequestSchema"
+                }
               }
             }
           },
@@ -432,7 +448,11 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/NewAssetsInheritanceRequestSchema"
+                "title": "Body",
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/NewAssetsInheritanceRequestSchema"
+                }
               }
             }
           },
@@ -445,6 +465,68 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/NewAssetsInheritanceResponseSchema"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ]
+      }
+    },
+    "/v2/apps/{appId}/identities/identities": {
+      "post": {
+        "tags": [
+          "Identities"
+        ],
+        "summary": "Create Identities",
+        "description": "**Create new users.**",
+        "operationId": "create_identities_v2_apps__appId__identities_identities_post",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Appid",
+              "type": "string"
+            },
+            "name": "appId",
+            "in": "path"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "title": "Body",
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/NewIdentityRequestSchema"
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NewIdentityResponseSchema"
                 }
               }
             }
@@ -487,6 +569,7 @@
             }
           }
         },
+        "deprecated": true,
         "security": [
           {
             "APIKeyHeader": []
@@ -535,6 +618,7 @@
             }
           }
         },
+        "deprecated": true,
         "security": [
           {
             "APIKeyHeader": []
@@ -594,6 +678,7 @@
             }
           }
         },
+        "deprecated": true,
         "security": [
           {
             "APIKeyHeader": []
@@ -639,6 +724,7 @@
             }
           }
         },
+        "deprecated": true,
         "security": [
           {
             "APIKeyHeader": []
@@ -715,6 +801,7 @@
             }
           }
         },
+        "deprecated": true,
         "security": [
           {
             "APIKeyHeader": []
@@ -761,6 +848,7 @@
             }
           }
         },
+        "deprecated": true,
         "security": [
           {
             "APIKeyHeader": []
@@ -818,6 +906,7 @@
             }
           }
         },
+        "deprecated": true,
         "security": [
           {
             "APIKeyHeader": []
@@ -871,6 +960,7 @@
             }
           }
         },
+        "deprecated": true,
         "security": [
           {
             "APIKeyHeader": []
@@ -928,6 +1018,7 @@
             }
           }
         },
+        "deprecated": true,
         "security": [
           {
             "APIKeyHeader": []
@@ -995,6 +1086,7 @@
             }
           }
         },
+        "deprecated": true,
         "security": [
           {
             "APIKeyHeader": []
@@ -1052,6 +1144,7 @@
             }
           }
         },
+        "deprecated": true,
         "security": [
           {
             "APIKeyHeader": []
@@ -1104,11 +1197,33 @@
             }
           }
         },
+        "deprecated": true,
         "security": [
           {
             "APIKeyHeader": []
           }
         ]
+      }
+    },
+    "/schemas": {
+      "get": {
+        "tags": [
+          "extended_schemas"
+        ],
+        "summary": "Create Groupings",
+        "operationId": "create_groupings_schemas_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AllSchemasResponseSchema"
+                }
+              }
+            }
+          }
+        }
       }
     }
   },
@@ -1172,6 +1287,15 @@
           "Share"
         ],
         "description": "An enumeration."
+      },
+      "AllSchemasResponseSchema": {
+        "title": "AllSchemasResponseSchema",
+        "type": "object",
+        "properties": {
+          "request_bundle_schema": {
+            "$ref": "#/components/schemas/RequestsBundleSchema"
+          }
+        }
       },
       "AssetDescription": {
         "title": "AssetDescription",
@@ -1322,26 +1446,6 @@
           "restApiImport"
         ],
         "description": "An enumeration."
-      },
-      "BaseExtendedSubmitResponse": {
-        "title": "BaseExtendedSubmitResponse",
-        "required": [
-          "requestId"
-        ],
-        "type": "object",
-        "properties": {
-          "acceptedTimestamp": {
-            "title": "Acceptedtimestamp",
-            "type": "string",
-            "description": "**The accepted time of the request**",
-            "format": "date-time"
-          },
-          "requestId": {
-            "title": "Requestid",
-            "type": "string",
-            "description": "**Request id**"
-          }
-        }
       },
       "BundleTransactionSchema": {
         "title": "BundleTransactionSchema",
@@ -1556,6 +1660,31 @@
             "items": {
               "type": "string"
             }
+          },
+          "city": {
+            "title": "City",
+            "type": "string"
+          },
+          "country": {
+            "title": "Country",
+            "type": "string"
+          },
+          "division": {
+            "title": "Division",
+            "type": "string"
+          },
+          "employeeNumber": {
+            "title": "Employeenumber",
+            "type": "string"
+          },
+          "personalEmail": {
+            "title": "Personalemail",
+            "type": "string"
+          },
+          "hireDate": {
+            "title": "Hiredate",
+            "type": "string",
+            "format": "date-time"
           }
         }
       },
@@ -1984,6 +2113,141 @@
         },
         "description": "New groupings associations response schema"
       },
+      "NewIdentityRequestSchema": {
+        "title": "NewIdentityRequestSchema",
+        "required": [
+          "id"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "title": "Id",
+            "type": "string",
+            "description": "Identity ID **Mandatory**\n"
+          },
+          "name": {
+            "title": "Name",
+            "type": "string",
+            "description": "Username"
+          },
+          "email": {
+            "title": "Email",
+            "type": "string",
+            "description": "User's email address"
+          },
+          "personalEmail": {
+            "title": "Personalemail",
+            "type": "string",
+            "description": "User's personal email address\n"
+          },
+          "firstName": {
+            "title": "Firstname",
+            "type": "string",
+            "description": "User's first name\n"
+          },
+          "lastName": {
+            "title": "Lastname",
+            "type": "string",
+            "description": "The user's last name\n"
+          },
+          "employeeNumber": {
+            "title": "Employeenumber",
+            "type": "string",
+            "description": "Employee number"
+          },
+          "status": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/UserStatus"
+              }
+            ],
+            "description": "User status may be, \"Enabled\", \"Disabled\", \"staged\", \"Suspended\", \"Deleted\"\n"
+          },
+          "country": {
+            "title": "Country",
+            "type": "string",
+            "description": "Country"
+          },
+          "city": {
+            "title": "City",
+            "type": "string",
+            "description": "City"
+          },
+          "department": {
+            "title": "Department",
+            "type": "string",
+            "description": "The identitiy's department in the organization.\n"
+          },
+          "division": {
+            "title": "Division",
+            "type": "string",
+            "description": "The identity's division in their organization.\n"
+          },
+          "title": {
+            "title": "Title",
+            "type": "string",
+            "description": "Title"
+          },
+          "manager": {
+            "title": "Manager",
+            "type": "string",
+            "description": "Manager"
+          },
+          "hireDate": {
+            "title": "Hiredate",
+            "type": "string",
+            "description": "Hire date",
+            "format": "date-time"
+          },
+          "terminationDate": {
+            "title": "Terminationdate",
+            "type": "string",
+            "description": "Termination date",
+            "format": "date-time"
+          },
+          "description": {
+            "title": "Description",
+            "type": "string",
+            "description": "Additional description of the identity\n"
+          },
+          "tags": {
+            "title": "Tags",
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "One or more tags on the user account\n"
+          }
+        },
+        "description": "New Identity request schema"
+      },
+      "NewIdentityResponseSchema": {
+        "title": "NewIdentityResponseSchema",
+        "required": [
+          "requestId",
+          "numberOfAcceptedEntities"
+        ],
+        "type": "object",
+        "properties": {
+          "acceptedTimestamp": {
+            "title": "Acceptedtimestamp",
+            "type": "string",
+            "description": "**The accepted time of the request**",
+            "format": "date-time"
+          },
+          "requestId": {
+            "title": "Requestid",
+            "type": "string",
+            "description": "**Request id**"
+          },
+          "numberOfAcceptedEntities": {
+            "title": "Numberofacceptedentities",
+            "type": "integer",
+            "description": "**The number of entities that pass validation and uploaded**"
+          }
+        },
+        "description": "New identity response schema"
+      },
       "NewPermissionsRequestSchema": {
         "title": "NewPermissionsRequestSchema",
         "required": [
@@ -2241,6 +2505,68 @@
         ],
         "description": "An enumeration."
       },
+      "RequestsBundleSchema": {
+        "title": "RequestsBundleSchema",
+        "type": "object",
+        "properties": {
+          "new_users": {
+            "title": "New Users",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/NewUserRequestSchema"
+            },
+            "description": "**Create new users.**"
+          },
+          "new_groupings": {
+            "title": "New Groupings",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/NewGroupingRequestSchema"
+            },
+            "description": "A \"grouping\" is any object that collects multiple accounts or other groupings and can be granted permissions. Examples include groups, roles on certain platforms (e.g. AWS), profiles in certain platforms (e.g. SFDC) and more.\n"
+          },
+          "new_permissions": {
+            "title": "New Permissions",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/NewPermissionsRequestSchema"
+            },
+            "description": "A permission (also referred to as an “entitlement”) is a set of privileges, assigned to a specific target. \nExamples include: file permissions, file shares, GCP entitlements, the actual policies assigning access to roles in AWS, and inline policies.\n"
+          },
+          "new_accounts_association": {
+            "title": "New Accounts Association",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/NewAccountsAssociationRequestSchema"
+            },
+            "description": "**post_accounts association**"
+          },
+          "new_groupings_association": {
+            "title": "New Groupings Association",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/NewGroupingsAssociationRequestSchema"
+            },
+            "description": "**post_groupings association**"
+          },
+          "new_assets": {
+            "title": "New Assets",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/NewAssetsRequestSchema"
+            },
+            "description": "**post_assets**"
+          },
+          "new_assets_inheritance": {
+            "title": "New Assets Inheritance",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/NewAssetsInheritanceRequestSchema"
+            },
+            "description": "This API allows you to create a connection between different assets.\n"
+          }
+        }
+      },
       "RestApiConnectorListSchema": {
         "title": "RestApiConnectorListSchema",
         "required": [
@@ -2464,8 +2790,16 @@
       "description": "**assets section**"
     },
     {
+      "name": "Identities",
+      "description": "**Identities Section**\n"
+    },
+    {
       "name": "v1",
       "description": "v1 routes"
+    },
+    {
+      "name": "extended_schemas",
+      "description": "Extended schemas"
     }
   ]
 }
