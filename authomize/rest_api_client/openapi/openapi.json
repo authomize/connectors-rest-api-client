@@ -3,7 +3,7 @@
   "info": {
     "title": "Authomize REST API",
     "description": "Authomize enables users to integrate your applications with Authomize via custom connectors. You can use the APIs described in this document to create your connector. Once data is uploaded and processed successfully, your custom connector will function in the same way as the connectors created by Authomize. \n# Authentication\nTo Authenticate use the API key, with the format: Token=<API_Key>.An API key is a token you provide when making API calls. \n \n",
-    "version": "1.3.1",
+    "version": "1.2.0",
     "x-logo": {
       "url": "https://demo.authomize.com/favicon.svg"
     }
@@ -2564,6 +2564,14 @@
               "$ref": "#/components/schemas/NewAssetsInheritanceRequestSchema"
             },
             "description": "This API allows you to create a connection between different assets.\n"
+          },
+          "new_identities": {
+            "title": "New Identities",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/NewIdentityRequestSchema"
+            },
+            "description": "**Create new users.**"
           }
         }
       },
