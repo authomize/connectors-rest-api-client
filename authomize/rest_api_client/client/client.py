@@ -1,6 +1,7 @@
 import json
 
 from apiclient_pydantic import serialize_all_methods, serialize_response
+from pydantic.json import pydantic_encoder
 
 from authomize.rest_api_client.client.base_client import BaseClient
 from authomize.rest_api_client.generated.schemas import (
@@ -18,8 +19,13 @@ from authomize.rest_api_client.generated.schemas import (
     NewGroupingResponseSchema,
     NewGroupingsAssociationRequestSchema,
     NewGroupingsAssociationResponseSchema,
+    NewIdentityRequestSchema,
     NewPermissionsRequestSchema,
     NewPermissionsResponseSchema,
+    NewPrivilegeGrantsRequestSchema,
+    NewPrivilegeGrantsResponseSchema,
+    NewPrivilegesRequestSchema,
+    NewPrivilegesResponseSchema,
     NewUserRequestSchema,
     NewUserResponseSchema,
     RestApiConnectorListSchema,
@@ -101,7 +107,13 @@ class Client(BaseClient):
     ) -> NewUserResponseSchema:
         if not app_id:
             raise ValueError('Missing app_id')
-        return self.http_post(url=f'/v2/apps/{app_id}/accounts/users', body=json.dumps(body))
+        return self.http_post(
+            url=f'/v2/apps/{app_id}/accounts/users',
+            body=json.dumps(
+                body,
+                default=pydantic_encoder,
+            ),
+        )
 
     def create_groupings(
         self,
@@ -110,7 +122,13 @@ class Client(BaseClient):
     ) -> NewGroupingResponseSchema:
         if not app_id:
             raise ValueError('Missing app_id')
-        return self.http_post(url=f'/v2/apps/{app_id}/access/grouping', body=json.dumps(body))
+        return self.http_post(
+            url=f'/v2/apps/{app_id}/access/grouping',
+            body=json.dumps(
+                body,
+                default=pydantic_encoder,
+            ),
+        )
 
     def create_permissions(
         self,
@@ -119,40 +137,115 @@ class Client(BaseClient):
     ) -> NewPermissionsResponseSchema:
         if not app_id:
             raise ValueError('Missing app_id')
-        return self.http_post(url=f'/v2/apps/{app_id}/access/permissions', body=json.dumps(body))
+        return self.http_post(
+            url=f'/v2/apps/{app_id}/access/permissions',
+            body=json.dumps(
+                body,
+                default=pydantic_encoder,
+            ),
+        )
+
+    def create_privileges(
+        self,
+        app_id: str,
+        body: list[NewPrivilegesRequestSchema],
+    ) -> NewPrivilegesResponseSchema:
+        if not app_id:
+            raise ValueError('Missing app_id')
+        return self.http_post(
+            url=f'/v2/apps/{app_id}/privileges',
+            body=json.dumps(
+                body,
+                default=pydantic_encoder,
+            ),
+        )
+
+    def create_privileges_grants(
+        self,
+        app_id: str,
+        body: list[NewPrivilegeGrantsRequestSchema],
+    ) -> NewPrivilegeGrantsResponseSchema:
+        if not app_id:
+            raise ValueError('Missing app_id')
+        return self.http_post(
+            url=f'/v2/apps/{app_id}/privileges/grants',
+            body=json.dumps(
+                body,
+                default=pydantic_encoder,
+            ),
+        )
 
     def create_accounts_association(
         self,
         app_id: str,
-        body: NewAccountsAssociationRequestSchema,
+        body: list[NewAccountsAssociationRequestSchema],
     ) -> NewAccountsAssociationResponseSchema:
         if not app_id:
             raise ValueError('Missing app_id')
-        return self.http_post(url=f'/v2/apps/{app_id}/association/accounts', body=body.json())
+        return self.http_post(
+            url=f'/v2/apps/{app_id}/association/accounts',
+            body=json.dumps(
+                body,
+                default=pydantic_encoder,
+            ),
+        )
 
     def create_groupings_association(
         self,
         app_id: str,
-        body: NewGroupingsAssociationRequestSchema,
+        body: list[NewGroupingsAssociationRequestSchema],
     ) -> NewGroupingsAssociationResponseSchema:
         if not app_id:
             raise ValueError('Missing app_id')
-        return self.http_post(url=f'/v2/apps/{app_id}/association/groupings', body=body.json())
+        return self.http_post(
+            url=f'/v2/apps/{app_id}/association/groupings',
+            body=json.dumps(
+                body,
+                default=pydantic_encoder,
+            ),
+        )
 
     def create_assets(
         self,
         app_id: str,
-        body: NewAssetsRequestSchema,
+        body: list[NewAssetsRequestSchema],
     ) -> NewAssetsResponseSchema:
         if not app_id:
             raise ValueError('Missing app_id')
-        return self.http_post(url=f'/v2/apps/{app_id}/assets', body=body.json())
+        return self.http_post(
+            url=f'/v2/apps/{app_id}/assets',
+            body=json.dumps(
+                body,
+                default=pydantic_encoder,
+            ),
+        )
 
     def create_assets_inheritance(
         self,
         app_id: str,
-        body: NewAssetsInheritanceRequestSchema,
+        body: list[NewAssetsInheritanceRequestSchema],
     ) -> NewAssetsInheritanceResponseSchema:
         if not app_id:
             raise ValueError('Missing app_id')
-        return self.http_post(url=f'/v2/apps/{app_id}/assets/inheritance', body=body.json())
+        return self.http_post(
+            url=f'/v2/apps/{app_id}/assets/inheritance',
+            body=json.dumps(
+                body,
+                default=pydantic_encoder,
+            ),
+        )
+
+    def create_identities(
+        self,
+        app_id: str,
+        body: list[NewIdentityRequestSchema],
+    ) -> NewAssetsInheritanceResponseSchema:
+        if not app_id:
+            raise ValueError('Missing app_id')
+        return self.http_post(
+            url=f'/v2/apps/{app_id}/identities',
+            body=json.dumps(
+                body,
+                default=pydantic_encoder,
+            ),
+        )

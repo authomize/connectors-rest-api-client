@@ -2,7 +2,7 @@
   "openapi": "3.0.2",
   "info": {
     "title": "Authomize REST API",
-    "description": "Authomize enables users to integrate your applications with Authomize via custom connectors. You can use the APIs described in this document to create your connector. Once data is uploaded and processed successfully, your custom connector will function in the same way as the connectors created by Authomize. \n# Authentication\nTo Authenticate use the API key, with the format: Token=<API_Key>.An API key is a token you provide when making API calls. \n \n",
+    "description": "Authomize enables users to integrate your applications with Authomize via custom connectors. You can use the APIs described in this document to create your connector. Once data is uploaded and processed successfully, your custom connector will function in the same way as the connectors created by Authomize. \n# Authentication\nTo Authenticate use the API key, with the format: `Token=API_Key`.\nAn API key is a token you provide when making API calls. \n",
     "version": "1.2.0",
     "x-logo": {
       "url": "https://demo.authomize.com/favicon.svg"
@@ -283,6 +283,108 @@
         ]
       }
     },
+    "/v2/apps/{appId}/privileges": {
+      "post": {
+        "tags": [
+          "Privileges"
+        ],
+        "summary": "Create Privileges",
+        "description": "Add privileges.\n",
+        "operationId": "create_privileges_v2_apps__appId__privileges_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "title": "Body",
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/NewPrivilegesRequestSchema"
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NewPrivilegesResponseSchema"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ]
+      }
+    },
+    "/v2/apps/{appId}/privileges/grants": {
+      "post": {
+        "tags": [
+          "Privileges"
+        ],
+        "summary": "Create Privileges Grants",
+        "description": "This API allows you to create a connection between different assets (for example, a folder that contains multiple files).\n",
+        "operationId": "create_privileges_grants_v2_apps__appId__privileges_grants_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "title": "Body",
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/NewPrivilegeGrantsRequestSchema"
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NewPrivilegeGrantsResponseSchema"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ]
+      }
+    },
     "/v2/apps/{appId}/association/accounts": {
       "post": {
         "tags": [
@@ -340,7 +442,7 @@
           "Association"
         ],
         "summary": "Create Groupings Association",
-        "description": "**post_groupings association**",
+        "description": "Create associations between accounts and groups.\n",
         "operationId": "create_groupings_association_v2_apps__appId__association_groupings_post",
         "requestBody": {
           "content": {
@@ -391,7 +493,7 @@
           "Assets"
         ],
         "summary": "Create Assets",
-        "description": "**post_assets**",
+        "description": "Add assets.\n",
         "operationId": "create_assets_v2_apps__appId__assets_post",
         "requestBody": {
           "content": {
@@ -442,7 +544,7 @@
           "Assets"
         ],
         "summary": "Create Assets Inheritance",
-        "description": "This API allows you to create a connection between different assets.\n",
+        "description": "This API allows you to create a connection between different assets (for example, a folder that contains multiple files).\n",
         "operationId": "create_assets_inheritance_v2_apps__appId__assets_inheritance_post",
         "requestBody": {
           "content": {
@@ -493,7 +595,7 @@
           "Identities"
         ],
         "summary": "Create Identities",
-        "description": "**Create new users.**",
+        "description": "Use this end point when adding metadata to an identity.\nThe data of the identity from this API is considered \"the source of truth\" and overrides the identity data from other systems.\n",
         "operationId": "create_identities_v2_apps__appId__identities_identities_post",
         "parameters": [
           {
@@ -1292,7 +1394,10 @@
         "title": "AllSchemasResponseSchema",
         "type": "object",
         "properties": {
-          "request_bundle_schema": {
+          "v1_bundle_schema": {
+            "$ref": "#/components/schemas/ItemsBundleSchema"
+          },
+          "v2_bundle_schema": {
             "$ref": "#/components/schemas/RequestsBundleSchema"
           }
         }
@@ -1816,7 +1921,7 @@
           "targetId": {
             "title": "Targetid",
             "type": "string",
-            "description": "Target acount ID **Mandatory**\n"
+            "description": "Target acount ID **Mandatory**\nThe grouping to associate with.\n"
           }
         },
         "description": "New accounts associations request schema"
@@ -1907,12 +2012,12 @@
           "id": {
             "title": "Id",
             "type": "string",
-            "description": "ID of asset. **Mandatory**\n"
+            "description": "ID of asset. **Mandatory**. The ID must be unique.\n"
           },
           "name": {
             "title": "Name",
             "type": "string",
-            "description": "The name of the asset. The default is the Asset ID.\n"
+            "description": "The name of the asset. The default is the Asset ID. **Mandatory**\n"
           },
           "type": {
             "allOf": [
@@ -1920,19 +2025,19 @@
                 "$ref": "#/components/schemas/AssetType"
               }
             ],
-            "description": "Tthe asset types that are supported by Authomize **Mandatory**\nAllowed values: \n   •\tApplication (federation) \n   •\tDatabase\n   •\tDrive\n   •\tFile\n   •\tFolder\n   •\tGit Repository\n   •\tIntegration\n   •\tProject\n   •\tSite\n   •\tTable\n   •\tTicket\n   •\tVirtual Machine\nIf the asset type does not exist use “other”.\n",
+            "description": "The asset types that are supported by Authomize **Mandatory**\n\nPermitted values: \n   •\t`Application` (federation) \n   •\t`Database`\n   •\t`Drive`\n   •\t`File`\n   •\t`Folder`\n   •\t`Git Repository`\n   •\t`Integration`\n   •\t`Project`\n   •\t`Site`\n   •\t`Table`\n   •\t`Ticket`\n   •\t`Virtual Machine`\n\nIf the asset type does not exist use `Other`.\n",
             "default": "Other"
           },
           "originType": {
             "title": "Origintype",
             "type": "string",
-            "description": "The asset types that are supported by Authomize **Mandatory**\nAllowed values: \n   •\tApplication (federation) \n   •\tDatabase\n   •\tDrive\n   •\tFile\n   •\tFolder\n   •\tGit Repository\n   •\tIntegration\n   •\tProject\n   •\tSite\n   •\tTable\n   •\tTicket\n   •\tVirtual Machine\nIf the asset type does not exist use “other”.",
+            "description": "The asset type in the source system.\nThe default is the canonical type (if not mentioned).\n",
             "default": "Group"
           },
           "createdAt": {
             "title": "Createdat",
             "type": "string",
-            "description": "The date (in ISO format) that the asset was created.\nThe default is null.\n",
+            "description": "The date (in ISO 8601 format) that the asset was created.\nThe default is `null`.\n",
             "format": "date-time"
           },
           "description": {
@@ -2004,7 +2109,7 @@
           "originType": {
             "title": "Origintype",
             "type": "string",
-            "description": "The name of the type of grouping in the source system. The default is group. Example: Group/Alias/AWS Role\n",
+            "description": "The name of the type of grouping in the source system. The default is `Group`. Example: Group/Alias/AWS Role\n",
             "default": "Group"
           },
           "type": {
@@ -2013,19 +2118,19 @@
                 "$ref": "#/components/schemas/GroupingType"
               }
             ],
-            "description": "Allowed values are \"Group\" and \"Virtual Group\". The default is group.\nVirtual groups are mapped to the Authomize access explorer graph and are not present in other places in the user interface nor are they counted as a group.\n",
+            "description": "Allowed values are `Group` and `Virtual Group`.\nThe default is `Group`.\nVirtual Groups are mapped to the Authomize access explorer graph and are not present in other places in the user interface nor are they counted as a group.\n",
             "default": "Group"
           },
           "anyoneCanJoinOrLeave": {
             "title": "Anyonecanjoinorleave",
             "type": "boolean",
-            "description": "When set to \"TRUE\" Users can give themselves membership in this grouping without the grouping's managers' or owners' permission. \nExamples include public groups (M365), Google Groups with specific flags, ...\nAllowed values: True, False\nDefault = False\nValid only when grouping type = group\n",
+            "description": "Must be either `ture` or `false`.\nWhen set to `true` users can give themselves membership in this grouping without the grouping's managers' or owners' permission. \nExamples include public groups (M365), Google Groups with specific flags, ...\nValid only when `groupingType = Group`\n",
             "default": false
           },
-          "role": {
-            "title": "Role",
-            "type": "string",
-            "description": "The name of the role name the source application. The default is null. \nIf the role name is specified, the groupings are a representation of a global role on the entire application.\n"
+          "isRole": {
+            "title": "Isrole",
+            "type": "boolean",
+            "description": "If `True`, the grouping represent the role in the source application and the name of the role is the grouping `name`.\nThe default is `False`.\n"
           },
           "tags": {
             "title": "Tags",
@@ -2081,7 +2186,7 @@
           "targetId": {
             "title": "Targetid",
             "type": "string",
-            "description": "Grouping Target Id (the grouping to associate with) **Mandatory**\n"
+            "description": "Grouping Target Id  **Mandatory**. The grouping to associate with.\n"
           }
         },
         "description": "New groupings associations request schema"
@@ -2133,12 +2238,12 @@
           "email": {
             "title": "Email",
             "type": "string",
-            "description": "User's email address"
+            "description": "User's work email address.\n"
           },
           "personalEmail": {
             "title": "Personalemail",
             "type": "string",
-            "description": "User's personal email address\n"
+            "description": "User's personal email address.\n"
           },
           "firstName": {
             "title": "Firstname",
@@ -2148,7 +2253,7 @@
           "lastName": {
             "title": "Lastname",
             "type": "string",
-            "description": "The user's last name\n"
+            "description": "The user's last name.\n"
           },
           "employeeNumber": {
             "title": "Employeenumber",
@@ -2161,7 +2266,7 @@
                 "$ref": "#/components/schemas/UserStatus"
               }
             ],
-            "description": "User status may be, \"Enabled\", \"Disabled\", \"staged\", \"Suspended\", \"Deleted\"\n"
+            "description": "The user status must be one of the following: `Deleted`, `Disabled`, `Enabled`, `Staged` or `Suspended`.\n"
           },
           "country": {
             "title": "Country",
@@ -2176,7 +2281,7 @@
           "department": {
             "title": "Department",
             "type": "string",
-            "description": "The identitiy's department in the organization.\n"
+            "description": "The identity's department in the organization.\n"
           },
           "division": {
             "title": "Division",
@@ -2186,29 +2291,29 @@
           "title": {
             "title": "Title",
             "type": "string",
-            "description": "Title"
+            "description": "The user's job title.\n"
           },
           "manager": {
             "title": "Manager",
             "type": "string",
-            "description": "Manager"
+            "description": "The user's manager's ID.\n"
           },
           "hireDate": {
             "title": "Hiredate",
             "type": "string",
-            "description": "Hire date",
+            "description": "The user's first day of work (in ISO 8601 format).\n",
             "format": "date-time"
           },
           "terminationDate": {
             "title": "Terminationdate",
             "type": "string",
-            "description": "Termination date",
+            "description": "The user's last day of work (in ISO 8601 format).\n",
             "format": "date-time"
           },
           "description": {
             "title": "Description",
             "type": "string",
-            "description": "Additional description of the identity\n"
+            "description": "Additional description of the identity.\n"
           },
           "tags": {
             "title": "Tags",
@@ -2216,7 +2321,7 @@
             "items": {
               "type": "string"
             },
-            "description": "One or more tags on the user account\n"
+            "description": "One or more tags on the user account.\n"
           }
         },
         "description": "New Identity request schema"
@@ -2251,33 +2356,20 @@
       "NewPermissionsRequestSchema": {
         "title": "NewPermissionsRequestSchema",
         "required": [
-          "formId"
+          "permissionSource",
+          "privilegeId"
         ],
         "type": "object",
         "properties": {
-          "formId": {
-            "title": "Formid",
+          "permissionSource": {
+            "title": "Permissionsource",
             "type": "string",
-            "description": "**fromId**"
+            "description": "The source of the permission. This field is **Mandatory**.\nSet `permissionSource` to either `Account ID` or `Grouping ID`.\n"
           },
-          "originType": {
-            "title": "Origintype",
+          "privilegeId": {
+            "title": "Privilegeid",
             "type": "string",
-            "description": "**originType**"
-          },
-          "privilegeType": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/PrivilegeType"
-              }
-            ],
-            "description": "Allowed values: \"Administrative\", \"Unknown\", \"Read\", \"Read Metadata\", \"Write\", \"Create\", \"Delete\", \"Execute\", \"Enable\", \"Assign\", \"Restore\", \"Import\", \"Export\", \"Update\", \"Cancel\", \"Use\", \"Delegate\", \"Join\", \"Invite\", \"Share\".  **Mandatory**\n",
-            "default": "Use"
-          },
-          "originPrivilegeName": {
-            "title": "Originprivilegename",
-            "type": "string",
-            "description": "The privilege name in the source system.  **Optional**\n"
+            "description": "A privilege, by id, that allows access to assets. This field is **Mandatory**."
           },
           "targetAssets": {
             "title": "Targetassets",
@@ -2285,18 +2377,12 @@
             "items": {
               "type": "string"
             },
-            "description": "The ID of the asset. When NULL, the entire application has global permission.\n"
+            "description": "The ID of the asset. \nWhen `null`, the entire application has global permission.\n"
           },
-          "anyoneCanJoinOrLeave": {
-            "title": "Anyonecanjoinorleave",
-            "type": "boolean",
-            "description": "When set to \"True\" users can make themselves a member in this grouping without the managers or owners of the grouping. \nExamples include public groups (Microsoft 365) and Google Groups with specific flags.\nThe default is \"False\".\nThis is valid only when the grouping type = group.\n",
-            "default": false
-          },
-          "role": {
-            "title": "Role",
+          "isRole": {
+            "title": "Isrole",
             "type": "string",
-            "description": "The name of the role in the source application. \nIf the role name is specified, the permissions represent the role. \nThe default is null.\n"
+            "description": "If `True`, the permissions represent the role in the source application.\nThe default is `False`.\n"
           },
           "tags": {
             "title": "Tags",
@@ -2336,6 +2422,110 @@
         },
         "description": "New permissions response schema"
       },
+      "NewPrivilegeGrantsRequestSchema": {
+        "title": "NewPrivilegeGrantsRequestSchema",
+        "required": [
+          "sourceId",
+          "targetId"
+        ],
+        "type": "object",
+        "properties": {
+          "sourceId": {
+            "title": "Sourceid",
+            "type": "string",
+            "description": "ID of the source privilege. **Mandatory**\n"
+          },
+          "targetId": {
+            "title": "Targetid",
+            "type": "string",
+            "description": "ID of the granted privilege. **Mandatory**\n"
+          }
+        },
+        "description": "New privilege grants request schema"
+      },
+      "NewPrivilegeGrantsResponseSchema": {
+        "title": "NewPrivilegeGrantsResponseSchema",
+        "required": [
+          "requestId",
+          "numberOfAcceptedEntities"
+        ],
+        "type": "object",
+        "properties": {
+          "acceptedTimestamp": {
+            "title": "Acceptedtimestamp",
+            "type": "string",
+            "description": "**The accepted time of the request**",
+            "format": "date-time"
+          },
+          "requestId": {
+            "title": "Requestid",
+            "type": "string",
+            "description": "**Request id**"
+          },
+          "numberOfAcceptedEntities": {
+            "title": "Numberofacceptedentities",
+            "type": "integer",
+            "description": "**The number of entities that pass validation and uploaded**"
+          }
+        },
+        "description": "New privilege grants response schema"
+      },
+      "NewPrivilegesRequestSchema": {
+        "title": "NewPrivilegesRequestSchema",
+        "required": [
+          "id",
+          "type"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "title": "Id",
+            "type": "string",
+            "description": "ID of privilege. **Mandatory, must be unique.**\n"
+          },
+          "type": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/PrivilegeType"
+              }
+            ],
+            "description": "The privilege types that are supported by Authomize **Mandatory**\n\nPermitted values: \n   •\t`Administrative`\n   •\t`Unknown`\n   •\t`Read`\n   •\t`ReadMetadata`\n   •\t`Write`\n   •\t`Create`\n   •\t`Delete`\n   •\t`Execute`\n   •\t`Enable`\n   •\t`Assign`\n   •\t`Restore`\n   •\t`Import`\n   •\t`Export`\n   •\t`Update`\n   •\t`Cancel`\n   •\t`Use`\n   •\t`Delegate`\n   •\t`Join`\n   •\t`Invite`\n   •\t`Share`\n\nIf the privilege type does not exist use `Unknown` or `Use`.\n"
+          },
+          "originPrivilegeName": {
+            "title": "Originprivilegename",
+            "type": "string",
+            "description": "The privilege name in the source system.\nThe default is the canonical type (if not mentioned).\n"
+          }
+        },
+        "description": "New privileges request schema"
+      },
+      "NewPrivilegesResponseSchema": {
+        "title": "NewPrivilegesResponseSchema",
+        "required": [
+          "requestId",
+          "numberOfAcceptedEntities"
+        ],
+        "type": "object",
+        "properties": {
+          "acceptedTimestamp": {
+            "title": "Acceptedtimestamp",
+            "type": "string",
+            "description": "**The accepted time of the request**",
+            "format": "date-time"
+          },
+          "requestId": {
+            "title": "Requestid",
+            "type": "string",
+            "description": "**Request id**"
+          },
+          "numberOfAcceptedEntities": {
+            "title": "Numberofacceptedentities",
+            "type": "integer",
+            "description": "**The number of entities that pass validation and uploaded**"
+          }
+        },
+        "description": "New privileges response schema"
+      },
       "NewRestApiConnectorSchema": {
         "title": "NewRestApiConnectorSchema",
         "required": [
@@ -2364,7 +2554,7 @@
           "id": {
             "title": "Id",
             "type": "string",
-            "description": "Account ID **Mandatory**\n"
+            "description": "User's Account ID. **Mandatory, must be unique.**\n"
           },
           "name": {
             "title": "Name",
@@ -2392,7 +2582,7 @@
                 "$ref": "#/components/schemas/UserStatus"
               }
             ],
-            "description": "User status may be, \"Enabled\", \"Disabled\", \"staged\", \"Suspended\", \"Deleted\"\n"
+            "description": "User status must be: `Deleted`, `Disabled`, `Enabled`, `Staged`, `Suspended`, or `Unknown`.\n"
           },
           "description": {
             "title": "Description",
@@ -2402,12 +2592,12 @@
           "isExternal": {
             "title": "Isexternal",
             "type": "boolean",
-            "description": "Account is external to Authomize. Options: \"True\", \"False\"\n"
+            "description": "Account is external to Authomize.\nMust be either `true` or `false`.\n"
           },
-          "hasTwoFactorAuthenticationEnabled": {
-            "title": "Hastwofactorauthenticationenabled",
+          "hasMFA": {
+            "title": "Hasmfa",
             "type": "boolean",
-            "description": "Has Two Factor Authentication enabled\n"
+            "description": "Has Multi-Factor Authentication enabled.\nMust be either `true` or `false`.\n"
           },
           "lastLoginDate": {
             "title": "Lastlogindate",
@@ -2533,6 +2723,22 @@
             },
             "description": "A permission (also referred to as an “entitlement”) is a set of privileges, assigned to a specific target. \nExamples include: file permissions, file shares, GCP entitlements, the actual policies assigning access to roles in AWS, and inline policies.\n"
           },
+          "new_privileges": {
+            "title": "New Privileges",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/NewPrivilegesRequestSchema"
+            },
+            "description": "Add privileges.\n"
+          },
+          "new_privileges_grants": {
+            "title": "New Privileges Grants",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/NewPrivilegeGrantsRequestSchema"
+            },
+            "description": "This API allows you to create a connection between different assets (for example, a folder that contains multiple files).\n"
+          },
           "new_accounts_association": {
             "title": "New Accounts Association",
             "type": "array",
@@ -2547,7 +2753,7 @@
             "items": {
               "$ref": "#/components/schemas/NewGroupingsAssociationRequestSchema"
             },
-            "description": "**post_groupings association**"
+            "description": "Create associations between accounts and groups.\n"
           },
           "new_assets": {
             "title": "New Assets",
@@ -2555,7 +2761,7 @@
             "items": {
               "$ref": "#/components/schemas/NewAssetsRequestSchema"
             },
-            "description": "**post_assets**"
+            "description": "Add assets.\n"
           },
           "new_assets_inheritance": {
             "title": "New Assets Inheritance",
@@ -2563,7 +2769,7 @@
             "items": {
               "$ref": "#/components/schemas/NewAssetsInheritanceRequestSchema"
             },
-            "description": "This API allows you to create a connection between different assets.\n"
+            "description": "This API allows you to create a connection between different assets (for example, a folder that contains multiple files).\n"
           },
           "new_identities": {
             "title": "New Identities",
@@ -2571,7 +2777,7 @@
             "items": {
               "$ref": "#/components/schemas/NewIdentityRequestSchema"
             },
-            "description": "**Create new users.**"
+            "description": "Use this end point when adding metadata to an identity.\nThe data of the identity from this API is considered \"the source of truth\" and overrides the identity data from other systems.\n"
           }
         }
       },
@@ -2775,23 +2981,27 @@
   "tags": [
     {
       "name": "Status",
-      "description": "User accounts are associated with a specific application. If a user already exists on the platform, user data will be overridden by the new data.\n"
+      "description": "The status of the API.\n"
     },
     {
       "name": "Apps",
-      "description": "**apps section**"
+      "description": "Actions at the application level.\n"
     },
     {
       "name": "Accounts",
-      "description": "User accounts are associated with a specific application. If the user already exists on the platform, the user data will be overridden with the new data.\n"
+      "description": "Each account is associated with a specific application.\nIf the an account already exists on the platform, the account data will be overridden with the new data.\n"
     },
     {
       "name": "Access",
-      "description": ""
+      "description": "Access is a way to relate between accounts, roles and assets.\n"
+    },
+    {
+      "name": "Privileges",
+      "description": "Privileges that allows access to assets."
     },
     {
       "name": "Association",
-      "description": "**association section**"
+      "description": "Associates between accounts and groups and between groups and other groups.\n"
     },
     {
       "name": "Assets",
@@ -2799,7 +3009,7 @@
     },
     {
       "name": "Identities",
-      "description": "**Identities Section**\n"
+      "description": "A unique identity (person or entity) who owns one or more accounts.\nFor example: a regular employee (John doe) or an external contractor (Willy from Acme Corp.).\n"
     },
     {
       "name": "v1",
