@@ -589,14 +589,14 @@
         ]
       }
     },
-    "/v2/apps/{appId}/identities/identities": {
+    "/v2/apps/{appId}/identities": {
       "post": {
         "tags": [
           "Identities"
         ],
         "summary": "Create Identities",
         "description": "Use this end point when adding metadata to an identity.\nThe data of the identity from this API is considered \"the source of truth\" and overrides the identity data from other systems.\n",
-        "operationId": "create_identities_v2_apps__appId__identities_identities_post",
+        "operationId": "create_identities_v2_apps__appId__identities_post",
         "parameters": [
           {
             "required": true,
@@ -2104,7 +2104,7 @@
           "name": {
             "title": "Name",
             "type": "string",
-            "description": "The name of the grouping. The default is the ID field. **Optional**\n"
+            "description": "The name of the grouping. The default is the ID field. **Mandatory**\n"
           },
           "originType": {
             "title": "Origintype",
