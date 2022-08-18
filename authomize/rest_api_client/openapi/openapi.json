@@ -1,9 +1,9 @@
 {
   "openapi": "3.0.2",
   "info": {
-    "title": "Authomize REST API",
-    "description": "Authomize enables users to integrate your applications with Authomize via custom connectors. You can use the APIs described in this document to create your connector. Once data is uploaded and processed successfully, your custom connector will function in the same way as the connectors created by Authomize. \n# Authentication\nTo Authenticate use the API key, with the format: `Token=API_Key`.\nAn API key is a token you provide when making API calls. \n",
-    "version": "1.2.0",
+    "title": "Authomize API Reference",
+    "description": "Authomize enables users to integrate your applications with Authomize via custom connectors.\n\nYou can use the APIs described in this document to create your connector.\n\nOnce data is uploaded and processed successfully, your custom connector will function in the same way as the connectors created by Authomize.\n\n## How does Authomize work?\nAuthomize works by gathering information about:\n\n· individuals, teams and functions.\n\n· apps, assets and accounts.\n\n· all the relationships between them.\n\n![img.png](https://storagetry1.blob.core.windows.net/public/78d82650-71b0-4909-8444-022aab79add5.png)\n\n## Connector APIs\n\nAuthomize connector APIs enable pushing data into Authomize from external sources.\n\nThese APIs enable data extracted from outside applications (via application APIs) to be delivered to Authomize.\n\nA connector processes extracted application data to transform it into a format compatible with Authomize.\n\n![img_1.png](https://storagetry1.blob.core.windows.net/public/341bf6ef-2e5b-4284-b715-45105ffbf0f8.png)\n\n## Authentication\nTo Authenticate use the API Token, with the format: `Authorization: API_Token`.\n\nAn API Token is a token you provide when making API calls. \n\n\nThe API Token should be included in every request to the API in an `Authorization` header.\n```\ncurl -v -X POST \\n\n     -H \"Authorization: {API_Token}\" \\n\n     ...\n```\n",
+    "version": "1.5.2",
     "x-logo": {
       "url": "https://demo.authomize.com/favicon.svg"
     }
@@ -131,11 +131,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "title": "Body",
-                "type": "array",
-                "items": {
-                  "$ref": "#/components/schemas/NewUserRequestSchema"
-                }
+                "$ref": "#/components/schemas/NewUsersListRequestSchema"
               }
             }
           },
@@ -193,11 +189,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "title": "Body",
-                "type": "array",
-                "items": {
-                  "$ref": "#/components/schemas/NewGroupingRequestSchema"
-                }
+                "$ref": "#/components/schemas/NewGroupingsListRequestSchema"
               }
             }
           },
@@ -240,15 +232,22 @@
         "summary": "Create Permissions",
         "description": "A permission (also referred to as an “entitlement”) is a set of privileges, assigned to a specific target. \nExamples include: file permissions, file shares, GCP entitlements, the actual policies assigning access to roles in AWS, and inline policies.\n",
         "operationId": "create_permissions_v2_apps__appId__access_permissions_post",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Appid",
+              "type": "string"
+            },
+            "name": "appId",
+            "in": "path"
+          }
+        ],
         "requestBody": {
           "content": {
             "application/json": {
               "schema": {
-                "title": "Body",
-                "type": "array",
-                "items": {
-                  "$ref": "#/components/schemas/NewPermissionsRequestSchema"
-                }
+                "$ref": "#/components/schemas/NewPermissionsListRequestSchema"
               }
             }
           },
@@ -291,15 +290,22 @@
         "summary": "Create Privileges",
         "description": "Add privileges.\n",
         "operationId": "create_privileges_v2_apps__appId__privileges_post",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Appid",
+              "type": "string"
+            },
+            "name": "appId",
+            "in": "path"
+          }
+        ],
         "requestBody": {
           "content": {
             "application/json": {
               "schema": {
-                "title": "Body",
-                "type": "array",
-                "items": {
-                  "$ref": "#/components/schemas/NewPrivilegesRequestSchema"
-                }
+                "$ref": "#/components/schemas/NewPrivilegesListRequestSchema"
               }
             }
           },
@@ -340,17 +346,24 @@
           "Privileges"
         ],
         "summary": "Create Privileges Grants",
-        "description": "This API allows you to create a connection between different assets (for example, a folder that contains multiple files).\n",
+        "description": "This API allows you to create a connection between different privileges.\n",
         "operationId": "create_privileges_grants_v2_apps__appId__privileges_grants_post",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Appid",
+              "type": "string"
+            },
+            "name": "appId",
+            "in": "path"
+          }
+        ],
         "requestBody": {
           "content": {
             "application/json": {
               "schema": {
-                "title": "Body",
-                "type": "array",
-                "items": {
-                  "$ref": "#/components/schemas/NewPrivilegeGrantsRequestSchema"
-                }
+                "$ref": "#/components/schemas/NewPrivilegesGrantsListRequestSchema"
               }
             }
           },
@@ -393,15 +406,22 @@
         "summary": "Create Accounts Association",
         "description": "**post_accounts association**",
         "operationId": "create_accounts_association_v2_apps__appId__association_accounts_post",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Appid",
+              "type": "string"
+            },
+            "name": "appId",
+            "in": "path"
+          }
+        ],
         "requestBody": {
           "content": {
             "application/json": {
               "schema": {
-                "title": "Body",
-                "type": "array",
-                "items": {
-                  "$ref": "#/components/schemas/NewAccountsAssociationRequestSchema"
-                }
+                "$ref": "#/components/schemas/NewAccountsAssociationsListRequestSchema"
               }
             }
           },
@@ -444,15 +464,22 @@
         "summary": "Create Groupings Association",
         "description": "Create associations between accounts and groups.\n",
         "operationId": "create_groupings_association_v2_apps__appId__association_groupings_post",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Appid",
+              "type": "string"
+            },
+            "name": "appId",
+            "in": "path"
+          }
+        ],
         "requestBody": {
           "content": {
             "application/json": {
               "schema": {
-                "title": "Body",
-                "type": "array",
-                "items": {
-                  "$ref": "#/components/schemas/NewGroupingsAssociationRequestSchema"
-                }
+                "$ref": "#/components/schemas/NewGroupingsAssociationsListRequestSchema"
               }
             }
           },
@@ -495,15 +522,22 @@
         "summary": "Create Assets",
         "description": "Add assets.\n",
         "operationId": "create_assets_v2_apps__appId__assets_post",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Appid",
+              "type": "string"
+            },
+            "name": "appId",
+            "in": "path"
+          }
+        ],
         "requestBody": {
           "content": {
             "application/json": {
               "schema": {
-                "title": "Body",
-                "type": "array",
-                "items": {
-                  "$ref": "#/components/schemas/NewAssetsRequestSchema"
-                }
+                "$ref": "#/components/schemas/NewAssetsListRequestSchema"
               }
             }
           },
@@ -546,15 +580,22 @@
         "summary": "Create Assets Inheritance",
         "description": "This API allows you to create a connection between different assets (for example, a folder that contains multiple files).\n",
         "operationId": "create_assets_inheritance_v2_apps__appId__assets_inheritance_post",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Appid",
+              "type": "string"
+            },
+            "name": "appId",
+            "in": "path"
+          }
+        ],
         "requestBody": {
           "content": {
             "application/json": {
               "schema": {
-                "title": "Body",
-                "type": "array",
-                "items": {
-                  "$ref": "#/components/schemas/NewAssetsInheritanceRequestSchema"
-                }
+                "$ref": "#/components/schemas/NewAssetsInheritanceListRequestSchema"
               }
             }
           },
@@ -612,11 +653,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "title": "Body",
-                "type": "array",
-                "items": {
-                  "$ref": "#/components/schemas/NewIdentityRequestSchema"
-                }
+                "$ref": "#/components/schemas/NewIdentitiesListRequestSchema"
               }
             }
           },
@@ -1627,6 +1664,7 @@
         "title": "GroupingType",
         "enum": [
           "Group",
+          "Role",
           "VirtualGroup"
         ],
         "description": "An enumeration."
@@ -1750,8 +1788,8 @@
             "title": "Service",
             "type": "string"
           },
-          "lastLoginDate": {
-            "title": "Lastlogindate",
+          "lastLoginAt": {
+            "title": "Lastloginat",
             "type": "string",
             "format": "date-time"
           },
@@ -1921,10 +1959,55 @@
           "targetId": {
             "title": "Targetid",
             "type": "string",
-            "description": "Target acount ID **Mandatory**\nThe grouping to associate with.\n"
+            "description": "Target grouping ID to associate with  **Mandatory**.\n"
           }
         },
         "description": "New accounts associations request schema"
+      },
+      "NewAccountsAssociationResponseDataSchema": {
+        "title": "NewAccountsAssociationResponseDataSchema",
+        "required": [
+          "validSourceIds",
+          "validTargetIds",
+          "invalidSourceIds",
+          "invalidTargetIds"
+        ],
+        "type": "object",
+        "properties": {
+          "validSourceIds": {
+            "title": "Validsourceids",
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "List of **valid** source account ids."
+          },
+          "validTargetIds": {
+            "title": "Validtargetids",
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "List of **valid** target grouping ids."
+          },
+          "invalidSourceIds": {
+            "title": "Invalidsourceids",
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "List of **invalid** source account ids."
+          },
+          "invalidTargetIds": {
+            "title": "Invalidtargetids",
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "List of **invalid** target grouping ids."
+          }
+        },
+        "description": "New accounts associations response data schema"
       },
       "NewAccountsAssociationResponseSchema": {
         "title": "NewAccountsAssociationResponseSchema",
@@ -1949,12 +2032,42 @@
             "title": "Numberofacceptedentities",
             "type": "integer",
             "description": "**The number of entities that pass validation and uploaded**"
+          },
+          "data": {
+            "title": "Data",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/NewAccountsAssociationResponseDataSchema"
+              }
+            ],
+            "description": "Response data.",
+            "default": {}
           }
         },
         "description": "New accounts associations response schema"
       },
-      "NewAssetsInheritanceRequestSchema": {
-        "title": "NewAssetsInheritanceRequestSchema",
+      "NewAccountsAssociationsListRequestSchema": {
+        "title": "NewAccountsAssociationsListRequestSchema",
+        "required": [
+          "data"
+        ],
+        "type": "object",
+        "properties": {
+          "data": {
+            "title": "Data",
+            "maxItems": 10000,
+            "minItems": 1,
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/NewAccountsAssociationRequestSchema"
+            },
+            "description": "New Accounts Associations"
+          }
+        },
+        "description": "List request schema"
+      },
+      "NewAssetInheritanceRequestSchema": {
+        "title": "NewAssetInheritanceRequestSchema",
         "required": [
           "sourceId",
           "targetId"
@@ -1974,43 +2087,16 @@
         },
         "description": "New assets inheritance request schema"
       },
-      "NewAssetsInheritanceResponseSchema": {
-        "title": "NewAssetsInheritanceResponseSchema",
+      "NewAssetRequestSchema": {
+        "title": "NewAssetRequestSchema",
         "required": [
-          "requestId",
-          "numberOfAcceptedEntities"
-        ],
-        "type": "object",
-        "properties": {
-          "acceptedTimestamp": {
-            "title": "Acceptedtimestamp",
-            "type": "string",
-            "description": "**The accepted time of the request**",
-            "format": "date-time"
-          },
-          "requestId": {
-            "title": "Requestid",
-            "type": "string",
-            "description": "**Request id**"
-          },
-          "numberOfAcceptedEntities": {
-            "title": "Numberofacceptedentities",
-            "type": "integer",
-            "description": "**The number of entities that pass validation and uploaded**"
-          }
-        },
-        "description": "New assets inheritance response schema"
-      },
-      "NewAssetsRequestSchema": {
-        "title": "NewAssetsRequestSchema",
-        "required": [
-          "id",
+          "uniqueId",
           "name"
         ],
         "type": "object",
         "properties": {
-          "id": {
-            "title": "Id",
+          "uniqueId": {
+            "title": "Uniqueid",
             "type": "string",
             "description": "ID of asset. **Mandatory**. The ID must be unique.\n"
           },
@@ -2031,8 +2117,7 @@
           "originType": {
             "title": "Origintype",
             "type": "string",
-            "description": "The asset type in the source system.\nThe default is the canonical type (if not mentioned).\n",
-            "default": "Group"
+            "description": "The asset type in the source system.\nThe default is the canonical type (if not mentioned).\n"
           },
           "createdAt": {
             "title": "Createdat",
@@ -2059,7 +2144,129 @@
             "description": "Tags associated with the asset.\n"
           }
         },
-        "description": "New assets request schema"
+        "description": "New asset request schema"
+      },
+      "NewAssetsInheritanceListRequestSchema": {
+        "title": "NewAssetsInheritanceListRequestSchema",
+        "required": [
+          "data"
+        ],
+        "type": "object",
+        "properties": {
+          "data": {
+            "title": "Data",
+            "maxItems": 10000,
+            "minItems": 1,
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/NewAssetInheritanceRequestSchema"
+            },
+            "description": "New Assets Inheritance"
+          }
+        },
+        "description": "List request schema"
+      },
+      "NewAssetsInheritanceResponseDataSchema": {
+        "title": "NewAssetsInheritanceResponseDataSchema",
+        "required": [
+          "validSourceIds",
+          "validTargetIds",
+          "invalidSourceIds",
+          "invalidTargetIds"
+        ],
+        "type": "object",
+        "properties": {
+          "validSourceIds": {
+            "title": "Validsourceids",
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "List of **valid** source assets ids."
+          },
+          "validTargetIds": {
+            "title": "Validtargetids",
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "List of **valid** target assets ids."
+          },
+          "invalidSourceIds": {
+            "title": "Invalidsourceids",
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "List of **invalid** source assets ids."
+          },
+          "invalidTargetIds": {
+            "title": "Invalidtargetids",
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "List of **invalid** target assets ids."
+          }
+        },
+        "description": "New assets inheritance response data schema"
+      },
+      "NewAssetsInheritanceResponseSchema": {
+        "title": "NewAssetsInheritanceResponseSchema",
+        "required": [
+          "requestId",
+          "numberOfAcceptedEntities"
+        ],
+        "type": "object",
+        "properties": {
+          "acceptedTimestamp": {
+            "title": "Acceptedtimestamp",
+            "type": "string",
+            "description": "**The accepted time of the request**",
+            "format": "date-time"
+          },
+          "requestId": {
+            "title": "Requestid",
+            "type": "string",
+            "description": "**Request id**"
+          },
+          "numberOfAcceptedEntities": {
+            "title": "Numberofacceptedentities",
+            "type": "integer",
+            "description": "**The number of entities that pass validation and uploaded**"
+          },
+          "data": {
+            "title": "Data",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/NewAssetsInheritanceResponseDataSchema"
+              }
+            ],
+            "description": "Response data.",
+            "default": {}
+          }
+        },
+        "description": "New assets inheritance response schema"
+      },
+      "NewAssetsListRequestSchema": {
+        "title": "NewAssetsListRequestSchema",
+        "required": [
+          "data"
+        ],
+        "type": "object",
+        "properties": {
+          "data": {
+            "title": "Data",
+            "maxItems": 10000,
+            "minItems": 1,
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/NewAssetRequestSchema"
+            },
+            "description": "New Assets"
+          }
+        },
+        "description": "List request schema"
       },
       "NewAssetsResponseSchema": {
         "title": "NewAssetsResponseSchema",
@@ -2084,6 +2291,11 @@
             "title": "Numberofacceptedentities",
             "type": "integer",
             "description": "**The number of entities that pass validation and uploaded**"
+          },
+          "data": {
+            "title": "Data",
+            "description": "Response data.",
+            "default": {}
           }
         },
         "description": "New assets response schema"
@@ -2099,7 +2311,7 @@
           "id": {
             "title": "Id",
             "type": "string",
-            "description": "User IDs must be unique **Mandatory**\n"
+            "description": "Grouping IDs must be unique. **Mandatory**\n"
           },
           "name": {
             "title": "Name",
@@ -2109,8 +2321,7 @@
           "originType": {
             "title": "Origintype",
             "type": "string",
-            "description": "The name of the type of grouping in the source system. The default is `Group`. Example: Group/Alias/AWS Role\n",
-            "default": "Group"
+            "description": "The name of the type of grouping in the source system. The default is `Group`. Example: Group/Alias/AWS Role\n"
           },
           "type": {
             "allOf": [
@@ -2118,7 +2329,7 @@
                 "$ref": "#/components/schemas/GroupingType"
               }
             ],
-            "description": "Allowed values are `Group` and `Virtual Group`.\nThe default is `Group`.\nVirtual Groups are mapped to the Authomize access explorer graph and are not present in other places in the user interface nor are they counted as a group.\n",
+            "description": "Allowed values are `Group`, `Role` and `VirtualGroup`.\n\nThe default is `Group`.\n\nIf `Role`, the grouping represents a role in the source application and the name of the role is the grouping `name`.\n\n`VirtualGroup` are mapped to the Authomize access explorer graph and are not present in other places in the user interface nor are they counted as a group.\n",
             "default": "Group"
           },
           "anyoneCanJoinOrLeave": {
@@ -2126,11 +2337,6 @@
             "type": "boolean",
             "description": "Must be either `ture` or `false`.\nWhen set to `true` users can give themselves membership in this grouping without the grouping's managers' or owners' permission. \nExamples include public groups (M365), Google Groups with specific flags, ...\nValid only when `groupingType = Group`\n",
             "default": false
-          },
-          "isRole": {
-            "title": "Isrole",
-            "type": "boolean",
-            "description": "If `True`, the grouping represent the role in the source application and the name of the role is the grouping `name`.\nThe default is `False`.\n"
           },
           "tags": {
             "title": "Tags",
@@ -2166,6 +2372,11 @@
             "title": "Numberofacceptedentities",
             "type": "integer",
             "description": "**The number of entities that pass validation and uploaded**"
+          },
+          "data": {
+            "title": "Data",
+            "description": "Response data.",
+            "default": {}
           }
         },
         "description": "New group response schema"
@@ -2191,6 +2402,51 @@
         },
         "description": "New groupings associations request schema"
       },
+      "NewGroupingsAssociationResponseDataSchema": {
+        "title": "NewGroupingsAssociationResponseDataSchema",
+        "required": [
+          "validSourceIds",
+          "validTargetIds",
+          "invalidSourceIds",
+          "invalidTargetIds"
+        ],
+        "type": "object",
+        "properties": {
+          "validSourceIds": {
+            "title": "Validsourceids",
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "List of **valid** source grouping ids."
+          },
+          "validTargetIds": {
+            "title": "Validtargetids",
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "List of **valid** target grouping ids."
+          },
+          "invalidSourceIds": {
+            "title": "Invalidsourceids",
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "List of **invalid** source grouping ids."
+          },
+          "invalidTargetIds": {
+            "title": "Invalidtargetids",
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "List of **invalid** target grouping ids."
+          }
+        },
+        "description": "New groupings associations response data schema"
+      },
       "NewGroupingsAssociationResponseSchema": {
         "title": "NewGroupingsAssociationResponseSchema",
         "required": [
@@ -2214,19 +2470,89 @@
             "title": "Numberofacceptedentities",
             "type": "integer",
             "description": "**The number of entities that pass validation and uploaded**"
+          },
+          "data": {
+            "title": "Data",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/NewGroupingsAssociationResponseDataSchema"
+              }
+            ],
+            "description": "Response data.",
+            "default": {}
           }
         },
         "description": "New groupings associations response schema"
       },
-      "NewIdentityRequestSchema": {
-        "title": "NewIdentityRequestSchema",
+      "NewGroupingsAssociationsListRequestSchema": {
+        "title": "NewGroupingsAssociationsListRequestSchema",
         "required": [
-          "id"
+          "data"
         ],
         "type": "object",
         "properties": {
-          "id": {
-            "title": "Id",
+          "data": {
+            "title": "Data",
+            "maxItems": 10000,
+            "minItems": 1,
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/NewGroupingsAssociationRequestSchema"
+            },
+            "description": "New Groupings Associations"
+          }
+        },
+        "description": "List request schema"
+      },
+      "NewGroupingsListRequestSchema": {
+        "title": "NewGroupingsListRequestSchema",
+        "required": [
+          "data"
+        ],
+        "type": "object",
+        "properties": {
+          "data": {
+            "title": "Data",
+            "maxItems": 10000,
+            "minItems": 1,
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/NewGroupingRequestSchema"
+            },
+            "description": "New Groupings"
+          }
+        },
+        "description": "List request schema"
+      },
+      "NewIdentitiesListRequestSchema": {
+        "title": "NewIdentitiesListRequestSchema",
+        "required": [
+          "data"
+        ],
+        "type": "object",
+        "properties": {
+          "data": {
+            "title": "Data",
+            "maxItems": 10000,
+            "minItems": 1,
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/NewIdentityRequestSchema"
+            },
+            "description": "New Identities"
+          }
+        },
+        "description": "List request schema"
+      },
+      "NewIdentityRequestSchema": {
+        "title": "NewIdentityRequestSchema",
+        "required": [
+          "uniqueId"
+        ],
+        "type": "object",
+        "properties": {
+          "uniqueId": {
+            "title": "Uniqueid",
             "type": "string",
             "description": "Identity ID **Mandatory**\n"
           },
@@ -2293,19 +2619,19 @@
             "type": "string",
             "description": "The user's job title.\n"
           },
-          "manager": {
-            "title": "Manager",
+          "managerId": {
+            "title": "Managerid",
             "type": "string",
-            "description": "The user's manager's ID.\n"
+            "description": "The manager identity's ID.\n"
           },
-          "hireDate": {
-            "title": "Hiredate",
+          "hireAt": {
+            "title": "Hireat",
             "type": "string",
             "description": "The user's first day of work (in ISO 8601 format).\n",
             "format": "date-time"
           },
-          "terminationDate": {
-            "title": "Terminationdate",
+          "terminationAt": {
+            "title": "Terminationat",
             "type": "string",
             "description": "The user's last day of work (in ISO 8601 format).\n",
             "format": "date-time"
@@ -2314,14 +2640,6 @@
             "title": "Description",
             "type": "string",
             "description": "Additional description of the identity.\n"
-          },
-          "tags": {
-            "title": "Tags",
-            "type": "array",
-            "items": {
-              "type": "string"
-            },
-            "description": "One or more tags on the user account.\n"
           }
         },
         "description": "New Identity request schema"
@@ -2349,51 +2667,151 @@
             "title": "Numberofacceptedentities",
             "type": "integer",
             "description": "**The number of entities that pass validation and uploaded**"
+          },
+          "data": {
+            "title": "Data",
+            "description": "Response data.",
+            "default": {}
           }
         },
         "description": "New identity response schema"
       },
-      "NewPermissionsRequestSchema": {
-        "title": "NewPermissionsRequestSchema",
+      "NewPermissionRequestSchema": {
+        "title": "NewPermissionRequestSchema",
         "required": [
-          "permissionSource",
           "privilegeId"
         ],
         "type": "object",
         "properties": {
-          "permissionSource": {
-            "title": "Permissionsource",
+          "accountId": {
+            "title": "Accountid",
             "type": "string",
-            "description": "The source of the permission. This field is **Mandatory**.\nSet `permissionSource` to either `Account ID` or `Grouping ID`.\n"
+            "description": "The ID of the account as the source of the permission.\n\nEther or both `accountId` / `groupingId` **must** be provided."
+          },
+          "groupingId": {
+            "title": "Groupingid",
+            "type": "string",
+            "description": "The ID of the grouping as the source of the permission.\n\nEther or both `accountId` / `groupingId` **must** be provided."
           },
           "privilegeId": {
             "title": "Privilegeid",
             "type": "string",
-            "description": "A privilege, by id, that allows access to assets. This field is **Mandatory**."
+            "description": "The ID of the privilege, allows access to assets. This field is **Mandatory**.\n"
           },
-          "targetAssets": {
-            "title": "Targetassets",
-            "type": "array",
-            "items": {
-              "type": "string"
-            },
-            "description": "The ID of the asset. \nWhen `null`, the entire application has global permission.\n"
+          "assetId": {
+            "title": "Assetid",
+            "type": "string",
+            "description": "The ID of the asset.\n\nWhen `null`, this is a global permission on the entire application (not just locally)."
           },
           "isRole": {
             "title": "Isrole",
-            "type": "string",
-            "description": "If `True`, the permissions represent the role in the source application.\nThe default is `False`.\n"
-          },
-          "tags": {
-            "title": "Tags",
+            "type": "boolean",
+            "description": "If `True`, the permissions represent the role in the source application.\nThe default is `False`.\n",
+            "default": false
+          }
+        },
+        "description": "New permission request schema"
+      },
+      "NewPermissionsListRequestSchema": {
+        "title": "NewPermissionsListRequestSchema",
+        "required": [
+          "data"
+        ],
+        "type": "object",
+        "properties": {
+          "data": {
+            "title": "Data",
+            "maxItems": 10000,
+            "minItems": 1,
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/NewPermissionRequestSchema"
+            },
+            "description": "New Permissions"
+          }
+        },
+        "description": "List request schema"
+      },
+      "NewPermissionsResponseDataSchema": {
+        "title": "NewPermissionsResponseDataSchema",
+        "required": [
+          "validAccountIds",
+          "validGroupingIds",
+          "validAssetIds",
+          "validPrivilegeIds",
+          "invalidAccountIds",
+          "invalidGroupingIds",
+          "invalidAssetIds",
+          "invalidPrivilegeIds"
+        ],
+        "type": "object",
+        "properties": {
+          "validAccountIds": {
+            "title": "Validaccountids",
             "type": "array",
             "items": {
               "type": "string"
             },
-            "description": "Tags on access permissions.\n"
+            "description": "List of **valid** account ids."
+          },
+          "validGroupingIds": {
+            "title": "Validgroupingids",
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "List of **valid** grouping ids."
+          },
+          "validAssetIds": {
+            "title": "Validassetids",
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "List of **valid** asset ids."
+          },
+          "validPrivilegeIds": {
+            "title": "Validprivilegeids",
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "List of **valid** privilege ids."
+          },
+          "invalidAccountIds": {
+            "title": "Invalidaccountids",
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "List of **invalid** account ids."
+          },
+          "invalidGroupingIds": {
+            "title": "Invalidgroupingids",
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "List of **invalid** grouping ids."
+          },
+          "invalidAssetIds": {
+            "title": "Invalidassetids",
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "List of **invalid** asset ids."
+          },
+          "invalidPrivilegeIds": {
+            "title": "Invalidprivilegeids",
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "List of **invalid** privilege ids."
           }
         },
-        "description": "New permissions request schema"
+        "description": "New permissions response data schema"
       },
       "NewPermissionsResponseSchema": {
         "title": "NewPermissionsResponseSchema",
@@ -2418,6 +2836,16 @@
             "title": "Numberofacceptedentities",
             "type": "integer",
             "description": "**The number of entities that pass validation and uploaded**"
+          },
+          "data": {
+            "title": "Data",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/NewPermissionsResponseDataSchema"
+              }
+            ],
+            "description": "Response data.",
+            "default": {}
           }
         },
         "description": "New permissions response schema"
@@ -2443,6 +2871,51 @@
         },
         "description": "New privilege grants request schema"
       },
+      "NewPrivilegeGrantsResponseDataSchema": {
+        "title": "NewPrivilegeGrantsResponseDataSchema",
+        "required": [
+          "validSourceIds",
+          "validTargetIds",
+          "invalidSourceIds",
+          "invalidTargetIds"
+        ],
+        "type": "object",
+        "properties": {
+          "validSourceIds": {
+            "title": "Validsourceids",
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "List of **valid** source privilege ids."
+          },
+          "validTargetIds": {
+            "title": "Validtargetids",
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "List of **valid** target privilege ids."
+          },
+          "invalidSourceIds": {
+            "title": "Invalidsourceids",
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "List of **invalid** source privilege ids."
+          },
+          "invalidTargetIds": {
+            "title": "Invalidtargetids",
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "List of **invalid** target privilege ids."
+          }
+        },
+        "description": "New privilege grants response data schema"
+      },
       "NewPrivilegeGrantsResponseSchema": {
         "title": "NewPrivilegeGrantsResponseSchema",
         "required": [
@@ -2466,12 +2939,22 @@
             "title": "Numberofacceptedentities",
             "type": "integer",
             "description": "**The number of entities that pass validation and uploaded**"
+          },
+          "data": {
+            "title": "Data",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/NewPrivilegeGrantsResponseDataSchema"
+              }
+            ],
+            "description": "Response data.",
+            "default": {}
           }
         },
         "description": "New privilege grants response schema"
       },
-      "NewPrivilegesRequestSchema": {
-        "title": "NewPrivilegesRequestSchema",
+      "NewPrivilegeRequestSchema": {
+        "title": "NewPrivilegeRequestSchema",
         "required": [
           "id",
           "type"
@@ -2489,15 +2972,55 @@
                 "$ref": "#/components/schemas/PrivilegeType"
               }
             ],
-            "description": "The privilege types that are supported by Authomize **Mandatory**\n\nPermitted values: \n   •\t`Administrative`\n   •\t`Unknown`\n   •\t`Read`\n   •\t`ReadMetadata`\n   •\t`Write`\n   •\t`Create`\n   •\t`Delete`\n   •\t`Execute`\n   •\t`Enable`\n   •\t`Assign`\n   •\t`Restore`\n   •\t`Import`\n   •\t`Export`\n   •\t`Update`\n   •\t`Cancel`\n   •\t`Use`\n   •\t`Delegate`\n   •\t`Join`\n   •\t`Invite`\n   •\t`Share`\n\nIf the privilege type does not exist use `Unknown` or `Use`.\n"
+            "description": "The \"canonical\" privilege types that are supported by Authomize off-the-shelf: **Mandatory**\n\nPermitted values: \n   •\t`Administrative`\n   •\t`Unknown`\n   •\t`Read`\n   •\t`ReadMetadata`\n   •\t`Write`\n   •\t`Create`\n   •\t`Delete`\n   •\t`Execute`\n   •\t`Enable`\n   •\t`Assign`\n   •\t`Restore`\n   •\t`Import`\n   •\t`Export`\n   •\t`Update`\n   •\t`Cancel`\n   •\t`Use`\n   •\t`Delegate`\n   •\t`Join`\n   •\t`Invite`\n   •\t`Share`\n\nIf the privilege type does not exist use `Unknown` or `Use`.\n"
           },
-          "originPrivilegeName": {
-            "title": "Originprivilegename",
+          "originName": {
+            "title": "Originname",
             "type": "string",
-            "description": "The privilege name in the source system.\nThe default is the canonical type (if not mentioned).\n"
+            "description": "The privilege name in the source system."
           }
         },
-        "description": "New privileges request schema"
+        "description": "New privilege request schema"
+      },
+      "NewPrivilegesGrantsListRequestSchema": {
+        "title": "NewPrivilegesGrantsListRequestSchema",
+        "required": [
+          "data"
+        ],
+        "type": "object",
+        "properties": {
+          "data": {
+            "title": "Data",
+            "maxItems": 10000,
+            "minItems": 1,
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/NewPrivilegeGrantsRequestSchema"
+            },
+            "description": "New Privileges Grants"
+          }
+        },
+        "description": "List request schema"
+      },
+      "NewPrivilegesListRequestSchema": {
+        "title": "NewPrivilegesListRequestSchema",
+        "required": [
+          "data"
+        ],
+        "type": "object",
+        "properties": {
+          "data": {
+            "title": "Data",
+            "maxItems": 10000,
+            "minItems": 1,
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/NewPrivilegeRequestSchema"
+            },
+            "description": "New Privileges"
+          }
+        },
+        "description": "List request schema"
       },
       "NewPrivilegesResponseSchema": {
         "title": "NewPrivilegesResponseSchema",
@@ -2522,6 +3045,11 @@
             "title": "Numberofacceptedentities",
             "type": "integer",
             "description": "**The number of entities that pass validation and uploaded**"
+          },
+          "data": {
+            "title": "Data",
+            "description": "Response data.",
+            "default": {}
           }
         },
         "description": "New privileges response schema"
@@ -2547,12 +3075,12 @@
       "NewUserRequestSchema": {
         "title": "NewUserRequestSchema",
         "required": [
-          "id"
+          "uniqueId"
         ],
         "type": "object",
         "properties": {
-          "id": {
-            "title": "Id",
+          "uniqueId": {
+            "title": "Uniqueid",
             "type": "string",
             "description": "User's Account ID. **Mandatory, must be unique.**\n"
           },
@@ -2592,15 +3120,16 @@
           "isExternal": {
             "title": "Isexternal",
             "type": "boolean",
-            "description": "Account is external to Authomize.\nMust be either `true` or `false`.\n"
+            "description": "Account is external to Authomize.\nMust be either `true` or `false`.\n",
+            "default": false
           },
           "hasMFA": {
             "title": "Hasmfa",
             "type": "boolean",
             "description": "Has Multi-Factor Authentication enabled.\nMust be either `true` or `false`.\n"
           },
-          "lastLoginDate": {
-            "title": "Lastlogindate",
+          "lastLoginAt": {
+            "title": "Lastloginat",
             "type": "string",
             "description": "The last login date in ISO 8601 format.\n",
             "format": "date-time"
@@ -2639,9 +3168,34 @@
             "title": "Numberofacceptedentities",
             "type": "integer",
             "description": "**The number of entities that pass validation and uploaded**"
+          },
+          "data": {
+            "title": "Data",
+            "description": "Response data.",
+            "default": {}
           }
         },
         "description": "New users response schema"
+      },
+      "NewUsersListRequestSchema": {
+        "title": "NewUsersListRequestSchema",
+        "required": [
+          "data"
+        ],
+        "type": "object",
+        "properties": {
+          "data": {
+            "title": "Data",
+            "maxItems": 10000,
+            "minItems": 1,
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/NewUserRequestSchema"
+            },
+            "description": "New Users"
+          }
+        },
+        "description": "List request schema"
       },
       "Pagination": {
         "title": "Pagination",
@@ -2719,7 +3273,7 @@
             "title": "New Permissions",
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/NewPermissionsRequestSchema"
+              "$ref": "#/components/schemas/NewPermissionRequestSchema"
             },
             "description": "A permission (also referred to as an “entitlement”) is a set of privileges, assigned to a specific target. \nExamples include: file permissions, file shares, GCP entitlements, the actual policies assigning access to roles in AWS, and inline policies.\n"
           },
@@ -2727,7 +3281,7 @@
             "title": "New Privileges",
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/NewPrivilegesRequestSchema"
+              "$ref": "#/components/schemas/NewPrivilegeRequestSchema"
             },
             "description": "Add privileges.\n"
           },
@@ -2737,7 +3291,7 @@
             "items": {
               "$ref": "#/components/schemas/NewPrivilegeGrantsRequestSchema"
             },
-            "description": "This API allows you to create a connection between different assets (for example, a folder that contains multiple files).\n"
+            "description": "This API allows you to create a connection between different privileges.\n"
           },
           "new_accounts_association": {
             "title": "New Accounts Association",
@@ -2759,7 +3313,7 @@
             "title": "New Assets",
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/NewAssetsRequestSchema"
+              "$ref": "#/components/schemas/NewAssetRequestSchema"
             },
             "description": "Add assets.\n"
           },
@@ -2767,7 +3321,7 @@
             "title": "New Assets Inheritance",
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/NewAssetsInheritanceRequestSchema"
+              "$ref": "#/components/schemas/NewAssetInheritanceRequestSchema"
             },
             "description": "This API allows you to create a connection between different assets (for example, a folder that contains multiple files).\n"
           },
@@ -2837,7 +3391,8 @@
           },
           "modifiedAt": {
             "title": "Modifiedat",
-            "type": "string"
+            "type": "string",
+            "format": "date-time"
           },
           "status": {
             "allOf": [
