@@ -2,7 +2,7 @@ from setuptools import find_namespace_packages, setup
 
 if __name__ == '__main__':
     setup(
-        version='1.5.2',
+        version='2.0.0',
         name='authomize-rest-api-client',
         author='Authomize inc.',
         license='MIT',

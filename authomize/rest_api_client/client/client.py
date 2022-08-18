@@ -9,25 +9,26 @@ from authomize.rest_api_client.generated.schemas import (
     IsAliveResponse,
     ItemsBundleSchema,
     MeResponse,
-    NewAccountsAssociationRequestSchema,
     NewAccountsAssociationResponseSchema,
-    NewAssetsInheritanceRequestSchema,
+    NewAccountsAssociationsListRequestSchema,
+    NewAssetsInheritanceListRequestSchema,
     NewAssetsInheritanceResponseSchema,
-    NewAssetsRequestSchema,
+    NewAssetsListRequestSchema,
     NewAssetsResponseSchema,
-    NewGroupingRequestSchema,
     NewGroupingResponseSchema,
-    NewGroupingsAssociationRequestSchema,
     NewGroupingsAssociationResponseSchema,
-    NewIdentityRequestSchema,
-    NewPermissionsRequestSchema,
+    NewGroupingsAssociationsListRequestSchema,
+    NewGroupingsListRequestSchema,
+    NewIdentitiesListRequestSchema,
+    NewIdentityResponseSchema,
+    NewPermissionsListRequestSchema,
     NewPermissionsResponseSchema,
-    NewPrivilegeGrantsRequestSchema,
     NewPrivilegeGrantsResponseSchema,
-    NewPrivilegesRequestSchema,
+    NewPrivilegesGrantsListRequestSchema,
+    NewPrivilegesListRequestSchema,
     NewPrivilegesResponseSchema,
-    NewUserRequestSchema,
     NewUserResponseSchema,
+    NewUsersListRequestSchema,
     RestApiConnectorListSchema,
     SubmitResponse,
 )
@@ -103,7 +104,7 @@ class Client(BaseClient):
     def create_users(
         self,
         app_id: str,
-        body: list[NewUserRequestSchema],
+        body: NewUsersListRequestSchema,
     ) -> NewUserResponseSchema:
         if not app_id:
             raise ValueError('Missing app_id')
@@ -118,7 +119,7 @@ class Client(BaseClient):
     def create_groupings(
         self,
         app_id: str,
-        body: list[NewGroupingRequestSchema],
+        body: NewGroupingsListRequestSchema,
     ) -> NewGroupingResponseSchema:
         if not app_id:
             raise ValueError('Missing app_id')
@@ -133,7 +134,7 @@ class Client(BaseClient):
     def create_permissions(
         self,
         app_id: str,
-        body: list[NewPermissionsRequestSchema],
+        body: NewPermissionsListRequestSchema,
     ) -> NewPermissionsResponseSchema:
         if not app_id:
             raise ValueError('Missing app_id')
@@ -148,7 +149,7 @@ class Client(BaseClient):
     def create_privileges(
         self,
         app_id: str,
-        body: list[NewPrivilegesRequestSchema],
+        body: NewPrivilegesListRequestSchema,
     ) -> NewPrivilegesResponseSchema:
         if not app_id:
             raise ValueError('Missing app_id')
@@ -163,7 +164,7 @@ class Client(BaseClient):
     def create_privileges_grants(
         self,
         app_id: str,
-        body: list[NewPrivilegeGrantsRequestSchema],
+        body: NewPrivilegesGrantsListRequestSchema,
     ) -> NewPrivilegeGrantsResponseSchema:
         if not app_id:
             raise ValueError('Missing app_id')
@@ -178,7 +179,7 @@ class Client(BaseClient):
     def create_accounts_association(
         self,
         app_id: str,
-        body: list[NewAccountsAssociationRequestSchema],
+        body: NewAccountsAssociationsListRequestSchema,
     ) -> NewAccountsAssociationResponseSchema:
         if not app_id:
             raise ValueError('Missing app_id')
@@ -193,7 +194,7 @@ class Client(BaseClient):
     def create_groupings_association(
         self,
         app_id: str,
-        body: list[NewGroupingsAssociationRequestSchema],
+        body: NewGroupingsAssociationsListRequestSchema,
     ) -> NewGroupingsAssociationResponseSchema:
         if not app_id:
             raise ValueError('Missing app_id')
@@ -208,7 +209,7 @@ class Client(BaseClient):
     def create_assets(
         self,
         app_id: str,
-        body: list[NewAssetsRequestSchema],
+        body: NewAssetsListRequestSchema,
     ) -> NewAssetsResponseSchema:
         if not app_id:
             raise ValueError('Missing app_id')
@@ -223,7 +224,7 @@ class Client(BaseClient):
     def create_assets_inheritance(
         self,
         app_id: str,
-        body: list[NewAssetsInheritanceRequestSchema],
+        body: NewAssetsInheritanceListRequestSchema,
     ) -> NewAssetsInheritanceResponseSchema:
         if not app_id:
             raise ValueError('Missing app_id')
@@ -238,8 +239,8 @@ class Client(BaseClient):
     def create_identities(
         self,
         app_id: str,
-        body: list[NewIdentityRequestSchema],
-    ) -> NewAssetsInheritanceResponseSchema:
+        body: NewIdentitiesListRequestSchema,
+    ) -> NewIdentityResponseSchema:
         if not app_id:
             raise ValueError('Missing app_id')
         return self.http_post(
