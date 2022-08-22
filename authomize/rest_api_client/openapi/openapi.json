@@ -3,7 +3,7 @@
   "info": {
     "title": "Authomize API Reference",
     "description": "Authomize enables users to integrate your applications with Authomize via custom connectors.\n\nYou can use the APIs described in this document to create your connector.\n\nOnce data is uploaded and processed successfully, your custom connector will function in the same way as the connectors created by Authomize.\n\n## How does Authomize work?\nAuthomize works by gathering information about:\n\n· individuals, teams and functions.\n\n· apps, assets and accounts.\n\n· all the relationships between them.\n\n![img.png](https://storagetry1.blob.core.windows.net/public/78d82650-71b0-4909-8444-022aab79add5.png)\n\n## Connector APIs\n\nAuthomize connector APIs enable pushing data into Authomize from external sources.\n\nThese APIs enable data extracted from outside applications (via application APIs) to be delivered to Authomize.\n\nA connector processes extracted application data to transform it into a format compatible with Authomize.\n\n![img_1.png](https://storagetry1.blob.core.windows.net/public/341bf6ef-2e5b-4284-b715-45105ffbf0f8.png)\n\n## Authentication\nTo Authenticate use the API Token, with the format: `Authorization: API_Token`.\n\nAn API Token is a token you provide when making API calls. \n\n\nThe API Token should be included in every request to the API in an `Authorization` header.\n```\ncurl -v -X POST \\n\n     -H \"Authorization: {API_Token}\" \\n\n     ...\n```\n",
-    "version": "1.5.2",
+    "version": "2.0.0",
     "x-logo": {
       "url": "https://demo.authomize.com/favicon.svg"
     }
@@ -288,7 +288,7 @@
           "Privileges"
         ],
         "summary": "Create Privileges",
-        "description": "Add privileges.\n",
+        "description": "Add privileges.\n\nThis API enables you to define privileges that can be associated with assets.\n\nFor example, Read privileges on a file.\n\nHere you can define the type of privileges and associate it to assets in the Permission API.\n",
         "operationId": "create_privileges_v2_apps__appId__privileges_post",
         "parameters": [
           {
@@ -1664,7 +1664,6 @@
         "title": "GroupingType",
         "enum": [
           "Group",
-          "Role",
           "VirtualGroup"
         ],
         "description": "An enumeration."
@@ -1953,11 +1952,13 @@
         "properties": {
           "sourceId": {
             "title": "Sourceid",
+            "minLength": 1,
             "type": "string",
             "description": "Source account ID **Mandatory**\n"
           },
           "targetId": {
             "title": "Targetid",
+            "minLength": 1,
             "type": "string",
             "description": "Target grouping ID to associate with  **Mandatory**.\n"
           }
@@ -2076,11 +2077,13 @@
         "properties": {
           "sourceId": {
             "title": "Sourceid",
+            "minLength": 1,
             "type": "string",
             "description": "ID of the source asset. **Mandatory**\n"
           },
           "targetId": {
             "title": "Targetid",
+            "minLength": 1,
             "type": "string",
             "description": "The ID of the iherited asset (or assets). **Mandatory**\n"
           }
@@ -2097,11 +2100,13 @@
         "properties": {
           "uniqueId": {
             "title": "Uniqueid",
+            "minLength": 1,
             "type": "string",
-            "description": "ID of asset. **Mandatory**. The ID must be unique.\n"
+            "description": "Asset ID. **Mandatory, must be unique.**\n"
           },
           "name": {
             "title": "Name",
+            "minLength": 1,
             "type": "string",
             "description": "The name of the asset. The default is the Asset ID. **Mandatory**\n"
           },
@@ -2310,11 +2315,13 @@
         "properties": {
           "id": {
             "title": "Id",
+            "minLength": 1,
             "type": "string",
-            "description": "Grouping IDs must be unique. **Mandatory**\n"
+            "description": "\nGrouping ID. **Mandatory, must be unique.**\n"
           },
           "name": {
             "title": "Name",
+            "minLength": 1,
             "type": "string",
             "description": "The name of the grouping. The default is the ID field. **Mandatory**\n"
           },
@@ -2329,8 +2336,14 @@
                 "$ref": "#/components/schemas/GroupingType"
               }
             ],
-            "description": "Allowed values are `Group`, `Role` and `VirtualGroup`.\n\nThe default is `Group`.\n\nIf `Role`, the grouping represents a role in the source application and the name of the role is the grouping `name`.\n\n`VirtualGroup` are mapped to the Authomize access explorer graph and are not present in other places in the user interface nor are they counted as a group.\n",
+            "description": "Allowed values are `Group` and `VirtualGroup`.\n\nThe default is `Group`.\n\n`VirtualGroup` are mapped to the Authomize access explorer graph and are not present in other places in the user interface nor are they counted as a group.\n",
             "default": "Group"
+          },
+          "isRole": {
+            "title": "Isrole",
+            "type": "boolean",
+            "description": "If `Role`, the grouping represents a role in the source application and the name of the role is the grouping `name`.\n\nThe default is `False`.\n",
+            "default": false
           },
           "anyoneCanJoinOrLeave": {
             "title": "Anyonecanjoinorleave",
@@ -2391,11 +2404,13 @@
         "properties": {
           "sourceId": {
             "title": "Sourceid",
+            "minLength": 1,
             "type": "string",
             "description": "Grouping source ID **Mandatory**\n"
           },
           "targetId": {
             "title": "Targetid",
+            "minLength": 1,
             "type": "string",
             "description": "Grouping Target Id  **Mandatory**. The grouping to associate with.\n"
           }
@@ -2553,6 +2568,7 @@
         "properties": {
           "uniqueId": {
             "title": "Uniqueid",
+            "minLength": 1,
             "type": "string",
             "description": "Identity ID **Mandatory**\n"
           },
@@ -2679,24 +2695,31 @@
       "NewPermissionRequestSchema": {
         "title": "NewPermissionRequestSchema",
         "required": [
+          "sourceUniqueId",
+          "sourceType",
           "privilegeId"
         ],
         "type": "object",
         "properties": {
-          "accountId": {
-            "title": "Accountid",
+          "sourceUniqueId": {
+            "title": "Sourceuniqueid",
+            "minLength": 1,
             "type": "string",
-            "description": "The ID of the account as the source of the permission.\n\nEther or both `accountId` / `groupingId` **must** be provided."
+            "description": "The unique ID of the permission's source. Must be either `accountId` or `groupingId`. **Mandatory**.\n"
           },
-          "groupingId": {
-            "title": "Groupingid",
-            "type": "string",
-            "description": "The ID of the grouping as the source of the permission.\n\nEther or both `accountId` / `groupingId` **must** be provided."
+          "sourceType": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/PermissionSourceType"
+              }
+            ],
+            "description": "The type of the permission's source. **Mandatory**.\n\nSet `sourceType` to either:\n\n- Account `uniqueId`.\n- Grouping `uniqueId`."
           },
           "privilegeId": {
             "title": "Privilegeid",
+            "minLength": 1,
             "type": "string",
-            "description": "The ID of the privilege, allows access to assets. This field is **Mandatory**.\n"
+            "description": "The ID of the privilege, allows access to assets. **Mandatory**.\n"
           },
           "assetId": {
             "title": "Assetid",
@@ -2706,7 +2729,7 @@
           "isRole": {
             "title": "Isrole",
             "type": "boolean",
-            "description": "If `True`, the permissions represent the role in the source application.\nThe default is `False`.\n",
+            "description": "If `true`, the permissions represent the role in the source application.\nThe default is `false`.\n",
             "default": false
           }
         },
@@ -2860,11 +2883,13 @@
         "properties": {
           "sourceId": {
             "title": "Sourceid",
+            "minLength": 1,
             "type": "string",
             "description": "ID of the source privilege. **Mandatory**\n"
           },
           "targetId": {
             "title": "Targetid",
+            "minLength": 1,
             "type": "string",
             "description": "ID of the granted privilege. **Mandatory**\n"
           }
@@ -2956,15 +2981,16 @@
       "NewPrivilegeRequestSchema": {
         "title": "NewPrivilegeRequestSchema",
         "required": [
-          "id",
+          "uniqueId",
           "type"
         ],
         "type": "object",
         "properties": {
-          "id": {
-            "title": "Id",
+          "uniqueId": {
+            "title": "Uniqueid",
+            "minLength": 1,
             "type": "string",
-            "description": "ID of privilege. **Mandatory, must be unique.**\n"
+            "description": "Privilege ID. **Mandatory, must be unique.**\n"
           },
           "type": {
             "allOf": [
@@ -3081,6 +3107,7 @@
         "properties": {
           "uniqueId": {
             "title": "Uniqueid",
+            "minLength": 1,
             "type": "string",
             "description": "User's Account ID. **Mandatory, must be unique.**\n"
           },
@@ -3223,6 +3250,14 @@
         },
         "description": "Base schema for pagination"
       },
+      "PermissionSourceType": {
+        "title": "PermissionSourceType",
+        "enum": [
+          "Account",
+          "Grouping"
+        ],
+        "description": "An enumeration."
+      },
       "PrivilegeType": {
         "title": "PrivilegeType",
         "enum": [
@@ -3283,7 +3318,7 @@
             "items": {
               "$ref": "#/components/schemas/NewPrivilegeRequestSchema"
             },
-            "description": "Add privileges.\n"
+            "description": "Add privileges.\n\nThis API enables you to define privileges that can be associated with assets.\n\nFor example, Read privileges on a file.\n\nHere you can define the type of privileges and associate it to assets in the Permission API.\n"
           },
           "new_privileges_grants": {
             "title": "New Privileges Grants",
