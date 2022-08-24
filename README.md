@@ -38,9 +38,17 @@ client.extend_transaction_items(connector_id, transaction.id, ItemsBundleSchema(
 client.apply_transaction(connector_id, transaction.id)
 ```
 
-## Development
+## Installing
 
-Automatically generated from openapi.json using [datamodel-code-generator](https://github.com/koxudaxi/datamodel-code-generator)
+From PyPI:
+
+```
+pip install authomize-rest-api-client
+```
+
+## Making changes to this repository
+
+For code automatically generated from openapi.json using [datamodel-code-generator](https://github.com/koxudaxi/datamodel-code-generator)
 
 Get openapi.json by
 
