@@ -1,4 +1,6 @@
 import json
+from datetime import datetime
+from typing import Optional
 
 from apiclient_pydantic import serialize_all_methods, serialize_response
 from pydantic.json import pydantic_encoder
@@ -31,6 +33,16 @@ from authomize.rest_api_client.generated.schemas import (
     NewUsersListRequestSchema,
     RestApiConnectorListSchema,
     SubmitResponse,
+    SearchUsersListResponseSchema,
+    SearchGroupingResponseSchema,
+    SearchPermissionResponseSchema,
+    SearchPrivilegesListResponseSchema,
+    SearchPrivilegeGrantsListResponseSchema,
+    SearchAccountsAssociationsListResponseSchema,
+    SearchGroupingsAssociationsListResponseSchema,
+    SearchAssetsListResponseSchema,
+    SearchAssetsInheritanceListResponseSchema,
+    SearchIdentitiesListResponseSchema,
 )
 
 
@@ -101,6 +113,23 @@ class Client(BaseClient):
             raise ValueError('Missing app_id')
         return self.http_delete(url=f'/v2/apps/{app_id}/data')
 
+    def search_users(
+        self,
+        app_id: str,
+        start_date: Optional[datetime] = None,
+    ) -> SearchUsersListResponseSchema:
+        if not app_id:
+            raise ValueError('Missing app_id')
+        params = dict(
+            start_date=start_date,
+        )
+        return self.http_get(
+            url=f'/v2/apps/{app_id}/accounts/users',
+            params={
+                **params,
+            },
+        )
+
     def create_users(
         self,
         app_id: str,
@@ -114,6 +143,23 @@ class Client(BaseClient):
                 body,
                 default=pydantic_encoder,
             ),
+        )
+
+    def search_groupings(
+        self,
+        app_id: str,
+        start_date: Optional[datetime] = None,
+    ) -> SearchGroupingResponseSchema:
+        if not app_id:
+            raise ValueError('Missing app_id')
+        params = dict(
+            start_date=start_date,
+        )
+        return self.http_get(
+            url=f'/v2/apps/{app_id}/access/grouping',
+            params={
+                **params,
+            },
         )
 
     def create_groupings(
@@ -131,6 +177,23 @@ class Client(BaseClient):
             ),
         )
 
+    def search_permissions(
+        self,
+        app_id: str,
+        start_date: Optional[datetime] = None,
+    ) -> SearchPermissionResponseSchema:
+        if not app_id:
+            raise ValueError('Missing app_id')
+        params = dict(
+            start_date=start_date,
+        )
+        return self.http_get(
+            url=f'/v2/apps/{app_id}/access/permissions',
+            params={
+                **params,
+            },
+        )
+
     def create_permissions(
         self,
         app_id: str,
@@ -144,6 +207,23 @@ class Client(BaseClient):
                 body,
                 default=pydantic_encoder,
             ),
+        )
+
+    def search_privileges(
+        self,
+        app_id: str,
+        start_date: Optional[datetime] = None,
+    ) -> SearchPrivilegesListResponseSchema:
+        if not app_id:
+            raise ValueError('Missing app_id')
+        params = dict(
+            start_date=start_date,
+        )
+        return self.http_get(
+            url=f'/v2/apps/{app_id}/privileges',
+            params={
+                **params,
+            },
         )
 
     def create_privileges(
@@ -161,6 +241,23 @@ class Client(BaseClient):
             ),
         )
 
+    def search_privileges_grants(
+        self,
+        app_id: str,
+        start_date: Optional[datetime] = None,
+    ) -> SearchPrivilegeGrantsListResponseSchema:
+        if not app_id:
+            raise ValueError('Missing app_id')
+        params = dict(
+            start_date=start_date,
+        )
+        return self.http_get(
+            url=f'/v2/apps/{app_id}/privileges/grants',
+            params={
+                **params,
+            },
+        )
+
     def create_privileges_grants(
         self,
         app_id: str,
@@ -174,6 +271,23 @@ class Client(BaseClient):
                 body,
                 default=pydantic_encoder,
             ),
+        )
+
+    def search_accounts_association(
+        self,
+        app_id: str,
+        start_date: Optional[datetime] = None,
+    ) -> SearchAccountsAssociationsListResponseSchema:
+        if not app_id:
+            raise ValueError('Missing app_id')
+        params = dict(
+            start_date=start_date,
+        )
+        return self.http_get(
+            url=f'/v2/apps/{app_id}/association/accounts',
+            params={
+                **params,
+            },
         )
 
     def create_accounts_association(
@@ -191,6 +305,23 @@ class Client(BaseClient):
             ),
         )
 
+    def search_groupings_association(
+        self,
+        app_id: str,
+        start_date: Optional[datetime] = None,
+    ) -> SearchGroupingsAssociationsListResponseSchema:
+        if not app_id:
+            raise ValueError('Missing app_id')
+        params = dict(
+            start_date=start_date,
+        )
+        return self.http_get(
+            url=f'/v2/apps/{app_id}/association/groupings',
+            params={
+                **params,
+            },
+        )
+
     def create_groupings_association(
         self,
         app_id: str,
@@ -204,6 +335,23 @@ class Client(BaseClient):
                 body,
                 default=pydantic_encoder,
             ),
+        )
+
+    def search_assets(
+        self,
+        app_id: str,
+        start_date: Optional[datetime] = None,
+    ) -> SearchAssetsListResponseSchema:
+        if not app_id:
+            raise ValueError('Missing app_id')
+        params = dict(
+            start_date=start_date,
+        )
+        return self.http_get(
+            url=f'/v2/apps/{app_id}/assets',
+            params={
+                **params,
+            },
         )
 
     def create_assets(
@@ -221,6 +369,23 @@ class Client(BaseClient):
             ),
         )
 
+    def search_assets_inheritance(
+        self,
+        app_id: str,
+        start_date: Optional[datetime] = None,
+    ) -> SearchAssetsInheritanceListResponseSchema:
+        if not app_id:
+            raise ValueError('Missing app_id')
+        params = dict(
+            start_date=start_date,
+        )
+        return self.http_get(
+            url=f'/v2/apps/{app_id}/assets/inheritance',
+            params={
+                **params,
+            },
+        )
+
     def create_assets_inheritance(
         self,
         app_id: str,
@@ -234,6 +399,23 @@ class Client(BaseClient):
                 body,
                 default=pydantic_encoder,
             ),
+        )
+
+    def search_identities(
+        self,
+        app_id: str,
+        start_date: Optional[datetime] = None,
+    ) -> SearchIdentitiesListResponseSchema:
+        if not app_id:
+            raise ValueError('Missing app_id')
+        params = dict(
+            start_date=start_date,
+        )
+        return self.http_get(
+            url=f'/v2/apps/{app_id}/identities',
+            params={
+                **params,
+            },
         )
 
     def create_identities(

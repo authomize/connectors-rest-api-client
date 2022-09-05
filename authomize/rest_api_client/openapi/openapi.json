@@ -109,6 +109,64 @@
       }
     },
     "/v2/apps/{appId}/accounts/users": {
+      "get": {
+        "tags": [
+          "Accounts"
+        ],
+        "summary": "Search Users",
+        "description": "**Get users.**",
+        "operationId": "search_users_v2_apps__appId__accounts_users_get",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Appid",
+              "type": "string"
+            },
+            "name": "appId",
+            "in": "path"
+          },
+          {
+            "description": "Everything from this date and forward.",
+            "required": false,
+            "schema": {
+              "title": "Startdate",
+              "type": "string",
+              "description": "Everything from this date and forward.",
+              "format": "date-time"
+            },
+            "name": "startDate",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SearchUsersListResponseSchema"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ]
+      },
       "post": {
         "tags": [
           "Accounts"
@@ -167,6 +225,64 @@
       }
     },
     "/v2/apps/{appId}/access/grouping": {
+      "get": {
+        "tags": [
+          "Access"
+        ],
+        "summary": "Search Groupings",
+        "description": "**Get groupings.**",
+        "operationId": "search_groupings_v2_apps__appId__access_grouping_get",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Appid",
+              "type": "string"
+            },
+            "name": "appId",
+            "in": "path"
+          },
+          {
+            "description": "Everything from this date and forward.",
+            "required": false,
+            "schema": {
+              "title": "Startdate",
+              "type": "string",
+              "description": "Everything from this date and forward.",
+              "format": "date-time"
+            },
+            "name": "startDate",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SearchGroupingResponseSchema"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ]
+      },
       "post": {
         "tags": [
           "Access"
@@ -225,6 +341,64 @@
       }
     },
     "/v2/apps/{appId}/access/permissions": {
+      "get": {
+        "tags": [
+          "Access"
+        ],
+        "summary": "Search Permissions",
+        "description": "**Get permissions.**",
+        "operationId": "search_permissions_v2_apps__appId__access_permissions_get",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Appid",
+              "type": "string"
+            },
+            "name": "appId",
+            "in": "path"
+          },
+          {
+            "description": "Everything from this date and forward.",
+            "required": false,
+            "schema": {
+              "title": "Startdate",
+              "type": "string",
+              "description": "Everything from this date and forward.",
+              "format": "date-time"
+            },
+            "name": "startDate",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SearchPermissionResponseSchema"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ]
+      },
       "post": {
         "tags": [
           "Access"
@@ -283,6 +457,64 @@
       }
     },
     "/v2/apps/{appId}/privileges": {
+      "get": {
+        "tags": [
+          "Privileges"
+        ],
+        "summary": "Search Privileges",
+        "description": "**Get privileges.**",
+        "operationId": "search_privileges_v2_apps__appId__privileges_get",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Appid",
+              "type": "string"
+            },
+            "name": "appId",
+            "in": "path"
+          },
+          {
+            "description": "Everything from this date and forward.",
+            "required": false,
+            "schema": {
+              "title": "Startdate",
+              "type": "string",
+              "description": "Everything from this date and forward.",
+              "format": "date-time"
+            },
+            "name": "startDate",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SearchPrivilegesListResponseSchema"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ]
+      },
       "post": {
         "tags": [
           "Privileges"
@@ -341,6 +573,64 @@
       }
     },
     "/v2/apps/{appId}/privileges/grants": {
+      "get": {
+        "tags": [
+          "Privileges"
+        ],
+        "summary": "Search Privileges Grants",
+        "description": "**Get privileges grants.**",
+        "operationId": "search_privileges_grants_v2_apps__appId__privileges_grants_get",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Appid",
+              "type": "string"
+            },
+            "name": "appId",
+            "in": "path"
+          },
+          {
+            "description": "Everything from this date and forward.",
+            "required": false,
+            "schema": {
+              "title": "Startdate",
+              "type": "string",
+              "description": "Everything from this date and forward.",
+              "format": "date-time"
+            },
+            "name": "startDate",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SearchPrivilegeGrantsListResponseSchema"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ]
+      },
       "post": {
         "tags": [
           "Privileges"
@@ -399,12 +689,70 @@
       }
     },
     "/v2/apps/{appId}/association/accounts": {
+      "get": {
+        "tags": [
+          "Association"
+        ],
+        "summary": "Search Accounts Association",
+        "description": "**Get accounts associations.**",
+        "operationId": "search_accounts_association_v2_apps__appId__association_accounts_get",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Appid",
+              "type": "string"
+            },
+            "name": "appId",
+            "in": "path"
+          },
+          {
+            "description": "Everything from this date and forward.",
+            "required": false,
+            "schema": {
+              "title": "Startdate",
+              "type": "string",
+              "description": "Everything from this date and forward.",
+              "format": "date-time"
+            },
+            "name": "startDate",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SearchAccountsAssociationsListResponseSchema"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ]
+      },
       "post": {
         "tags": [
           "Association"
         ],
         "summary": "Create Accounts Association",
-        "description": "**post_accounts association**",
+        "description": "Create association between user accounts and groups.",
         "operationId": "create_accounts_association_v2_apps__appId__association_accounts_post",
         "parameters": [
           {
@@ -457,12 +805,70 @@
       }
     },
     "/v2/apps/{appId}/association/groupings": {
+      "get": {
+        "tags": [
+          "Association"
+        ],
+        "summary": "Search Groupings Association",
+        "description": "**Get groupings associations.**",
+        "operationId": "search_groupings_association_v2_apps__appId__association_groupings_get",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Appid",
+              "type": "string"
+            },
+            "name": "appId",
+            "in": "path"
+          },
+          {
+            "description": "Everything from this date and forward.",
+            "required": false,
+            "schema": {
+              "title": "Startdate",
+              "type": "string",
+              "description": "Everything from this date and forward.",
+              "format": "date-time"
+            },
+            "name": "startDate",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SearchGroupingsAssociationsListResponseSchema"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ]
+      },
       "post": {
         "tags": [
           "Association"
         ],
         "summary": "Create Groupings Association",
-        "description": "Create associations between accounts and groups.\n",
+        "description": "Create associations between groups and other groups.\n",
         "operationId": "create_groupings_association_v2_apps__appId__association_groupings_post",
         "parameters": [
           {
@@ -515,6 +921,64 @@
       }
     },
     "/v2/apps/{appId}/assets": {
+      "get": {
+        "tags": [
+          "Assets"
+        ],
+        "summary": "Search Assets",
+        "description": "**Get assets.**",
+        "operationId": "search_assets_v2_apps__appId__assets_get",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Appid",
+              "type": "string"
+            },
+            "name": "appId",
+            "in": "path"
+          },
+          {
+            "description": "Everything from this date and forward.",
+            "required": false,
+            "schema": {
+              "title": "Startdate",
+              "type": "string",
+              "description": "Everything from this date and forward.",
+              "format": "date-time"
+            },
+            "name": "startDate",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SearchAssetsListResponseSchema"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ]
+      },
       "post": {
         "tags": [
           "Assets"
@@ -573,6 +1037,64 @@
       }
     },
     "/v2/apps/{appId}/assets/inheritance": {
+      "get": {
+        "tags": [
+          "Assets"
+        ],
+        "summary": "Search Assets Inheritance",
+        "description": "**Get assets inheritance.**",
+        "operationId": "search_assets_inheritance_v2_apps__appId__assets_inheritance_get",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Appid",
+              "type": "string"
+            },
+            "name": "appId",
+            "in": "path"
+          },
+          {
+            "description": "Everything from this date and forward.",
+            "required": false,
+            "schema": {
+              "title": "Startdate",
+              "type": "string",
+              "description": "Everything from this date and forward.",
+              "format": "date-time"
+            },
+            "name": "startDate",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SearchAssetsInheritanceListResponseSchema"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ]
+      },
       "post": {
         "tags": [
           "Assets"
@@ -631,6 +1153,64 @@
       }
     },
     "/v2/apps/{appId}/identities": {
+      "get": {
+        "tags": [
+          "Identities"
+        ],
+        "summary": "Search Identities",
+        "description": "**Get identities.**",
+        "operationId": "search_identities_v2_apps__appId__identities_get",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Appid",
+              "type": "string"
+            },
+            "name": "appId",
+            "in": "path"
+          },
+          {
+            "description": "Everything from this date and forward.",
+            "required": false,
+            "schema": {
+              "title": "Startdate",
+              "type": "string",
+              "description": "Everything from this date and forward.",
+              "format": "date-time"
+            },
+            "name": "startDate",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SearchIdentitiesListResponseSchema"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ]
+      },
       "post": {
         "tags": [
           "Identities"
@@ -1427,6 +2007,29 @@
         ],
         "description": "An enumeration."
       },
+      "AccountsAssociationSchema": {
+        "title": "AccountsAssociationSchema",
+        "required": [
+          "sourceId",
+          "targetId"
+        ],
+        "type": "object",
+        "properties": {
+          "sourceId": {
+            "title": "Sourceid",
+            "minLength": 1,
+            "type": "string",
+            "description": "Source account ID **Mandatory**\n"
+          },
+          "targetId": {
+            "title": "Targetid",
+            "minLength": 1,
+            "type": "string",
+            "description": "Target grouping ID to associate with  **Mandatory**.\n"
+          }
+        },
+        "description": "Accounts association schema"
+      },
       "AllSchemasResponseSchema": {
         "title": "AllSchemasResponseSchema",
         "type": "object",
@@ -1490,6 +2093,140 @@
           }
         }
       },
+      "AssetInheritanceSchema": {
+        "title": "AssetInheritanceSchema",
+        "required": [
+          "uniqueId",
+          "name"
+        ],
+        "type": "object",
+        "properties": {
+          "uniqueId": {
+            "title": "Uniqueid",
+            "minLength": 1,
+            "type": "string",
+            "description": "Asset ID. **Mandatory, must be unique.**\n"
+          },
+          "name": {
+            "title": "Name",
+            "minLength": 1,
+            "type": "string",
+            "description": "The name of the asset. The default is the Asset ID. **Mandatory**\n"
+          },
+          "type": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/AssetType"
+              }
+            ],
+            "description": "The asset types that are supported by Authomize **Mandatory**\n\nPermitted values:\n\n   •\t`Application` (federation) \n   •\t`Database`\n   •\t`Drive`\n   •\t`File`\n   •\t`Folder`\n   •\t`Git Repository`\n   •\t`Integration`\n   •\t`Project`\n   •\t`Site`\n   •\t`Table`\n   •\t`Ticket`\n   •\t`Virtual Machine`\n   •\t`Other`\n\nIf the asset type does not exist use `Other`.\n",
+            "default": "Other"
+          },
+          "originType": {
+            "title": "Origintype",
+            "type": "string",
+            "description": "The asset type in the source system.\nThe default is the canonical type (if not mentioned).\n"
+          },
+          "createdAt": {
+            "title": "Createdat",
+            "type": "string",
+            "description": "The date (in ISO 8601 format) that the asset was created.\nThe default is `null`.\n",
+            "format": "date-time"
+          },
+          "lastUsedAt": {
+            "title": "Lastusedat",
+            "type": "string",
+            "description": "The date (in ISO 8601 format) of the last time that the asset was in use.\nThe default is `null`.\n",
+            "format": "date-time"
+          },
+          "description": {
+            "title": "Description",
+            "type": "string",
+            "description": "A description of the asset (up to 512 characters).\n"
+          },
+          "href": {
+            "title": "Href",
+            "type": "string",
+            "description": "A link to the asset in the source system.\n"
+          },
+          "tags": {
+            "title": "Tags",
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Tags associated with the asset.\n"
+          }
+        },
+        "description": "Asset inheritance schema"
+      },
+      "AssetSchema": {
+        "title": "AssetSchema",
+        "required": [
+          "uniqueId",
+          "name"
+        ],
+        "type": "object",
+        "properties": {
+          "uniqueId": {
+            "title": "Uniqueid",
+            "minLength": 1,
+            "type": "string",
+            "description": "Asset ID. **Mandatory, must be unique.**\n"
+          },
+          "name": {
+            "title": "Name",
+            "minLength": 1,
+            "type": "string",
+            "description": "The name of the asset. The default is the Asset ID. **Mandatory**\n"
+          },
+          "type": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/AssetType"
+              }
+            ],
+            "description": "The asset types that are supported by Authomize **Mandatory**\n\nPermitted values:\n\n   •\t`Application` (federation) \n   •\t`Database`\n   •\t`Drive`\n   •\t`File`\n   •\t`Folder`\n   •\t`Git Repository`\n   •\t`Integration`\n   •\t`Project`\n   •\t`Site`\n   •\t`Table`\n   •\t`Ticket`\n   •\t`Virtual Machine`\n   •\t`Other`\n\nIf the asset type does not exist use `Other`.\n",
+            "default": "Other"
+          },
+          "originType": {
+            "title": "Origintype",
+            "type": "string",
+            "description": "The asset type in the source system.\nThe default is the canonical type (if not mentioned).\n"
+          },
+          "createdAt": {
+            "title": "Createdat",
+            "type": "string",
+            "description": "The date (in ISO 8601 format) that the asset was created.\nThe default is `null`.\n",
+            "format": "date-time"
+          },
+          "lastUsedAt": {
+            "title": "Lastusedat",
+            "type": "string",
+            "description": "The date (in ISO 8601 format) of the last time that the asset was in use.\nThe default is `null`.\n",
+            "format": "date-time"
+          },
+          "description": {
+            "title": "Description",
+            "type": "string",
+            "description": "A description of the asset (up to 512 characters).\n"
+          },
+          "href": {
+            "title": "Href",
+            "type": "string",
+            "description": "A link to the asset in the source system.\n"
+          },
+          "tags": {
+            "title": "Tags",
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Tags associated with the asset.\n"
+          }
+        },
+        "description": "Asset schema"
+      },
       "AssetType": {
         "title": "AssetType",
         "enum": [
@@ -1507,6 +2244,7 @@
           "VirtualMachine",
           "Other"
         ],
+        "type": "string",
         "description": "An enumeration."
       },
       "AssetTypes": {
@@ -1660,6 +2398,63 @@
           }
         }
       },
+      "GroupingSchema": {
+        "title": "GroupingSchema",
+        "required": [
+          "uniqueId",
+          "name"
+        ],
+        "type": "object",
+        "properties": {
+          "uniqueId": {
+            "title": "Uniqueid",
+            "minLength": 1,
+            "type": "string",
+            "description": "\nGrouping ID. **Mandatory, must be unique.**\n"
+          },
+          "name": {
+            "title": "Name",
+            "minLength": 1,
+            "type": "string",
+            "description": "The name of the grouping. The default is the ID field. **Mandatory**\n"
+          },
+          "originType": {
+            "title": "Origintype",
+            "type": "string",
+            "description": "The name of the type of grouping in the source system. The default is `Group`. Example: Group/Alias/AWS Role\n"
+          },
+          "type": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/GroupingType"
+              }
+            ],
+            "description": "Allowed values are `Group` and `VirtualGroup`.\n\nThe default is `Group`.\n\n`VirtualGroup` are mapped to the Authomize access explorer graph and are not present in other places in the user interface nor are they counted as a group.\n",
+            "default": "Group"
+          },
+          "isRole": {
+            "title": "Isrole",
+            "type": "boolean",
+            "description": "If `Role`, the grouping represents a role in the source application and the name of the role is the grouping `name`.\n\nThe default is `False`.\n",
+            "default": false
+          },
+          "anyoneCanJoinOrLeave": {
+            "title": "Anyonecanjoinorleave",
+            "type": "boolean",
+            "description": "Must be either `ture` or `false`.\nWhen set to `true` users can give themselves membership in this grouping without the grouping's managers' or owners' permission. \nExamples include public groups (M365), Google Groups with specific flags, ...\nValid only when `groupingType = Group`\n",
+            "default": false
+          },
+          "tags": {
+            "title": "Tags",
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Tags on the access grouping.\n"
+          }
+        },
+        "description": "Grouping schema"
+      },
       "GroupingType": {
         "title": "GroupingType",
         "enum": [
@@ -1667,6 +2462,29 @@
           "VirtualGroup"
         ],
         "description": "An enumeration."
+      },
+      "GroupingsAssociationSchema": {
+        "title": "GroupingsAssociationSchema",
+        "required": [
+          "sourceId",
+          "targetId"
+        ],
+        "type": "object",
+        "properties": {
+          "sourceId": {
+            "title": "Sourceid",
+            "minLength": 1,
+            "type": "string",
+            "description": "Grouping source ID **Mandatory**\n"
+          },
+          "targetId": {
+            "title": "Targetid",
+            "minLength": 1,
+            "type": "string",
+            "description": "Grouping Target Id  **Mandatory**. The grouping to associate with.\n"
+          }
+        },
+        "description": "Groupings association schema"
       },
       "HTTPValidationError": {
         "title": "HTTPValidationError",
@@ -1829,6 +2647,115 @@
             "format": "date-time"
           }
         }
+      },
+      "IdentitySchema": {
+        "title": "IdentitySchema",
+        "required": [
+          "uniqueId"
+        ],
+        "type": "object",
+        "properties": {
+          "uniqueId": {
+            "title": "Uniqueid",
+            "minLength": 1,
+            "type": "string",
+            "description": "Identity ID **Mandatory**\n"
+          },
+          "name": {
+            "title": "Name",
+            "type": "string",
+            "description": "Username"
+          },
+          "email": {
+            "title": "Email",
+            "type": "string",
+            "description": "User's work email address.\n"
+          },
+          "personalEmail": {
+            "title": "Personalemail",
+            "type": "string",
+            "description": "User's personal email address.\n"
+          },
+          "firstName": {
+            "title": "Firstname",
+            "type": "string",
+            "description": "User's first name\n"
+          },
+          "lastName": {
+            "title": "Lastname",
+            "type": "string",
+            "description": "The user's last name.\n"
+          },
+          "employeeNumber": {
+            "title": "Employeenumber",
+            "type": "string",
+            "description": "Employee number"
+          },
+          "status": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/UserStatus"
+              }
+            ],
+            "description": "The user status must be one of the following: `Deleted`, `Disabled`, `Enabled`, `Staged` or `Suspended`.\n"
+          },
+          "country": {
+            "title": "Country",
+            "type": "string",
+            "description": "Country"
+          },
+          "city": {
+            "title": "City",
+            "type": "string",
+            "description": "City"
+          },
+          "department": {
+            "title": "Department",
+            "type": "string",
+            "description": "The identity's department in the organization.\n"
+          },
+          "division": {
+            "title": "Division",
+            "type": "string",
+            "description": "The identity's division in their organization.\n"
+          },
+          "title": {
+            "title": "Title",
+            "type": "string",
+            "description": "The user's job title.\n"
+          },
+          "managerId": {
+            "title": "Managerid",
+            "type": "string",
+            "description": "The manager identity's ID.\n"
+          },
+          "hireAt": {
+            "title": "Hireat",
+            "type": "string",
+            "description": "The user's first day of work (in ISO 8601 format).\n",
+            "format": "date-time"
+          },
+          "terminationAt": {
+            "title": "Terminationat",
+            "type": "string",
+            "description": "The user's last day of work (in ISO 8601 format).\n",
+            "format": "date-time"
+          },
+          "description": {
+            "title": "Description",
+            "type": "string",
+            "description": "Additional description of the identity.\n"
+          },
+          "tags": {
+            "title": "Tags",
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "One or more tags on the user account.\n"
+          }
+        },
+        "description": "Identity schema"
       },
       "IdentityTypes": {
         "title": "IdentityTypes",
@@ -2116,7 +3043,7 @@
                 "$ref": "#/components/schemas/AssetType"
               }
             ],
-            "description": "The asset types that are supported by Authomize **Mandatory**\n\nPermitted values: \n   •\t`Application` (federation) \n   •\t`Database`\n   •\t`Drive`\n   •\t`File`\n   •\t`Folder`\n   •\t`Git Repository`\n   •\t`Integration`\n   •\t`Project`\n   •\t`Site`\n   •\t`Table`\n   •\t`Ticket`\n   •\t`Virtual Machine`\n\nIf the asset type does not exist use `Other`.\n",
+            "description": "The asset types that are supported by Authomize **Mandatory**\n\nPermitted values:\n\n   •\t`Application` (federation) \n   •\t`Database`\n   •\t`Drive`\n   •\t`File`\n   •\t`Folder`\n   •\t`Git Repository`\n   •\t`Integration`\n   •\t`Project`\n   •\t`Site`\n   •\t`Table`\n   •\t`Ticket`\n   •\t`Virtual Machine`\n   •\t`Other`\n\nIf the asset type does not exist use `Other`.\n",
             "default": "Other"
           },
           "originType": {
@@ -2128,6 +3055,12 @@
             "title": "Createdat",
             "type": "string",
             "description": "The date (in ISO 8601 format) that the asset was created.\nThe default is `null`.\n",
+            "format": "date-time"
+          },
+          "lastUsedAt": {
+            "title": "Lastusedat",
+            "type": "string",
+            "description": "The date (in ISO 8601 format) of the last time that the asset was in use.\nThe default is `null`.\n",
             "format": "date-time"
           },
           "description": {
@@ -2656,6 +3589,14 @@
             "title": "Description",
             "type": "string",
             "description": "Additional description of the identity.\n"
+          },
+          "tags": {
+            "title": "Tags",
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "One or more tags on the user account.\n"
           }
         },
         "description": "New Identity request schema"
@@ -2990,7 +3931,7 @@
             "title": "Uniqueid",
             "minLength": 1,
             "type": "string",
-            "description": "Privilege ID. **Mandatory, must be unique.**\n"
+            "description": "Privilege ID.\n\nIf not defined, set as originName. **Mandatory, must be unique.**\n"
           },
           "type": {
             "allOf": [
@@ -3250,6 +4191,49 @@
         },
         "description": "Base schema for pagination"
       },
+      "PermissionSchema": {
+        "title": "PermissionSchema",
+        "required": [
+          "sourceUniqueId",
+          "sourceType",
+          "privilegeId"
+        ],
+        "type": "object",
+        "properties": {
+          "sourceUniqueId": {
+            "title": "Sourceuniqueid",
+            "minLength": 1,
+            "type": "string",
+            "description": "The unique ID of the permission's source. Must be either `userId` or `groupingId`. **Mandatory**.\n"
+          },
+          "sourceType": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/PermissionSourceType"
+              }
+            ],
+            "description": "The type of the permission's source. **Mandatory**.\n\nSet `sourceType` to either:\n\n- User `uniqueId`.\n- Grouping `uniqueId`."
+          },
+          "privilegeId": {
+            "title": "Privilegeid",
+            "minLength": 1,
+            "type": "string",
+            "description": "The ID of the privilege, allows access to assets. **Mandatory**.\n"
+          },
+          "assetId": {
+            "title": "Assetid",
+            "type": "string",
+            "description": "The ID of the asset.\n\nWhen `null`, this is a global permission on the entire application (not just locally)."
+          },
+          "isRole": {
+            "title": "Isrole",
+            "type": "boolean",
+            "description": "If `true`, the permissions represent the role in the source application.\nThe default is `false`.\n",
+            "default": false
+          }
+        },
+        "description": "Permission schema"
+      },
       "PermissionSourceType": {
         "title": "PermissionSourceType",
         "enum": [
@@ -3257,6 +4241,59 @@
           "Grouping"
         ],
         "description": "An enumeration."
+      },
+      "PrivilegeGrantSchema": {
+        "title": "PrivilegeGrantSchema",
+        "required": [
+          "sourceId",
+          "targetId"
+        ],
+        "type": "object",
+        "properties": {
+          "sourceId": {
+            "title": "Sourceid",
+            "minLength": 1,
+            "type": "string",
+            "description": "ID of the source privilege. **Mandatory**\n"
+          },
+          "targetId": {
+            "title": "Targetid",
+            "minLength": 1,
+            "type": "string",
+            "description": "ID of the granted privilege. **Mandatory**\n"
+          }
+        },
+        "description": "Privilege grant schema"
+      },
+      "PrivilegeSchema": {
+        "title": "PrivilegeSchema",
+        "required": [
+          "uniqueId",
+          "type"
+        ],
+        "type": "object",
+        "properties": {
+          "uniqueId": {
+            "title": "Uniqueid",
+            "minLength": 1,
+            "type": "string",
+            "description": "Privilege ID.\n\nIf not defined, set as originName. **Mandatory, must be unique.**\n"
+          },
+          "type": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/PrivilegeType"
+              }
+            ],
+            "description": "The \"canonical\" privilege types that are supported by Authomize off-the-shelf: **Mandatory**\n\nPermitted values: \n   •\t`Administrative`\n   •\t`Unknown`\n   •\t`Read`\n   •\t`ReadMetadata`\n   •\t`Write`\n   •\t`Create`\n   •\t`Delete`\n   •\t`Execute`\n   •\t`Enable`\n   •\t`Assign`\n   •\t`Restore`\n   •\t`Import`\n   •\t`Export`\n   •\t`Update`\n   •\t`Cancel`\n   •\t`Use`\n   •\t`Delegate`\n   •\t`Join`\n   •\t`Invite`\n   •\t`Share`\n\nIf the privilege type does not exist use `Unknown` or `Use`.\n"
+          },
+          "originName": {
+            "title": "Originname",
+            "type": "string",
+            "description": "The privilege name in the source system."
+          }
+        },
+        "description": "Privilege schema"
       },
       "PrivilegeType": {
         "title": "PrivilegeType",
@@ -3334,7 +4371,7 @@
             "items": {
               "$ref": "#/components/schemas/NewAccountsAssociationRequestSchema"
             },
-            "description": "**post_accounts association**"
+            "description": "Create association between user accounts and groups."
           },
           "new_groupings_association": {
             "title": "New Groupings Association",
@@ -3342,7 +4379,7 @@
             "items": {
               "$ref": "#/components/schemas/NewGroupingsAssociationRequestSchema"
             },
-            "description": "Create associations between accounts and groups.\n"
+            "description": "Create associations between groups and other groups.\n"
           },
           "new_assets": {
             "title": "New Assets",
@@ -3459,6 +4496,186 @@
           }
         }
       },
+      "SearchAccountsAssociationsListResponseSchema": {
+        "title": "SearchAccountsAssociationsListResponseSchema",
+        "required": [
+          "data"
+        ],
+        "type": "object",
+        "properties": {
+          "data": {
+            "title": "Data",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AccountsAssociationSchema"
+            },
+            "description": "Accounts Associations"
+          }
+        },
+        "description": "Search accounts association response schema"
+      },
+      "SearchAssetsInheritanceListResponseSchema": {
+        "title": "SearchAssetsInheritanceListResponseSchema",
+        "required": [
+          "data"
+        ],
+        "type": "object",
+        "properties": {
+          "data": {
+            "title": "Data",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AssetInheritanceSchema"
+            },
+            "description": "Assets Inheritance"
+          }
+        },
+        "description": "Search asset inheritance response schema"
+      },
+      "SearchAssetsListResponseSchema": {
+        "title": "SearchAssetsListResponseSchema",
+        "required": [
+          "data"
+        ],
+        "type": "object",
+        "properties": {
+          "data": {
+            "title": "Data",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AssetSchema"
+            },
+            "description": "Assets"
+          }
+        },
+        "description": "Search asset response schema"
+      },
+      "SearchGroupingResponseSchema": {
+        "title": "SearchGroupingResponseSchema",
+        "required": [
+          "data"
+        ],
+        "type": "object",
+        "properties": {
+          "data": {
+            "title": "Data",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/GroupingSchema"
+            },
+            "description": "Groupings"
+          }
+        },
+        "description": "Search grouping response schema"
+      },
+      "SearchGroupingsAssociationsListResponseSchema": {
+        "title": "SearchGroupingsAssociationsListResponseSchema",
+        "required": [
+          "data"
+        ],
+        "type": "object",
+        "properties": {
+          "data": {
+            "title": "Data",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/GroupingsAssociationSchema"
+            },
+            "description": "Groupings Associations"
+          }
+        },
+        "description": "Search groupings association response schema"
+      },
+      "SearchIdentitiesListResponseSchema": {
+        "title": "SearchIdentitiesListResponseSchema",
+        "required": [
+          "data"
+        ],
+        "type": "object",
+        "properties": {
+          "data": {
+            "title": "Data",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/IdentitySchema"
+            },
+            "description": "Identities"
+          }
+        },
+        "description": "Search identity response schema"
+      },
+      "SearchPermissionResponseSchema": {
+        "title": "SearchPermissionResponseSchema",
+        "required": [
+          "data"
+        ],
+        "type": "object",
+        "properties": {
+          "data": {
+            "title": "Data",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PermissionSchema"
+            },
+            "description": "Permissions"
+          }
+        },
+        "description": "Search permission response schema"
+      },
+      "SearchPrivilegeGrantsListResponseSchema": {
+        "title": "SearchPrivilegeGrantsListResponseSchema",
+        "required": [
+          "data"
+        ],
+        "type": "object",
+        "properties": {
+          "data": {
+            "title": "Data",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PrivilegeGrantSchema"
+            },
+            "description": "Privilege Grants"
+          }
+        },
+        "description": "Search privilege grant response schema"
+      },
+      "SearchPrivilegesListResponseSchema": {
+        "title": "SearchPrivilegesListResponseSchema",
+        "required": [
+          "data"
+        ],
+        "type": "object",
+        "properties": {
+          "data": {
+            "title": "Data",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PrivilegeSchema"
+            },
+            "description": "Privileges"
+          }
+        },
+        "description": "Search privilege response schema"
+      },
+      "SearchUsersListResponseSchema": {
+        "title": "SearchUsersListResponseSchema",
+        "required": [
+          "data"
+        ],
+        "type": "object",
+        "properties": {
+          "data": {
+            "title": "Data",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/UserSchema"
+            },
+            "description": "Users"
+          }
+        },
+        "description": "Search user response schema"
+      },
       "ServiceDescription": {
         "title": "ServiceDescription",
         "required": [
@@ -3520,6 +4737,80 @@
           "Queue"
         ],
         "description": "An enumeration."
+      },
+      "UserSchema": {
+        "title": "UserSchema",
+        "required": [
+          "uniqueId"
+        ],
+        "type": "object",
+        "properties": {
+          "uniqueId": {
+            "title": "Uniqueid",
+            "minLength": 1,
+            "type": "string",
+            "description": "User's Account ID. **Mandatory, must be unique.**\n"
+          },
+          "name": {
+            "title": "Name",
+            "type": "string",
+            "description": "Username\n"
+          },
+          "email": {
+            "title": "Email",
+            "type": "string",
+            "description": "User's email address\n"
+          },
+          "firstName": {
+            "title": "Firstname",
+            "type": "string",
+            "description": "User's first name\n"
+          },
+          "lastName": {
+            "title": "Lastname",
+            "type": "string",
+            "description": "The user's last name.\n"
+          },
+          "status": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/UserStatus"
+              }
+            ],
+            "description": "User status must be: `Deleted`, `Disabled`, `Enabled`, `Staged`, `Suspended`, or `Unknown`.\n"
+          },
+          "description": {
+            "title": "Description",
+            "type": "string",
+            "description": "Additional description of the user\n"
+          },
+          "isExternal": {
+            "title": "Isexternal",
+            "type": "boolean",
+            "description": "Account is external to Authomize.\nMust be either `true` or `false`.\n",
+            "default": false
+          },
+          "hasMFA": {
+            "title": "Hasmfa",
+            "type": "boolean",
+            "description": "Has Multi-Factor Authentication enabled.\nMust be either `true` or `false`.\n"
+          },
+          "lastLoginAt": {
+            "title": "Lastloginat",
+            "type": "string",
+            "description": "The last login date in ISO 8601 format.\n",
+            "format": "date-time"
+          },
+          "tags": {
+            "title": "Tags",
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "One or more tags on the user account.\n"
+          }
+        },
+        "description": "User schema"
       },
       "UserStatus": {
         "title": "UserStatus",
