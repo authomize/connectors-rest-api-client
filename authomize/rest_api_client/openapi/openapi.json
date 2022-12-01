@@ -3,7 +3,7 @@
   "info": {
     "title": "Authomize API Reference",
     "description": "Authomize enables users to integrate your applications with Authomize via custom connectors.\n\nYou can use the APIs described in this document to create your connector.\n\nOnce data is uploaded and processed successfully, your custom connector will function in the same way as the connectors created by Authomize.\n\n## How does Authomize work?\nAuthomize works by gathering information about:\n\n· individuals, teams and functions.\n\n· apps, assets and accounts.\n\n· all the relationships between them.\n\n![img.png](https://storagetry1.blob.core.windows.net/public/78d82650-71b0-4909-8444-022aab79add5.png)\n\n## Connector APIs\n\nAuthomize connector APIs enable pushing data into Authomize from external sources.\n\nThese APIs enable data extracted from outside applications (via application APIs) to be delivered to Authomize.\n\nA connector processes extracted application data to transform it into a format compatible with Authomize.\n\n![img_1.png](https://storagetry1.blob.core.windows.net/public/341bf6ef-2e5b-4284-b715-45105ffbf0f8.png)\n\n## Authentication\nTo Authenticate use the API Token, with the format: `Authorization: API_Token`.\n\nAn API Token is a token you provide when making API calls. \n\n\nThe API Token should be included in every request to the API in an `Authorization` header.\n```\ncurl -v -X POST \\n\n     -H \"Authorization: {API_Token}\" \\n\n     ...\n```\n",
-    "version": "2.5.0",
+    "version": "2.5.1",
     "x-logo": {
       "url": "https://static.authomize.com/public/icons/authomize-green.svg"
     }
@@ -75,6 +75,19 @@
             },
             "name": "appId",
             "in": "path"
+          },
+          {
+            "description": "Delete all the app data lastly updated before the given date.",
+            "required": false,
+            "schema": {
+              "title": "Modifiedbefore",
+              "type": "string",
+              "description": "Delete all the app data lastly updated before the given date.",
+              "format": "date-time"
+            },
+            "example": "2022-12-01T15:16:07.625598+00:00",
+            "name": "modifiedBefore",
+            "in": "query"
           }
         ],
         "responses": {
@@ -112,7 +125,7 @@
           "Accounts"
         ],
         "summary": "Search Users",
-        "description": "**Get users.**",
+        "description": "Get users.",
         "operationId": "search_users_v2_apps__appId__accounts_users_get",
         "parameters": [
           {
@@ -1950,7 +1963,6 @@
         "title": "AccessDescription",
         "required": [
           "fromIdentityId",
-          "toAssetId",
           "accessType"
         ],
         "type": "object",
@@ -2128,6 +2140,12 @@
             "type": "string",
             "description": "Asset ID. **Mandatory, must be unique.**\n"
           },
+          "originId": {
+            "title": "Originid",
+            "minLength": 1,
+            "type": "string",
+            "description": "The asset ID in the source system.\nAs opposed to `uniqueId`, it's not mandatory and can be non-unique\n"
+          },
           "name": {
             "title": "Name",
             "minLength": 1,
@@ -2174,6 +2192,7 @@
             "title": "Tags",
             "type": "array",
             "items": {
+              "minLength": 1,
               "type": "string"
             },
             "description": "Tags associated with the asset.\n"
@@ -2366,6 +2385,12 @@
             "type": "string",
             "description": "\nGrouping ID. **Mandatory, must be unique.**\n"
           },
+          "originId": {
+            "title": "Originid",
+            "minLength": 1,
+            "type": "string",
+            "description": "The groupping ID in the source system.\nAs opposed to `uniqueId`, it's not mandatory and can be non-unique\n"
+          },
           "name": {
             "title": "Name",
             "minLength": 1,
@@ -2402,6 +2427,7 @@
             "title": "Tags",
             "type": "array",
             "items": {
+              "minLength": 1,
               "type": "string"
             },
             "description": "Tags on the access grouping.\n"
@@ -2435,7 +2461,7 @@
             "title": "Targetid",
             "minLength": 1,
             "type": "string",
-            "description": "Grouping Target Id  **Mandatory**. The grouping to associate with.\n"
+            "description": "Grouping Target ID  **Mandatory**. The grouping to associate with.\n"
           }
         },
         "description": "Groupings association schema"
@@ -2615,6 +2641,12 @@
             "type": "string",
             "description": "Identity ID **Mandatory**\n"
           },
+          "originId": {
+            "title": "Originid",
+            "minLength": 1,
+            "type": "string",
+            "description": "The identity ID in the source system.\nAs opposed to `uniqueId`, it's not mandatory and can be non-unique\n"
+          },
           "name": {
             "title": "Name",
             "type": "string",
@@ -2704,6 +2736,7 @@
             "title": "Tags",
             "type": "array",
             "items": {
+              "minLength": 1,
               "type": "string"
             },
             "description": "One or more tags on the user account.\n"
@@ -2715,6 +2748,7 @@
         "title": "IdentityTypes",
         "enum": [
           "Identity",
+          "Person",
           "User",
           "Group",
           "EntitlementProxy",
@@ -2978,6 +3012,12 @@
             "type": "string",
             "description": "Asset ID. **Mandatory, must be unique.**\n"
           },
+          "originId": {
+            "title": "Originid",
+            "minLength": 1,
+            "type": "string",
+            "description": "The asset ID in the source system.\nAs opposed to `uniqueId`, it's not mandatory and can be non-unique\n"
+          },
           "name": {
             "title": "Name",
             "minLength": 1,
@@ -3024,6 +3064,7 @@
             "title": "Tags",
             "type": "array",
             "items": {
+              "minLength": 1,
               "type": "string"
             },
             "description": "Tags associated with the asset.\n"
@@ -3199,6 +3240,12 @@
             "type": "string",
             "description": "\nGrouping ID. **Mandatory, must be unique.**\n"
           },
+          "originId": {
+            "title": "Originid",
+            "minLength": 1,
+            "type": "string",
+            "description": "The groupping ID in the source system.\nAs opposed to `uniqueId`, it's not mandatory and can be non-unique\n"
+          },
           "name": {
             "title": "Name",
             "minLength": 1,
@@ -3235,6 +3282,7 @@
             "title": "Tags",
             "type": "array",
             "items": {
+              "minLength": 1,
               "type": "string"
             },
             "description": "Tags on the access grouping.\n"
@@ -3292,7 +3340,7 @@
             "title": "Targetid",
             "minLength": 1,
             "type": "string",
-            "description": "Grouping Target Id  **Mandatory**. The grouping to associate with.\n"
+            "description": "Grouping Target ID  **Mandatory**. The grouping to associate with.\n"
           }
         },
         "description": "New groupings associations request schema"
@@ -3452,6 +3500,12 @@
             "type": "string",
             "description": "Identity ID **Mandatory**\n"
           },
+          "originId": {
+            "title": "Originid",
+            "minLength": 1,
+            "type": "string",
+            "description": "The identity ID in the source system.\nAs opposed to `uniqueId`, it's not mandatory and can be non-unique\n"
+          },
           "name": {
             "title": "Name",
             "type": "string",
@@ -3541,6 +3595,7 @@
             "title": "Tags",
             "type": "array",
             "items": {
+              "minLength": 1,
               "type": "string"
             },
             "description": "One or more tags on the user account.\n"
@@ -3880,6 +3935,12 @@
             "type": "string",
             "description": "Privilege ID.\n\nIf not defined, set as originName. **Mandatory, must be unique.**\n"
           },
+          "originId": {
+            "title": "Originid",
+            "minLength": 1,
+            "type": "string",
+            "description": "The privilege ID in the source system.\nAs opposed to `uniqueId`, it's not mandatory and can be non-unique\n"
+          },
           "type": {
             "allOf": [
               {
@@ -3999,6 +4060,12 @@
             "type": "string",
             "description": "User's Account ID. **Mandatory, must be unique.**\n"
           },
+          "originId": {
+            "title": "Originid",
+            "minLength": 1,
+            "type": "string",
+            "description": "The user ID in the source system.\nAs opposed to `uniqueId`, it's not mandatory and can be non-unique\n"
+          },
           "name": {
             "title": "Name",
             "type": "string",
@@ -4007,7 +4074,7 @@
           "email": {
             "title": "Email",
             "type": "string",
-            "description": "User's email address\n"
+            "description": "User's email address."
           },
           "firstName": {
             "title": "Firstname",
@@ -4030,7 +4097,7 @@
           "description": {
             "title": "Description",
             "type": "string",
-            "description": "Additional description of the user\n"
+            "description": "Additional description of the user.\n"
           },
           "isExternal": {
             "title": "Isexternal",
@@ -4053,6 +4120,7 @@
             "title": "Tags",
             "type": "array",
             "items": {
+              "minLength": 1,
               "type": "string"
             },
             "description": "One or more tags on the user account.\n"
@@ -4225,6 +4293,12 @@
             "minLength": 1,
             "type": "string",
             "description": "Privilege ID.\n\nIf not defined, set as originName. **Mandatory, must be unique.**\n"
+          },
+          "originId": {
+            "title": "Originid",
+            "minLength": 1,
+            "type": "string",
+            "description": "The privilege ID in the source system.\nAs opposed to `uniqueId`, it's not mandatory and can be non-unique\n"
           },
           "type": {
             "allOf": [
@@ -4729,6 +4803,12 @@
             "type": "string",
             "description": "User's Account ID. **Mandatory, must be unique.**\n"
           },
+          "originId": {
+            "title": "Originid",
+            "minLength": 1,
+            "type": "string",
+            "description": "The user ID in the source system.\nAs opposed to `uniqueId`, it's not mandatory and can be non-unique\n"
+          },
           "name": {
             "title": "Name",
             "type": "string",
@@ -4737,7 +4817,7 @@
           "email": {
             "title": "Email",
             "type": "string",
-            "description": "User's email address\n"
+            "description": "User's email address."
           },
           "firstName": {
             "title": "Firstname",
@@ -4760,7 +4840,7 @@
           "description": {
             "title": "Description",
             "type": "string",
-            "description": "Additional description of the user\n"
+            "description": "Additional description of the user.\n"
           },
           "isExternal": {
             "title": "Isexternal",
@@ -4783,6 +4863,7 @@
             "title": "Tags",
             "type": "array",
             "items": {
+              "minLength": 1,
               "type": "string"
             },
             "description": "One or more tags on the user account.\n"

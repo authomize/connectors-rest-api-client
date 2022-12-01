@@ -108,10 +108,14 @@ class Client(BaseClient):
     def delete_app_data(
         self,
         app_id: str,
+        modified_before: Optional[datetime] = None,
     ) -> SubmitResponse:
         if not app_id:
             raise ValueError('Missing app_id')
-        return self.http_delete(url=f'/v2/apps/{app_id}/data')
+        date_filter = ''
+        if modified_before:
+            date_filter = f'?modifiedBefore={str(modified_before)}'
+        return self.http_delete(url=f"/v2/apps/{app_id}/data{date_filter}")
 
     def search_users(
         self,
