@@ -1,0 +1,5 @@
+authomizeBuild([
+    language: 'python',
+    buildPythonPackage: true,
+    publicPackage: true
+])
