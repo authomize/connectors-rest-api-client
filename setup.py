@@ -2,14 +2,14 @@ from setuptools import find_namespace_packages, setup
 
 if __name__ == '__main__':
     setup(
-        version='2.7.0',
+        version='2.7.1',
         name='authomize-rest-api-client',
         author='Authomize inc.',
         license='MIT',
         author_email='info@authomize.com',
         description='Authomize REST API Python Client',
         packages=find_namespace_packages(include=['authomize.*']),
-        package_data={},
+        package_data={'authomize.rest_api_client': ['openapi/*.json', 'py.typed']},
         python_requires='>=3.10',
         install_requires=[
             'requests~=2.28.1',
