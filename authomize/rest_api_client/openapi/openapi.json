@@ -3,7 +3,7 @@
   "info": {
     "title": "Authomize API Reference",
     "description": "Authomize enables users to integrate your applications with Authomize via custom connectors.\n\nYou can use the APIs described in this document to create your connector.\n\nOnce data is uploaded and processed successfully, your custom connector will function in the same way as the connectors created by Authomize.\n\n## How does Authomize work?\nAuthomize works by gathering information about:\n\n· individuals, teams and functions.\n\n· apps, assets and accounts.\n\n· all the relationships between them.\n\n![img.png](https://storagetry1.blob.core.windows.net/public/78d82650-71b0-4909-8444-022aab79add5.png)\n\n## Connector APIs\n\nAuthomize connector APIs enable pushing data into Authomize from external sources.\n\nThese APIs enable data extracted from outside applications (via application APIs) to be delivered to Authomize.\n\nA connector processes extracted application data to transform it into a format compatible with Authomize.\n\n![img_1.png](https://storagetry1.blob.core.windows.net/public/341bf6ef-2e5b-4284-b715-45105ffbf0f8.png)\n\n## Authentication\nTo Authenticate use the API Token, with the format: `Authorization: API_Token`.\n\nAn API Token is a token you provide when making API calls. \n\n\nThe API Token should be included in every request to the API in an `Authorization` header.\n```\ncurl -v -X POST \\n\n     -H \"Authorization: {API_Token}\" \\n\n     ...\n```\n",
-    "version": "2.6.0",
+    "version": "2.7.1",
     "x-logo": {
       "url": "https://static.authomize.com/public/icons/authomize-green.svg"
     }
@@ -53,7 +53,7 @@
         },
         "security": [
           {
-            "APIKeyHeader": []
+            "APIKeyHeader": [ ]
           }
         ]
       }
@@ -71,11 +71,173 @@
             "description": "Successful Response",
             "content": {
               "application/json": {
-                "schema": {}
+                "schema": { }
               }
             }
           }
         }
+      }
+    },
+    "/v2/apps/{appId}/message": {
+      "post": {
+        "tags": [
+          "Apps"
+        ],
+        "summary": "Post Message",
+        "description": "Insert status message for the given app ID.",
+        "operationId": "post_message_v2_apps__appId__message_post",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Appid",
+              "type": "string"
+            },
+            "name": "appId",
+            "in": "path"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/StatusMessageRequestSchema"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SubmitResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "APIKeyHeader": [ ]
+          }
+        ]
+      },
+      "delete": {
+        "tags": [
+          "Apps"
+        ],
+        "summary": "Clear All Messages",
+        "description": "Clear all status messages for the given app ID",
+        "operationId": "clear_all_messages_v2_apps__appId__message_delete",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Appid",
+              "type": "string"
+            },
+            "name": "appId",
+            "in": "path"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SubmitResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "APIKeyHeader": [ ]
+          }
+        ]
+      }
+    },
+    "/v2/apps/{appId}/status": {
+      "post": {
+        "tags": [
+          "Apps"
+        ],
+        "summary": "Post Status",
+        "description": "Set status for the given App ID",
+        "operationId": "post_status_v2_apps__appId__status_post",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Appid",
+              "type": "string"
+            },
+            "name": "appId",
+            "in": "path"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/StatusRequestSchema"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExecutionStatusListSchema"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "APIKeyHeader": [ ]
+          }
+        ]
       }
     },
     "/v2/apps/{appId}/data": {
@@ -105,7 +267,7 @@
               "description": "Delete all the app data lastly updated before the given date.",
               "format": "date-time"
             },
-            "example": "2022-12-28T07:07:17.162353+00:00",
+            "example": "2023-01-15T17:04:59.263036+00:00",
             "name": "modifiedBefore",
             "in": "query"
           }
@@ -134,7 +296,7 @@
         },
         "security": [
           {
-            "APIKeyHeader": []
+            "APIKeyHeader": [ ]
           }
         ]
       }
@@ -194,7 +356,7 @@
         },
         "security": [
           {
-            "APIKeyHeader": []
+            "APIKeyHeader": [ ]
           }
         ]
       },
@@ -250,7 +412,7 @@
         },
         "security": [
           {
-            "APIKeyHeader": []
+            "APIKeyHeader": [ ]
           }
         ]
       },
@@ -306,7 +468,7 @@
         },
         "security": [
           {
-            "APIKeyHeader": []
+            "APIKeyHeader": [ ]
           }
         ]
       }
@@ -366,7 +528,7 @@
         },
         "security": [
           {
-            "APIKeyHeader": []
+            "APIKeyHeader": [ ]
           }
         ]
       },
@@ -422,7 +584,7 @@
         },
         "security": [
           {
-            "APIKeyHeader": []
+            "APIKeyHeader": [ ]
           }
         ]
       },
@@ -478,7 +640,7 @@
         },
         "security": [
           {
-            "APIKeyHeader": []
+            "APIKeyHeader": [ ]
           }
         ]
       }
@@ -538,7 +700,7 @@
         },
         "security": [
           {
-            "APIKeyHeader": []
+            "APIKeyHeader": [ ]
           }
         ]
       },
@@ -594,7 +756,7 @@
         },
         "security": [
           {
-            "APIKeyHeader": []
+            "APIKeyHeader": [ ]
           }
         ]
       }
@@ -654,7 +816,7 @@
         },
         "security": [
           {
-            "APIKeyHeader": []
+            "APIKeyHeader": [ ]
           }
         ]
       },
@@ -710,7 +872,7 @@
         },
         "security": [
           {
-            "APIKeyHeader": []
+            "APIKeyHeader": [ ]
           }
         ]
       },
@@ -766,7 +928,7 @@
         },
         "security": [
           {
-            "APIKeyHeader": []
+            "APIKeyHeader": [ ]
           }
         ]
       }
@@ -826,7 +988,7 @@
         },
         "security": [
           {
-            "APIKeyHeader": []
+            "APIKeyHeader": [ ]
           }
         ]
       },
@@ -882,7 +1044,7 @@
         },
         "security": [
           {
-            "APIKeyHeader": []
+            "APIKeyHeader": [ ]
           }
         ]
       }
@@ -942,7 +1104,7 @@
         },
         "security": [
           {
-            "APIKeyHeader": []
+            "APIKeyHeader": [ ]
           }
         ]
       },
@@ -998,7 +1160,7 @@
         },
         "security": [
           {
-            "APIKeyHeader": []
+            "APIKeyHeader": [ ]
           }
         ]
       }
@@ -1058,7 +1220,7 @@
         },
         "security": [
           {
-            "APIKeyHeader": []
+            "APIKeyHeader": [ ]
           }
         ]
       },
@@ -1114,7 +1276,7 @@
         },
         "security": [
           {
-            "APIKeyHeader": []
+            "APIKeyHeader": [ ]
           }
         ]
       }
@@ -1174,7 +1336,7 @@
         },
         "security": [
           {
-            "APIKeyHeader": []
+            "APIKeyHeader": [ ]
           }
         ]
       },
@@ -1230,7 +1392,7 @@
         },
         "security": [
           {
-            "APIKeyHeader": []
+            "APIKeyHeader": [ ]
           }
         ]
       },
@@ -1286,7 +1448,7 @@
         },
         "security": [
           {
-            "APIKeyHeader": []
+            "APIKeyHeader": [ ]
           }
         ]
       }
@@ -1346,7 +1508,7 @@
         },
         "security": [
           {
-            "APIKeyHeader": []
+            "APIKeyHeader": [ ]
           }
         ]
       },
@@ -1402,7 +1564,7 @@
         },
         "security": [
           {
-            "APIKeyHeader": []
+            "APIKeyHeader": [ ]
           }
         ]
       }
@@ -1462,7 +1624,7 @@
         },
         "security": [
           {
-            "APIKeyHeader": []
+            "APIKeyHeader": [ ]
           }
         ]
       },
@@ -1518,7 +1680,7 @@
         },
         "security": [
           {
-            "APIKeyHeader": []
+            "APIKeyHeader": [ ]
           }
         ]
       },
@@ -1574,7 +1736,7 @@
         },
         "security": [
           {
-            "APIKeyHeader": []
+            "APIKeyHeader": [ ]
           }
         ]
       }
@@ -1602,7 +1764,7 @@
         "deprecated": true,
         "security": [
           {
-            "APIKeyHeader": []
+            "APIKeyHeader": [ ]
           }
         ]
       }
@@ -1651,7 +1813,7 @@
         "deprecated": true,
         "security": [
           {
-            "APIKeyHeader": []
+            "APIKeyHeader": [ ]
           }
         ]
       }
@@ -1711,7 +1873,7 @@
         "deprecated": true,
         "security": [
           {
-            "APIKeyHeader": []
+            "APIKeyHeader": [ ]
           }
         ]
       },
@@ -1757,7 +1919,7 @@
         "deprecated": true,
         "security": [
           {
-            "APIKeyHeader": []
+            "APIKeyHeader": [ ]
           }
         ]
       }
@@ -1834,7 +1996,7 @@
         "deprecated": true,
         "security": [
           {
-            "APIKeyHeader": []
+            "APIKeyHeader": [ ]
           }
         ]
       },
@@ -1881,7 +2043,7 @@
         "deprecated": true,
         "security": [
           {
-            "APIKeyHeader": []
+            "APIKeyHeader": [ ]
           }
         ]
       }
@@ -1939,7 +2101,7 @@
         "deprecated": true,
         "security": [
           {
-            "APIKeyHeader": []
+            "APIKeyHeader": [ ]
           }
         ]
       },
@@ -1975,7 +2137,7 @@
             "description": "Successful Response",
             "content": {
               "application/json": {
-                "schema": {}
+                "schema": { }
               }
             }
           },
@@ -1993,7 +2155,7 @@
         "deprecated": true,
         "security": [
           {
-            "APIKeyHeader": []
+            "APIKeyHeader": [ ]
           }
         ]
       }
@@ -2051,7 +2213,7 @@
         "deprecated": true,
         "security": [
           {
-            "APIKeyHeader": []
+            "APIKeyHeader": [ ]
           }
         ]
       }
@@ -2119,7 +2281,7 @@
         "deprecated": true,
         "security": [
           {
-            "APIKeyHeader": []
+            "APIKeyHeader": [ ]
           }
         ]
       }
@@ -2177,7 +2339,7 @@
         "deprecated": true,
         "security": [
           {
-            "APIKeyHeader": []
+            "APIKeyHeader": [ ]
           }
         ]
       }
@@ -2230,7 +2392,7 @@
         "deprecated": true,
         "security": [
           {
-            "APIKeyHeader": []
+            "APIKeyHeader": [ ]
           }
         ]
       }
@@ -2488,6 +2650,11 @@
             "type": "string",
             "description": "A link to the asset in the source system.\n"
           },
+          "owner": {
+            "title": "Owner",
+            "type": "string",
+            "description": "The owner ID"
+          },
           "tags": {
             "title": "Tags",
             "type": "array",
@@ -2654,6 +2821,112 @@
         ],
         "description": "An enumeration."
       },
+      "ExecutionResult": {
+        "title": "ExecutionResult",
+        "enum": [
+          "SuppoedToBeExuecuted",
+          "NotExecutedSinceLastRelease",
+          "NeverExecuted",
+          "Extracting",
+          "Loading",
+          "Processing",
+          "PostProcessing",
+          "Success",
+          "Warning",
+          "Fail"
+        ],
+        "description": "An enumeration."
+      },
+      "ExecutionStatusListSchema": {
+        "title": "ExecutionStatusListSchema",
+        "required": [
+          "pagination",
+          "data"
+        ],
+        "type": "object",
+        "properties": {
+          "pagination": {
+            "$ref": "#/components/schemas/authomize__clients__schemas__plugins_service__plugins_service__Pagination"
+          },
+          "data": {
+            "title": "Data",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ExecutionStatusSchema"
+            }
+          }
+        }
+      },
+      "ExecutionStatusSchema": {
+        "title": "ExecutionStatusSchema",
+        "required": [
+          "originType",
+          "group",
+          "name",
+          "result",
+          "id",
+          "createdAt",
+          "modifiedAt"
+        ],
+        "type": "object",
+        "properties": {
+          "originType": {
+            "$ref": "#/components/schemas/OriginType"
+          },
+          "group": {
+            "title": "Group",
+            "type": "string"
+          },
+          "name": {
+            "title": "Name",
+            "type": "string"
+          },
+          "result": {
+            "$ref": "#/components/schemas/ExecutionResult"
+          },
+          "connectorId": {
+            "title": "Connectorid",
+            "type": "string"
+          },
+          "message": {
+            "title": "Message",
+            "type": "string"
+          },
+          "lastSucceededAt": {
+            "title": "Lastsucceededat",
+            "type": "string",
+            "format": "date-time"
+          },
+          "lastFailureAt": {
+            "title": "Lastfailureat",
+            "type": "string",
+            "format": "date-time"
+          },
+          "lastProcessingAt": {
+            "title": "Lastprocessingat",
+            "type": "string",
+            "format": "date-time"
+          },
+          "executionIntervalHours": {
+            "title": "Executionintervalhours",
+            "type": "integer"
+          },
+          "id": {
+            "title": "Id",
+            "type": "string"
+          },
+          "createdAt": {
+            "title": "Createdat",
+            "type": "string",
+            "format": "date-time"
+          },
+          "modifiedAt": {
+            "title": "Modifiedat",
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
       "ExportResponse": {
         "title": "ExportResponse",
         "required": [
@@ -2723,6 +2996,11 @@
             "type": "boolean",
             "description": "Must be either `ture` or `false`.\nWhen set to `true` users can give themselves membership in this grouping without the grouping's managers' or owners' permission. \nExamples include public groups (M365), Google Groups with specific flags, ...\nValid only when `groupingType = Group`\n",
             "default": false
+          },
+          "owner": {
+            "title": "Owner",
+            "type": "string",
+            "description": "The owner ID"
           },
           "tags": {
             "title": "Tags",
@@ -3251,7 +3529,7 @@
               }
             ],
             "description": "Response data.",
-            "default": {}
+            "default": { }
           }
         },
         "description": "New accounts associations response schema"
@@ -3272,6 +3550,12 @@
               "$ref": "#/components/schemas/NewAccountsAssociationRequestSchema"
             },
             "description": "New Accounts Associations"
+          },
+          "validateOnly": {
+            "title": "Validateonly",
+            "type": "boolean",
+            "description": "Validate the request without uploading the data into the system.",
+            "default": false
           }
         },
         "description": "List request schema"
@@ -3361,6 +3645,11 @@
             "type": "string",
             "description": "A link to the asset in the source system.\n"
           },
+          "owner": {
+            "title": "Owner",
+            "type": "string",
+            "description": "The owner ID"
+          },
           "tags": {
             "title": "Tags",
             "type": "array",
@@ -3389,6 +3678,12 @@
               "$ref": "#/components/schemas/NewAssetInheritanceRequestSchema"
             },
             "description": "New Assets Inheritance"
+          },
+          "validateOnly": {
+            "title": "Validateonly",
+            "type": "boolean",
+            "description": "Validate the request without uploading the data into the system.",
+            "default": false
           }
         },
         "description": "List request schema"
@@ -3470,7 +3765,7 @@
               }
             ],
             "description": "Response data.",
-            "default": {}
+            "default": { }
           }
         },
         "description": "New assets inheritance response schema"
@@ -3491,6 +3786,12 @@
               "$ref": "#/components/schemas/NewAssetRequestSchema"
             },
             "description": "New Assets"
+          },
+          "validateOnly": {
+            "title": "Validateonly",
+            "type": "boolean",
+            "description": "Validate the request without uploading the data into the system.",
+            "default": false
           }
         },
         "description": "List request schema"
@@ -3499,7 +3800,9 @@
         "title": "NewAssetsResponseSchema",
         "required": [
           "requestId",
-          "numberOfAcceptedEntities"
+          "numberOfAcceptedEntities",
+          "validOwnerIds",
+          "invalidOwnerIds"
         ],
         "type": "object",
         "properties": {
@@ -3522,7 +3825,23 @@
           "data": {
             "title": "Data",
             "description": "Response data.",
-            "default": {}
+            "default": { }
+          },
+          "validOwnerIds": {
+            "title": "Validownerids",
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "List of **valid** owner (user) ids."
+          },
+          "invalidOwnerIds": {
+            "title": "Invalidownerids",
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "List of **invalid** owner (user) ids."
           }
         },
         "description": "New assets response schema"
@@ -3579,6 +3898,11 @@
             "description": "Must be either `ture` or `false`.\nWhen set to `true` users can give themselves membership in this grouping without the grouping's managers' or owners' permission. \nExamples include public groups (M365), Google Groups with specific flags, ...\nValid only when `groupingType = Group`\n",
             "default": false
           },
+          "owner": {
+            "title": "Owner",
+            "type": "string",
+            "description": "The owner ID"
+          },
           "tags": {
             "title": "Tags",
             "type": "array",
@@ -3595,7 +3919,9 @@
         "title": "NewGroupingResponseSchema",
         "required": [
           "requestId",
-          "numberOfAcceptedEntities"
+          "numberOfAcceptedEntities",
+          "validOwnerIds",
+          "invalidOwnerIds"
         ],
         "type": "object",
         "properties": {
@@ -3618,7 +3944,23 @@
           "data": {
             "title": "Data",
             "description": "Response data.",
-            "default": {}
+            "default": { }
+          },
+          "validOwnerIds": {
+            "title": "Validownerids",
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "List of **valid** owner (user) ids."
+          },
+          "invalidOwnerIds": {
+            "title": "Invalidownerids",
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "List of **invalid** owner (user) ids."
           }
         },
         "description": "New group response schema"
@@ -3723,7 +4065,7 @@
               }
             ],
             "description": "Response data.",
-            "default": {}
+            "default": { }
           }
         },
         "description": "New groupings associations response schema"
@@ -3744,6 +4086,12 @@
               "$ref": "#/components/schemas/NewGroupingsAssociationRequestSchema"
             },
             "description": "New Groupings Associations"
+          },
+          "validateOnly": {
+            "title": "Validateonly",
+            "type": "boolean",
+            "description": "Validate the request without uploading the data into the system.",
+            "default": false
           }
         },
         "description": "List request schema"
@@ -3764,6 +4112,12 @@
               "$ref": "#/components/schemas/NewGroupingRequestSchema"
             },
             "description": "New Groupings"
+          },
+          "validateOnly": {
+            "title": "Validateonly",
+            "type": "boolean",
+            "description": "Validate the request without uploading the data into the system.",
+            "default": false
           }
         },
         "description": "List request schema"
@@ -3784,6 +4138,12 @@
               "$ref": "#/components/schemas/NewIdentityRequestSchema"
             },
             "description": "New Identities"
+          },
+          "validateOnly": {
+            "title": "Validateonly",
+            "type": "boolean",
+            "description": "Validate the request without uploading the data into the system.",
+            "default": false
           }
         },
         "description": "List request schema"
@@ -3931,7 +4291,7 @@
           "data": {
             "title": "Data",
             "description": "Response data.",
-            "default": {}
+            "default": { }
           }
         },
         "description": "New identity response schema"
@@ -3995,6 +4355,12 @@
               "$ref": "#/components/schemas/NewPermissionRequestSchema"
             },
             "description": "New Permissions"
+          },
+          "validateOnly": {
+            "title": "Validateonly",
+            "type": "boolean",
+            "description": "Validate the request without uploading the data into the system.",
+            "default": false
           }
         },
         "description": "List request schema"
@@ -4112,7 +4478,7 @@
               }
             ],
             "description": "Response data.",
-            "default": {}
+            "default": { }
           }
         },
         "description": "New permissions response schema"
@@ -4217,7 +4583,7 @@
               }
             ],
             "description": "Response data.",
-            "default": {}
+            "default": { }
           }
         },
         "description": "New privilege grants response schema"
@@ -4274,6 +4640,12 @@
               "$ref": "#/components/schemas/NewPrivilegeGrantsRequestSchema"
             },
             "description": "New Privileges Grants"
+          },
+          "validateOnly": {
+            "title": "Validateonly",
+            "type": "boolean",
+            "description": "Validate the request without uploading the data into the system.",
+            "default": false
           }
         },
         "description": "List request schema"
@@ -4294,6 +4666,12 @@
               "$ref": "#/components/schemas/NewPrivilegeRequestSchema"
             },
             "description": "New Privileges"
+          },
+          "validateOnly": {
+            "title": "Validateonly",
+            "type": "boolean",
+            "description": "Validate the request without uploading the data into the system.",
+            "default": false
           }
         },
         "description": "List request schema"
@@ -4325,7 +4703,7 @@
           "data": {
             "title": "Data",
             "description": "Response data.",
-            "default": {}
+            "default": { }
           }
         },
         "description": "New privileges response schema"
@@ -4456,7 +4834,7 @@
           "data": {
             "title": "Data",
             "description": "Response data.",
-            "default": {}
+            "default": { }
           }
         },
         "description": "New users response schema"
@@ -4477,35 +4855,31 @@
               "$ref": "#/components/schemas/NewUserRequestSchema"
             },
             "description": "New Users"
+          },
+          "validateOnly": {
+            "title": "Validateonly",
+            "type": "boolean",
+            "description": "Validate the request without uploading the data into the system.",
+            "default": false
           }
         },
         "description": "List request schema"
       },
-      "Pagination": {
-        "title": "Pagination",
-        "type": "object",
-        "properties": {
-          "limit": {
-            "title": "Limit",
-            "type": "integer",
-            "default": -1
-          },
-          "skip": {
-            "title": "Skip",
-            "type": "integer",
-            "default": 0
-          },
-          "total": {
-            "title": "Total",
-            "type": "integer",
-            "default": -1
-          },
-          "hasMore": {
-            "title": "Hasmore",
-            "type": "boolean"
-          }
-        },
-        "description": "Base schema for pagination"
+      "OriginType": {
+        "title": "OriginType",
+        "enum": [
+          "ConnectorWorkflow",
+          "ConnectorActivitiesWorkflow",
+          "ConnectorHealthCheck",
+          "ConnectorPartialWorkflow",
+          "ConnectorSpecificDataProcesingWorkflow",
+          "DataProcesingWorkflow",
+          "DataInsightWorkflow",
+          "PluginsService",
+          "test",
+          "DataValidationTest"
+        ],
+        "description": "An enumeration."
       },
       "PermissionSchema": {
         "title": "PermissionSchema",
@@ -4769,7 +5143,7 @@
         "type": "object",
         "properties": {
           "pagination": {
-            "$ref": "#/components/schemas/Pagination"
+            "$ref": "#/components/schemas/authomize__service__app__schemas__base_schema__Pagination"
           },
           "data": {
             "title": "Data",
@@ -5046,6 +5420,82 @@
           }
         }
       },
+      "StatusMessage": {
+        "title": "StatusMessage",
+        "required": [
+          "namespace",
+          "severity",
+          "text"
+        ],
+        "type": "object",
+        "properties": {
+          "namespace": {
+            "title": "Namespace",
+            "type": "string"
+          },
+          "severity": {
+            "title": "Severity",
+            "type": "string"
+          },
+          "category": {
+            "title": "Category",
+            "type": "string"
+          },
+          "httpStatus": {
+            "title": "Httpstatus",
+            "type": "integer"
+          },
+          "text": {
+            "title": "Text",
+            "type": "string"
+          },
+          "rawMessage": {
+            "title": "Rawmessage",
+            "type": "string"
+          }
+        },
+        "description": "Model to a connector's status message\n\nModels of this instance will be a part of a list in each connector\ndocument\n\nnamespace: Space that defines where did the status come from, like activities, extraction, etc\nseverity: Status severity\ncategory: Optional; to define what category the status message comes from (Auth error, Creds\n    error, etc)\nhttpStatus: Optional for edge cases, but expected for connectors that rely on HTTP/Graph calls.\n    This represents the HTTP error / info status such as 200, 404, 401, etc.\ntext: User friendly error message\nrawMessage: Optional; raw message returned by the connector, if present"
+      },
+      "StatusMessageRequestSchema": {
+        "title": "StatusMessageRequestSchema",
+        "required": [
+          "connectorId",
+          "message"
+        ],
+        "type": "object",
+        "properties": {
+          "connectorId": {
+            "title": "Connectorid",
+            "type": "string"
+          },
+          "message": {
+            "$ref": "#/components/schemas/StatusMessage"
+          }
+        }
+      },
+      "StatusRequestSchema": {
+        "title": "StatusRequestSchema",
+        "required": [
+          "namespace",
+          "name",
+          "status"
+        ],
+        "type": "object",
+        "properties": {
+          "namespace": {
+            "title": "Namespace",
+            "type": "string"
+          },
+          "name": {
+            "title": "Name",
+            "type": "string"
+          },
+          "status": {
+            "$ref": "#/components/schemas/ExecutionResult"
+          }
+        },
+        "description": "Model for a connector's status\n\nnamespace: Space that defines where did the status come from, like activities, extraction, etc"
+      },
       "SubmitResponse": {
         "title": "SubmitResponse",
         "type": "object",
@@ -5074,7 +5524,7 @@
             }
           },
           "pagination": {
-            "$ref": "#/components/schemas/Pagination"
+            "$ref": "#/components/schemas/authomize__service__app__schemas__base_schema__Pagination"
           }
         }
       },
@@ -5094,7 +5544,8 @@
       "UpdateAssetRequestSchema": {
         "title": "UpdateAssetRequestSchema",
         "required": [
-          "uniqueId"
+          "uniqueId",
+          "name"
         ],
         "type": "object",
         "properties": {
@@ -5152,6 +5603,11 @@
             "type": "string",
             "description": "A link to the asset in the source system.\n"
           },
+          "owner": {
+            "title": "Owner",
+            "type": "string",
+            "description": "The owner ID"
+          },
           "tags": {
             "title": "Tags",
             "type": "array",
@@ -5161,7 +5617,8 @@
             },
             "description": "Tags associated with the asset.\n"
           }
-        }
+        },
+        "description": "Update asset request schema"
       },
       "UpdateAssetsListRequestSchema": {
         "title": "UpdateAssetsListRequestSchema",
@@ -5254,6 +5711,11 @@
             "type": "boolean",
             "description": "Must be either `ture` or `false`.\nWhen set to `true` users can give themselves membership in this grouping without the grouping's managers' or owners' permission. \nExamples include public groups (M365), Google Groups with specific flags, ...\nValid only when `groupingType = Group`\n",
             "default": false
+          },
+          "owner": {
+            "title": "Owner",
+            "type": "string",
+            "description": "The owner ID"
           },
           "tags": {
             "title": "Tags",
@@ -5677,6 +6139,58 @@
             "type": "string"
           }
         }
+      },
+      "authomize__clients__schemas__plugins_service__plugins_service__Pagination": {
+        "title": "Pagination",
+        "type": "object",
+        "properties": {
+          "limit": {
+            "title": "Limit",
+            "type": "integer",
+            "default": -1
+          },
+          "skip": {
+            "title": "Skip",
+            "type": "integer",
+            "default": 0
+          },
+          "total": {
+            "title": "Total",
+            "type": "integer",
+            "default": -1
+          }
+        }
+      },
+      "authomize__service__app__schemas__base_schema__Pagination": {
+        "title": "Pagination",
+        "type": "object",
+        "properties": {
+          "limit": {
+            "title": "Limit",
+            "type": "integer",
+            "default": -1
+          },
+          "skip": {
+            "title": "Skip",
+            "type": "integer",
+            "default": 0
+          },
+          "total": {
+            "title": "Total",
+            "type": "integer",
+            "default": -1
+          },
+          "hasMore": {
+            "title": "Hasmore",
+            "type": "boolean"
+          },
+          "search_after": {
+            "title": "Search After",
+            "type": "array",
+            "items": { }
+          }
+        },
+        "description": "Base schema for pagination"
       }
     },
     "securitySchemes": {
@@ -5698,7 +6212,7 @@
     },
     {
       "name": "Accounts",
-      "description": "Each account is associated with a specific application.\nIf the an account already exists on the platform, the account data will be overridden with the new data.\n"
+      "description": "Each account is associated with a specific application.\n\nIf the an account already exists on the platform, the account data will be overridden with the new data.\n"
     },
     {
       "name": "Access",
@@ -5714,7 +6228,7 @@
     },
     {
       "name": "Assets",
-      "description": "**assets section**"
+      "description": "Each asset is associated with a specific application.\n\nIf the an asset already exists on the platform, the asset data will be overridden with the new data.\n"
     },
     {
       "name": "Identities",
