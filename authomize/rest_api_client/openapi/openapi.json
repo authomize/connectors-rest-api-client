@@ -3,7 +3,7 @@
   "info": {
     "title": "Authomize API Reference",
     "description": "Authomize enables users to integrate your applications with Authomize via custom connectors.\n\nYou can use the APIs described in this document to create your connector.\n\nOnce data is uploaded and processed successfully, your custom connector will function in the same way as the connectors created by Authomize.\n\n## How does Authomize work?\nAuthomize works by gathering information about:\n\n· individuals, teams and functions.\n\n· apps, assets and accounts.\n\n· all the relationships between them.\n\n![img.png](https://storagetry1.blob.core.windows.net/public/78d82650-71b0-4909-8444-022aab79add5.png)\n\n## Connector APIs\n\nAuthomize connector APIs enable pushing data into Authomize from external sources.\n\nThese APIs enable data extracted from outside applications (via application APIs) to be delivered to Authomize.\n\nA connector processes extracted application data to transform it into a format compatible with Authomize.\n\n![img_1.png](https://storagetry1.blob.core.windows.net/public/341bf6ef-2e5b-4284-b715-45105ffbf0f8.png)\n\n## Authentication\nTo Authenticate use the API Token, with the format: `Authorization: API_Token`.\n\nAn API Token is a token you provide when making API calls. \n\n\nThe API Token should be included in every request to the API in an `Authorization` header.\n```\ncurl -v -X POST \\n\n     -H \"Authorization: {API_Token}\" \\n\n     ...\n```\n",
-    "version": "2.7.1",
+    "version": "2.8.0",
     "x-logo": {
       "url": "https://static.authomize.com/public/icons/authomize-green.svg"
     }
@@ -53,7 +53,7 @@
         },
         "security": [
           {
-            "APIKeyHeader": [ ]
+            "APIKeyHeader": []
           }
         ]
       }
@@ -61,7 +61,7 @@
     "/v2/apps/files/template": {
       "get": {
         "tags": [
-          "File Template"
+          "Apps"
         ],
         "summary": "Get File Template",
         "description": "Download template file for file-provider based on REST API schema",
@@ -71,7 +71,7 @@
             "description": "Successful Response",
             "content": {
               "application/json": {
-                "schema": { }
+                "schema": {}
               }
             }
           }
@@ -131,7 +131,7 @@
         },
         "security": [
           {
-            "APIKeyHeader": [ ]
+            "APIKeyHeader": []
           }
         ]
       },
@@ -177,7 +177,7 @@
         },
         "security": [
           {
-            "APIKeyHeader": [ ]
+            "APIKeyHeader": []
           }
         ]
       }
@@ -235,7 +235,7 @@
         },
         "security": [
           {
-            "APIKeyHeader": [ ]
+            "APIKeyHeader": []
           }
         ]
       }
@@ -267,7 +267,7 @@
               "description": "Delete all the app data lastly updated before the given date.",
               "format": "date-time"
             },
-            "example": "2023-01-15T17:04:59.263036+00:00",
+            "example": "2023-01-18T16:06:55.716681+00:00",
             "name": "modifiedBefore",
             "in": "query"
           }
@@ -296,7 +296,7 @@
         },
         "security": [
           {
-            "APIKeyHeader": [ ]
+            "APIKeyHeader": []
           }
         ]
       }
@@ -356,7 +356,7 @@
         },
         "security": [
           {
-            "APIKeyHeader": [ ]
+            "APIKeyHeader": []
           }
         ]
       },
@@ -412,7 +412,7 @@
         },
         "security": [
           {
-            "APIKeyHeader": [ ]
+            "APIKeyHeader": []
           }
         ]
       },
@@ -468,7 +468,7 @@
         },
         "security": [
           {
-            "APIKeyHeader": [ ]
+            "APIKeyHeader": []
           }
         ]
       }
@@ -528,7 +528,7 @@
         },
         "security": [
           {
-            "APIKeyHeader": [ ]
+            "APIKeyHeader": []
           }
         ]
       },
@@ -584,7 +584,7 @@
         },
         "security": [
           {
-            "APIKeyHeader": [ ]
+            "APIKeyHeader": []
           }
         ]
       },
@@ -640,7 +640,7 @@
         },
         "security": [
           {
-            "APIKeyHeader": [ ]
+            "APIKeyHeader": []
           }
         ]
       }
@@ -700,7 +700,7 @@
         },
         "security": [
           {
-            "APIKeyHeader": [ ]
+            "APIKeyHeader": []
           }
         ]
       },
@@ -756,7 +756,7 @@
         },
         "security": [
           {
-            "APIKeyHeader": [ ]
+            "APIKeyHeader": []
           }
         ]
       }
@@ -816,7 +816,7 @@
         },
         "security": [
           {
-            "APIKeyHeader": [ ]
+            "APIKeyHeader": []
           }
         ]
       },
@@ -872,7 +872,7 @@
         },
         "security": [
           {
-            "APIKeyHeader": [ ]
+            "APIKeyHeader": []
           }
         ]
       },
@@ -928,7 +928,7 @@
         },
         "security": [
           {
-            "APIKeyHeader": [ ]
+            "APIKeyHeader": []
           }
         ]
       }
@@ -988,7 +988,7 @@
         },
         "security": [
           {
-            "APIKeyHeader": [ ]
+            "APIKeyHeader": []
           }
         ]
       },
@@ -1044,7 +1044,7 @@
         },
         "security": [
           {
-            "APIKeyHeader": [ ]
+            "APIKeyHeader": []
           }
         ]
       }
@@ -1104,7 +1104,7 @@
         },
         "security": [
           {
-            "APIKeyHeader": [ ]
+            "APIKeyHeader": []
           }
         ]
       },
@@ -1160,7 +1160,7 @@
         },
         "security": [
           {
-            "APIKeyHeader": [ ]
+            "APIKeyHeader": []
           }
         ]
       }
@@ -1220,7 +1220,7 @@
         },
         "security": [
           {
-            "APIKeyHeader": [ ]
+            "APIKeyHeader": []
           }
         ]
       },
@@ -1276,7 +1276,7 @@
         },
         "security": [
           {
-            "APIKeyHeader": [ ]
+            "APIKeyHeader": []
           }
         ]
       }
@@ -1336,7 +1336,7 @@
         },
         "security": [
           {
-            "APIKeyHeader": [ ]
+            "APIKeyHeader": []
           }
         ]
       },
@@ -1392,7 +1392,7 @@
         },
         "security": [
           {
-            "APIKeyHeader": [ ]
+            "APIKeyHeader": []
           }
         ]
       },
@@ -1448,7 +1448,7 @@
         },
         "security": [
           {
-            "APIKeyHeader": [ ]
+            "APIKeyHeader": []
           }
         ]
       }
@@ -1508,7 +1508,7 @@
         },
         "security": [
           {
-            "APIKeyHeader": [ ]
+            "APIKeyHeader": []
           }
         ]
       },
@@ -1564,7 +1564,7 @@
         },
         "security": [
           {
-            "APIKeyHeader": [ ]
+            "APIKeyHeader": []
           }
         ]
       }
@@ -1624,7 +1624,7 @@
         },
         "security": [
           {
-            "APIKeyHeader": [ ]
+            "APIKeyHeader": []
           }
         ]
       },
@@ -1680,7 +1680,7 @@
         },
         "security": [
           {
-            "APIKeyHeader": [ ]
+            "APIKeyHeader": []
           }
         ]
       },
@@ -1736,7 +1736,7 @@
         },
         "security": [
           {
-            "APIKeyHeader": [ ]
+            "APIKeyHeader": []
           }
         ]
       }
@@ -1764,7 +1764,7 @@
         "deprecated": true,
         "security": [
           {
-            "APIKeyHeader": [ ]
+            "APIKeyHeader": []
           }
         ]
       }
@@ -1813,7 +1813,7 @@
         "deprecated": true,
         "security": [
           {
-            "APIKeyHeader": [ ]
+            "APIKeyHeader": []
           }
         ]
       }
@@ -1873,7 +1873,7 @@
         "deprecated": true,
         "security": [
           {
-            "APIKeyHeader": [ ]
+            "APIKeyHeader": []
           }
         ]
       },
@@ -1919,7 +1919,7 @@
         "deprecated": true,
         "security": [
           {
-            "APIKeyHeader": [ ]
+            "APIKeyHeader": []
           }
         ]
       }
@@ -1996,7 +1996,7 @@
         "deprecated": true,
         "security": [
           {
-            "APIKeyHeader": [ ]
+            "APIKeyHeader": []
           }
         ]
       },
@@ -2043,7 +2043,7 @@
         "deprecated": true,
         "security": [
           {
-            "APIKeyHeader": [ ]
+            "APIKeyHeader": []
           }
         ]
       }
@@ -2101,7 +2101,7 @@
         "deprecated": true,
         "security": [
           {
-            "APIKeyHeader": [ ]
+            "APIKeyHeader": []
           }
         ]
       },
@@ -2137,7 +2137,7 @@
             "description": "Successful Response",
             "content": {
               "application/json": {
-                "schema": { }
+                "schema": {}
               }
             }
           },
@@ -2155,7 +2155,7 @@
         "deprecated": true,
         "security": [
           {
-            "APIKeyHeader": [ ]
+            "APIKeyHeader": []
           }
         ]
       }
@@ -2213,7 +2213,7 @@
         "deprecated": true,
         "security": [
           {
-            "APIKeyHeader": [ ]
+            "APIKeyHeader": []
           }
         ]
       }
@@ -2281,7 +2281,7 @@
         "deprecated": true,
         "security": [
           {
-            "APIKeyHeader": [ ]
+            "APIKeyHeader": []
           }
         ]
       }
@@ -2339,7 +2339,7 @@
         "deprecated": true,
         "security": [
           {
-            "APIKeyHeader": [ ]
+            "APIKeyHeader": []
           }
         ]
       }
@@ -2392,7 +2392,7 @@
         "deprecated": true,
         "security": [
           {
-            "APIKeyHeader": [ ]
+            "APIKeyHeader": []
           }
         ]
       }
@@ -3529,7 +3529,7 @@
               }
             ],
             "description": "Response data.",
-            "default": { }
+            "default": {}
           }
         },
         "description": "New accounts associations response schema"
@@ -3765,7 +3765,7 @@
               }
             ],
             "description": "Response data.",
-            "default": { }
+            "default": {}
           }
         },
         "description": "New assets inheritance response schema"
@@ -3825,7 +3825,7 @@
           "data": {
             "title": "Data",
             "description": "Response data.",
-            "default": { }
+            "default": {}
           },
           "validOwnerIds": {
             "title": "Validownerids",
@@ -3944,7 +3944,7 @@
           "data": {
             "title": "Data",
             "description": "Response data.",
-            "default": { }
+            "default": {}
           },
           "validOwnerIds": {
             "title": "Validownerids",
@@ -4065,7 +4065,7 @@
               }
             ],
             "description": "Response data.",
-            "default": { }
+            "default": {}
           }
         },
         "description": "New groupings associations response schema"
@@ -4291,7 +4291,7 @@
           "data": {
             "title": "Data",
             "description": "Response data.",
-            "default": { }
+            "default": {}
           }
         },
         "description": "New identity response schema"
@@ -4478,7 +4478,7 @@
               }
             ],
             "description": "Response data.",
-            "default": { }
+            "default": {}
           }
         },
         "description": "New permissions response schema"
@@ -4583,7 +4583,7 @@
               }
             ],
             "description": "Response data.",
-            "default": { }
+            "default": {}
           }
         },
         "description": "New privilege grants response schema"
@@ -4703,7 +4703,7 @@
           "data": {
             "title": "Data",
             "description": "Response data.",
-            "default": { }
+            "default": {}
           }
         },
         "description": "New privileges response schema"
@@ -4834,7 +4834,7 @@
           "data": {
             "title": "Data",
             "description": "Response data.",
-            "default": { }
+            "default": {}
           }
         },
         "description": "New users response schema"
@@ -6187,7 +6187,7 @@
           "search_after": {
             "title": "Search After",
             "type": "array",
-            "items": { }
+            "items": {}
           }
         },
         "description": "Base schema for pagination"
