@@ -1,0 +1,2240 @@
+{
+  "openapi": "3.0.2",
+  "info": {
+    "title": "Authomize API Reference",
+    "description": "Authomize enables users to integrate your applications with Authomize via custom connectors.\n\nYou can use the APIs described in this document to create your connector.\n\nOnce data is uploaded and processed successfully, your custom connector will function in the same way as the connectors created by Authomize.\n\n## How does Authomize work?\nAuthomize works by gathering information about:\n\n· individuals, teams and functions.\n\n· apps, assets and accounts.\n\n· all the relationships between them.\n\n![img.png](https://storagetry1.blob.core.windows.net/public/78d82650-71b0-4909-8444-022aab79add5.png)\n\n## Connector APIs\n\nAuthomize connector APIs enable pushing data into Authomize from external sources.\n\nThese APIs enable data extracted from outside applications (via application APIs) to be delivered to Authomize.\n\nA connector processes extracted application data to transform it into a format compatible with Authomize.\n\n![img_1.png](https://storagetry1.blob.core.windows.net/public/341bf6ef-2e5b-4284-b715-45105ffbf0f8.png)\n\n## Authentication\nTo Authenticate use the API Token, with the format: `Authorization: API_Token`.\n\nAn API Token is a token you provide when making API calls. \n\n\nThe API Token should be included in every request to the API in an `Authorization` header.\n```\ncurl -v -X POST \\n\n     -H \"Authorization: {API_Token}\" \\n\n     ...\n```\n",
+    "version": "2.8.1",
+    "x-logo": {
+      "url": "https://static.authomize.com/public/icons/authomize-green.svg"
+    }
+  },
+  "paths": {
+    "/is_alive": {
+      "get": {
+        "tags": [
+          "Status"
+        ],
+        "summary": "Is Alive",
+        "description": "Service status.\n",
+        "operationId": "is_alive_is_alive_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IsAliveResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/me": {
+      "get": {
+        "tags": [
+          "Status"
+        ],
+        "summary": "Me",
+        "description": "Returns the user_id and tenant related to the API key and the current API version.\n",
+        "operationId": "me_me_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MeResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ]
+      }
+    },
+    "/v2/incidents/{incident_id}": {
+      "get": {
+        "tags": [
+          "Incident"
+        ],
+        "summary": "Retrieve Incident",
+        "description": "Fetch a particular incident.",
+        "operationId": "retrieve_incident_v2_incidents__incident_id__get",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Incident Id",
+              "type": "string"
+            },
+            "name": "incident_id",
+            "in": "path"
+          },
+          {
+            "required": false,
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/IncidentExpansion"
+              }
+            },
+            "name": "expand",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NonPaginatedResponseSchema_IncidentSchema_"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ]
+      },
+      "patch": {
+        "tags": [
+          "Incident"
+        ],
+        "summary": "Patch Incident",
+        "description": "Update an existing incident.",
+        "operationId": "patch_incident_v2_incidents__incident_id__patch",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Incident Id",
+              "type": "string"
+            },
+            "name": "incident_id",
+            "in": "path"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateIncidentRequestSchema"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NonPaginatedResponseSchema_IncidentSchema_"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ]
+      }
+    },
+    "/v2/incidents/search": {
+      "post": {
+        "tags": [
+          "Incident"
+        ],
+        "summary": "Search Incidents",
+        "description": "Get all incidents.",
+        "operationId": "search_incidents_v2_incidents_search_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SearchIncidentsRequestSchema"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaginatedResponseSchema_IncidentSchema_"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ]
+      }
+    },
+    "/v2/incidents/{incident_id}/comments": {
+      "post": {
+        "tags": [
+          "Incident"
+        ],
+        "summary": "Post Incident Comment",
+        "description": "Add comment to a particular incident.",
+        "operationId": "post_incident_comment_v2_incidents__incident_id__comments_post",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Incident Id",
+              "type": "string"
+            },
+            "name": "incident_id",
+            "in": "path"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AddIncidentCommentRequestSchema"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NonPaginatedResponseSchema_CommentSchema_"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ]
+      }
+    },
+    "/v2/incidents/{incident_id}/extended": {
+      "get": {
+        "tags": [
+          "Incident"
+        ],
+        "summary": "Retrieve Incidents Extended",
+        "operationId": "retrieve_incidents_extended_v2_incidents__incident_id__extended_get",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Incident Id",
+              "type": "string"
+            },
+            "name": "incident_id",
+            "in": "path"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ]
+      }
+    },
+    "/v2/campaigns/{campaign_id}": {
+      "get": {
+        "tags": [
+          "Campaign"
+        ],
+        "summary": "Retrieve Campaign",
+        "description": "Get campaign.",
+        "operationId": "retrieve_campaign_v2_campaigns__campaign_id__get",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Campaign Id",
+              "type": "string"
+            },
+            "name": "campaign_id",
+            "in": "path"
+          },
+          {
+            "required": false,
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/CampaignExpansion"
+              }
+            },
+            "name": "expand",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NonPaginatedResponseSchema_CampaignSchema_"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ]
+      }
+    },
+    "/v2/campaigns/search": {
+      "post": {
+        "tags": [
+          "Campaign"
+        ],
+        "summary": "Search Campaigns",
+        "description": "Search Campaigns",
+        "operationId": "search_campaigns_v2_campaigns_search_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SearchCampaignsRequestSchema"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaginatedResponseSchema_CampaignSchema_"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ]
+      }
+    },
+    "/v2/campaigns/{campaign_id}/reviewers/{reviewer_id}": {
+      "get": {
+        "tags": [
+          "Campaign"
+        ],
+        "summary": "Retrieve Campaign Reviewer",
+        "description": "Get campaign reviewer.",
+        "operationId": "retrieve_campaign_reviewer_v2_campaigns__campaign_id__reviewers__reviewer_id__get",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Campaign Id",
+              "type": "string"
+            },
+            "name": "campaign_id",
+            "in": "path"
+          },
+          {
+            "required": true,
+            "schema": {
+              "title": "Reviewer Id",
+              "type": "string"
+            },
+            "name": "reviewer_id",
+            "in": "path"
+          },
+          {
+            "required": false,
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/ReviewerExpansion"
+              }
+            },
+            "name": "expand",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NonPaginatedResponseSchema_ReviewerSchema_"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ]
+      }
+    },
+    "/v2/campaigns/{campaign_id}/permissions/search": {
+      "post": {
+        "tags": [
+          "Campaign"
+        ],
+        "summary": "Search Campaign Permissions",
+        "description": "Search campaign permissions",
+        "operationId": "search_campaign_permissions_v2_campaigns__campaign_id__permissions_search_post",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Campaign Id",
+              "type": "string"
+            },
+            "name": "campaign_id",
+            "in": "path"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SearchCampaignPermissionsRequestSchema"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaginatedResponseSchema_PermissionSchema_"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ]
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "AccessByType": {
+        "title": "AccessByType",
+        "enum": [
+          "account",
+          "grouping"
+        ],
+        "type": "string",
+        "description": "An enumeration."
+      },
+      "AccessToType": {
+        "title": "AccessToType",
+        "enum": [
+          "asset",
+          "grouping"
+        ],
+        "type": "string",
+        "description": "An enumeration."
+      },
+      "AddIncidentCommentRequestSchema": {
+        "title": "AddIncidentCommentRequestSchema",
+        "required": [
+          "content"
+        ],
+        "type": "object",
+        "properties": {
+          "content": {
+            "title": "Content",
+            "maxLength": 1025,
+            "type": "string",
+            "description": "Content of comment."
+          }
+        },
+        "additionalProperties": false
+      },
+      "AicpaTsc2017": {
+        "title": "AicpaTsc2017",
+        "required": [
+          "values"
+        ],
+        "type": "object",
+        "properties": {
+          "values": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AicpaTsc2017Standard"
+            },
+            "description": "Values"
+          },
+          "id": {
+            "title": "Id",
+            "type": "string",
+            "description": "UniqueID",
+            "default": "aicpaTsc2017"
+          },
+          "name": {
+            "title": "Name",
+            "type": "string",
+            "description": "Name",
+            "default": "SOC 2 (TSC 2017)"
+          }
+        }
+      },
+      "AicpaTsc2017Standard": {
+        "title": "AicpaTsc2017Standard",
+        "enum": [
+          "CC1.1",
+          "CC6.3",
+          "CC5.1",
+          "CC5.3",
+          "CC6.1",
+          "CC6.2",
+          "CC6.7",
+          "CC6.6",
+          "CC3.2",
+          "CC3.3",
+          "CC3.4"
+        ],
+        "description": "An enumeration."
+      },
+      "AlertCategoryType": {
+        "title": "AlertCategoryType",
+        "enum": [
+          "Change Management",
+          "Misconfiguration",
+          "Exposure",
+          "Privileged Access",
+          "Suspicious Behavior",
+          "Least Privilege"
+        ],
+        "description": "An enumeration."
+      },
+      "AttackTacticType": {
+        "title": "AttackTacticType",
+        "enum": [
+          "Collection",
+          "Credential Access",
+          "Defense Evasion",
+          "Discovery",
+          "Exfiltration",
+          "Impact",
+          "Initial Access",
+          "Lateral Movement",
+          "Persistence",
+          "Privilege Escalation"
+        ],
+        "description": "An enumeration."
+      },
+      "BaseBooleanFilter": {
+        "title": "BaseBooleanFilter",
+        "type": "object",
+        "properties": {
+          "$eq": {
+            "title": "$Eq",
+            "type": "boolean",
+            "description": "Equals To"
+          }
+        },
+        "additionalProperties": false
+      },
+      "BaseDateFilter": {
+        "title": "BaseDateFilter",
+        "type": "object",
+        "properties": {
+          "$gt": {
+            "title": "$Gt",
+            "type": "string",
+            "description": "Greater Than",
+            "format": "date-time"
+          },
+          "$gte": {
+            "title": "$Gte",
+            "type": "string",
+            "description": "Greater Than Or Equals To",
+            "format": "date-time"
+          },
+          "$lt": {
+            "title": "$Lt",
+            "type": "string",
+            "description": "Less Than",
+            "format": "date-time"
+          },
+          "$lte": {
+            "title": "$Lte",
+            "type": "string",
+            "description": "Less Than Or Equals To",
+            "format": "date-time"
+          }
+        },
+        "additionalProperties": false
+      },
+      "BaseSingleValuedStringFilter": {
+        "title": "BaseSingleValuedStringFilter",
+        "type": "object",
+        "properties": {
+          "$eq": {
+            "title": "$Eq",
+            "type": "string",
+            "description": "Equals To"
+          }
+        },
+        "additionalProperties": false
+      },
+      "BasicEnumFilter_CampaignStatus_": {
+        "title": "BasicEnumFilter[CampaignStatus]",
+        "type": "object",
+        "properties": {
+          "$in": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CampaignStatus"
+            },
+            "description": "In"
+          }
+        },
+        "additionalProperties": false
+      },
+      "BasicEnumFilter_IncidentSeverity_": {
+        "title": "BasicEnumFilter[IncidentSeverity]",
+        "type": "object",
+        "properties": {
+          "$in": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/IncidentSeverity"
+            },
+            "description": "In"
+          }
+        },
+        "additionalProperties": false
+      },
+      "BasicEnumFilter_IncidentStatus_": {
+        "title": "BasicEnumFilter[IncidentStatus]",
+        "type": "object",
+        "properties": {
+          "$in": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/IncidentStatus"
+            },
+            "description": "In"
+          }
+        },
+        "additionalProperties": false
+      },
+      "BasicEnumFilter_Selection_": {
+        "title": "BasicEnumFilter[Selection]",
+        "type": "object",
+        "properties": {
+          "$in": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Selection"
+            },
+            "description": "In"
+          }
+        },
+        "additionalProperties": false
+      },
+      "CampaignExpansion": {
+        "title": "CampaignExpansion",
+        "enum": [
+          "owner"
+        ],
+        "type": "string",
+        "description": "An enumeration."
+      },
+      "CampaignPermissionsSearchFilterBody": {
+        "title": "CampaignPermissionsSearchFilterBody",
+        "type": "object",
+        "properties": {
+          "decision": {
+            "title": "Decision",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/BasicEnumFilter_Selection_"
+              }
+            ],
+            "description": "Decision"
+          }
+        },
+        "additionalProperties": false
+      },
+      "CampaignSchema": {
+        "title": "CampaignSchema",
+        "required": [
+          "id",
+          "name",
+          "status",
+          "startDate",
+          "endDate",
+          "createdAt",
+          "ownerUserId"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "title": "Id",
+            "type": "string",
+            "description": "Unique ID of campaign"
+          },
+          "name": {
+            "title": "Name",
+            "type": "string",
+            "description": "Name of the campaign"
+          },
+          "status": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/CampaignStatus"
+              }
+            ],
+            "description": "The campaign status"
+          },
+          "startDate": {
+            "title": "Startdate",
+            "type": "string",
+            "description": "Date when the campaign starts",
+            "format": "date-time"
+          },
+          "endDate": {
+            "title": "Enddate",
+            "type": "string",
+            "description": "Date when campaign ends",
+            "format": "date-time"
+          },
+          "createdAt": {
+            "title": "Createdat",
+            "type": "string",
+            "description": "Time of creation of campaign",
+            "format": "date-time"
+          },
+          "ownerUserId": {
+            "title": "Owneruserid",
+            "type": "string",
+            "description": "User ID of the campaign owner"
+          },
+          "owner": {
+            "title": "Owner",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/UserSchema"
+              }
+            ],
+            "description": "User Schema of the campaign owner"
+          }
+        },
+        "description": "Schema for single campaign response data"
+      },
+      "CampaignSearchFilterBody": {
+        "title": "CampaignSearchFilterBody",
+        "type": "object",
+        "properties": {
+          "status": {
+            "title": "Status",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/BasicEnumFilter_CampaignStatus_"
+              }
+            ],
+            "description": "Status"
+          }
+        },
+        "additionalProperties": false
+      },
+      "CampaignStatus": {
+        "title": "CampaignStatus",
+        "enum": [
+          "draft",
+          "initializing",
+          "running",
+          "completed",
+          "failed",
+          "empty",
+          "overdue"
+        ],
+        "description": "An enumeration."
+      },
+      "Ccm301": {
+        "title": "Ccm301",
+        "required": [
+          "values"
+        ],
+        "type": "object",
+        "properties": {
+          "values": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Ccm301Standard"
+            },
+            "description": "Values"
+          },
+          "id": {
+            "title": "Id",
+            "type": "string",
+            "description": "UniqueID",
+            "default": "ccm301"
+          },
+          "name": {
+            "title": "Name",
+            "type": "string",
+            "description": "Name",
+            "default": "CSA STAR (CCM 3.0.1)"
+          }
+        }
+      },
+      "Ccm301Standard": {
+        "title": "Ccm301Standard",
+        "enum": [
+          "AIS-04",
+          "IAM-01",
+          "IAM-02",
+          "IAM-03",
+          "IAM-04",
+          "IAM-05",
+          "IAM-06",
+          "IAM-07",
+          "IAM-08",
+          "IAM-09",
+          "IAM-10",
+          "IAM-11",
+          "IAM-12",
+          "IAM-13",
+          "GRM-06",
+          "IVS-06",
+          "IVS-08",
+          "DSI-04"
+        ],
+        "description": "An enumeration."
+      },
+      "Ccm402": {
+        "title": "Ccm402",
+        "required": [
+          "values"
+        ],
+        "type": "object",
+        "properties": {
+          "values": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Ccm402Standard"
+            },
+            "description": "Values"
+          },
+          "id": {
+            "title": "Id",
+            "type": "string",
+            "description": "UniqueID",
+            "default": "ccm402"
+          },
+          "name": {
+            "title": "Name",
+            "type": "string",
+            "description": "Name",
+            "default": "CSA STAR (CCM 4.0.2)"
+          }
+        }
+      },
+      "Ccm402Standard": {
+        "title": "Ccm402Standard",
+        "enum": [
+          "IAM-01",
+          "IAM-02",
+          "IAM-03",
+          "IAM-04",
+          "IAM-05",
+          "IAM-06",
+          "IAM-07",
+          "IAM-08",
+          "IAM-09",
+          "IAM-10",
+          "IAM-11",
+          "IAM-12",
+          "IAM-13",
+          "IAM-14",
+          "IAM-15",
+          "IAM-16",
+          "IVS-03",
+          "IVS-04",
+          "DSP-07",
+          "DSP-08",
+          "DSP-10",
+          "AIS-03",
+          "DSP-17",
+          "DSP-01",
+          "HRS-05"
+        ],
+        "description": "An enumeration."
+      },
+      "CisV8Standard": {
+        "title": "CisV8Standard",
+        "enum": [
+          "3.1",
+          "3.3",
+          "6.8",
+          "5.4",
+          "12.7",
+          "6.5",
+          "6.2",
+          "5.3",
+          "12.2",
+          "6.1",
+          "5.1",
+          "4.11",
+          "13.4",
+          "13.9",
+          "13.10"
+        ],
+        "description": "An enumeration."
+      },
+      "Cisv8": {
+        "title": "Cisv8",
+        "required": [
+          "values"
+        ],
+        "type": "object",
+        "properties": {
+          "values": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CisV8Standard"
+            },
+            "description": "Values"
+          },
+          "id": {
+            "title": "Id",
+            "type": "string",
+            "description": "UniqueID",
+            "default": "cisv8"
+          },
+          "name": {
+            "title": "Name",
+            "type": "string",
+            "description": "Name",
+            "default": "CIS v.8"
+          }
+        }
+      },
+      "CommentSchema": {
+        "title": "CommentSchema",
+        "required": [
+          "id",
+          "content"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "title": "Id",
+            "type": "string",
+            "description": "Unique ID of comment."
+          },
+          "content": {
+            "title": "Content",
+            "maxLength": 1025,
+            "type": "string",
+            "description": "Content of comment."
+          }
+        },
+        "additionalProperties": false
+      },
+      "FieldName": {
+        "title": "FieldName",
+        "enum": [
+          "name",
+          "status",
+          "startDate",
+          "endDate",
+          "createdAt",
+          "reviewerType",
+          "templateName"
+        ],
+        "description": "An enumeration."
+      },
+      "HTTPValidationError": {
+        "title": "HTTPValidationError",
+        "type": "object",
+        "properties": {
+          "detail": {
+            "title": "Detail",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ValidationError"
+            }
+          }
+        }
+      },
+      "IncidentEntitiesSchema": {
+        "title": "IncidentEntitiesSchema",
+        "required": [
+          "id",
+          "object"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "title": "Id",
+            "type": "string",
+            "description": "Unique id of entity."
+          },
+          "name": {
+            "title": "Name",
+            "type": "string",
+            "description": "Name of entity."
+          },
+          "object": {
+            "title": "Object",
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/InventoryObjects"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "description": "Identity | Account | Asset"
+          },
+          "email": {
+            "title": "Email",
+            "type": "string",
+            "description": "Email"
+          },
+          "originId": {
+            "title": "Originid",
+            "type": "string",
+            "description": "Origin ID"
+          },
+          "originType": {
+            "title": "Origintype",
+            "type": "string",
+            "description": "Origin Type"
+          }
+        }
+      },
+      "IncidentExpansion": {
+        "title": "IncidentExpansion",
+        "enum": [
+          "policy",
+          "assignee"
+        ],
+        "type": "string",
+        "description": "An enumeration."
+      },
+      "IncidentSchema": {
+        "title": "IncidentSchema",
+        "required": [
+          "id",
+          "severity",
+          "policyId",
+          "isResolved",
+          "url"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "title": "Id",
+            "type": "string",
+            "description": "Unique id"
+          },
+          "createdAt": {
+            "title": "Createdat",
+            "type": "string",
+            "description": "The date the incident was first reported.",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "title": "Updatedat",
+            "type": "string",
+            "description": "The date the incident was last updated.",
+            "format": "date-time"
+          },
+          "entities": {
+            "title": "Entities",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/IncidentEntitiesSchema"
+            },
+            "description": "Entity",
+            "default": []
+          },
+          "apps": {
+            "title": "Apps",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SourceAppSchema"
+            },
+            "description": "Applications",
+            "default": []
+          },
+          "category": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/AlertCategoryType"
+              }
+            ],
+            "description": "Category"
+          },
+          "tactics": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AttackTacticType"
+            },
+            "description": "Tactics",
+            "default": []
+          },
+          "compliance": {
+            "title": "Compliance",
+            "type": "array",
+            "items": {
+              "anyOf": [
+                {
+                  "$ref": "#/components/schemas/IsoIec27001"
+                },
+                {
+                  "$ref": "#/components/schemas/AicpaTsc2017"
+                },
+                {
+                  "$ref": "#/components/schemas/Ccm402"
+                },
+                {
+                  "$ref": "#/components/schemas/Ccm301"
+                },
+                {
+                  "$ref": "#/components/schemas/Cisv8"
+                }
+              ]
+            },
+            "description": "Compliance",
+            "default": []
+          },
+          "techniques": {
+            "title": "Techniques",
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Techniques",
+            "default": []
+          },
+          "status": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/IncidentStatus"
+              }
+            ],
+            "description": "The status of the incident (Open, In Progress, Waiting for Input, or Closed)"
+          },
+          "severity": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/IncidentSeverity"
+              }
+            ],
+            "description": "The severity of the incident (Low, Medium, High or Critical)."
+          },
+          "policyId": {
+            "title": "Policyid",
+            "type": "string",
+            "description": "Unique id of policy."
+          },
+          "policy": {
+            "title": "Policy",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/PolicySchema"
+              }
+            ],
+            "description": "Policy"
+          },
+          "assigneeId": {
+            "title": "Assigneeid",
+            "type": "string",
+            "description": "Unique id of assignee."
+          },
+          "assignee": {
+            "title": "Assignee",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/UserSchema"
+              }
+            ],
+            "description": "Assignee"
+          },
+          "recommendation": {
+            "title": "Recommendation",
+            "type": "string",
+            "description": "Recommendation"
+          },
+          "isResolved": {
+            "title": "Isresolved",
+            "type": "boolean",
+            "description": "Is Resolved?"
+          },
+          "url": {
+            "title": "Url",
+            "type": "string",
+            "description": "URL"
+          }
+        }
+      },
+      "IncidentSeverity": {
+        "title": "IncidentSeverity",
+        "enum": [
+          "Low",
+          "Medium",
+          "High",
+          "Critical"
+        ],
+        "type": "string",
+        "description": "An enumeration."
+      },
+      "IncidentStatus": {
+        "title": "IncidentStatus",
+        "enum": [
+          "Open",
+          "InProgress",
+          "WaitingForInput",
+          "Closed"
+        ],
+        "type": "string",
+        "description": "An enumeration."
+      },
+      "InventoryObjects": {
+        "title": "InventoryObjects",
+        "enum": [
+          "identity",
+          "account",
+          "asset",
+          "privilege",
+          "other"
+        ],
+        "type": "string",
+        "description": "An enumeration."
+      },
+      "IsAliveResponse": {
+        "title": "IsAliveResponse",
+        "required": [
+          "isAlive"
+        ],
+        "type": "object",
+        "properties": {
+          "isAlive": {
+            "title": "Isalive",
+            "type": "boolean",
+            "description": "**isAlive**"
+          }
+        }
+      },
+      "IsoIec27001": {
+        "title": "IsoIec27001",
+        "required": [
+          "values"
+        ],
+        "type": "object",
+        "properties": {
+          "values": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/IsoIec27001Standard"
+            },
+            "description": "Values"
+          },
+          "id": {
+            "title": "Id",
+            "type": "string",
+            "description": "UniqueID",
+            "default": "isoIec27001"
+          },
+          "name": {
+            "title": "Name",
+            "type": "string",
+            "description": "Name",
+            "default": "ISO/IEC 27001"
+          }
+        }
+      },
+      "IsoIec27001Standard": {
+        "title": "IsoIec27001Standard",
+        "enum": [
+          "A.6.1.2",
+          "A.8.1.1",
+          "A.8.1.3",
+          "A.8.3.3",
+          "A.9.1.1",
+          "A.9.2.1",
+          "A.9.2.3",
+          "A.9.2.6",
+          "A.9.4.1",
+          "A.9.1.2",
+          "A.9.4.2",
+          "A.9.2.2",
+          "A.13.2.1",
+          "A.9.4.3",
+          "A.7.2.2",
+          "A.9.4.5",
+          "A.8.2.3",
+          "A.7.3.1",
+          "A.8.1.4"
+        ],
+        "description": "An enumeration."
+      },
+      "MeResponse": {
+        "title": "MeResponse",
+        "required": [
+          "id",
+          "tenant"
+        ],
+        "type": "object",
+        "properties": {
+          "version": {
+            "title": "Version",
+            "type": "string",
+            "description": "**version**",
+            "default": "2.8.1"
+          },
+          "id": {
+            "title": "Id",
+            "type": "string",
+            "description": "**id**"
+          },
+          "tenant": {
+            "title": "Tenant",
+            "type": "string",
+            "description": "**tenant**"
+          }
+        }
+      },
+      "NonPaginatedResponseSchema_CampaignSchema_": {
+        "title": "NonPaginatedResponseSchema[CampaignSchema]",
+        "required": [
+          "data"
+        ],
+        "type": "object",
+        "properties": {
+          "data": {
+            "title": "Data",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/CampaignSchema"
+              }
+            ],
+            "description": "Actual Data"
+          }
+        },
+        "additionalProperties": false
+      },
+      "NonPaginatedResponseSchema_CommentSchema_": {
+        "title": "NonPaginatedResponseSchema[CommentSchema]",
+        "required": [
+          "data"
+        ],
+        "type": "object",
+        "properties": {
+          "data": {
+            "title": "Data",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/CommentSchema"
+              }
+            ],
+            "description": "Actual Data"
+          }
+        },
+        "additionalProperties": false
+      },
+      "NonPaginatedResponseSchema_IncidentSchema_": {
+        "title": "NonPaginatedResponseSchema[IncidentSchema]",
+        "required": [
+          "data"
+        ],
+        "type": "object",
+        "properties": {
+          "data": {
+            "title": "Data",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/IncidentSchema"
+              }
+            ],
+            "description": "Actual Data"
+          }
+        },
+        "additionalProperties": false
+      },
+      "NonPaginatedResponseSchema_ReviewerSchema_": {
+        "title": "NonPaginatedResponseSchema[ReviewerSchema]",
+        "required": [
+          "data"
+        ],
+        "type": "object",
+        "properties": {
+          "data": {
+            "title": "Data",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/ReviewerSchema"
+              }
+            ],
+            "description": "Actual Data"
+          }
+        },
+        "additionalProperties": false
+      },
+      "PaginatedResponseSchema_CampaignSchema_": {
+        "title": "PaginatedResponseSchema[CampaignSchema]",
+        "required": [
+          "data"
+        ],
+        "type": "object",
+        "properties": {
+          "pagination": {
+            "title": "Pagination",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/PaginationResponseSchema"
+              }
+            ],
+            "description": "Pagination Metadata"
+          },
+          "data": {
+            "title": "Data",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CampaignSchema"
+            },
+            "description": "List of Actual Data"
+          }
+        },
+        "additionalProperties": false
+      },
+      "PaginatedResponseSchema_IncidentSchema_": {
+        "title": "PaginatedResponseSchema[IncidentSchema]",
+        "required": [
+          "data"
+        ],
+        "type": "object",
+        "properties": {
+          "pagination": {
+            "title": "Pagination",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/PaginationResponseSchema"
+              }
+            ],
+            "description": "Pagination Metadata"
+          },
+          "data": {
+            "title": "Data",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/IncidentSchema"
+            },
+            "description": "List of Actual Data"
+          }
+        },
+        "additionalProperties": false
+      },
+      "PaginatedResponseSchema_PermissionSchema_": {
+        "title": "PaginatedResponseSchema[PermissionSchema]",
+        "required": [
+          "data"
+        ],
+        "type": "object",
+        "properties": {
+          "pagination": {
+            "title": "Pagination",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/PaginationResponseSchema"
+              }
+            ],
+            "description": "Pagination Metadata"
+          },
+          "data": {
+            "title": "Data",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PermissionSchema"
+            },
+            "description": "List of Actual Data"
+          }
+        },
+        "additionalProperties": false
+      },
+      "PaginationRequestSchema": {
+        "title": "PaginationRequestSchema",
+        "type": "object",
+        "properties": {
+          "limit": {
+            "title": "Limit",
+            "type": "integer",
+            "description": "Limit"
+          },
+          "nextPage": {
+            "title": "NextPage",
+            "type": "string",
+            "description": "Starting after"
+          }
+        },
+        "additionalProperties": false
+      },
+      "PaginationResponseSchema": {
+        "title": "PaginationResponseSchema",
+        "type": "object",
+        "properties": {
+          "limit": {
+            "title": "Limit",
+            "type": "integer",
+            "description": "Limit",
+            "default": -1
+          },
+          "hasMore": {
+            "title": "HasMore",
+            "type": "boolean",
+            "description": "Has more? `true` or `false`."
+          },
+          "nextPage": {
+            "title": "NextPage",
+            "type": "string",
+            "description": "Starting after"
+          }
+        },
+        "description": "Common pagination model that has been used across services."
+      },
+      "PermissionSchema": {
+        "title": "PermissionSchema",
+        "required": [
+          "id",
+          "campaignId",
+          "reviewerId",
+          "accessById",
+          "accessByType",
+          "accessToId",
+          "accessToType",
+          "privilegeId"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "title": "Id",
+            "type": "string",
+            "description": "Unique ID"
+          },
+          "campaignId": {
+            "title": "Campaignid",
+            "type": "string",
+            "description": "Campaign ID"
+          },
+          "reviewerId": {
+            "title": "Reviewerid",
+            "type": "string",
+            "description": "Reviewer ID"
+          },
+          "reviewer": {
+            "title": "Reviewer",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/ReviewerSchema"
+              }
+            ],
+            "description": "Reviewer Schema"
+          },
+          "accessById": {
+            "title": "Accessbyid",
+            "type": "string",
+            "description": "Access By ID"
+          },
+          "accessByType": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/AccessByType"
+              }
+            ],
+            "description": "Access By Type"
+          },
+          "accessToId": {
+            "title": "Accesstoid",
+            "type": "string",
+            "description": "Access To ID"
+          },
+          "accessToType": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/AccessToType"
+              }
+            ],
+            "description": "Access To Type"
+          },
+          "privilegeId": {
+            "title": "Privilegeid",
+            "type": "string",
+            "description": "Privilege ID"
+          },
+          "decision": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Selection"
+              }
+            ],
+            "description": "Decision"
+          },
+          "decisionReason": {
+            "title": "Decisionreason",
+            "type": "string",
+            "description": "Reason"
+          }
+        }
+      },
+      "PermissionsExpansion": {
+        "title": "PermissionsExpansion",
+        "enum": [
+          "reviewer.user"
+        ],
+        "type": "string",
+        "description": "An enumeration."
+      },
+      "PolicySchema": {
+        "title": "PolicySchema",
+        "required": [
+          "id",
+          "name",
+          "templateId"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "title": "Id",
+            "type": "string",
+            "description": "Unique id of policy."
+          },
+          "name": {
+            "title": "Name",
+            "type": "string",
+            "description": "Name of policy."
+          },
+          "templateId": {
+            "title": "Templateid",
+            "type": "string",
+            "description": "Template ID"
+          }
+        }
+      },
+      "ReviewStatus": {
+        "title": "ReviewStatus",
+        "enum": [
+          "pending",
+          "completed",
+          "reviewing",
+          "notified",
+          "inactive"
+        ],
+        "description": "An enumeration."
+      },
+      "ReviewerExpansion": {
+        "title": "ReviewerExpansion",
+        "enum": [
+          "user"
+        ],
+        "type": "string",
+        "description": "An enumeration."
+      },
+      "ReviewerSchema": {
+        "title": "ReviewerSchema",
+        "required": [
+          "userId",
+          "campaignId",
+          "lastNotifiedAt",
+          "lastActiveAt",
+          "reviewStatus",
+          "id"
+        ],
+        "type": "object",
+        "properties": {
+          "userId": {
+            "title": "Userid",
+            "type": "string",
+            "description": "User ID of the Reviewer"
+          },
+          "campaignId": {
+            "title": "Campaignid",
+            "type": "string",
+            "description": "Campaign ID"
+          },
+          "lastNotifiedAt": {
+            "title": "Lastnotifiedat",
+            "type": "string",
+            "description": "Time of last notified",
+            "format": "date-time"
+          },
+          "lastActiveAt": {
+            "title": "Lastactiveat",
+            "type": "string",
+            "description": "Time of last activity",
+            "format": "date-time"
+          },
+          "reviewStatus": {
+            "title": "Reviewstatus",
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ReviewStatus"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "description": "Review Status"
+          },
+          "id": {
+            "title": "Id",
+            "type": "string",
+            "description": "Unique ID"
+          },
+          "user": {
+            "title": "User",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/UserSchema"
+              }
+            ],
+            "description": "User Schema of the reviewer"
+          }
+        }
+      },
+      "SearchCampaignPermissionsRequestSchema": {
+        "title": "SearchCampaignPermissionsRequestSchema",
+        "type": "object",
+        "properties": {
+          "pagination": {
+            "title": "Pagination",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/PaginationRequestSchema"
+              }
+            ],
+            "description": "Pagination"
+          },
+          "filter": {
+            "title": "Filter",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/CampaignPermissionsSearchFilterBody"
+              }
+            ],
+            "description": "Filter Body"
+          },
+          "expand": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PermissionsExpansion"
+            },
+            "description": "Fields to expand (hydrate)"
+          }
+        },
+        "additionalProperties": false
+      },
+      "SearchCampaignsRequestSchema": {
+        "title": "SearchCampaignsRequestSchema",
+        "type": "object",
+        "properties": {
+          "filter": {
+            "title": "Filter",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/CampaignSearchFilterBody"
+              }
+            ],
+            "description": "Filter"
+          },
+          "expand": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CampaignExpansion"
+            },
+            "description": "Expand Fields"
+          },
+          "pagination": {
+            "title": "Pagination",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/PaginationRequestSchema"
+              }
+            ],
+            "description": "Pagination"
+          },
+          "sort": {
+            "title": "Sort",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SortSchema_FieldName_"
+            },
+            "description": "Sort"
+          }
+        },
+        "additionalProperties": false
+      },
+      "SearchIncidentsFilter": {
+        "title": "SearchIncidentsFilter",
+        "type": "object",
+        "properties": {
+          "createdAt": {
+            "title": "Createdat",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/BaseDateFilter"
+              }
+            ],
+            "description": "Created At date"
+          },
+          "updatedAt": {
+            "title": "Updatedat",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/BaseDateFilter"
+              }
+            ],
+            "description": "Updated At date"
+          },
+          "severity": {
+            "title": "Severity",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/BasicEnumFilter_IncidentSeverity_"
+              }
+            ],
+            "description": "Severity"
+          },
+          "status": {
+            "title": "Status",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/BasicEnumFilter_IncidentStatus_"
+              }
+            ],
+            "description": "Status"
+          },
+          "policyId": {
+            "title": "Policyid",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/BaseSingleValuedStringFilter"
+              }
+            ],
+            "description": "Policy Id "
+          },
+          "policyTemplateId": {
+            "title": "Policytemplateid",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/BaseSingleValuedStringFilter"
+              }
+            ],
+            "description": "Policy Template ID"
+          },
+          "isResolved": {
+            "title": "Isresolved",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/BaseBooleanFilter"
+              }
+            ],
+            "description": "Is resolved?"
+          }
+        },
+        "additionalProperties": false
+      },
+      "SearchIncidentsRequestSchema": {
+        "title": "SearchIncidentsRequestSchema",
+        "type": "object",
+        "properties": {
+          "filter": {
+            "title": "Filter",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/SearchIncidentsFilter"
+              }
+            ],
+            "description": "Filter"
+          },
+          "expand": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/IncidentExpansion"
+            },
+            "description": "Expend"
+          },
+          "sort": {
+            "title": "Sort",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SortSchema_SearchIncidentsSortFields_"
+            },
+            "description": "Sort",
+            "default": []
+          },
+          "pagination": {
+            "title": "Pagination",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/PaginationRequestSchema"
+              }
+            ],
+            "description": "Pagination"
+          }
+        },
+        "additionalProperties": false
+      },
+      "SearchIncidentsSortFields": {
+        "title": "SearchIncidentsSortFields",
+        "enum": [
+          "createdAt",
+          "updatedAt",
+          "severity"
+        ],
+        "type": "string",
+        "description": "An enumeration."
+      },
+      "Selection": {
+        "title": "Selection",
+        "enum": [
+          "keep",
+          "revoke",
+          "null"
+        ],
+        "description": "An enumeration."
+      },
+      "SortOrder": {
+        "title": "SortOrder",
+        "enum": [
+          "ASC",
+          "DESC"
+        ],
+        "type": "string",
+        "description": "An enumeration."
+      },
+      "SortSchema_FieldName_": {
+        "title": "SortSchema[FieldName]",
+        "required": [
+          "fieldName"
+        ],
+        "type": "object",
+        "properties": {
+          "fieldName": {
+            "title": "FieldName",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/FieldName"
+              }
+            ],
+            "description": "Sort By Field Name"
+          },
+          "order": {
+            "title": "Order",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/SortOrder"
+              }
+            ],
+            "description": "Sort Order",
+            "default": "ASC"
+          }
+        },
+        "additionalProperties": false
+      },
+      "SortSchema_SearchIncidentsSortFields_": {
+        "title": "SortSchema[SearchIncidentsSortFields]",
+        "required": [
+          "fieldName"
+        ],
+        "type": "object",
+        "properties": {
+          "fieldName": {
+            "title": "FieldName",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/SearchIncidentsSortFields"
+              }
+            ],
+            "description": "Sort By Field Name"
+          },
+          "order": {
+            "title": "Order",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/SortOrder"
+              }
+            ],
+            "description": "Sort Order",
+            "default": "ASC"
+          }
+        },
+        "additionalProperties": false
+      },
+      "SourceAppSchema": {
+        "title": "SourceAppSchema",
+        "required": [
+          "id",
+          "name"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "title": "Id",
+            "type": "string",
+            "description": "Unique ID"
+          },
+          "name": {
+            "title": "Name",
+            "type": "string",
+            "description": "Name"
+          }
+        }
+      },
+      "UpdateIncidentRequestSchema": {
+        "title": "UpdateIncidentRequestSchema",
+        "type": "object",
+        "properties": {
+          "assigneeId": {
+            "title": "Assigneeid",
+            "type": "string",
+            "description": "ID of the entity assigned to this incident."
+          },
+          "status": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/IncidentStatus"
+              }
+            ],
+            "description": "The status of the incident (Open, InProgress, WaitingForInput, or Closed)."
+          },
+          "severity": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/IncidentSeverity"
+              }
+            ],
+            "description": "The severity of the incident (Low, Medium, High or Critical)."
+          }
+        },
+        "additionalProperties": false
+      },
+      "UserSchema": {
+        "title": "UserSchema",
+        "required": [
+          "userId",
+          "userFirstName",
+          "userLastName",
+          "userEmail"
+        ],
+        "type": "object",
+        "properties": {
+          "userId": {
+            "title": "Userid",
+            "type": "string",
+            "description": "Unique ID"
+          },
+          "userFirstName": {
+            "title": "Userfirstname",
+            "type": "string",
+            "description": "First Name"
+          },
+          "userLastName": {
+            "title": "Userlastname",
+            "type": "string",
+            "description": "Last Name"
+          },
+          "userEmail": {
+            "title": "Useremail",
+            "type": "string",
+            "description": "Email"
+          }
+        }
+      },
+      "ValidationError": {
+        "title": "ValidationError",
+        "required": [
+          "loc",
+          "msg",
+          "type"
+        ],
+        "type": "object",
+        "properties": {
+          "loc": {
+            "title": "Location",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "msg": {
+            "title": "Message",
+            "type": "string"
+          },
+          "type": {
+            "title": "Error Type",
+            "type": "string"
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "APIKeyHeader": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "Authorization"
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "Status",
+      "description": "The status of the API.\n"
+    },
+    {
+      "name": "Incident",
+      "description": "The Incidents APIs enable you to pull Authomize-generated incidents from Authomize into your automated Incident Response system. Once you have responded to the incident you can use Authomize Incident APIs to update (and synchronize) the incident on Authomize."
+    },
+    {
+      "name": "Campaign",
+      "description": "Campaigns section.\n"
+    }
+  ]
+}
