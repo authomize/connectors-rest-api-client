@@ -45,6 +45,7 @@ from authomize.rest_api_client.generated.connectors_rest_api.schemas import (
 from authomize.rest_api_client.generated.external_rest_api.schemas import (
     IsAliveResponse,
     MeResponse,
+    IncidentExpansion,
 )
 
 
@@ -334,4 +335,16 @@ class Client:
         return self.connectors_client.create_identities(
             app_id=app_id,
             body=body,
+        )
+
+    def retrieve_incident(
+        self,
+        app_id: str,
+        incident_id: str,
+        expand: Optional[list[IncidentExpansion]] = None,
+    ):
+        return self.platform_client.retrieve_incident(
+            app_id=app_id,
+            incident_id=incident_id,
+            expand=expand,
         )
