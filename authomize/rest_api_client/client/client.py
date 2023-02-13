@@ -339,12 +339,10 @@ class Client:
 
     def retrieve_incident(
         self,
-        app_id: str,
         incident_id: str,
         expand: Optional[list[IncidentExpansion]] = None,
     ):
         return self.platform_client.retrieve_incident(
-            app_id=app_id,
             incident_id=incident_id,
             expand=expand,
         )

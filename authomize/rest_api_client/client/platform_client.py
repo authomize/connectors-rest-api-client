@@ -25,12 +25,9 @@ class PlatformClient(BaseClient):
 
     def retrieve_incident(
         self,
-        app_id: str,
         incident_id: str,
         expand: Optional[list[IncidentExpansion]] = None,
     ) -> NonPaginatedResponseSchemaIncidentSchema:
-        if not app_id:
-            raise ValueError('Missing app_id')
         if not incident_id:
             raise ValueError('Missing incident_id')
         params = None
