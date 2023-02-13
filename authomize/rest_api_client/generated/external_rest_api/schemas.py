@@ -70,24 +70,18 @@ class BaseBooleanFilter(BaseModel):
     class Config:
         extra = Extra.forbid
 
-    field_eq: Optional[bool] = Field(
-        None, alias='$eq', description='Equals To', title='$Eq'
-    )
+    field_eq: Optional[bool] = Field(None, alias='$eq', description='Equals To', title='$Eq')
 
 
 class BaseDateFilter(BaseModel):
     class Config:
         extra = Extra.forbid
 
-    field_gt: Optional[datetime] = Field(
-        None, alias='$gt', description='Greater Than', title='$Gt'
-    )
+    field_gt: Optional[datetime] = Field(None, alias='$gt', description='Greater Than', title='$Gt')
     field_gte: Optional[datetime] = Field(
         None, alias='$gte', description='Greater Than Or Equals To', title='$Gte'
     )
-    field_lt: Optional[datetime] = Field(
-        None, alias='$lt', description='Less Than', title='$Lt'
-    )
+    field_lt: Optional[datetime] = Field(None, alias='$lt', description='Less Than', title='$Lt')
     field_lte: Optional[datetime] = Field(
         None, alias='$lte', description='Less Than Or Equals To', title='$Lte'
     )
@@ -97,9 +91,7 @@ class BaseSingleValuedStringFilter(BaseModel):
     class Config:
         extra = Extra.forbid
 
-    field_eq: Optional[str] = Field(
-        None, alias='$eq', description='Equals To', title='$Eq'
-    )
+    field_eq: Optional[str] = Field(None, alias='$eq', description='Equals To', title='$Eq')
 
 
 class CampaignExpansion(Enum):
@@ -280,9 +272,7 @@ class PaginationRequestSchema(BaseModel):
         extra = Extra.forbid
 
     limit: Optional[int] = Field(None, description='Limit', title='Limit')
-    nextPage: Optional[str] = Field(
-        None, description='Starting after', title='NextPage'
-    )
+    nextPage: Optional[str] = Field(None, description='Starting after', title='NextPage')
 
 
 class PaginationResponseSchema(BaseModel):
@@ -290,9 +280,7 @@ class PaginationResponseSchema(BaseModel):
     hasMore: Optional[bool] = Field(
         None, description='Has more? `true` or `false`.', title='HasMore'
     )
-    nextPage: Optional[str] = Field(
-        None, description='Starting after', title='NextPage'
-    )
+    nextPage: Optional[str] = Field(None, description='Starting after', title='NextPage')
 
 
 class PermissionsExpansion(Enum):
@@ -338,9 +326,7 @@ class SortSchemaFieldName(BaseModel):
     class Config:
         extra = Extra.forbid
 
-    fieldName: FieldName = Field(
-        ..., description='Sort By Field Name', title='FieldName'
-    )
+    fieldName: FieldName = Field(..., description='Sort By Field Name', title='FieldName')
     order: Optional[SortOrder] = Field('ASC', description='Sort Order', title='Order')
 
 
@@ -401,27 +387,21 @@ class BasicEnumFilterCampaignStatus(BaseModel):
     class Config:
         extra = Extra.forbid
 
-    field_in: Optional[List[CampaignStatus]] = Field(
-        None, alias='$in', description='In'
-    )
+    field_in: Optional[List[CampaignStatus]] = Field(None, alias='$in', description='In')
 
 
 class BasicEnumFilterIncidentSeverity(BaseModel):
     class Config:
         extra = Extra.forbid
 
-    field_in: Optional[List[IncidentSeverity]] = Field(
-        None, alias='$in', description='In'
-    )
+    field_in: Optional[List[IncidentSeverity]] = Field(None, alias='$in', description='In')
 
 
 class BasicEnumFilterIncidentStatus(BaseModel):
     class Config:
         extra = Extra.forbid
 
-    field_in: Optional[List[IncidentStatus]] = Field(
-        None, alias='$in', description='In'
-    )
+    field_in: Optional[List[IncidentStatus]] = Field(None, alias='$in', description='In')
 
 
 class BasicEnumFilterSelection(BaseModel):
@@ -444,18 +424,10 @@ class CampaignSchema(BaseModel):
     id: str = Field(..., description='Unique ID of campaign', title='Id')
     name: str = Field(..., description='Name of the campaign', title='Name')
     status: CampaignStatus = Field(..., description='The campaign status')
-    startDate: datetime = Field(
-        ..., description='Date when the campaign starts', title='Startdate'
-    )
-    endDate: datetime = Field(
-        ..., description='Date when campaign ends', title='Enddate'
-    )
-    createdAt: datetime = Field(
-        ..., description='Time of creation of campaign', title='Createdat'
-    )
-    ownerUserId: str = Field(
-        ..., description='User ID of the campaign owner', title='Owneruserid'
-    )
+    startDate: datetime = Field(..., description='Date when the campaign starts', title='Startdate')
+    endDate: datetime = Field(..., description='Date when campaign ends', title='Enddate')
+    createdAt: datetime = Field(..., description='Time of creation of campaign', title='Createdat')
+    ownerUserId: str = Field(..., description='User ID of the campaign owner', title='Owneruserid')
     owner: Optional[UserSchema] = Field(
         None, description='User Schema of the campaign owner', title='Owner'
     )
@@ -473,17 +445,13 @@ class CampaignSearchFilterBody(BaseModel):
 class Ccm301(BaseModel):
     values: List[Ccm301Standard] = Field(..., description='Values')
     id: Optional[str] = Field('ccm301', description='UniqueID', title='Id')
-    name: Optional[str] = Field(
-        'CSA STAR (CCM 3.0.1)', description='Name', title='Name'
-    )
+    name: Optional[str] = Field('CSA STAR (CCM 3.0.1)', description='Name', title='Name')
 
 
 class Ccm402(BaseModel):
     values: List[Ccm402Standard] = Field(..., description='Values')
     id: Optional[str] = Field('ccm402', description='UniqueID', title='Id')
-    name: Optional[str] = Field(
-        'CSA STAR (CCM 4.0.2)', description='Name', title='Name'
-    )
+    name: Optional[str] = Field('CSA STAR (CCM 4.0.2)', description='Name', title='Name')
 
 
 class HTTPValidationError(BaseModel):
@@ -498,9 +466,7 @@ class IncidentEntitiesSchema(BaseModel):
     )
     email: Optional[str] = Field(None, description='Email', title='Email')
     originId: Optional[str] = Field(None, description='Origin ID', title='Originid')
-    originType: Optional[str] = Field(
-        None, description='Origin Type', title='Origintype'
-    )
+    originType: Optional[str] = Field(None, description='Origin Type', title='Origintype')
 
 
 class IsoIec27001(BaseModel):
@@ -523,9 +489,7 @@ class PaginatedResponseSchemaCampaignSchema(BaseModel):
     pagination: Optional[PaginationResponseSchema] = Field(
         None, description='Pagination Metadata', title='Pagination'
     )
-    data: List[CampaignSchema] = Field(
-        ..., description='List of Actual Data', title='Data'
-    )
+    data: List[CampaignSchema] = Field(..., description='List of Actual Data', title='Data')
 
 
 class ReviewerSchema(BaseModel):
@@ -534,9 +498,7 @@ class ReviewerSchema(BaseModel):
     lastNotifiedAt: datetime = Field(
         ..., description='Time of last notified', title='Lastnotifiedat'
     )
-    lastActiveAt: datetime = Field(
-        ..., description='Time of last activity', title='Lastactiveat'
-    )
+    lastActiveAt: datetime = Field(..., description='Time of last activity', title='Lastactiveat')
     reviewStatus: Union[ReviewStatus, str] = Field(
         ..., description='Review Status', title='Reviewstatus'
     )
@@ -565,16 +527,12 @@ class SearchCampaignsRequestSchema(BaseModel):
     class Config:
         extra = Extra.forbid
 
-    filter: Optional[CampaignSearchFilterBody] = Field(
-        None, description='Filter', title='Filter'
-    )
+    filter: Optional[CampaignSearchFilterBody] = Field(None, description='Filter', title='Filter')
     expand: Optional[List[CampaignExpansion]] = Field(None, description='Expand Fields')
     pagination: Optional[PaginationRequestSchema] = Field(
         None, description='Pagination', title='Pagination'
     )
-    sort: Optional[List[SortSchemaFieldName]] = Field(
-        None, description='Sort', title='Sort'
-    )
+    sort: Optional[List[SortSchemaFieldName]] = Field(None, description='Sort', title='Sort')
 
 
 class SearchIncidentsFilter(BaseModel):
@@ -608,9 +566,7 @@ class SearchIncidentsRequestSchema(BaseModel):
     class Config:
         extra = Extra.forbid
 
-    filter: Optional[SearchIncidentsFilter] = Field(
-        None, description='Filter', title='Filter'
-    )
+    filter: Optional[SearchIncidentsFilter] = Field(None, description='Filter', title='Filter')
     expand: Optional[List[IncidentExpansion]] = Field(None, description='Expend')
     sort: Optional[List[SortSchemaSearchIncidentsSortFields]] = Field(
         [], description='Sort', title='Sort'
@@ -631,17 +587,13 @@ class IncidentSchema(BaseModel):
     entities: Optional[List[IncidentEntitiesSchema]] = Field(
         [], description='Entity', title='Entities'
     )
-    apps: Optional[List[SourceAppSchema]] = Field(
-        [], description='Applications', title='Apps'
-    )
+    apps: Optional[List[SourceAppSchema]] = Field([], description='Applications', title='Apps')
     category: Optional[AlertCategoryType] = Field(None, description='Category')
     tactics: Optional[List[AttackTacticType]] = Field([], description='Tactics')
-    compliance: Optional[
-        List[Union[IsoIec27001, AicpaTsc2017, Ccm402, Ccm301, Cisv8]]
-    ] = Field([], description='Compliance', title='Compliance')
-    techniques: Optional[List[str]] = Field(
-        [], description='Techniques', title='Techniques'
+    compliance: Optional[List[Union[IsoIec27001, AicpaTsc2017, Ccm402, Ccm301, Cisv8]]] = Field(
+        [], description='Compliance', title='Compliance'
     )
+    techniques: Optional[List[str]] = Field([], description='Techniques', title='Techniques')
     status: Optional[IncidentStatus] = Field(
         None,
         description='The status of the incident (Open, In Progress, Waiting for Input, or Closed)',
@@ -654,9 +606,7 @@ class IncidentSchema(BaseModel):
     assigneeId: Optional[str] = Field(
         None, description='Unique id of assignee.', title='Assigneeid'
     )
-    assignee: Optional[UserSchema] = Field(
-        None, description='Assignee', title='Assignee'
-    )
+    assignee: Optional[UserSchema] = Field(None, description='Assignee', title='Assignee')
     recommendation: Optional[str] = Field(
         None, description='Recommendation', title='Recommendation'
     )
@@ -685,9 +635,7 @@ class PaginatedResponseSchemaIncidentSchema(BaseModel):
     pagination: Optional[PaginationResponseSchema] = Field(
         None, description='Pagination Metadata', title='Pagination'
     )
-    data: List[IncidentSchema] = Field(
-        ..., description='List of Actual Data', title='Data'
-    )
+    data: List[IncidentSchema] = Field(..., description='List of Actual Data', title='Data')
 
 
 class PermissionSchema(BaseModel):
@@ -703,9 +651,7 @@ class PermissionSchema(BaseModel):
     accessToType: AccessToType = Field(..., description='Access To Type')
     privilegeId: str = Field(..., description='Privilege ID', title='Privilegeid')
     decision: Optional[Selection] = Field(None, description='Decision')
-    decisionReason: Optional[str] = Field(
-        None, description='Reason', title='Decisionreason'
-    )
+    decisionReason: Optional[str] = Field(None, description='Reason', title='Decisionreason')
 
 
 class PaginatedResponseSchemaPermissionSchema(BaseModel):
@@ -715,6 +661,4 @@ class PaginatedResponseSchemaPermissionSchema(BaseModel):
     pagination: Optional[PaginationResponseSchema] = Field(
         None, description='Pagination Metadata', title='Pagination'
     )
-    data: List[PermissionSchema] = Field(
-        ..., description='List of Actual Data', title='Data'
-    )
+    data: List[PermissionSchema] = Field(..., description='List of Actual Data', title='Data')
