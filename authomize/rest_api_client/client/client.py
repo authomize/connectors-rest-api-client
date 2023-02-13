@@ -43,9 +43,9 @@ from authomize.rest_api_client.generated.connectors_rest_api.schemas import (
     SubmitResponse,
 )
 from authomize.rest_api_client.generated.external_rest_api.schemas import (
+    IncidentExpansion,
     IsAliveResponse,
     MeResponse,
-    IncidentExpansion,
 )
 
 
