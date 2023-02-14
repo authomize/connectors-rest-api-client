@@ -9,7 +9,13 @@ if __name__ == '__main__':
         author_email='info@authomize.com',
         description='Authomize REST API Python Client',
         packages=find_namespace_packages(include=['authomize.*']),
-        package_data={'authomize.rest_api_client': ['openapi/*.json', 'py.typed']},
+        package_data={
+            'authomize.rest_api_client': [
+                'openapi/connectors_rest_api/*.json',
+                'openapi/external_rest_api/*.json',
+                'py.typed',
+            ],
+        },
         install_requires=[
             'requests~=2.28.1',
             'api-client-pydantic~=1.2',
