@@ -809,9 +809,7 @@ class SearchAccountsAssociationsListResponseSchema(BaseModel):
 
 
 class SearchAssetsInheritanceListResponseSchema(BaseModel):
-    data: List[AssetInheritanceSchema] = Field(
-        ..., description='Assets Inheritance', title='Data'
-    )
+    data: List[AssetInheritanceSchema] = Field(..., description='Assets Inheritance', title='Data')
 
 
 class SearchGroupingsAssociationsListResponseSchema(BaseModel):
@@ -821,9 +819,7 @@ class SearchGroupingsAssociationsListResponseSchema(BaseModel):
 
 
 class SearchPrivilegeGrantsListResponseSchema(BaseModel):
-    data: List[PrivilegeGrantSchema] = Field(
-        ..., description='Privilege Grants', title='Data'
-    )
+    data: List[PrivilegeGrantSchema] = Field(..., description='Privilege Grants', title='Data')
 
 
 class ServiceDescription(BaseModel):
@@ -1199,18 +1195,12 @@ class IdentitySchema(BaseModel):
         title='Originid',
     )
     name: Optional[str] = Field(None, description='Username', title='Name')
-    email: Optional[str] = Field(
-        None, description="User's work email address.\n", title='Email'
-    )
+    email: Optional[str] = Field(None, description="User's work email address.\n", title='Email')
     personalEmail: Optional[str] = Field(
         None, description="User's personal email address.\n", title='Personalemail'
     )
-    firstName: Optional[str] = Field(
-        None, description="User's first name\n", title='Firstname'
-    )
-    lastName: Optional[str] = Field(
-        None, description="The user's last name.\n", title='Lastname'
-    )
+    firstName: Optional[str] = Field(None, description="User's first name\n", title='Firstname')
+    lastName: Optional[str] = Field(None, description="The user's last name.\n", title='Lastname')
     employeeNumber: Optional[str] = Field(
         None, description='Employee number', title='Employeenumber'
     )
@@ -1230,9 +1220,7 @@ class IdentitySchema(BaseModel):
         description="The identity's division in their organization.\n",
         title='Division',
     )
-    title: Optional[str] = Field(
-        None, description="The user's job title.\n", title='Title'
-    )
+    title: Optional[str] = Field(None, description="The user's job title.\n", title='Title')
     managerId: Optional[str] = Field(
         None, description="The manager identity's ID.\n", title='Managerid'
     )
@@ -1263,9 +1251,7 @@ class ItemsBundleSchema(BaseModel):
     inheritanceIdentities: Optional[List[IdentitiesInheritance]] = Field(
         None, title='Inheritanceidentities'
     )
-    inheritanceAssets: Optional[List[AssetsInheritance]] = Field(
-        None, title='Inheritanceassets'
-    )
+    inheritanceAssets: Optional[List[AssetsInheritance]] = Field(None, title='Inheritanceassets')
     access: Optional[List[AccessDescription]] = Field(None, title='Access')
 
 
@@ -1279,18 +1265,12 @@ class NewIdentityRequestSchema(BaseModel):
         title='Originid',
     )
     name: Optional[str] = Field(None, description='Username', title='Name')
-    email: Optional[str] = Field(
-        None, description="User's work email address.\n", title='Email'
-    )
+    email: Optional[str] = Field(None, description="User's work email address.\n", title='Email')
     personalEmail: Optional[str] = Field(
         None, description="User's personal email address.\n", title='Personalemail'
     )
-    firstName: Optional[str] = Field(
-        None, description="User's first name\n", title='Firstname'
-    )
-    lastName: Optional[str] = Field(
-        None, description="The user's last name.\n", title='Lastname'
-    )
+    firstName: Optional[str] = Field(None, description="User's first name\n", title='Firstname')
+    lastName: Optional[str] = Field(None, description="The user's last name.\n", title='Lastname')
     employeeNumber: Optional[str] = Field(
         None, description='Employee number', title='Employeenumber'
     )
@@ -1310,9 +1290,7 @@ class NewIdentityRequestSchema(BaseModel):
         description="The identity's division in their organization.\n",
         title='Division',
     )
-    title: Optional[str] = Field(
-        None, description="The user's job title.\n", title='Title'
-    )
+    title: Optional[str] = Field(None, description="The user's job title.\n", title='Title')
     managerId: Optional[str] = Field(
         None, description="The manager identity's ID.\n", title='Managerid'
     )
@@ -1417,15 +1395,9 @@ class NewUserRequestSchema(BaseModel):
         title='Originid',
     )
     name: Optional[str] = Field(None, description='Username\n', title='Name')
-    email: Optional[str] = Field(
-        None, description="User's email address.", title='Email'
-    )
-    firstName: Optional[str] = Field(
-        None, description="User's first name\n", title='Firstname'
-    )
-    lastName: Optional[str] = Field(
-        None, description="The user's last name.\n", title='Lastname'
-    )
+    email: Optional[str] = Field(None, description="User's email address.", title='Email')
+    firstName: Optional[str] = Field(None, description="User's first name\n", title='Firstname')
+    lastName: Optional[str] = Field(None, description="The user's last name.\n", title='Lastname')
     status: Optional[UserStatus] = Field(
         None,
         description='User status must be: `Deleted`, `Disabled`, `Enabled`, `Staged`, `Suspended`, or `Unknown`.\n',
@@ -1535,16 +1507,12 @@ class RequestsBundleSchema(BaseModel):
         description='This API enables you to establish inheritance between privileges, so that a single privilege contains a set of other privileges. For example, an Administrative privilege that contains read and write privileges.',
         title='New Privileges Grants',
     )
-    new_accounts_association: Optional[
-        List[NewAccountsAssociationRequestSchema]
-    ] = Field(
+    new_accounts_association: Optional[List[NewAccountsAssociationRequestSchema]] = Field(
         None,
         description='Create association between user accounts and groups.',
         title='New Accounts Association',
     )
-    new_groupings_association: Optional[
-        List[NewGroupingsAssociationRequestSchema]
-    ] = Field(
+    new_groupings_association: Optional[List[NewGroupingsAssociationRequestSchema]] = Field(
         None,
         description='Create associations between groups and other groups.\n',
         title='New Groupings Association',
@@ -1618,18 +1586,12 @@ class UpdateIdentityRequestSchema(BaseModel):
         title='Originid',
     )
     name: Optional[str] = Field(None, description='Username', title='Name')
-    email: Optional[str] = Field(
-        None, description="User's work email address.\n", title='Email'
-    )
+    email: Optional[str] = Field(None, description="User's work email address.\n", title='Email')
     personalEmail: Optional[str] = Field(
         None, description="User's personal email address.\n", title='Personalemail'
     )
-    firstName: Optional[str] = Field(
-        None, description="User's first name\n", title='Firstname'
-    )
-    lastName: Optional[str] = Field(
-        None, description="The user's last name.\n", title='Lastname'
-    )
+    firstName: Optional[str] = Field(None, description="User's first name\n", title='Firstname')
+    lastName: Optional[str] = Field(None, description="The user's last name.\n", title='Lastname')
     employeeNumber: Optional[str] = Field(
         None, description='Employee number', title='Employeenumber'
     )
@@ -1649,9 +1611,7 @@ class UpdateIdentityRequestSchema(BaseModel):
         description="The identity's division in their organization.\n",
         title='Division',
     )
-    title: Optional[str] = Field(
-        None, description="The user's job title.\n", title='Title'
-    )
+    title: Optional[str] = Field(None, description="The user's job title.\n", title='Title')
     managerId: Optional[str] = Field(
         None, description="The manager identity's ID.\n", title='Managerid'
     )
@@ -1687,15 +1647,9 @@ class UpdateUserRequestSchema(BaseModel):
         title='Originid',
     )
     name: Optional[str] = Field(None, description='Username\n', title='Name')
-    email: Optional[str] = Field(
-        None, description="User's email address.", title='Email'
-    )
-    firstName: Optional[str] = Field(
-        None, description="User's first name\n", title='Firstname'
-    )
-    lastName: Optional[str] = Field(
-        None, description="The user's last name.\n", title='Lastname'
-    )
+    email: Optional[str] = Field(None, description="User's email address.", title='Email')
+    firstName: Optional[str] = Field(None, description="User's first name\n", title='Firstname')
+    lastName: Optional[str] = Field(None, description="The user's last name.\n", title='Lastname')
     status: Optional[UserStatus] = Field(
         None,
         description='User status must be: `Deleted`, `Disabled`, `Enabled`, `Staged`, `Suspended`, or `Unknown`.\n',
@@ -1735,15 +1689,9 @@ class UserSchema(BaseModel):
         title='Originid',
     )
     name: Optional[str] = Field(None, description='Username\n', title='Name')
-    email: Optional[str] = Field(
-        None, description="User's email address.", title='Email'
-    )
-    firstName: Optional[str] = Field(
-        None, description="User's first name\n", title='Firstname'
-    )
-    lastName: Optional[str] = Field(
-        None, description="The user's last name.\n", title='Lastname'
-    )
+    email: Optional[str] = Field(None, description="User's email address.", title='Email')
+    firstName: Optional[str] = Field(None, description="User's first name\n", title='Firstname')
+    lastName: Optional[str] = Field(None, description="The user's last name.\n", title='Lastname')
     status: Optional[UserStatus] = Field(
         None,
         description='User status must be: `Deleted`, `Disabled`, `Enabled`, `Staged`, `Suspended`, or `Unknown`.\n',
