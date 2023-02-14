@@ -15,11 +15,7 @@ class BaseClient:
         self.auth_token = auth_token
         self.base_url = base_url
         self.session = requests.Session()
-        self.session.headers.update({'Authorization': self.authorization_header})
-
-    @property
-    def authorization_header(self) -> str:
-        raise NotImplementedError()
+        self.session.headers.update({'Authorization': auth_token})
 
     def http_get(self, url, params=None):
         url = self.base_url + url
