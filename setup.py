@@ -31,6 +31,7 @@ if __name__ == '__main__':
                 'pytest-html~=2.1',
                 'furl~=2.1.3',
                 'types-requests~=2.28.7',
+                'aiohttp~=3.8.4',
             ],
             'codegen': [
                 'datamodel-code-generator~=0.11',
