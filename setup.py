@@ -29,6 +29,7 @@ if __name__ == '__main__':
                 'pyhamcrest~=2.0',
                 'pytest~=6.2',
                 'pytest-html~=2.1',
+                'furl~=2.1.3',
                 'types-requests~=2.28.7',
             ],
             'codegen': [

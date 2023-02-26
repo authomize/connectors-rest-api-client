@@ -1,11 +1,13 @@
+import asyncio
+import functools
 from datetime import datetime
 from typing import Optional
 
 from apiclient_pydantic import serialize_all_methods, serialize_response
 
+from authomize.rest_api_client.client.async_base_client import AUTHOMIZE_API_URL
 from authomize.rest_api_client.client.async_connectors_client import AsyncConnectorsClient
 from authomize.rest_api_client.client.async_platform_client import AsyncPlatformClient
-from authomize.rest_api_client.client.base_client import AUTHOMIZE_API_URL
 from authomize.rest_api_client.generated.connectors_rest_api.schemas import (
     BundleTransactionSchema,
     ItemsBundleSchema,
@@ -49,8 +51,16 @@ from authomize.rest_api_client.generated.external_rest_api.schemas import (
 )
 
 
+def syncify(func):
+    @functools.wraps(func)
+    def wrapped(*args, **kwargs):
+        return asyncio.ensure_future(func(*args, **kwargs))
+
+    return wrapped
+
+
 @serialize_all_methods(decorator=serialize_response)
-class AsyncClient:
+class Client:
     def __init__(
         self,
         *args,
@@ -73,12 +83,15 @@ class AsyncClient:
             **kwargs,
         )
 
+    @syncify
     async def is_alive(self) -> IsAliveResponse:
         return await self.platform_client.is_alive()
 
+    @syncify
     async def me(self) -> MeResponse:
         return await self.platform_client.me()
 
+    @syncify
     async def list_connectors(
         self,
         params=None,
@@ -87,6 +100,7 @@ class AsyncClient:
             params=params,
         )
 
+    @syncify
     async def create_transaction(
         self,
         connector_id: str,
@@ -95,6 +109,7 @@ class AsyncClient:
             connector_id=connector_id,
         )
 
+    @syncify
     async def retrieve_transaction(
         self,
         connector_id: str,
@@ -105,6 +120,7 @@ class AsyncClient:
             transaction_id=transaction_id,
         )
 
+    @syncify
     async def apply_transaction(
         self,
         connector_id: str,
@@ -115,6 +131,7 @@ class AsyncClient:
             transaction_id=transaction_id,
         )
 
+    @syncify
     async def extend_transaction_items(
         self,
         connector_id: str,
@@ -127,6 +144,7 @@ class AsyncClient:
             items=items,
         )
 
+    @syncify
     async def delete_app_data(
         self,
         app_id: str,
@@ -137,6 +155,7 @@ class AsyncClient:
             modified_before=modified_before,
         )
 
+    @syncify
     async def search_users(
         self,
         app_id: str,
@@ -147,6 +166,7 @@ class AsyncClient:
             start_date=start_date,
         )
 
+    @syncify
     async def create_users(
         self,
         app_id: str,
@@ -157,6 +177,7 @@ class AsyncClient:
             body=body,
         )
 
+    @syncify
     async def search_groupings(
         self,
         app_id: str,
@@ -167,6 +188,7 @@ class AsyncClient:
             start_date=start_date,
         )
 
+    @syncify
     async def create_groupings(
         self,
         app_id: str,
@@ -177,6 +199,7 @@ class AsyncClient:
             body=body,
         )
 
+    @syncify
     async def search_permissions(
         self,
         app_id: str,
@@ -187,6 +210,7 @@ class AsyncClient:
             start_date=start_date,
         )
 
+    @syncify
     async def create_permissions(
         self,
         app_id: str,
@@ -197,6 +221,7 @@ class AsyncClient:
             body=body,
         )
 
+    @syncify
     async def search_privileges(
         self,
         app_id: str,
@@ -207,6 +232,7 @@ class AsyncClient:
             start_date=start_date,
         )
 
+    @syncify
     async def create_privileges(
         self,
         app_id: str,
@@ -217,6 +243,7 @@ class AsyncClient:
             body=body,
         )
 
+    @syncify
     async def search_privileges_grants(
         self,
         app_id: str,
@@ -227,6 +254,7 @@ class AsyncClient:
             start_date=start_date,
         )
 
+    @syncify
     async def create_privileges_grants(
         self,
         app_id: str,
@@ -237,6 +265,7 @@ class AsyncClient:
             body=body,
         )
 
+    @syncify
     async def search_accounts_association(
         self,
         app_id: str,
@@ -247,6 +276,7 @@ class AsyncClient:
             start_date=start_date,
         )
 
+    @syncify
     async def create_accounts_association(
         self,
         app_id: str,
@@ -257,6 +287,7 @@ class AsyncClient:
             body=body,
         )
 
+    @syncify
     async def search_groupings_association(
         self,
         app_id: str,
@@ -267,6 +298,7 @@ class AsyncClient:
             start_date=start_date,
         )
 
+    @syncify
     async def create_groupings_association(
         self,
         app_id: str,
@@ -277,6 +309,7 @@ class AsyncClient:
             body=body,
         )
 
+    @syncify
     async def search_assets(
         self,
         app_id: str,
@@ -287,6 +320,7 @@ class AsyncClient:
             start_date=start_date,
         )
 
+    @syncify
     async def create_assets(
         self,
         app_id: str,
@@ -297,6 +331,7 @@ class AsyncClient:
             body=body,
         )
 
+    @syncify
     async def search_assets_inheritance(
         self,
         app_id: str,
@@ -307,6 +342,7 @@ class AsyncClient:
             start_date=start_date,
         )
 
+    @syncify
     async def create_assets_inheritance(
         self,
         app_id: str,
@@ -317,6 +353,7 @@ class AsyncClient:
             body=body,
         )
 
+    @syncify
     async def search_identities(
         self,
         app_id: str,
@@ -327,6 +364,7 @@ class AsyncClient:
             start_date=start_date,
         )
 
+    @syncify
     async def create_identities(
         self,
         app_id: str,
@@ -337,6 +375,7 @@ class AsyncClient:
             body=body,
         )
 
+    @syncify
     async def retrieve_incident(
         self,
         incident_id: str,
@@ -346,3 +385,7 @@ class AsyncClient:
             incident_id=incident_id,
             expand=expand,
         )
+
+    @syncify
+    async def close(self):
+        await asyncio.gather(self.connectors_client.close(), self.platform_client.close())
