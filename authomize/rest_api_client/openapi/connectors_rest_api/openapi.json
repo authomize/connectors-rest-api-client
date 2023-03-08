@@ -3,7 +3,7 @@
   "info": {
     "title": "Authomize API Reference",
     "description": "Authomize enables users to integrate your applications with Authomize via custom connectors.\n\nYou can use the APIs described in this document to create your connector.\n\nOnce data is uploaded and processed successfully, your custom connector will function in the same way as the connectors created by Authomize.\n\n## How does Authomize work?\nAuthomize works by gathering information about:\n\n· individuals, teams and functions.\n\n· apps, assets and accounts.\n\n· all the relationships between them.\n\n![img.png](https://storagetry1.blob.core.windows.net/public/78d82650-71b0-4909-8444-022aab79add5.png)\n\n## Connector APIs\n\nAuthomize connector APIs enable pushing data into Authomize from external sources.\n\nThese APIs enable data extracted from outside applications (via application APIs) to be delivered to Authomize.\n\nA connector processes extracted application data to transform it into a format compatible with Authomize.\n\n![img_1.png](https://storagetry1.blob.core.windows.net/public/341bf6ef-2e5b-4284-b715-45105ffbf0f8.png)\n\n## Authentication\nTo Authenticate use the API Token, with the format: `Authorization: API_Token`.\n\nAn API Token is a token you provide when making API calls. \n\n\nThe API Token should be included in every request to the API in an `Authorization` header.\n```\ncurl -v -X POST \\n\n     -H \"Authorization: {API_Token}\" \\n\n     ...\n```\n",
-    "version": "3.0.3",
+    "version": "3.1.0",
     "x-logo": {
       "url": "https://static.authomize.com/public/icons/authomize-green.svg"
     }
@@ -105,7 +105,7 @@
               "description": "Delete all the app data lastly updated before the given date.",
               "format": "date-time"
             },
-            "example": "2023-03-06T10:07:42.070670+00:00",
+            "example": "2023-03-08T09:20:30.359298+00:00",
             "name": "modifiedBefore",
             "in": "query"
           }
@@ -317,7 +317,7 @@
           "Access"
         ],
         "summary": "Search Groupings",
-        "description": "**Get groupings.**",
+        "description": "The Search Grouping API is used to get a list of groups that have access to a particular app.",
         "operationId": "search_groupings_v2_apps__appId__access_grouping_get",
         "parameters": [
           {
@@ -375,7 +375,7 @@
           "Access"
         ],
         "summary": "Create Groupings",
-        "description": "A \"grouping\" is any object that collects multiple accounts or other groupings and can be granted permissions. Examples include groups, roles on certain platforms (e.g. AWS), profiles in certain platforms (e.g. SFDC) and more.\n",
+        "description": "A \"grouping\" is any object that collects multiple accounts or other groupings and can be granted permissions.\nExamples include groups, roles on certain platforms (e.g. AWS), profiles in certain platforms (e.g. SFDC) and more.\nThe Create Grouping API is used to create groupings.\n",
         "operationId": "create_groupings_v2_apps__appId__access_grouping_post",
         "parameters": [
           {
@@ -431,7 +431,7 @@
           "Access"
         ],
         "summary": "Patch Groupings",
-        "description": "Use this endpoint when updating grouping data.\n\nWhen editing grouping data, any combination of fields can be updated at a time.\n\nThe uniqueId is requiered and can't be changed.\n\nOnly the fields that are supplied will be affected by the PATCH request (others will be unchanged).\n",
+        "description": "The Patch Grouping API is used to edit grouping data.\nWhen editing grouping data, any combination of fields can be updated at a time.\nThe uniqueId is required and can't be changed.\nOnly the fields that are supplied will be affected by the PATCH request (others will be unchanged).\n",
         "operationId": "patch_groupings_v2_apps__appId__access_grouping_patch",
         "parameters": [
           {
@@ -4821,7 +4821,7 @@
             "items": {
               "$ref": "#/components/schemas/NewGroupingRequestSchema"
             },
-            "description": "A \"grouping\" is any object that collects multiple accounts or other groupings and can be granted permissions. Examples include groups, roles on certain platforms (e.g. AWS), profiles in certain platforms (e.g. SFDC) and more.\n"
+            "description": "A \"grouping\" is any object that collects multiple accounts or other groupings and can be granted permissions.\nExamples include groups, roles on certain platforms (e.g. AWS), profiles in certain platforms (e.g. SFDC) and more.\nThe Create Grouping API is used to create groupings.\n"
           },
           "new_permissions": {
             "title": "New Permissions",
@@ -5854,7 +5854,7 @@
     },
     {
       "name": "Access",
-      "description": "Access is a way to relate between accounts, roles and assets.\n"
+      "description": "Access is a way to relate between accounts, roles and assets.\nAccess APIs can be used to get a list of groups (including the users in each group), to create groups and to edit groups."
     },
     {
       "name": "Privileges",
