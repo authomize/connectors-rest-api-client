@@ -3,7 +3,7 @@
   "info": {
     "title": "Authomize API Reference",
     "description": "Authomize enables users to integrate your applications with Authomize via custom connectors.\n\nYou can use the APIs described in this document to create your connector.\n\nOnce data is uploaded and processed successfully, your custom connector will function in the same way as the connectors created by Authomize.\n\n## How does Authomize work?\nAuthomize works by gathering information about:\n\n· individuals, teams and functions.\n\n· apps, assets and accounts.\n\n· all the relationships between them.\n\n![img.png](https://storagetry1.blob.core.windows.net/public/78d82650-71b0-4909-8444-022aab79add5.png)\n\n## Connector APIs\n\nAuthomize connector APIs enable pushing data into Authomize from external sources.\n\nThese APIs enable data extracted from outside applications (via application APIs) to be delivered to Authomize.\n\nA connector processes extracted application data to transform it into a format compatible with Authomize.\n\n![img_1.png](https://storagetry1.blob.core.windows.net/public/341bf6ef-2e5b-4284-b715-45105ffbf0f8.png)\n\n## Authentication\nTo Authenticate use the API Token, with the format: `Authorization: API_Token`.\n\nAn API Token is a token you provide when making API calls. \n\n\nThe API Token should be included in every request to the API in an `Authorization` header.\n```\ncurl -v -X POST \\n\n     -H \"Authorization: {API_Token}\" \\n\n     ...\n```\n",
-    "version": "3.1.0",
+    "version": "3.1.1",
     "x-logo": {
       "url": "https://static.authomize.com/public/icons/authomize-green.svg"
     }
@@ -84,7 +84,7 @@
           "Apps"
         ],
         "summary": "Delete Application Data",
-        "description": "Delete app data by `{appId}`.",
+        "description": "The Delete Application Data API is used to delete app data by `{appId}`.",
         "operationId": "delete_application_data_v2_apps__appId__data_delete",
         "parameters": [
           {
@@ -105,7 +105,7 @@
               "description": "Delete all the app data lastly updated before the given date.",
               "format": "date-time"
             },
-            "example": "2023-03-08T09:20:30.359298+00:00",
+            "example": "2023-03-08T14:36:56.286970+00:00",
             "name": "modifiedBefore",
             "in": "query"
           }
@@ -145,7 +145,7 @@
           "Accounts"
         ],
         "summary": "Search Users",
-        "description": "Get users.",
+        "description": "The Search Users APIs lists users of an App (by App ID).",
         "operationId": "search_users_v2_apps__appId__accounts_users_get",
         "parameters": [
           {
@@ -203,7 +203,7 @@
           "Accounts"
         ],
         "summary": "Create Users",
-        "description": "**Create new users.**",
+        "description": "The Create Users APIs sets up App users(by App ID).",
         "operationId": "create_users_v2_apps__appId__accounts_users_post",
         "parameters": [
           {
@@ -259,7 +259,7 @@
           "Accounts"
         ],
         "summary": "Patch Users",
-        "description": "Use this endpoint when updating user data.\n\nWhen editing user data, any combination of fields can be updated at a time.\n\nThe uniqueId is requiered and can't be changed.\n\nOnly the fields that are supplied will be affected by the PATCH request (others will be unchanged).\n",
+        "description": "The Patch Users API is used to edit user data.\nWhen editing user data, any combination of fields can be updated at a time.\nThe uniqueId is required and can't be changed.\nOnly the fields that are supplied will be affected by the PATCH request (others will be unchanged).\n",
         "operationId": "patch_users_v2_apps__appId__accounts_users_patch",
         "parameters": [
           {
@@ -375,7 +375,7 @@
           "Access"
         ],
         "summary": "Create Groupings",
-        "description": "A \"grouping\" is any object that collects multiple accounts or other groupings and can be granted permissions.\nExamples include groups, roles on certain platforms (e.g. AWS), profiles in certain platforms (e.g. SFDC) and more.\nThe Create Grouping API is used to create groupings.\n",
+        "description": "The Create Groupings API is used to create groupings.\nA \"grouping\" is any object that collects multiple accounts or other groupings and can be granted permissions. \nExamples include groups, roles on certain platforms (e.g. AWS), profiles in certain platforms (e.g. SFDC) and more.\n\n",
         "operationId": "create_groupings_v2_apps__appId__access_grouping_post",
         "parameters": [
           {
@@ -489,7 +489,7 @@
           "Access"
         ],
         "summary": "Search Permissions",
-        "description": "**Get permissions.**",
+        "description": "A permission (also referred to as an “entitlement”) is a set of privileges, assigned to a specific target. \nExamples include: file permissions, file shares, GCP entitlements, the actual policies assigning access to roles in AWS, and inline policies.\nThe Get Permissions API is used to list the privileges, assigned to a specific target.",
         "operationId": "search_permissions_v2_apps__appId__access_permissions_get",
         "parameters": [
           {
@@ -547,7 +547,7 @@
           "Access"
         ],
         "summary": "Create Permissions",
-        "description": "A permission (also referred to as an “entitlement”) is a set of privileges, assigned to a specific target. \nExamples include: file permissions, file shares, GCP entitlements, the actual policies assigning access to roles in AWS, and inline policies.\n",
+        "description": "A permission (also referred to as an “entitlement”) is a set of privileges, assigned to a specific target. \nExamples include: file permissions, file shares, GCP entitlements, the actual policies assigning access to roles in AWS, and inline policies.\nThe Create Permissions API is used to create a set of privileges, assigned to a specific target.",
         "operationId": "create_permissions_v2_apps__appId__access_permissions_post",
         "parameters": [
           {
@@ -605,7 +605,7 @@
           "Privileges"
         ],
         "summary": "Search Privileges",
-        "description": "**Get privileges.**",
+        "description": "The Search Privileges API gets all the privileges from a particular date until now. ",
         "operationId": "search_privileges_v2_apps__appId__privileges_get",
         "parameters": [
           {
@@ -663,7 +663,7 @@
           "Privileges"
         ],
         "summary": "Create Privileges",
-        "description": "Add privileges.\n\nThis API enables you to define privileges that can be associated with assets.\n\nFor example, Read privileges on a file.\n\nHere you can define the type of privileges and associate it to assets in the Permission API.\n",
+        "description": "The Create Privileges API is used to define privileges that can be associated with assets.\nFor example, Read privileges on a file.\nHere you can define the type of privileges and associate it to assets in the Permission API.\n",
         "operationId": "create_privileges_v2_apps__appId__privileges_post",
         "parameters": [
           {
@@ -719,7 +719,7 @@
           "Privileges"
         ],
         "summary": "Patch Privileges",
-        "description": "Use this endpoint when updating privilege data.\n\nWhen editing privilege data, any combination of fields can be updated at a time.\n\nThe uniqueId is requiered and can't be changed.\n\nOnly the fields that are supplied will be affected by the PATCH request (others will be unchanged).\n",
+        "description": "Patch Privileges API is used to update privilege data.\nWhen editing privilege data, any combination of fields can be updated at a time.\nA uniqueId is required and can't be changed.\nOnly the fields that are supplied will be affected by the PATCH request (others will be unchanged).",
         "operationId": "patch_privileges_v2_apps__appId__privileges_patch",
         "parameters": [
           {
@@ -893,7 +893,7 @@
           "Association"
         ],
         "summary": "Search Accounts Association",
-        "description": "**Get accounts associations.**",
+        "description": "The Search Accounts Association API gets a list of account associations between user accounts and groups.",
         "operationId": "search_accounts_association_v2_apps__appId__association_accounts_get",
         "parameters": [
           {
@@ -951,7 +951,7 @@
           "Association"
         ],
         "summary": "Create Accounts Association",
-        "description": "Create association between user accounts and groups.",
+        "description": "The Create Accounts Association API creates account associations between user accounts and groups.",
         "operationId": "create_accounts_association_v2_apps__appId__association_accounts_post",
         "parameters": [
           {
@@ -1009,7 +1009,7 @@
           "Association"
         ],
         "summary": "Search Groupings Association",
-        "description": "**Get groupings associations.**",
+        "description": "The Search Groupings Association API gets a list of associations between groups and other groups.",
         "operationId": "search_groupings_association_v2_apps__appId__association_groupings_get",
         "parameters": [
           {
@@ -1067,7 +1067,7 @@
           "Association"
         ],
         "summary": "Create Groupings Association",
-        "description": "Create associations between groups and other groups.\n",
+        "description": "The Create Groupings Association API creates associations between groups and other groups.\n",
         "operationId": "create_groupings_association_v2_apps__appId__association_groupings_post",
         "parameters": [
           {
@@ -1125,7 +1125,7 @@
           "Assets"
         ],
         "summary": "Search Assets",
-        "description": "**Get assets.**",
+        "description": "The Search Assets API gets a list of all assets (including asset data).",
         "operationId": "search_assets_v2_apps__appId__assets_get",
         "parameters": [
           {
@@ -1183,7 +1183,7 @@
           "Assets"
         ],
         "summary": "Create Assets",
-        "description": "Add assets.\n",
+        "description": "The Create Assets API creates assets (including asset data).",
         "operationId": "create_assets_v2_apps__appId__assets_post",
         "parameters": [
           {
@@ -1239,7 +1239,7 @@
           "Assets"
         ],
         "summary": "Patch Assets",
-        "description": "Use this endpoint when updating asset data.\n\nWhen editing asset data, any combination of fields can be updated at a time.\n\nThe uniqueId is requiered and can't be changed.\n\nOnly the fields that are supplied will be affected by the PATCH request (others will be unchanged).\n",
+        "description": "The Patch Assets API is used to edit assets (including asset data).\nWhen editing asset data, any combination of fields can be updated at a time.\nThe uniqueId is required and can't be changed.\nOnly the fields that are supplied are affected by the PATCH request (others are unchanged).\n",
         "operationId": "patch_assets_v2_apps__appId__assets_patch",
         "parameters": [
           {
@@ -1297,7 +1297,7 @@
           "Assets"
         ],
         "summary": "Search Assets Inheritance",
-        "description": "**Get assets inheritance.**",
+        "description": "The Search Assets Inheritance API gets all the assets related to the source asset (for examples, all files in a folder).",
         "operationId": "search_assets_inheritance_v2_apps__appId__assets_inheritance_get",
         "parameters": [
           {
@@ -1355,7 +1355,7 @@
           "Assets"
         ],
         "summary": "Create Assets Inheritance",
-        "description": "This API allows you to create a connection between different assets (for example, a folder that contains multiple files).\n",
+        "description": "The Create Assets Inheritence API enables you to create a connection between different assets (for example, a folder that contains multiple files).\n",
         "operationId": "create_assets_inheritance_v2_apps__appId__assets_inheritance_post",
         "parameters": [
           {
@@ -1413,7 +1413,7 @@
           "Identities"
         ],
         "summary": "Search Identities",
-        "description": "**Get identities.**",
+        "description": "Get all identities and their data.",
         "operationId": "search_identities_v2_apps__appId__identities_get",
         "parameters": [
           {
@@ -1471,7 +1471,7 @@
           "Identities"
         ],
         "summary": "Create Identities",
-        "description": "Use this end point when adding metadata to an identity.\nThe data of the identity from this API is considered \"the source of truth\" and overrides the identity data from other systems.\n",
+        "description": "The Create Identities API is used to create identities. \nThe data of the identity from this API is considered \"the source of truth\" and overrides the identity data from other systems.\n",
         "operationId": "create_identities_v2_apps__appId__identities_post",
         "parameters": [
           {
@@ -1527,7 +1527,7 @@
           "Identities"
         ],
         "summary": "Patch Identities",
-        "description": "Use this endpoint when updating identity data.\n\nWhen editing identity data, any combination of fields can be updated at a time.\n\nThe uniqueId is requiered and can't be changed.\n\nOnly the fields that are supplied will be affected by the PATCH request (others will be unchanged).\n",
+        "description": "The Patch Identities API is used to edit identity data.\nWhen editing identity data, any combination of fields can be updated at a time.\nThe uniqueId is required and can't be changed.\nOnly the fields that are supplied will be affected by the PATCH request (others will be unchanged).\n",
         "operationId": "patch_identities_v2_apps__appId__identities_patch",
         "parameters": [
           {
@@ -4813,7 +4813,7 @@
             "items": {
               "$ref": "#/components/schemas/NewUserRequestSchema"
             },
-            "description": "**Create new users.**"
+            "description": "The Create Users APIs sets up App users(by App ID)."
           },
           "new_groupings": {
             "title": "New Groupings",
@@ -4821,7 +4821,7 @@
             "items": {
               "$ref": "#/components/schemas/NewGroupingRequestSchema"
             },
-            "description": "A \"grouping\" is any object that collects multiple accounts or other groupings and can be granted permissions.\nExamples include groups, roles on certain platforms (e.g. AWS), profiles in certain platforms (e.g. SFDC) and more.\nThe Create Grouping API is used to create groupings.\n"
+            "description": "The Create Groupings API is used to create groupings.\nA \"grouping\" is any object that collects multiple accounts or other groupings and can be granted permissions. \nExamples include groups, roles on certain platforms (e.g. AWS), profiles in certain platforms (e.g. SFDC) and more.\n\n"
           },
           "new_permissions": {
             "title": "New Permissions",
@@ -4829,7 +4829,7 @@
             "items": {
               "$ref": "#/components/schemas/NewPermissionRequestSchema"
             },
-            "description": "A permission (also referred to as an “entitlement”) is a set of privileges, assigned to a specific target. \nExamples include: file permissions, file shares, GCP entitlements, the actual policies assigning access to roles in AWS, and inline policies.\n"
+            "description": "A permission (also referred to as an “entitlement”) is a set of privileges, assigned to a specific target. \nExamples include: file permissions, file shares, GCP entitlements, the actual policies assigning access to roles in AWS, and inline policies.\nThe Create Permissions API is used to create a set of privileges, assigned to a specific target."
           },
           "new_privileges": {
             "title": "New Privileges",
@@ -4837,7 +4837,7 @@
             "items": {
               "$ref": "#/components/schemas/NewPrivilegeRequestSchema"
             },
-            "description": "Add privileges.\n\nThis API enables you to define privileges that can be associated with assets.\n\nFor example, Read privileges on a file.\n\nHere you can define the type of privileges and associate it to assets in the Permission API.\n"
+            "description": "The Create Privileges API is used to define privileges that can be associated with assets.\nFor example, Read privileges on a file.\nHere you can define the type of privileges and associate it to assets in the Permission API.\n"
           },
           "new_privileges_grants": {
             "title": "New Privileges Grants",
@@ -4853,7 +4853,7 @@
             "items": {
               "$ref": "#/components/schemas/NewAccountsAssociationRequestSchema"
             },
-            "description": "Create association between user accounts and groups."
+            "description": "The Create Accounts Association API creates account associations between user accounts and groups."
           },
           "new_groupings_association": {
             "title": "New Groupings Association",
@@ -4861,7 +4861,7 @@
             "items": {
               "$ref": "#/components/schemas/NewGroupingsAssociationRequestSchema"
             },
-            "description": "Create associations between groups and other groups.\n"
+            "description": "The Create Groupings Association API creates associations between groups and other groups.\n"
           },
           "new_assets": {
             "title": "New Assets",
@@ -4869,7 +4869,7 @@
             "items": {
               "$ref": "#/components/schemas/NewAssetRequestSchema"
             },
-            "description": "Add assets.\n"
+            "description": "The Create Assets API creates assets (including asset data)."
           },
           "new_assets_inheritance": {
             "title": "New Assets Inheritance",
@@ -4877,7 +4877,7 @@
             "items": {
               "$ref": "#/components/schemas/NewAssetInheritanceRequestSchema"
             },
-            "description": "This API allows you to create a connection between different assets (for example, a folder that contains multiple files).\n"
+            "description": "The Create Assets Inheritence API enables you to create a connection between different assets (for example, a folder that contains multiple files).\n"
           },
           "new_identities": {
             "title": "New Identities",
@@ -4885,12 +4885,12 @@
             "items": {
               "$ref": "#/components/schemas/NewIdentityRequestSchema"
             },
-            "description": "Use this end point when adding metadata to an identity.\nThe data of the identity from this API is considered \"the source of truth\" and overrides the identity data from other systems.\n"
+            "description": "The Create Identities API is used to create identities. \nThe data of the identity from this API is considered \"the source of truth\" and overrides the identity data from other systems.\n"
           },
           "delete_app_data": {
             "title": "Delete App Data",
             "type": "boolean",
-            "description": "Delete app data by `{appId}`.",
+            "description": "The Delete Application Data API is used to delete app data by `{appId}`.",
             "default": false
           },
           "createdAt": {
@@ -5846,11 +5846,11 @@
     },
     {
       "name": "Apps",
-      "description": "Actions at the application level.\n"
+      "description": "The Apps APIs are used for application level actions such as geting file templates and deleting application data.\n"
     },
     {
       "name": "Accounts",
-      "description": "Each account is associated with a specific application.\n\nIf the an account already exists on the platform, the account data will be overridden with the new data.\n"
+      "description": "Each account is associated with a specific application.\nAccount APIs are used to find, create and edit account data.\n"
     },
     {
       "name": "Access",
@@ -5858,19 +5858,19 @@
     },
     {
       "name": "Privileges",
-      "description": "Privileges that allows access to assets."
+      "description": "The Privileges APIs are used to get, create and edit privileges that enable access to assets."
     },
     {
       "name": "Association",
-      "description": "Associates between accounts and groups and between groups and other groups.\n"
+      "description": "Association APIs can be used to search and create account associations and group associations. "
     },
     {
       "name": "Assets",
-      "description": "Each asset is associated with a specific application.\n\nIf the an asset already exists on the platform, the asset data will be overridden with the new data.\n"
+      "description": "The Assets API is used to get, create and edit assets (files, folders, drives, applications ...)."
     },
     {
       "name": "Identities",
-      "description": "Use this endpoint when updating identity data.\n\nWhen editing identity data, any combination of fields can be updated at a time.\n\nThe uniqueId is requiered and can't be changed.\n\nOnly the fields that are supplied will be affected by the PATCH request (others will be unchanged).\n"
+      "description": "The Identities APIs are used for getting, creating and editing Identities."
     },
     {
       "name": "v1",
