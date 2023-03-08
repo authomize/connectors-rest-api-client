@@ -3,7 +3,7 @@
   "info": {
     "title": "Authomize API Reference",
     "description": "Authomize enables users to integrate your applications with Authomize via custom connectors.\n\nYou can use the APIs described in this document to create your connector.\n\nOnce data is uploaded and processed successfully, your custom connector will function in the same way as the connectors created by Authomize.\n\n## How does Authomize work?\nAuthomize works by gathering information about:\n\n· individuals, teams and functions.\n\n· apps, assets and accounts.\n\n· all the relationships between them.\n\n![img.png](https://storagetry1.blob.core.windows.net/public/78d82650-71b0-4909-8444-022aab79add5.png)\n\n## Connector APIs\n\nAuthomize connector APIs enable pushing data into Authomize from external sources.\n\nThese APIs enable data extracted from outside applications (via application APIs) to be delivered to Authomize.\n\nA connector processes extracted application data to transform it into a format compatible with Authomize.\n\n![img_1.png](https://storagetry1.blob.core.windows.net/public/341bf6ef-2e5b-4284-b715-45105ffbf0f8.png)\n\n## Authentication\nTo Authenticate use the API Token, with the format: `Authorization: API_Token`.\n\nAn API Token is a token you provide when making API calls. \n\n\nThe API Token should be included in every request to the API in an `Authorization` header.\n```\ncurl -v -X POST \\n\n     -H \"Authorization: {API_Token}\" \\n\n     ...\n```\n",
-    "version": "3.1.0",
+    "version": "3.1.2",
     "x-logo": {
       "url": "https://static.authomize.com/public/icons/authomize-green.svg"
     }
@@ -64,7 +64,7 @@
           "Incident"
         ],
         "summary": "Retrieve Incident",
-        "description": "Fetch a particular incident.",
+        "description": "The Retrieve Incident API fetches a particular incident and all its details.",
         "operationId": "retrieve_incident_v2_incidents__incident_id__get",
         "parameters": [
           {
@@ -123,7 +123,7 @@
           "Incident"
         ],
         "summary": "Patch Incident",
-        "description": "Update an existing incident.",
+        "description": "The Patch Incident API updates an existing incident (based on incident ID).",
         "operationId": "patch_incident_v2_incidents__incident_id__patch",
         "parameters": [
           {
@@ -183,7 +183,7 @@
           "Incident"
         ],
         "summary": "Search Incidents",
-        "description": "Get all incidents.",
+        "description": "The Search Incidents API lists incidents and related data.",
         "operationId": "search_incidents_v2_incidents_search_post",
         "requestBody": {
           "content": {
@@ -230,7 +230,7 @@
           "Incident"
         ],
         "summary": "Post Incident Comment",
-        "description": "Add comment to a particular incident.",
+        "description": "The Post Incident Comment API adds a comment to a particular incident (based on incident ID).",
         "operationId": "post_incident_comment_v2_incidents__incident_id__comments_post",
         "parameters": [
           {
@@ -1547,7 +1547,7 @@
             "title": "Version",
             "type": "string",
             "description": "**version**",
-            "default": "3.1.0"
+            "default": "3.1.2"
           },
           "id": {
             "title": "Id",
@@ -1918,7 +1918,7 @@
                 "$ref": "#/components/schemas/CampaignSearchFilterBody"
               }
             ],
-            "description": "Filter"
+            "description": "Status filter"
           },
           "expand": {
             "type": "array",
