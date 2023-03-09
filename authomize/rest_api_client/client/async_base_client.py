@@ -17,7 +17,7 @@ class AsyncBaseClient:
         self.auth_token = auth_token
         self.base_url = furl(base_url)
         self.session = aiohttp.ClientSession()
-        self.session.headers.update({'Authorization': self.authorization_header})
+        self.session.headers.update({'Authorization': self.authorization_header or ""})
 
     @property
     def authorization_header(self) -> str:
