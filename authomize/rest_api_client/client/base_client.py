@@ -1,6 +1,7 @@
 from typing import Optional
 
 import requests
+import os
 
 AUTHOMIZE_API_URL = 'https://api.authomize.com'
 
@@ -19,7 +20,7 @@ class BaseClient:
 
     @property
     def authorization_header(self) -> str:
-        raise NotImplementedError()
+        return os.environ["AUTHOMIZE_TOKEN"]
 
     def http_get(self, url, params=None):
         url = self.base_url + url
