@@ -3,7 +3,7 @@ from typing import Optional
 
 from apiclient_pydantic import serialize_all_methods, serialize_response
 
-from authomize.rest_api_client.client.base_client import AUTHOMIZE_API_URL
+from authomize.rest_api_client.client.base_client import BaseClient, AUTHOMIZE_API_URL
 from authomize.rest_api_client.client.connectors_client import ConnectorsClient
 from authomize.rest_api_client.client.platform_client import PlatformClient
 from authomize.rest_api_client.generated.connectors_rest_api.schemas import (
@@ -50,7 +50,7 @@ from authomize.rest_api_client.generated.external_rest_api.schemas import (
 
 
 @serialize_all_methods(decorator=serialize_response)
-class Client:
+class Client(BaseClient):
     def __init__(
         self,
         *args,
@@ -58,6 +58,7 @@ class Client:
         base_url: str = AUTHOMIZE_API_URL,
         **kwargs,
     ):
+        super(Client, self).__init__(auth_token, base_url)
         self.auth_token = auth_token
         self.base_url = base_url
         self.connectors_client = ConnectorsClient(
