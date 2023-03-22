@@ -50,15 +50,21 @@ pip install authomize-rest-api-client
 
 For code automatically generated from openapi.json using [datamodel-code-generator](https://github.com/koxudaxi/datamodel-code-generator)
 
-Get openapi.json by
+Fetching openapi.json and updating schema.
 
+for connectors-rest-api:
 ```
-curl https://api.authomize.com/openapi-extended.json | jq . > authomize/rest_api_client/openapi/openapi.json
+curl --socks5-hostname 127.0.0.1:1337 http://connectors-rest-api.application.svc:8080/openapi-extended.json | jq --indent 2 . > authomize/rest_api_client/openapi/connectors_rest_api/openapi.json
 ```
-
-Update schema by
-
 ```
 pip install -e .[codegen]
-datamodel-codegen --input authomize/rest_api_client/openapi/openapi.json --output authomize/rest_api_client/generated/schemas.py
+datamodel-codegen --input authomize/rest_api_client/openapi/connectors_rest_api/openapi.json --output authomize/rest_api_client/generated/connectors_rest_api/schemas.py
+```
+
+for external-rest-api:
+```
+curl https://apidev.authomize.com/openapi-platform.json | jq --indent 2 . > authomize/rest_api_client/openapi/external_rest_api/openapi.json
+```
+```
+datamodel-codegen --input authomize/rest_api_client/openapi/external_rest_api/openapi.json --output authomize/rest_api_client/generated/external_rest_api/schemas.py
 ```
