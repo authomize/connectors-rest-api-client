@@ -3,7 +3,7 @@
   "info": {
     "title": "Authomize API Reference",
     "description": "Authomize enables users to integrate your applications with Authomize via custom connectors.\n\nYou can use the APIs described in this document to create your connector.\n\nOnce data is uploaded and processed successfully, your custom connector will function in the same way as the connectors created by Authomize.\n\n## How does Authomize work?\nAuthomize works by gathering information about:\n\n· individuals, teams and functions.\n\n· apps, assets and accounts.\n\n· all the relationships between them.\n\n![img.png](https://storagetry1.blob.core.windows.net/public/78d82650-71b0-4909-8444-022aab79add5.png)\n\n## Connector APIs\n\nAuthomize connector APIs enable pushing data into Authomize from external sources.\n\nThese APIs enable data extracted from outside applications (via application APIs) to be delivered to Authomize.\n\nA connector processes extracted application data to transform it into a format compatible with Authomize.\n\n![img_1.png](https://storagetry1.blob.core.windows.net/public/341bf6ef-2e5b-4284-b715-45105ffbf0f8.png)\n\n## Authentication\nTo Authenticate use the API Token, with the format: `Authorization: API_Token`.\n\nAn API Token is a token you provide when making API calls. \n\n\nThe API Token should be included in every request to the API in an `Authorization` header.\n```\ncurl -v -X POST \\n\n     -H \"Authorization: {API_Token}\" \\n\n     ...\n```\n\n## Limits\nRequests cannot exceed a size of 1MB.\n",
-    "version": "3.1.3",
+    "version": "3.1.4",
     "x-logo": {
       "url": "https://static.authomize.com/public/icons/authomize-green.svg"
     }
@@ -105,7 +105,7 @@
               "description": "Delete all the app data lastly updated before the given date.",
               "format": "date-time"
             },
-            "example": "2023-03-22T13:14:19.738299+00:00",
+            "example": "2023-04-05T07:45:03.611620+00:00",
             "name": "modifiedBefore",
             "in": "query"
           }
@@ -2255,6 +2255,368 @@
           }
         }
       }
+    },
+    "/customers-service/{customer_name}/distinct-identities/base-merge-rules": {
+      "post": {
+        "summary": "Create Base Merge Rule",
+        "operationId": "create_base_merge_rule_customers_service__customer_name__distinct_identities_base_merge_rules_post",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Customer Name",
+              "type": "string"
+            },
+            "name": "customer_name",
+            "in": "path"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BaseMergeRuleRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/customers-service/{customer_name}/distinct-identities/distinct-merge-rules": {
+      "post": {
+        "summary": "Create Distinct Merge Rule",
+        "operationId": "create_distinct_merge_rule_customers_service__customer_name__distinct_identities_distinct_merge_rules_post",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Customer Name",
+              "type": "string"
+            },
+            "name": "customer_name",
+            "in": "path"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DistinctMergeRuleRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/customers-service/{customer_name}/distinct-identities/split-rules": {
+      "post": {
+        "summary": "Create Split Rule",
+        "operationId": "create_split_rule_customers_service__customer_name__distinct_identities_split_rules_post",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Customer Name",
+              "type": "string"
+            },
+            "name": "customer_name",
+            "in": "path"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SplitRuleRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/customers-service/{customer_name}/distinct-identities/run-tags-workflow": {
+      "post": {
+        "summary": "Run Unify Identities Tags",
+        "operationId": "run_unify_identities_tags_customers_service__customer_name__distinct_identities_run_tags_workflow_post",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Customer Name"
+            },
+            "name": "customer_name",
+            "in": "path"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "title": "Response Run Unify Identities Tags Customers Service  Customer Name  Distinct Identities Run Tags Workflow Post",
+                  "type": "integer"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/customers-service/{customer_name}/settings/identity-unification": {
+      "get": {
+        "summary": "Get Identity Unification Settings",
+        "description": "Get identity_unification settings",
+        "operationId": "get_identity_unification_settings_customers_service__customer_name__settings_identity_unification_get",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Customer Name",
+              "type": "string"
+            },
+            "name": "customer_name",
+            "in": "path"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InternalSettingListSchema"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Create Identity Unification Settings",
+        "description": "Create or update identity_unification settings",
+        "operationId": "create_identity_unification_settings_customers_service__customer_name__settings_identity_unification_post",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Customer Name",
+              "type": "string"
+            },
+            "name": "customer_name",
+            "in": "path"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/NewIdentityUnificationSettingsSchema"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InternalSettingListSchema"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "summary": "Partially Update Identity Unification Settings",
+        "description": "Partially update identity_unification settings",
+        "operationId": "partially_update_identity_unification_settings_customers_service__customer_name__settings_identity_unification_patch",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Customer Name",
+              "type": "string"
+            },
+            "name": "customer_name",
+            "in": "path"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IdentityUnificationSettingsSchema"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InternalSettingListSchema"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/customers-service/{customer_name}/migrations/migrate-file-provider": {
+      "post": {
+        "summary": "Migrate File Provider Start",
+        "operationId": "migrate_file_provider_start_customers_service__customer_name__migrations_migrate_file_provider_post",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Customer Name",
+              "type": "string"
+            },
+            "name": "customer_name",
+            "in": "path"
+          },
+          {
+            "required": true,
+            "schema": {
+              "title": "Yes",
+              "type": "string"
+            },
+            "name": "yes",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
@@ -2340,6 +2702,14 @@
           }
         },
         "description": "Accounts association schema"
+      },
+      "ActorType": {
+        "title": "ActorType",
+        "enum": [
+          "Authomize",
+          "User"
+        ],
+        "description": "Enum of actor type"
       },
       "AllSchemasResponseSchema": {
         "title": "AllSchemasResponseSchema",
@@ -2462,7 +2832,7 @@
                 "$ref": "#/components/schemas/AssetType"
               }
             ],
-            "description": "The asset types that are supported by Authomize **Mandatory**\n\nPermitted values:\n\n   •\t`Application` (federation) \n   •\t`Database`\n   •\t`Drive`\n   •\t`File`\n   •\t`Folder`\n   •\t`Git Repository`\n   •\t`Integration`\n   •\t`Project`\n   •\t`Site`\n   •\t`Table`\n   •\t`Ticket`\n   •\t`Virtual Machine`\n   •\t`Other`\n\nIf the asset type does not exist use `Other`.\n",
+            "description": "The asset types that are supported by Authomize **Mandatory**\n\nPermitted values:\n\n   •\t`Application` (federation) \n   •\t`Database`\n   •\t`Drive`\n   •\t`File`\n   •\t`Folder`\n   •\t`GitRepository`\n   •\t`Integration`\n   •\t`Project`\n   •\t`Site`\n   •\t`Table`\n   •\t`Ticket`\n   •\t`VirtualMachine`\n   •\t`Other`\n\nIf the asset type does not exist use `Other`.\n",
             "default": "Other"
           },
           "originType": {
@@ -2610,6 +2980,32 @@
         ],
         "description": "An enumeration."
       },
+      "BaseMergeRuleRequest": {
+        "title": "BaseMergeRuleRequest",
+        "required": [
+          "baseIdentityIds",
+          "actorId",
+          "actorType"
+        ],
+        "type": "object",
+        "properties": {
+          "baseIdentityIds": {
+            "title": "Baseidentityids",
+            "minItems": 2,
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "actorId": {
+            "title": "Actorid",
+            "type": "string"
+          },
+          "actorType": {
+            "$ref": "#/components/schemas/ActorType"
+          }
+        }
+      },
       "BundleTransactionSchema": {
         "title": "BundleTransactionSchema",
         "required": [
@@ -2662,6 +3058,32 @@
           "deleted"
         ],
         "description": "An enumeration."
+      },
+      "DistinctMergeRuleRequest": {
+        "title": "DistinctMergeRuleRequest",
+        "required": [
+          "distinctIdentityIds",
+          "actorId",
+          "actorType"
+        ],
+        "type": "object",
+        "properties": {
+          "distinctIdentityIds": {
+            "title": "Distinctidentityids",
+            "minItems": 2,
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "actorId": {
+            "title": "Actorid",
+            "type": "string"
+          },
+          "actorType": {
+            "$ref": "#/components/schemas/ActorType"
+          }
+        }
       },
       "ExportResponse": {
         "title": "ExportResponse",
@@ -3077,6 +3499,70 @@
         ],
         "description": "An enumeration."
       },
+      "IdentityUnificationSettingsSchema": {
+        "title": "IdentityUnificationSettingsSchema",
+        "type": "object",
+        "properties": {
+          "actorId": {
+            "title": "Actorid",
+            "type": "string"
+          },
+          "actorType": {
+            "$ref": "#/components/schemas/ActorType"
+          },
+          "mergeInternalAndExternalAccounts": {
+            "title": "Mergeinternalandexternalaccounts",
+            "type": "boolean"
+          },
+          "shouldMergeIdentitiesBySameEmail": {
+            "title": "Shouldmergeidentitiesbysameemail",
+            "type": "boolean"
+          },
+          "shouldMergeIdentitiesBySameFirstNameAndLastName": {
+            "title": "Shouldmergeidentitiesbysamefirstnameandlastname",
+            "type": "boolean"
+          },
+          "shouldMergeIdentitiesFirstNameInitialAndLastNameToName": {
+            "title": "Shouldmergeidentitiesfirstnameinitialandlastnametoname",
+            "type": "boolean"
+          },
+          "shouldMergeIdentitiesInDifferentGitHubOrganizations": {
+            "title": "Shouldmergeidentitiesindifferentgithuborganizations",
+            "type": "boolean"
+          },
+          "shouldMergeIdentitiesByGitHubUsernameToName": {
+            "title": "Shouldmergeidentitiesbygithubusernametoname",
+            "type": "boolean"
+          },
+          "shouldMergeIdentitiesBySameEmailPrefixToFirstNameAndLastName": {
+            "title": "Shouldmergeidentitiesbysameemailprefixtofirstnameandlastname",
+            "type": "boolean"
+          },
+          "shouldMergeIdentitiesBySameEmailPrefixToFirstNameInitialAndLastName": {
+            "title": "Shouldmergeidentitiesbysameemailprefixtofirstnameinitialandlastname",
+            "type": "boolean"
+          },
+          "shouldMergeIdentitiesBySameEmailPrefixToUsername": {
+            "title": "Shouldmergeidentitiesbysameemailprefixtousername",
+            "type": "boolean"
+          },
+          "mergeIdentitiesBySameEmailWithSubstring": {
+            "title": "Mergeidentitiesbysameemailwithsubstring",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ReplaceRule"
+            }
+          },
+          "mergeIdentitiesBySameEmailWithRegex": {
+            "title": "Mergeidentitiesbysameemailwithregex",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/RegexReplaceRule"
+            }
+          }
+        },
+        "description": "Basic identity unification settings model schema"
+      },
       "IngestionDataBundleSchema": {
         "title": "IngestionDataBundleSchema",
         "type": "object",
@@ -3162,6 +3648,93 @@
             "description": "The Create Identities API is used to create identities. \nThe data of the identity from this API is considered \"the source of truth\" and overrides the identity data from other systems.\n"
           }
         }
+      },
+      "InternalSettingListSchema": {
+        "title": "InternalSettingListSchema",
+        "required": [
+          "data"
+        ],
+        "type": "object",
+        "properties": {
+          "pagination": {
+            "title": "Pagination",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Pagination"
+              }
+            ],
+            "default": {
+              "limit": -1,
+              "skip": 0,
+              "total": -1
+            }
+          },
+          "data": {
+            "title": "Data",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/InternalSettingSchema"
+            }
+          }
+        },
+        "description": "Model list schema with pagination"
+      },
+      "InternalSettingSchema": {
+        "title": "InternalSettingSchema",
+        "required": [
+          "name",
+          "family",
+          "type",
+          "id",
+          "createdAt",
+          "modifiedAt"
+        ],
+        "type": "object",
+        "properties": {
+          "name": {
+            "title": "Name",
+            "type": "string"
+          },
+          "family": {
+            "$ref": "#/components/schemas/SettingsFamilies"
+          },
+          "type": {
+            "$ref": "#/components/schemas/SettingsValueType"
+          },
+          "value": {
+            "title": "Value",
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "array",
+                "items": {}
+              },
+              {
+                "type": "object"
+              },
+              {
+                "type": "string"
+              }
+            ]
+          },
+          "id": {
+            "title": "Id",
+            "type": "string"
+          },
+          "createdAt": {
+            "title": "Createdat",
+            "type": "string",
+            "format": "date-time"
+          },
+          "modifiedAt": {
+            "title": "Modifiedat",
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "description": "Setting model schema"
       },
       "IsAliveResponse": {
         "title": "IsAliveResponse",
@@ -3437,7 +4010,7 @@
                 "$ref": "#/components/schemas/AssetType"
               }
             ],
-            "description": "The asset types that are supported by Authomize **Mandatory**\n\nPermitted values:\n\n   •\t`Application` (federation) \n   •\t`Database`\n   •\t`Drive`\n   •\t`File`\n   •\t`Folder`\n   •\t`Git Repository`\n   •\t`Integration`\n   •\t`Project`\n   •\t`Site`\n   •\t`Table`\n   •\t`Ticket`\n   •\t`Virtual Machine`\n   •\t`Other`\n\nIf the asset type does not exist use `Other`.\n",
+            "description": "The asset types that are supported by Authomize **Mandatory**\n\nPermitted values:\n\n   •\t`Application` (federation) \n   •\t`Database`\n   •\t`Drive`\n   •\t`File`\n   •\t`Folder`\n   •\t`GitRepository`\n   •\t`Integration`\n   •\t`Project`\n   •\t`Site`\n   •\t`Table`\n   •\t`Ticket`\n   •\t`VirtualMachine`\n   •\t`Other`\n\nIf the asset type does not exist use `Other`.\n",
             "default": "Other"
           },
           "originType": {
@@ -4117,6 +4690,70 @@
           }
         },
         "description": "New identity response schema"
+      },
+      "NewIdentityUnificationSettingsSchema": {
+        "title": "NewIdentityUnificationSettingsSchema",
+        "type": "object",
+        "properties": {
+          "actorId": {
+            "title": "Actorid",
+            "type": "string"
+          },
+          "actorType": {
+            "$ref": "#/components/schemas/ActorType"
+          },
+          "mergeInternalAndExternalAccounts": {
+            "title": "Mergeinternalandexternalaccounts",
+            "type": "boolean"
+          },
+          "shouldMergeIdentitiesBySameEmail": {
+            "title": "Shouldmergeidentitiesbysameemail",
+            "type": "boolean"
+          },
+          "shouldMergeIdentitiesBySameFirstNameAndLastName": {
+            "title": "Shouldmergeidentitiesbysamefirstnameandlastname",
+            "type": "boolean"
+          },
+          "shouldMergeIdentitiesFirstNameInitialAndLastNameToName": {
+            "title": "Shouldmergeidentitiesfirstnameinitialandlastnametoname",
+            "type": "boolean"
+          },
+          "shouldMergeIdentitiesInDifferentGitHubOrganizations": {
+            "title": "Shouldmergeidentitiesindifferentgithuborganizations",
+            "type": "boolean"
+          },
+          "shouldMergeIdentitiesByGitHubUsernameToName": {
+            "title": "Shouldmergeidentitiesbygithubusernametoname",
+            "type": "boolean"
+          },
+          "shouldMergeIdentitiesBySameEmailPrefixToFirstNameAndLastName": {
+            "title": "Shouldmergeidentitiesbysameemailprefixtofirstnameandlastname",
+            "type": "boolean"
+          },
+          "shouldMergeIdentitiesBySameEmailPrefixToFirstNameInitialAndLastName": {
+            "title": "Shouldmergeidentitiesbysameemailprefixtofirstnameinitialandlastname",
+            "type": "boolean"
+          },
+          "shouldMergeIdentitiesBySameEmailPrefixToUsername": {
+            "title": "Shouldmergeidentitiesbysameemailprefixtousername",
+            "type": "boolean"
+          },
+          "mergeIdentitiesBySameEmailWithSubstring": {
+            "title": "Mergeidentitiesbysameemailwithsubstring",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ReplaceRule"
+            }
+          },
+          "mergeIdentitiesBySameEmailWithRegex": {
+            "title": "Mergeidentitiesbysameemailwithregex",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/RegexReplaceRule"
+            }
+          }
+        },
+        "description": "IdentityUnification settings model schema"
       },
       "NewPermissionRequestSchema": {
         "title": "NewPermissionRequestSchema",
@@ -4872,6 +5509,52 @@
         ],
         "description": "An enumeration."
       },
+      "RegexReplaceRule": {
+        "title": "RegexReplaceRule",
+        "required": [
+          "enabled",
+          "pattern",
+          "replacement"
+        ],
+        "type": "object",
+        "properties": {
+          "enabled": {
+            "title": "Enabled",
+            "type": "boolean"
+          },
+          "pattern": {
+            "title": "Pattern",
+            "type": "string"
+          },
+          "replacement": {
+            "title": "Replacement",
+            "type": "string"
+          }
+        }
+      },
+      "ReplaceRule": {
+        "title": "ReplaceRule",
+        "required": [
+          "enabled",
+          "fromString",
+          "toString"
+        ],
+        "type": "object",
+        "properties": {
+          "enabled": {
+            "title": "Enabled",
+            "type": "boolean"
+          },
+          "fromString": {
+            "title": "Fromstring",
+            "type": "string"
+          },
+          "toString": {
+            "title": "Tostring",
+            "type": "string"
+          }
+        }
+      },
       "RequestSubmitResponse": {
         "title": "RequestSubmitResponse",
         "required": [
@@ -5275,6 +5958,50 @@
           }
         }
       },
+      "SettingsFamilies": {
+        "title": "SettingsFamilies",
+        "enum": [
+          "IdentityUnification"
+        ],
+        "description": "An enumeration."
+      },
+      "SettingsValueType": {
+        "title": "SettingsValueType",
+        "enum": [
+          "identityId",
+          "identityIdList",
+          "DistinctIdentityId",
+          "DistinctIdentityIdList",
+          "str",
+          "strList",
+          "dictList",
+          "int",
+          "bool"
+        ],
+        "description": "Value types"
+      },
+      "SplitRuleRequest": {
+        "title": "SplitRuleRequest",
+        "required": [
+          "baseIdentityId",
+          "actorId",
+          "actorType"
+        ],
+        "type": "object",
+        "properties": {
+          "baseIdentityId": {
+            "title": "Baseidentityid",
+            "type": "string"
+          },
+          "actorId": {
+            "title": "Actorid",
+            "type": "string"
+          },
+          "actorType": {
+            "$ref": "#/components/schemas/ActorType"
+          }
+        }
+      },
       "SubmitResponse": {
         "title": "SubmitResponse",
         "type": "object",
@@ -5352,7 +6079,7 @@
                 "$ref": "#/components/schemas/AssetType"
               }
             ],
-            "description": "The asset types that are supported by Authomize **Mandatory**\n\nPermitted values:\n\n   •\t`Application` (federation) \n   •\t`Database`\n   •\t`Drive`\n   •\t`File`\n   •\t`Folder`\n   •\t`Git Repository`\n   •\t`Integration`\n   •\t`Project`\n   •\t`Site`\n   •\t`Table`\n   •\t`Ticket`\n   •\t`Virtual Machine`\n   •\t`Other`\n\nIf the asset type does not exist use `Other`.\n",
+            "description": "The asset types that are supported by Authomize **Mandatory**\n\nPermitted values:\n\n   •\t`Application` (federation) \n   •\t`Database`\n   •\t`Drive`\n   •\t`File`\n   •\t`Folder`\n   •\t`GitRepository`\n   •\t`Integration`\n   •\t`Project`\n   •\t`Site`\n   •\t`Table`\n   •\t`Ticket`\n   •\t`VirtualMachine`\n   •\t`Other`\n\nIf the asset type does not exist use `Other`.\n",
             "default": "Other"
           },
           "originType": {
