@@ -1,5 +1,5 @@
 """Make sure we have single test"""
-from authomize.rest_api_client import Client
+from authomize.rest_api_client.client.async_client import Client
 
 
 def test_import():
