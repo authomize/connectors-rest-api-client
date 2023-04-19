@@ -16,10 +16,7 @@ if __name__ == '__main__':
                 'py.typed',
             ],
         },
-        install_requires=[
-            'requests~=2.28.1',
-            'api-client-pydantic~=1.2',
-        ],
+        install_requires=['requests~=2.28.1', 'api-client-pydantic~=1.2', 'fastapi'],
         extras_require={
             'test': [
                 'coverage~=5.2',
