@@ -108,9 +108,7 @@ class BaseSingleValuedStringFilter(BaseModel):
     class Config:
         extra = Extra.forbid
 
-    field_eq: Optional[str] = Field(
-        default=None, alias='$eq', description='Equals To', title='$Eq'
-    )
+    field_eq: Optional[str] = Field(default=None, alias='$eq', description='Equals To', title='$Eq')
 
 
 class CampaignExpansion(Enum):
@@ -274,9 +272,7 @@ class IsoIec27001Standard(Enum):
 
 
 class MeResponse(BaseModel):
-    version: Optional[str] = Field(
-        default='3.1.5', description='**version**', title='Version'
-    )
+    version: Optional[str] = Field(default='3.1.5', description='**version**', title='Version')
     id: str = Field(..., description='**id**', title='Id')
     tenant: str = Field(..., description='**tenant**', title='Tenant')
 
@@ -293,9 +289,7 @@ class PaginationRequestSchema(BaseModel):
         extra = Extra.forbid
 
     limit: Optional[int] = Field(default=None, description='Limit', title='Limit')
-    nextPage: Optional[str] = Field(
-        default=None, description='Starting after', title='NextPage'
-    )
+    nextPage: Optional[str] = Field(default=None, description='Starting after', title='NextPage')
 
 
 class PaginationResponseSchema(BaseModel):
@@ -303,9 +297,7 @@ class PaginationResponseSchema(BaseModel):
     hasMore: Optional[bool] = Field(
         default=None, description='Has more? `true` or `false`.', title='HasMore'
     )
-    nextPage: Optional[str] = Field(
-        default=None, description='Starting after', title='NextPage'
-    )
+    nextPage: Optional[str] = Field(default=None, description='Starting after', title='NextPage')
 
 
 class PermissionsExpansion(Enum):
@@ -353,12 +345,8 @@ class SortSchemaFieldName(BaseModel):
     class Config:
         extra = Extra.forbid
 
-    fieldName: FieldName = Field(
-        ..., description='Sort By Field Name', title='FieldName'
-    )
-    order: Optional[SortOrder] = Field(
-        default='ASC', description='Sort Order', title='Order'
-    )
+    fieldName: FieldName = Field(..., description='Sort By Field Name', title='FieldName')
+    order: Optional[SortOrder] = Field(default='ASC', description='Sort Order', title='Order')
 
 
 class SortSchemaSearchIncidentsSortFields(BaseModel):
@@ -368,9 +356,7 @@ class SortSchemaSearchIncidentsSortFields(BaseModel):
     fieldName: SearchIncidentsSortFields = Field(
         ..., description='Sort By Field Name', title='FieldName'
     )
-    order: Optional[SortOrder] = Field(
-        default='ASC', description='Sort Order', title='Order'
-    )
+    order: Optional[SortOrder] = Field(default='ASC', description='Sort Order', title='Order')
 
 
 class SourceAppSchema(BaseModel):
@@ -412,48 +398,36 @@ class ValidationError(BaseModel):
 
 class AicpaTsc2017(BaseModel):
     values: List[AicpaTsc2017Standard] = Field(..., description='Values')
-    id: Optional[str] = Field(
-        default='aicpaTsc2017', description='UniqueID', title='Id'
-    )
-    name: Optional[str] = Field(
-        default='SOC 2 (TSC 2017)', description='Name', title='Name'
-    )
+    id: Optional[str] = Field(default='aicpaTsc2017', description='UniqueID', title='Id')
+    name: Optional[str] = Field(default='SOC 2 (TSC 2017)', description='Name', title='Name')
 
 
 class BasicEnumFilterCampaignStatus(BaseModel):
     class Config:
         extra = Extra.forbid
 
-    field_in: Optional[List[CampaignStatus]] = Field(
-        default=None, alias='$in', description='In'
-    )
+    field_in: Optional[List[CampaignStatus]] = Field(default=None, alias='$in', description='In')
 
 
 class BasicEnumFilterIncidentSeverity(BaseModel):
     class Config:
         extra = Extra.forbid
 
-    field_in: Optional[List[IncidentSeverity]] = Field(
-        default=None, alias='$in', description='In'
-    )
+    field_in: Optional[List[IncidentSeverity]] = Field(default=None, alias='$in', description='In')
 
 
 class BasicEnumFilterIncidentStatus(BaseModel):
     class Config:
         extra = Extra.forbid
 
-    field_in: Optional[List[IncidentStatus]] = Field(
-        default=None, alias='$in', description='In'
-    )
+    field_in: Optional[List[IncidentStatus]] = Field(default=None, alias='$in', description='In')
 
 
 class BasicEnumFilterSelection(BaseModel):
     class Config:
         extra = Extra.forbid
 
-    field_in: Optional[List[Selection]] = Field(
-        default=None, alias='$in', description='In'
-    )
+    field_in: Optional[List[Selection]] = Field(default=None, alias='$in', description='In')
 
 
 class CampaignPermissionsSearchFilterBody(BaseModel):
@@ -471,18 +445,10 @@ class CampaignSchema(BaseModel):
     id: str = Field(..., description='Unique ID of campaign', title='Id')
     name: str = Field(..., description='Name of the campaign', title='Name')
     status: CampaignStatus = Field(..., description='The campaign status')
-    startDate: datetime = Field(
-        ..., description='Date when the campaign starts', title='Startdate'
-    )
-    endDate: datetime = Field(
-        ..., description='Date when campaign ends', title='Enddate'
-    )
-    createdAt: datetime = Field(
-        ..., description='Time of creation of campaign', title='Createdat'
-    )
-    ownerUserId: str = Field(
-        ..., description='User ID of the campaign owner', title='Owneruserid'
-    )
+    startDate: datetime = Field(..., description='Date when the campaign starts', title='Startdate')
+    endDate: datetime = Field(..., description='Date when campaign ends', title='Enddate')
+    createdAt: datetime = Field(..., description='Time of creation of campaign', title='Createdat')
+    ownerUserId: str = Field(..., description='User ID of the campaign owner', title='Owneruserid')
     owner: Optional[UserSchema] = Field(
         default=None, description='User Schema of the campaign owner', title='Owner'
     )
@@ -502,17 +468,13 @@ class CampaignSearchFilterBody(BaseModel):
 class Ccm301(BaseModel):
     values: List[Ccm301Standard] = Field(..., description='Values')
     id: Optional[str] = Field(default='ccm301', description='UniqueID', title='Id')
-    name: Optional[str] = Field(
-        default='CSA STAR (CCM 3.0.1)', description='Name', title='Name'
-    )
+    name: Optional[str] = Field(default='CSA STAR (CCM 3.0.1)', description='Name', title='Name')
 
 
 class Ccm402(BaseModel):
     values: List[Ccm402Standard] = Field(..., description='Values')
     id: Optional[str] = Field(default='ccm402', description='UniqueID', title='Id')
-    name: Optional[str] = Field(
-        default='CSA STAR (CCM 4.0.2)', description='Name', title='Name'
-    )
+    name: Optional[str] = Field(default='CSA STAR (CCM 4.0.2)', description='Name', title='Name')
 
 
 class HTTPValidationError(BaseModel):
@@ -521,27 +483,19 @@ class HTTPValidationError(BaseModel):
 
 class IncidentEntitiesSchema(BaseModel):
     id: str = Field(..., description='Unique id of entity.', title='Id')
-    name: Optional[str] = Field(
-        default=None, description='Name of entity.', title='Name'
-    )
+    name: Optional[str] = Field(default=None, description='Name of entity.', title='Name')
     object: Union[InventoryObjects, str] = Field(
         ..., description='Identity | Account | Asset', title='Object'
     )
     email: Optional[str] = Field(default=None, description='Email', title='Email')
-    originId: Optional[str] = Field(
-        default=None, description='Origin ID', title='Originid'
-    )
-    originType: Optional[str] = Field(
-        default=None, description='Origin Type', title='Origintype'
-    )
+    originId: Optional[str] = Field(default=None, description='Origin ID', title='Originid')
+    originType: Optional[str] = Field(default=None, description='Origin Type', title='Origintype')
 
 
 class IsoIec27001(BaseModel):
     values: List[IsoIec27001Standard] = Field(..., description='Values')
     id: Optional[str] = Field(default='isoIec27001', description='UniqueID', title='Id')
-    name: Optional[str] = Field(
-        default='ISO/IEC 27001', description='Name', title='Name'
-    )
+    name: Optional[str] = Field(default='ISO/IEC 27001', description='Name', title='Name')
 
 
 class NonPaginatedResponseSchemaCampaignSchema(BaseModel):
@@ -558,9 +512,7 @@ class PaginatedResponseSchemaCampaignSchema(BaseModel):
     pagination: Optional[PaginationResponseSchema] = Field(
         default=None, description='Pagination Metadata', title='Pagination'
     )
-    data: List[CampaignSchema] = Field(
-        ..., description='List of Actual Data', title='Data'
-    )
+    data: List[CampaignSchema] = Field(..., description='List of Actual Data', title='Data')
 
 
 class ReviewerSchema(BaseModel):
@@ -569,9 +521,7 @@ class ReviewerSchema(BaseModel):
     lastNotifiedAt: datetime = Field(
         ..., description='Time of last notified', title='Lastnotifiedat'
     )
-    lastActiveAt: datetime = Field(
-        ..., description='Time of last activity', title='Lastactiveat'
-    )
+    lastActiveAt: datetime = Field(..., description='Time of last activity', title='Lastactiveat')
     reviewStatus: Union[ReviewStatus, str] = Field(
         ..., description='Review Status', title='Reviewstatus'
     )
@@ -603,9 +553,7 @@ class SearchCampaignsRequestSchema(BaseModel):
     filter: Optional[CampaignSearchFilterBody] = Field(
         default=None, description='Status filter', title='Filter'
     )
-    expand: Optional[List[CampaignExpansion]] = Field(
-        default=None, description='Expand Fields'
-    )
+    expand: Optional[List[CampaignExpansion]] = Field(default=None, description='Expand Fields')
     pagination: Optional[PaginationRequestSchema] = Field(
         default=None, description='Pagination', title='Pagination'
     )
@@ -648,9 +596,7 @@ class SearchIncidentsRequestSchema(BaseModel):
     filter: Optional[SearchIncidentsFilter] = Field(
         default=None, description='Filter', title='Filter'
     )
-    expand: Optional[List[IncidentExpansion]] = Field(
-        default=None, description='Expend'
-    )
+    expand: Optional[List[IncidentExpansion]] = Field(default=None, description='Expend')
     sort: Optional[List[SortSchemaSearchIncidentsSortFields]] = Field(
         default=None, description='Sort', title='Sort'
     )
@@ -661,9 +607,7 @@ class SearchIncidentsRequestSchema(BaseModel):
 
 class CampaignsPermissionSchema(BaseModel):
     id: str = Field(..., description='Campaign ID (unique). \n', title='Id')
-    campaignId: str = Field(
-        ..., description='ID of the Campaign.\n', title='Campaignid'
-    )
+    campaignId: str = Field(..., description='ID of the Campaign.\n', title='Campaignid')
     reviewerId: str = Field(..., description='Reviewer ID', title='Reviewerid')
     reviewer: Optional[ReviewerSchema] = Field(
         default=None, description='Details of the reviewer.\n', title='Reviewer'
@@ -720,9 +664,9 @@ class IncidentSchema(BaseModel):
     )
     category: Optional[AlertCategoryType] = Field(default=None, description='Category')
     tactics: Optional[List[AttackTacticType]] = Field(default=[], description='Tactics')
-    compliance: Optional[
-        List[Union[IsoIec27001, AicpaTsc2017, Ccm402, Ccm301, Cisv8]]
-    ] = Field(default=[], description='Compliance', title='Compliance')
+    compliance: Optional[List[Union[IsoIec27001, AicpaTsc2017, Ccm402, Ccm301, Cisv8]]] = Field(
+        default=[], description='Compliance', title='Compliance'
+    )
     techniques: Optional[List[str]] = Field(
         default=[], description='Techniques', title='Techniques'
     )
@@ -734,21 +678,15 @@ class IncidentSchema(BaseModel):
         ..., description='The severity of the incident (Low, Medium, High or Critical).'
     )
     policyId: str = Field(..., description='Unique id of policy.', title='Policyid')
-    policy: Optional[PolicySchema] = Field(
-        default=None, description='Policy', title='Policy'
-    )
+    policy: Optional[PolicySchema] = Field(default=None, description='Policy', title='Policy')
     assigneeId: Optional[str] = Field(
         default=None, description='Unique id of assignee.', title='Assigneeid'
     )
-    assignee: Optional[UserSchema] = Field(
-        default=None, description='Assignee', title='Assignee'
-    )
+    assignee: Optional[UserSchema] = Field(default=None, description='Assignee', title='Assignee')
     recommendation: Optional[str] = Field(
         default=None, description='Recommendation', title='Recommendation'
     )
-    description: Optional[str] = Field(
-        default=None, description='Description', title='Description'
-    )
+    description: Optional[str] = Field(default=None, description='Description', title='Description')
     isResolved: bool = Field(..., description='Is Resolved?', title='Isresolved')
     url: str = Field(..., description='URL', title='Url')
 
@@ -786,6 +724,4 @@ class PaginatedResponseSchemaIncidentSchema(BaseModel):
     pagination: Optional[PaginationResponseSchema] = Field(
         default=None, description='Pagination Metadata', title='Pagination'
     )
-    data: List[IncidentSchema] = Field(
-        ..., description='List of Actual Data', title='Data'
-    )
+    data: List[IncidentSchema] = Field(..., description='List of Actual Data', title='Data')
