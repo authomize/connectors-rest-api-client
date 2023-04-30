@@ -58,7 +58,7 @@ curl --socks5-hostname 127.0.0.1:1337 http://connectors-rest-api.application.svc
 ```
 ```
 pip install -e .[codegen]
-datamodel-codegen --input authomize/rest_api_client/openapi/connectors_rest_api/openapi.json --output authomize/rest_api_client/generated/connectors_rest_api/schemas.py
+datamodel-codegen --use-default-kwarg --input authomize/rest_api_client/openapi/connectors_rest_api/openapi.json --output authomize/rest_api_client/generated/connectors_rest_api/schemas.py
 ```
 
 for external-rest-api:
@@ -66,5 +66,5 @@ for external-rest-api:
 curl https://apidev.authomize.com/openapi-platform.json | jq --indent 2 . > authomize/rest_api_client/openapi/external_rest_api/openapi.json
 ```
 ```
-datamodel-codegen --input authomize/rest_api_client/openapi/external_rest_api/openapi.json --output authomize/rest_api_client/generated/external_rest_api/schemas.py
+datamodel-codegen --use-default-kwarg --input authomize/rest_api_client/openapi/external_rest_api/openapi.json --output authomize/rest_api_client/generated/external_rest_api/schemas.py
 ```
