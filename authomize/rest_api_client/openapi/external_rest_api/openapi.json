@@ -688,108 +688,16 @@
         ],
         "description": "An enumeration."
       },
-      "BaseBooleanFilter": {
-        "title": "BaseBooleanFilter",
-        "type": "object",
-        "properties": {
-          "$eq": {
-            "title": "$Eq",
-            "type": "boolean",
-            "description": "Equals To"
-          }
-        },
-        "additionalProperties": false,
-        "description": "Base schema for all incoming API requests."
+      "CampaignExpansion": {
+        "title": "CampaignExpansion",
+        "enum": [
+          "owner"
+        ],
+        "type": "string",
+        "description": "An enumeration."
       },
-      "BaseDateFilter": {
-        "title": "BaseDateFilter",
-        "type": "object",
-        "properties": {
-          "$gt": {
-            "title": "$Gt",
-            "type": "string",
-            "description": "Greater Than",
-            "format": "date-time"
-          },
-          "$gte": {
-            "title": "$Gte",
-            "type": "string",
-            "description": "Greater Than Or Equals To",
-            "format": "date-time"
-          },
-          "$lt": {
-            "title": "$Lt",
-            "type": "string",
-            "description": "Less Than",
-            "format": "date-time"
-          },
-          "$lte": {
-            "title": "$Lte",
-            "type": "string",
-            "description": "Less Than Or Equals To",
-            "format": "date-time"
-          }
-        },
-        "additionalProperties": false,
-        "description": "Base schema for all incoming API requests."
-      },
-      "BaseSingleValuedStringFilter": {
-        "title": "BaseSingleValuedStringFilter",
-        "type": "object",
-        "properties": {
-          "$eq": {
-            "title": "$Eq",
-            "type": "string",
-            "description": "Equals To"
-          }
-        },
-        "additionalProperties": false,
-        "description": "Base schema for all incoming API requests."
-      },
-      "BasicEnumFilter_CampaignStatus_": {
-        "title": "BasicEnumFilter[CampaignStatus]",
-        "type": "object",
-        "properties": {
-          "$in": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/CampaignStatus"
-            },
-            "description": "In"
-          }
-        },
-        "additionalProperties": false
-      },
-      "BasicEnumFilter_IncidentSeverity_": {
-        "title": "BasicEnumFilter[IncidentSeverity]",
-        "type": "object",
-        "properties": {
-          "$in": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/IncidentSeverity"
-            },
-            "description": "In"
-          }
-        },
-        "additionalProperties": false
-      },
-      "BasicEnumFilter_IncidentStatus_": {
-        "title": "BasicEnumFilter[IncidentStatus]",
-        "type": "object",
-        "properties": {
-          "$in": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/IncidentStatus"
-            },
-            "description": "In"
-          }
-        },
-        "additionalProperties": false
-      },
-      "BasicEnumFilter_Selection_": {
-        "title": "BasicEnumFilter[Selection]",
+      "CampaignPermissionDecisionFilter": {
+        "title": "CampaignPermissionDecisionFilter",
         "type": "object",
         "properties": {
           "$in": {
@@ -802,14 +710,6 @@
         },
         "additionalProperties": false
       },
-      "CampaignExpansion": {
-        "title": "CampaignExpansion",
-        "enum": [
-          "owner"
-        ],
-        "type": "string",
-        "description": "An enumeration."
-      },
       "CampaignPermissionsSearchFilterBody": {
         "title": "CampaignPermissionsSearchFilterBody",
         "type": "object",
@@ -818,7 +718,7 @@
             "title": "Decision",
             "allOf": [
               {
-                "$ref": "#/components/schemas/BasicEnumFilter_Selection_"
+                "$ref": "#/components/schemas/CampaignPermissionDecisionFilter"
               }
             ],
             "description": "Reviewer decisions (keep, revoke or null).\n"
@@ -901,7 +801,7 @@
             "title": "Status",
             "allOf": [
               {
-                "$ref": "#/components/schemas/BasicEnumFilter_CampaignStatus_"
+                "$ref": "#/components/schemas/CampaignStatusFilter"
               }
             ],
             "description": "Enum: \"draft\" \"initializing\" \"running\" \"completed\" \"failed\" \"empty\" \"overdue\"\n"
@@ -922,6 +822,20 @@
           "overdue"
         ],
         "description": "An enumeration."
+      },
+      "CampaignStatusFilter": {
+        "title": "CampaignStatusFilter",
+        "type": "object",
+        "properties": {
+          "$in": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CampaignStatus"
+            },
+            "description": "In"
+          }
+        },
+        "additionalProperties": false
       },
       "CampaignsPermissionSchema": {
         "title": "CampaignsPermissionSchema",
@@ -1189,6 +1103,16 @@
         "additionalProperties": false,
         "description": "Base schema for all incoming API requests."
       },
+      "EventStatusType": {
+        "title": "EventStatusType",
+        "enum": [
+          "Open",
+          "InProgress",
+          "WaitingForInput",
+          "Closed"
+        ],
+        "description": "An enumeration."
+      },
       "FieldName": {
         "title": "FieldName",
         "enum": [
@@ -1370,7 +1294,7 @@
           "status": {
             "allOf": [
               {
-                "$ref": "#/components/schemas/IncidentStatus"
+                "$ref": "#/components/schemas/EventStatusType"
               }
             ],
             "description": "The status of the incident (Open, In Progress, Waiting for Input, or Closed)"
@@ -1378,7 +1302,7 @@
           "severity": {
             "allOf": [
               {
-                "$ref": "#/components/schemas/IncidentSeverity"
+                "$ref": "#/components/schemas/SeverityType"
               }
             ],
             "description": "The severity of the incident (Low, Medium, High or Critical)."
@@ -1433,27 +1357,131 @@
           }
         }
       },
-      "IncidentSeverity": {
-        "title": "IncidentSeverity",
-        "enum": [
-          "Low",
-          "Medium",
-          "High",
-          "Critical"
-        ],
-        "type": "string",
-        "description": "An enumeration."
+      "IncidentsCreatedAtFilter": {
+        "title": "IncidentsCreatedAtFilter",
+        "type": "object",
+        "properties": {
+          "$lte": {
+            "title": "$Lte",
+            "type": "string",
+            "description": "Less Than Or Equals To",
+            "format": "date-time"
+          },
+          "$gte": {
+            "title": "$Gte",
+            "type": "string",
+            "description": "Greater Than Or Equals To",
+            "format": "date-time"
+          },
+          "$lt": {
+            "title": "$Lt",
+            "type": "string",
+            "description": "Less Than",
+            "format": "date-time"
+          },
+          "$gt": {
+            "title": "$Gt",
+            "type": "string",
+            "description": "Greater Than",
+            "format": "date-time"
+          }
+        },
+        "additionalProperties": false
       },
-      "IncidentStatus": {
-        "title": "IncidentStatus",
-        "enum": [
-          "Open",
-          "InProgress",
-          "WaitingForInput",
-          "Closed"
-        ],
-        "type": "string",
-        "description": "An enumeration."
+      "IncidentsIsResolvedFilter": {
+        "title": "IncidentsIsResolvedFilter",
+        "type": "object",
+        "properties": {
+          "$eq": {
+            "title": "$Eq",
+            "type": "boolean",
+            "description": "Equals To"
+          }
+        },
+        "additionalProperties": false
+      },
+      "IncidentsPolicyIdFilter": {
+        "title": "IncidentsPolicyIdFilter",
+        "type": "object",
+        "properties": {
+          "$eq": {
+            "title": "$Eq",
+            "type": "string",
+            "description": "Equals To"
+          }
+        },
+        "additionalProperties": false
+      },
+      "IncidentsPolicyTempalteIdFilter": {
+        "title": "IncidentsPolicyTempalteIdFilter",
+        "type": "object",
+        "properties": {
+          "$eq": {
+            "title": "$Eq",
+            "type": "string",
+            "description": "Equals To"
+          }
+        },
+        "additionalProperties": false
+      },
+      "IncidentsSeverityFilter": {
+        "title": "IncidentsSeverityFilter",
+        "type": "object",
+        "properties": {
+          "$in": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SeverityType"
+            },
+            "description": "In"
+          }
+        },
+        "additionalProperties": false
+      },
+      "IncidentsStatusFilter": {
+        "title": "IncidentsStatusFilter",
+        "type": "object",
+        "properties": {
+          "$in": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/EventStatusType"
+            },
+            "description": "In"
+          }
+        },
+        "additionalProperties": false
+      },
+      "IncidentsUpdatedAtFilter": {
+        "title": "IncidentsUpdatedAtFilter",
+        "type": "object",
+        "properties": {
+          "$lte": {
+            "title": "$Lte",
+            "type": "string",
+            "description": "Less Than Or Equals To",
+            "format": "date-time"
+          },
+          "$gte": {
+            "title": "$Gte",
+            "type": "string",
+            "description": "Greater Than Or Equals To",
+            "format": "date-time"
+          },
+          "$lt": {
+            "title": "$Lt",
+            "type": "string",
+            "description": "Less Than",
+            "format": "date-time"
+          },
+          "$gt": {
+            "title": "$Gt",
+            "type": "string",
+            "description": "Greater Than",
+            "format": "date-time"
+          }
+        },
+        "additionalProperties": false
       },
       "InventoryObjects": {
         "title": "InventoryObjects",
@@ -1955,7 +1983,7 @@
             "title": "Createdat",
             "allOf": [
               {
-                "$ref": "#/components/schemas/BaseDateFilter"
+                "$ref": "#/components/schemas/IncidentsCreatedAtFilter"
               }
             ],
             "description": "Created At date"
@@ -1964,7 +1992,7 @@
             "title": "Updatedat",
             "allOf": [
               {
-                "$ref": "#/components/schemas/BaseDateFilter"
+                "$ref": "#/components/schemas/IncidentsUpdatedAtFilter"
               }
             ],
             "description": "Updated At date"
@@ -1973,7 +2001,7 @@
             "title": "Severity",
             "allOf": [
               {
-                "$ref": "#/components/schemas/BasicEnumFilter_IncidentSeverity_"
+                "$ref": "#/components/schemas/IncidentsSeverityFilter"
               }
             ],
             "description": "Severity"
@@ -1982,7 +2010,7 @@
             "title": "Status",
             "allOf": [
               {
-                "$ref": "#/components/schemas/BasicEnumFilter_IncidentStatus_"
+                "$ref": "#/components/schemas/IncidentsStatusFilter"
               }
             ],
             "description": "Status"
@@ -1991,7 +2019,7 @@
             "title": "Policyid",
             "allOf": [
               {
-                "$ref": "#/components/schemas/BaseSingleValuedStringFilter"
+                "$ref": "#/components/schemas/IncidentsPolicyIdFilter"
               }
             ],
             "description": "Policy Id "
@@ -2000,7 +2028,7 @@
             "title": "Policytemplateid",
             "allOf": [
               {
-                "$ref": "#/components/schemas/BaseSingleValuedStringFilter"
+                "$ref": "#/components/schemas/IncidentsPolicyTempalteIdFilter"
               }
             ],
             "description": "Policy Template ID"
@@ -2009,7 +2037,7 @@
             "title": "Isresolved",
             "allOf": [
               {
-                "$ref": "#/components/schemas/BaseBooleanFilter"
+                "$ref": "#/components/schemas/IncidentsIsResolvedFilter"
               }
             ],
             "description": "Is resolved?"
@@ -2077,6 +2105,16 @@
           "keep",
           "revoke",
           "null"
+        ],
+        "description": "An enumeration."
+      },
+      "SeverityType": {
+        "title": "SeverityType",
+        "enum": [
+          "Low",
+          "Medium",
+          "High",
+          "Critical"
         ],
         "description": "An enumeration."
       },
@@ -2179,7 +2217,7 @@
           "status": {
             "allOf": [
               {
-                "$ref": "#/components/schemas/IncidentStatus"
+                "$ref": "#/components/schemas/EventStatusType"
               }
             ],
             "description": "The status of the incident (Open, InProgress, WaitingForInput, or Closed)."
@@ -2187,7 +2225,7 @@
           "severity": {
             "allOf": [
               {
-                "$ref": "#/components/schemas/IncidentSeverity"
+                "$ref": "#/components/schemas/SeverityType"
               }
             ],
             "description": "The severity of the incident (Low, Medium, High or Critical)."
