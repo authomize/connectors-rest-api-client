@@ -1,7 +1,7 @@
 from typing import Optional
-from requests import Response
 
 import requests
+from requests import Response
 
 AUTHOMIZE_API_URL = 'https://api.authomize.com'
 
