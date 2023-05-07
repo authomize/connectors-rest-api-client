@@ -1,4 +1,5 @@
 from typing import Optional
+from requests import Response
 
 import requests
 
@@ -21,11 +22,16 @@ class BaseClient:
     def authorization_header(self) -> str:
         raise NotImplementedError()
 
+    def _handle_ok_response(self, response: Response) -> str | dict:
+        if response.headers.get('content-type') == 'application/json':
+            return response.json()
+        return response.text
+
     def http_get(self, url, params=None):
         url = self.base_url + url
         response = self.session.get(url, params=params)
         if response.ok:
-            return response.json()
+            return self._handle_ok_response(response)
         try:
             response_json = response.json()
             detail = response_json.get('detail')
@@ -43,7 +49,7 @@ class BaseClient:
             data=body,
         )
         if response.ok:
-            return response.json()
+            return self._handle_ok_response(response)
         try:
             response_json = response.json()
             detail = response_json.get('detail')
@@ -57,7 +63,7 @@ class BaseClient:
         url = self.base_url + url
         response = self.session.delete(url, params=params)
         if response.ok:
-            return response.json()
+            return self._handle_ok_response(response)
         try:
             response_json = response.json()
             detail = response_json.get('detail')
