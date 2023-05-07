@@ -22,10 +22,20 @@ class BaseClient:
     def authorization_header(self) -> str:
         raise NotImplementedError()
 
-    def _handle_ok_response(self, response: Response) -> str | dict:
-        if response.headers.get('content-type') == 'application/json':
-            return response.json()
-        return response.text
+    @staticmethod
+    def _handle_ok_response(response: Response) -> dict:
+        if content_type := response.headers.get('content-type'):
+            if content_type.startswith('application/json'):
+                return response.json()
+
+        raise ClientError(
+            message={
+                'status_code': response.status_code,
+                'url': response.url,
+                'message': 'Unexpected response from API',
+                'raw': response.content,
+            }
+        )
 
     def http_get(self, url, params=None):
         url = self.base_url + url
