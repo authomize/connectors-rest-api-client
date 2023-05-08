@@ -3,7 +3,7 @@
   "info": {
     "title": "Authomize API Reference",
     "description": "Authomize enables users to integrate your applications with Authomize via custom connectors.\n\nYou can use the APIs described in this document to create your connector.\n\nOnce data is uploaded and processed successfully, your custom connector will function in the same way as the connectors created by Authomize.\n\n## How does Authomize work?\nAuthomize works by gathering information about:\n\n· individuals, teams and functions.\n\n· apps, assets and accounts.\n\n· all the relationships between them.\n\n![img.png](https://storagetry1.blob.core.windows.net/public/78d82650-71b0-4909-8444-022aab79add5.png)\n\n## Connector APIs\n\nAuthomize connector APIs enable pushing data into Authomize from external sources.\n\nThese APIs enable data extracted from outside applications (via application APIs) to be delivered to Authomize.\n\nA connector processes extracted application data to transform it into a format compatible with Authomize.\n\n![img_1.png](https://storagetry1.blob.core.windows.net/public/341bf6ef-2e5b-4284-b715-45105ffbf0f8.png)\n\n## Authentication\nTo Authenticate use the API Token, with the format: `Authorization: API_Token`.\n\nAn API Token is a token you provide when making API calls. \n\n\nThe API Token should be included in every request to the API in an `Authorization` header.\n```\ncurl -v -X POST \\n\n     -H \"Authorization: {API_Token}\" \\n\n     ...\n```\n\n## Limits\nRequests cannot exceed a size of 1MB.\n",
-    "version": "3.1.6",
+    "version": "3.2.0",
     "x-logo": {
       "url": "https://static.authomize.com/public/icons/authomize-green.svg"
     }
@@ -1579,7 +1579,7 @@
             "title": "Version",
             "type": "string",
             "description": "**version**",
-            "default": "3.1.6"
+            "default": "3.2.0"
           },
           "id": {
             "title": "Id",
