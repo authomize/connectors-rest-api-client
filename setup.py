@@ -17,7 +17,7 @@ if __name__ == '__main__':
             ],
         },
         install_requires=[
-            'requests~=2.28.1',
+            'requests~=2.28',
             'api-client-pydantic~=1.2',
         ],
         extras_require={
