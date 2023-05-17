@@ -568,6 +568,100 @@
           }
         ]
       }
+    },
+    "/v2/inventory/identities/search": {
+      "post": {
+        "tags": [
+          "Inventory"
+        ],
+        "summary": "Search Identities",
+        "description": "Search Identities",
+        "operationId": "search_identities_v2_inventory_identities_search_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SearchIdentitiesRequestSchema"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaginatedResponseSchema_IdentitySchema_"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ]
+      }
+    },
+    "/v2/inventory/assets/search": {
+      "post": {
+        "tags": [
+          "Inventory"
+        ],
+        "summary": "Search Assets",
+        "description": "Search Assets",
+        "operationId": "search_assets_v2_inventory_assets_search_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SearchAssetsRequestSchema"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaginatedResponseSchema_AssetSchema_"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ]
+      }
     }
   },
   "components": {
@@ -589,6 +683,109 @@
         ],
         "type": "string",
         "description": "An enumeration."
+      },
+      "AccountSchema": {
+        "title": "AccountSchema",
+        "required": [
+          "authomizeId",
+          "object",
+          "type",
+          "isExternal",
+          "isDeleted"
+        ],
+        "type": "object",
+        "properties": {
+          "authomizeId": {
+            "title": "Authomizeid",
+            "type": "string",
+            "description": "Unique ID"
+          },
+          "originId": {
+            "title": "Originid",
+            "type": "string",
+            "description": "The identifier of the account from the origin system."
+          },
+          "uniqueId": {
+            "title": "Uniqueid",
+            "type": "string",
+            "description": "Unique ID is an identifier coming from the connector that is guaranteed to be unique across all accounts coming from that connector."
+          },
+          "object": {
+            "title": "Object",
+            "enum": [
+              "account"
+            ],
+            "type": "string",
+            "description": "type of object (here `account`)"
+          },
+          "name": {
+            "title": "Name",
+            "type": "string",
+            "description": "Name"
+          },
+          "type": {
+            "title": "Type",
+            "type": "string",
+            "description": "Type"
+          },
+          "isExternal": {
+            "title": "Isexternal",
+            "type": "boolean",
+            "description": "Is External"
+          },
+          "email": {
+            "title": "Email",
+            "type": "string",
+            "description": "Email"
+          },
+          "tagIds": {
+            "title": "Tagids",
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Tag IDs",
+            "default": []
+          },
+          "identityId": {
+            "title": "Identityid",
+            "type": "string",
+            "description": "Associated Identity ID "
+          },
+          "identity": {
+            "title": "Identity",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/RawIdentitySchema"
+              }
+            ],
+            "description": "Associated Identity"
+          },
+          "sourceAppId": {
+            "title": "Sourceappid",
+            "type": "string",
+            "description": "Source App ID"
+          },
+          "sourceApp": {
+            "title": "Sourceapp",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/SourceAppSchema"
+              }
+            ],
+            "description": "Source App"
+          },
+          "isAdmin": {
+            "title": "Isadmin",
+            "type": "boolean",
+            "description": "Is Admin"
+          },
+          "isDeleted": {
+            "title": "Isdeleted",
+            "type": "boolean",
+            "description": "Is Deleted"
+          }
+        }
       },
       "AddIncidentCommentRequestSchema": {
         "title": "AddIncidentCommentRequestSchema",
@@ -676,6 +873,168 @@
           "Account Impersonation (PE, LM)"
         ],
         "description": "An enumeration."
+      },
+      "AssetExpansion": {
+        "title": "AssetExpansion",
+        "enum": [
+          "sourceApp",
+          "tags"
+        ],
+        "type": "string",
+        "description": "An enumeration."
+      },
+      "AssetSchema": {
+        "title": "AssetSchema",
+        "required": [
+          "authomizeId",
+          "object",
+          "name",
+          "type",
+          "isDeleted"
+        ],
+        "type": "object",
+        "properties": {
+          "authomizeId": {
+            "title": "Authomizeid",
+            "type": "string",
+            "description": "Unique ID"
+          },
+          "object": {
+            "title": "Object",
+            "enum": [
+              "asset"
+            ],
+            "type": "string",
+            "description": "Type of entity (here `asset`)"
+          },
+          "name": {
+            "title": "Name",
+            "type": "string",
+            "description": "Name"
+          },
+          "type": {
+            "title": "Type",
+            "type": "string",
+            "description": "Type"
+          },
+          "originType": {
+            "title": "Origintype",
+            "type": "string",
+            "description": "The asset type in the source system. The default is the canonical type (if not mentioned).\n"
+          },
+          "sourceAppId": {
+            "title": "Sourceappid",
+            "type": "string",
+            "description": "Source App ID"
+          },
+          "sourceApp": {
+            "title": "Sourceapp",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/SourceAppSchema"
+              }
+            ],
+            "description": "Source App"
+          },
+          "tagIds": {
+            "title": "Tagids",
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Tag IDs",
+            "default": []
+          },
+          "createdAt": {
+            "title": "Createdat",
+            "type": "string",
+            "description": "The date (in ISO 8601 format) that the asset was created.\n",
+            "format": "date-time"
+          },
+          "lastUsedAt": {
+            "title": "Lastusedat",
+            "type": "string",
+            "description": "The date (in ISO 8601 format) of the last time that the asset was in use.",
+            "format": "date-time"
+          },
+          "href": {
+            "title": "Href",
+            "type": "string",
+            "description": "HREF"
+          },
+          "isDeleted": {
+            "title": "Isdeleted",
+            "type": "boolean",
+            "description": "HREF"
+          },
+          "uniqueId": {
+            "title": "Uniqueid",
+            "type": "string",
+            "description": "The Unique Identifier."
+          },
+          "originId": {
+            "title": "Originid",
+            "type": "string",
+            "description": "The identifier of the asset from the origin system."
+          },
+          "description": {
+            "title": "Description",
+            "type": "string",
+            "description": "Asset description"
+          },
+          "tags": {
+            "title": "Tags",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TagSchema"
+            },
+            "description": "Expanded Tags"
+          }
+        }
+      },
+      "AssetsAppIdFilter": {
+        "title": "AssetsAppIdFilter",
+        "type": "object",
+        "properties": {
+          "$eq": {
+            "title": "$Eq",
+            "type": "string",
+            "description": "Equals To"
+          }
+        },
+        "additionalProperties": false
+      },
+      "AssetsOriginIdFilter": {
+        "title": "AssetsOriginIdFilter",
+        "type": "object",
+        "properties": {
+          "$in": {
+            "title": "$In",
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "In",
+            "default": []
+          }
+        },
+        "additionalProperties": false
+      },
+      "AssetsUniqueIdFilter": {
+        "title": "AssetsUniqueIdFilter",
+        "type": "object",
+        "properties": {
+          "$in": {
+            "title": "$In",
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "In",
+            "default": []
+          }
+        },
+        "additionalProperties": false
       },
       "AttackTacticType": {
         "title": "AttackTacticType",
@@ -1038,6 +1397,41 @@
         ],
         "description": "An enumeration."
       },
+      "Chainable": {
+        "title": "Chainable",
+        "type": "object",
+        "properties": {
+          "originId": {
+            "title": "Originid",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/AssetsOriginIdFilter"
+              }
+            ],
+            "description": "Origin ID of the Asset."
+          },
+          "appId": {
+            "title": "Appid",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/AssetsAppIdFilter"
+              }
+            ],
+            "description": "ID of the Application."
+          },
+          "uniqueId": {
+            "title": "Uniqueid",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/AssetsUniqueIdFilter"
+              }
+            ],
+            "description": "Unique ID of the Asset."
+          }
+        },
+        "additionalProperties": false,
+        "description": "Base schema for all incoming API requests."
+      },
       "CisV8Standard": {
         "title": "CisV8Standard",
         "enum": [
@@ -1143,6 +1537,115 @@
             "items": {
               "$ref": "#/components/schemas/ValidationError"
             }
+          }
+        }
+      },
+      "IdentitiesEmailFilter": {
+        "title": "IdentitiesEmailFilter",
+        "type": "object",
+        "properties": {
+          "$in": {
+            "title": "$In",
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "In",
+            "default": []
+          }
+        },
+        "additionalProperties": false
+      },
+      "IdentityExpansion": {
+        "title": "IdentityExpansion",
+        "enum": [
+          "account",
+          "tags"
+        ],
+        "type": "string",
+        "description": "An enumeration."
+      },
+      "IdentitySchema": {
+        "title": "IdentitySchema",
+        "required": [
+          "authomizeId",
+          "object",
+          "isDeleted"
+        ],
+        "type": "object",
+        "properties": {
+          "authomizeId": {
+            "title": "Authomizeid",
+            "type": "string",
+            "description": "Unique ID"
+          },
+          "object": {
+            "title": "Object",
+            "enum": [
+              "identity"
+            ],
+            "type": "string",
+            "description": "Type of entity (here `identity`)"
+          },
+          "name": {
+            "title": "Name",
+            "type": "string",
+            "description": "Name of Identity"
+          },
+          "title": {
+            "title": "Title",
+            "type": "string",
+            "description": "Title"
+          },
+          "department": {
+            "title": "Department",
+            "type": "string",
+            "description": "Department"
+          },
+          "tagIds": {
+            "title": "Tagids",
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "List of tags",
+            "default": []
+          },
+          "accountIds": {
+            "title": "Accountids",
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "List of associated account IDs",
+            "default": []
+          },
+          "isDeleted": {
+            "title": "Isdeleted",
+            "type": "boolean",
+            "description": "Is Deleted"
+          },
+          "email": {
+            "title": "Email",
+            "type": "string",
+            "description": "User's work email address.\n"
+          },
+          "tags": {
+            "title": "Tags",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TagSchema"
+            },
+            "description": "Expanded Tags"
+          },
+          "accounts": {
+            "title": "Accounts",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AccountSchema"
+            },
+            "description": "List of associated accounts",
+            "default": []
           }
         }
       },
@@ -1673,6 +2176,33 @@
         },
         "additionalProperties": false
       },
+      "PaginatedResponseSchema_AssetSchema_": {
+        "title": "PaginatedResponseSchema[AssetSchema]",
+        "required": [
+          "data"
+        ],
+        "type": "object",
+        "properties": {
+          "pagination": {
+            "title": "Pagination",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/PaginationResponseSchema"
+              }
+            ],
+            "description": "Pagination Metadata"
+          },
+          "data": {
+            "title": "Data",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AssetSchema"
+            },
+            "description": "List of Actual Data"
+          }
+        },
+        "additionalProperties": false
+      },
       "PaginatedResponseSchema_CampaignSchema_": {
         "title": "PaginatedResponseSchema[CampaignSchema]",
         "required": [
@@ -1721,6 +2251,33 @@
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/CampaignsPermissionSchema"
+            },
+            "description": "List of Actual Data"
+          }
+        },
+        "additionalProperties": false
+      },
+      "PaginatedResponseSchema_IdentitySchema_": {
+        "title": "PaginatedResponseSchema[IdentitySchema]",
+        "required": [
+          "data"
+        ],
+        "type": "object",
+        "properties": {
+          "pagination": {
+            "title": "Pagination",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/PaginationResponseSchema"
+              }
+            ],
+            "description": "Pagination Metadata"
+          },
+          "data": {
+            "title": "Data",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/IdentitySchema"
             },
             "description": "List of Actual Data"
           }
@@ -1829,6 +2386,81 @@
           }
         }
       },
+      "RawIdentitySchema": {
+        "title": "RawIdentitySchema",
+        "required": [
+          "authomizeId",
+          "object",
+          "isDeleted"
+        ],
+        "type": "object",
+        "properties": {
+          "authomizeId": {
+            "title": "Authomizeid",
+            "type": "string",
+            "description": "Unique ID"
+          },
+          "object": {
+            "title": "Object",
+            "enum": [
+              "identity"
+            ],
+            "type": "string",
+            "description": "Type of entity (here `identity`)"
+          },
+          "name": {
+            "title": "Name",
+            "type": "string",
+            "description": "Name of Identity"
+          },
+          "title": {
+            "title": "Title",
+            "type": "string",
+            "description": "Title"
+          },
+          "department": {
+            "title": "Department",
+            "type": "string",
+            "description": "Department"
+          },
+          "tagIds": {
+            "title": "Tagids",
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "List of tags",
+            "default": []
+          },
+          "accountIds": {
+            "title": "Accountids",
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "List of associated account IDs",
+            "default": []
+          },
+          "isDeleted": {
+            "title": "Isdeleted",
+            "type": "boolean",
+            "description": "Is Deleted"
+          },
+          "email": {
+            "title": "Email",
+            "type": "string",
+            "description": "User's work email address.\n"
+          },
+          "tags": {
+            "title": "Tags",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TagSchema"
+            },
+            "description": "Expanded Tags"
+          }
+        }
+      },
       "ReviewStatus": {
         "title": "ReviewStatus",
         "enum": [
@@ -1910,6 +2542,55 @@
           }
         }
       },
+      "SearchAssetsRequestSchema": {
+        "title": "SearchAssetsRequestSchema",
+        "type": "object",
+        "properties": {
+          "sort": {
+            "title": "Sort",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SortSchema_SearchAssetsSortFields_"
+            },
+            "description": "Sort"
+          },
+          "pagination": {
+            "title": "Pagination",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/PaginationRequestSchema"
+              }
+            ],
+            "description": "Pagination"
+          },
+          "expand": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AssetExpansion"
+            },
+            "description": "Expand Fields"
+          },
+          "filter": {
+            "title": "Filter",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Chainable"
+              }
+            ],
+            "description": "Search Assets Filter"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Base schema for all incoming API requests."
+      },
+      "SearchAssetsSortFields": {
+        "title": "SearchAssetsSortFields",
+        "enum": [
+          "asset.name"
+        ],
+        "type": "string",
+        "description": "An enumeration."
+      },
       "SearchCampaignPermissionsRequestSchema": {
         "title": "SearchCampaignPermissionsRequestSchema",
         "type": "object",
@@ -1983,6 +2664,72 @@
         },
         "additionalProperties": false,
         "description": "Base schema for all incoming API requests."
+      },
+      "SearchIdentitiesFilterBody": {
+        "title": "SearchIdentitiesFilterBody",
+        "type": "object",
+        "properties": {
+          "email": {
+            "title": "Email",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/IdentitiesEmailFilter"
+              }
+            ],
+            "description": "Email associated with Account"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Base schema for all incoming API requests."
+      },
+      "SearchIdentitiesRequestSchema": {
+        "title": "SearchIdentitiesRequestSchema",
+        "type": "object",
+        "properties": {
+          "sort": {
+            "title": "Sort",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SortSchema_SearchIdentitiesSortFields_"
+            },
+            "description": "Sort"
+          },
+          "pagination": {
+            "title": "Pagination",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/PaginationRequestSchema"
+              }
+            ],
+            "description": "Pagination"
+          },
+          "expand": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/IdentityExpansion"
+            },
+            "description": "Expand Fields"
+          },
+          "filter": {
+            "title": "Filter",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/SearchIdentitiesFilterBody"
+              }
+            ],
+            "description": "Search Identities Filter"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Base schema for all incoming API requests."
+      },
+      "SearchIdentitiesSortFields": {
+        "title": "SearchIdentitiesSortFields",
+        "enum": [
+          "identity.name"
+        ],
+        "type": "string",
+        "description": "An enumeration."
       },
       "SearchIncidentsFilter": {
         "title": "SearchIncidentsFilter",
@@ -2165,6 +2912,64 @@
         },
         "additionalProperties": false
       },
+      "SortSchema_SearchAssetsSortFields_": {
+        "title": "SortSchema[SearchAssetsSortFields]",
+        "required": [
+          "fieldName"
+        ],
+        "type": "object",
+        "properties": {
+          "fieldName": {
+            "title": "FieldName",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/SearchAssetsSortFields"
+              }
+            ],
+            "description": "Sort By Field Name"
+          },
+          "order": {
+            "title": "Order",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/SortOrder"
+              }
+            ],
+            "description": "Sort Order",
+            "default": "ASC"
+          }
+        },
+        "additionalProperties": false
+      },
+      "SortSchema_SearchIdentitiesSortFields_": {
+        "title": "SortSchema[SearchIdentitiesSortFields]",
+        "required": [
+          "fieldName"
+        ],
+        "type": "object",
+        "properties": {
+          "fieldName": {
+            "title": "FieldName",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/SearchIdentitiesSortFields"
+              }
+            ],
+            "description": "Sort By Field Name"
+          },
+          "order": {
+            "title": "Order",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/SortOrder"
+              }
+            ],
+            "description": "Sort Order",
+            "default": "ASC"
+          }
+        },
+        "additionalProperties": false
+      },
       "SortSchema_SearchIncidentsSortFields_": {
         "title": "SortSchema[SearchIncidentsSortFields]",
         "required": [
@@ -2211,6 +3016,32 @@
             "title": "Name",
             "type": "string",
             "description": "Name"
+          }
+        }
+      },
+      "TagSchema": {
+        "title": "TagSchema",
+        "required": [
+          "id",
+          "name",
+          "description"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "title": "Id",
+            "type": "string",
+            "description": "Id"
+          },
+          "name": {
+            "title": "Name",
+            "type": "string",
+            "description": "Name"
+          },
+          "description": {
+            "title": "Description",
+            "type": "string",
+            "description": "Description"
           }
         }
       },
@@ -2322,6 +3153,10 @@
     {
       "name": "Campaign",
       "description": "Campaign APIs enable you to pull all the decisions from the campaign (keep or revoke) and to automate the revocation process to remove unnecessary permissions.\nCampaign APIs also enable you to pull basic details on the campaigns and to pull a list of all campaigns.\n"
+    },
+    {
+      "name": "Inventory",
+      "description": "Inventory APIs"
     }
   ]
 }
