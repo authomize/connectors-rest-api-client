@@ -40,6 +40,7 @@ from authomize.rest_api_client.generated.connectors_rest_api.schemas import (
     SearchPrivilegesListResponseSchema,
     SearchUsersListResponseSchema,
     SubmitResponse,
+    UpdateAppSchema,
 )
 
 
@@ -113,6 +114,21 @@ class ConnectorsClient(BaseClient):
         if modified_before:
             date_filter = f'?modifiedBefore={str(modified_before)}'
         return self.http_delete(url=f"/v2/apps/{app_id}/data{date_filter}")
+
+    def update_app_data(
+        self,
+        app_id: str,
+        body: UpdateAppSchema,
+    ) -> SubmitResponse:
+        if not app_id:
+            raise ValueError('Missing app_id')
+        return self.http_patch(
+            url=f"/v2/apps/{app_id}",
+            body=json.dumps(
+                body,
+                default=pydantic_encoder
+            )
+        )
 
     def search_users(
         self,

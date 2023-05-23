@@ -23,6 +23,21 @@ class BaseClient:
         raise NotImplementedError()
 
     @staticmethod
+    def _handle_response(response: Response):
+        if response.ok:
+            return BaseClient._handle_ok_response(response)
+        try:
+            response_json = response.json()
+            detail = response_json.get('detail')
+            if 400 <= response.status_code < 500:
+                response.reason = response.text
+        except Exception:
+            detail = None
+        if detail:
+            raise ClientError(str(detail))
+        response.raise_for_status()
+
+    @staticmethod
     def _handle_ok_response(response: Response) -> dict:
         if content_type := response.headers.get('content-type'):
             if content_type.startswith('application/json'):
@@ -40,18 +55,7 @@ class BaseClient:
     def http_get(self, url, params=None):
         url = self.base_url + url
         response = self.session.get(url, params=params)
-        if response.ok:
-            return self._handle_ok_response(response)
-        try:
-            response_json = response.json()
-            detail = response_json.get('detail')
-            if 400 <= response.status_code < 500:
-                response.reason = response.text
-        except Exception:
-            detail = None
-        if detail:
-            raise ClientError(str(detail))
-        response.raise_for_status()
+        self._handle_response(response)
 
     def http_post(self, url: str, body: Optional[str] = None):
         url = self.base_url + url
@@ -60,31 +64,18 @@ class BaseClient:
             headers={'Content-Type': 'application/json'},
             data=body,
         )
-        if response.ok:
-            return self._handle_ok_response(response)
-        try:
-            response_json = response.json()
-            detail = response_json.get('detail')
-            if 400 <= response.status_code < 500:
-                response.reason = response.text
-        except Exception:
-            detail = None
-        if detail:
-            raise ClientError(str(detail))
-        response.raise_for_status()
+        self._handle_response(response)
+
+    def http_patch(self, url: str, body: Optional[str] = None):
+        url = self.base_url + url
+        response = self.session.patch(
+            url,
+            headers={'Content-Type': 'application/json'},
+            data=body,
+        )
+        self._handle_response(response)
 
     def http_delete(self, url: str, params=None):
         url = self.base_url + url
         response = self.session.delete(url, params=params)
-        if response.ok:
-            return self._handle_ok_response(response)
-        try:
-            response_json = response.json()
-            detail = response_json.get('detail')
-            if 400 <= response.status_code < 500:
-                response.reason = response.text
-        except Exception:
-            detail = None
-        if detail:
-            raise ClientError(str(detail))
-        response.raise_for_status()
+        self._handle_response(response)
