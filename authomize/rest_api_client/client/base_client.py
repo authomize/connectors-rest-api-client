@@ -45,6 +45,8 @@ class BaseClient:
         try:
             response_json = response.json()
             detail = response_json.get('detail')
+            if 400 <= response.status_code < 500:
+                response.reason = response.text
         except Exception:
             detail = None
         if detail:
@@ -63,6 +65,8 @@ class BaseClient:
         try:
             response_json = response.json()
             detail = response_json.get('detail')
+            if 400 <= response.status_code < 500:
+                response.reason = response.text
         except Exception:
             detail = None
         if detail:
@@ -77,6 +81,8 @@ class BaseClient:
         try:
             response_json = response.json()
             detail = response_json.get('detail')
+            if 400 <= response.status_code < 500:
+                response.reason = response.text
         except Exception:
             detail = None
         if detail:
