@@ -41,6 +41,7 @@ from authomize.rest_api_client.generated.connectors_rest_api.schemas import (
     SearchPrivilegesListResponseSchema,
     SearchUsersListResponseSchema,
     SubmitResponse,
+    UpdateAppSchema,
 )
 from authomize.rest_api_client.generated.external_rest_api.schemas import (
     IncidentExpansion,
@@ -135,6 +136,16 @@ class Client:
         return self.connectors_client.delete_app_data(
             app_id=app_id,
             modified_before=modified_before,
+        )
+
+    def update_app_data(
+        self,
+        app_id: str,
+        body: UpdateAppSchema,
+    ) -> SubmitResponse:
+        return self.connectors_client.update_app_data(
+            app_id=app_id,
+            body=body,
         )
 
     def search_users(
