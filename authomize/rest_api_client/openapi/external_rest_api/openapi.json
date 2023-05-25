@@ -1579,7 +1579,8 @@
           },
           "terminatedAt": {
             "title": "Terminatedat",
-            "type": "string"
+            "type": "string",
+            "description": "Time of termination"
           },
           "hiredAt": {
             "title": "Hiredat",
@@ -2406,7 +2407,8 @@
           },
           "terminatedAt": {
             "title": "Terminatedat",
-            "type": "string"
+            "type": "string",
+            "description": "Time of termination"
           },
           "hiredAt": {
             "title": "Hiredat",
