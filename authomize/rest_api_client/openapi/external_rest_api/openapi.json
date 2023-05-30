@@ -3,7 +3,7 @@
   "info": {
     "title": "Authomize API Reference",
     "description": "Authomize enables users to integrate your applications with Authomize via custom connectors.\n\nYou can use the APIs described in this document to create your connector.\n\nOnce data is uploaded and processed successfully, your custom connector will function in the same way as the connectors created by Authomize.\n\n## How does Authomize work?\nAuthomize works by gathering information about:\n\n· individuals, teams and functions.\n\n· apps, assets and accounts.\n\n· all the relationships between them.\n\n![img.png](https://storagetry1.blob.core.windows.net/public/78d82650-71b0-4909-8444-022aab79add5.png)\n\n## Connector APIs\n\nAuthomize connector APIs enable pushing data into Authomize from external sources.\n\nThese APIs enable data extracted from outside applications (via application APIs) to be delivered to Authomize.\n\nA connector processes extracted application data to transform it into a format compatible with Authomize.\n\n![img_1.png](https://storagetry1.blob.core.windows.net/public/341bf6ef-2e5b-4284-b715-45105ffbf0f8.png)\n\n## Authentication\nTo Authenticate use the API Token, with the format: `Authorization: API_Token`.\n\nAn API Token is a token you provide when making API calls. \n\n\nThe API Token should be included in every request to the API in an `Authorization` header.\n```\ncurl -v -X POST \\n\n     -H \"Authorization: {API_Token}\" \\n\n     ...\n```\n\n## Limits\nRequests cannot exceed a size of 1MB.\n",
-    "version": "4.1.2",
+    "version": "4.1.3",
     "x-logo": {
       "url": "https://static.authomize.com/public/icons/authomize-green.svg"
     }
@@ -575,7 +575,7 @@
           "Inventory"
         ],
         "summary": "Search Identities",
-        "description": "Search Identities",
+        "description": "Find specific identities on Authomize and get related data (as found on Identity Single Entity page). Search by email address or AuthomizeID.",
         "operationId": "search_identities_v2_inventory_identities_search_post",
         "requestBody": {
           "content": {
@@ -622,7 +622,7 @@
           "Inventory"
         ],
         "summary": "Search Assets",
-        "description": "Search Assets",
+        "description": "Find specific assets on Authomize and get related data (as found on the asset’s Single Entity page)",
         "operationId": "search_assets_v2_inventory_assets_search_post",
         "requestBody": {
           "content": {
@@ -701,37 +701,37 @@
           "originId": {
             "title": "Originid",
             "type": "string",
-            "description": "The identifier of the account from the origin system."
+            "description": "The identifier of the account from the source system."
           },
           "uniqueId": {
             "title": "Uniqueid",
             "type": "string",
-            "description": "Unique ID is an identifier coming from the connector that is guaranteed to be unique across all accounts coming from that connector."
+            "description": "Unique ID is an identifier coming from the connector that is unique across all accounts coming from that connector"
           },
           "name": {
             "title": "Name",
             "type": "string",
-            "description": "Name"
+            "description": "Name of account"
           },
           "type": {
             "title": "Type",
             "type": "string",
-            "description": "Type"
+            "description": "Type of account"
           },
           "isExternal": {
             "title": "Isexternal",
             "type": "boolean",
-            "description": "Is External"
+            "description": "Is account external (Yes or No)"
           },
           "email": {
             "title": "Email",
             "type": "string",
-            "description": "Email"
+            "description": "Email address of account"
           },
           "identityId": {
             "title": "Identityid",
             "type": "string",
-            "description": "Associated Identity ID "
+            "description": "ID of identitiy"
           },
           "identity": {
             "title": "Identity",
@@ -749,12 +749,12 @@
                 "$ref": "#/components/schemas/SourceAppSchema"
               }
             ],
-            "description": "Source App"
+            "description": "Associated source app "
           },
           "isAdmin": {
             "title": "Isadmin",
             "type": "boolean",
-            "description": "Is Admin"
+            "description": "Is the account an admin account (Yes or No)"
           },
           "tags": {
             "title": "Tags",
@@ -762,7 +762,7 @@
             "items": {
               "$ref": "#/components/schemas/TagSchema"
             },
-            "description": "Expanded Tags"
+            "description": "List of tags associated with the asset"
           }
         }
       },
@@ -902,22 +902,22 @@
           "authomizeId": {
             "title": "Authomizeid",
             "type": "string",
-            "description": "Unique ID"
+            "description": "Authomize ID of source application"
           },
           "name": {
             "title": "Name",
             "type": "string",
-            "description": "Name"
+            "description": "Name of the asset (for example, application, virtual machine, file, etc.)"
           },
           "type": {
             "title": "Type",
             "type": "string",
-            "description": "Type"
+            "description": "Type of asset"
           },
           "originType": {
             "title": "Origintype",
             "type": "string",
-            "description": "The asset type in the source system. The default is the canonical type (if not mentioned).\n"
+            "description": "The type of asset on the source system"
           },
           "sourceApp": {
             "title": "Sourceapp",
@@ -926,12 +926,12 @@
                 "$ref": "#/components/schemas/SourceAppSchema"
               }
             ],
-            "description": "Source App"
+            "description": "The source application of the asset"
           },
           "createdAt": {
             "title": "Createdat",
             "type": "string",
-            "description": "The date (in ISO 8601 format) that the asset was created.\n",
+            "description": "The date (in ISO 8601 format) that the asset was created\n",
             "format": "date-time"
           },
           "lastUsedAt": {
@@ -942,22 +942,22 @@
           "href": {
             "title": "Href",
             "type": "string",
-            "description": "HREF"
+            "description": "A link to the asset in the source application"
           },
           "uniqueId": {
             "title": "Uniqueid",
             "type": "string",
-            "description": "The Unique Identifier."
+            "description": "The unique ID of the asset (as provided by the connector)"
           },
           "originId": {
             "title": "Originid",
             "type": "string",
-            "description": "The identifier of the asset from the origin system."
+            "description": "The ID of the asset on the source system"
           },
           "description": {
             "title": "Description",
             "type": "string",
-            "description": "Asset description"
+            "description": "A description of the asset"
           },
           "tags": {
             "title": "Tags",
@@ -965,7 +965,7 @@
             "items": {
               "$ref": "#/components/schemas/TagSchema"
             },
-            "description": "Expanded Tags"
+            "description": "List of tags associated with the asset"
           },
           "incidentsCount": {
             "title": "Incidentscount",
@@ -1355,7 +1355,7 @@
                 "$ref": "#/components/schemas/AppIdFilter"
               }
             ],
-            "description": "ID of the Application."
+            "description": "Find assets by their app ID"
           },
           "uniqueId": {
             "title": "Uniqueid",
@@ -1364,7 +1364,7 @@
                 "$ref": "#/components/schemas/UniqueIdFilter"
               }
             ],
-            "description": "Unique ID of the Asset."
+            "description": "Find assets by their unique ID"
           },
           "authomizeId": {
             "title": "Authomizeid",
@@ -1373,7 +1373,7 @@
                 "$ref": "#/components/schemas/AssetIdFilter"
               }
             ],
-            "description": "Authomize ID for the Asset"
+            "description": "Find assets by their Authomize ID"
           }
         },
         "additionalProperties": false,
@@ -1543,17 +1543,17 @@
           "name": {
             "title": "Name",
             "type": "string",
-            "description": "Name of Identity"
+            "description": "Name of the identity"
           },
           "title": {
             "title": "Title",
             "type": "string",
-            "description": "Title"
+            "description": "Title of the identity"
           },
           "department": {
             "title": "Department",
             "type": "string",
-            "description": "Department"
+            "description": "The department in which the identity works"
           },
           "accountIds": {
             "title": "Accountids",
@@ -1561,13 +1561,13 @@
             "items": {
               "type": "string"
             },
-            "description": "List of associated account IDs",
+            "description": "The account IDs associated with the identity",
             "default": []
           },
           "email": {
             "title": "Email",
             "type": "string",
-            "description": "User's work email address.\n"
+            "description": "The email of the identity"
           },
           "tags": {
             "title": "Tags",
@@ -1575,7 +1575,7 @@
             "items": {
               "$ref": "#/components/schemas/TagSchema"
             },
-            "description": "Expanded Tags"
+            "description": "The tags provided for the identity"
           },
           "terminatedAt": {
             "title": "Terminatedat",
@@ -1598,7 +1598,7 @@
             "items": {
               "$ref": "#/components/schemas/AccountSchema"
             },
-            "description": "List of associated accounts",
+            "description": "List of associated user or service accounts",
             "default": []
           }
         }
@@ -2040,7 +2040,7 @@
             "title": "Version",
             "type": "string",
             "description": "**version**",
-            "default": "4.1.2"
+            "default": "4.1.3"
           },
           "id": {
             "title": "Id",
@@ -2288,12 +2288,12 @@
           "limit": {
             "title": "Limit",
             "type": "integer",
-            "description": "Limit"
+            "description": "Limit the number of identities per page"
           },
           "nextPage": {
             "title": "NextPage",
             "type": "string",
-            "description": "Starting after"
+            "description": "Token denoting start of next page"
           }
         },
         "additionalProperties": false,
@@ -2306,18 +2306,18 @@
           "limit": {
             "title": "Limit",
             "type": "integer",
-            "description": "Limit",
+            "description": "Limit the number of identities per page",
             "default": 20
           },
           "hasMore": {
             "title": "HasMore",
             "type": "boolean",
-            "description": "Has more? `true` or `false`."
+            "description": "Indicates that more data is available"
           },
           "nextPage": {
             "title": "NextPage",
             "type": "string",
-            "description": "Starting after"
+            "description": "Token denoting start of next page"
           }
         },
         "description": "Common pagination model that has been used across services."
@@ -2371,17 +2371,17 @@
           "name": {
             "title": "Name",
             "type": "string",
-            "description": "Name of Identity"
+            "description": "Name of the identity"
           },
           "title": {
             "title": "Title",
             "type": "string",
-            "description": "Title"
+            "description": "Title of the identity"
           },
           "department": {
             "title": "Department",
             "type": "string",
-            "description": "Department"
+            "description": "The department in which the identity works"
           },
           "accountIds": {
             "title": "Accountids",
@@ -2389,13 +2389,13 @@
             "items": {
               "type": "string"
             },
-            "description": "List of associated account IDs",
+            "description": "The account IDs associated with the identity",
             "default": []
           },
           "email": {
             "title": "Email",
             "type": "string",
-            "description": "User's work email address.\n"
+            "description": "The email of the identity"
           },
           "tags": {
             "title": "Tags",
@@ -2403,7 +2403,7 @@
             "items": {
               "$ref": "#/components/schemas/TagSchema"
             },
-            "description": "Expanded Tags"
+            "description": "The tags provided for the identity"
           },
           "terminatedAt": {
             "title": "Terminatedat",
@@ -2513,7 +2513,7 @@
             "items": {
               "$ref": "#/components/schemas/SortSchema_SearchAssetsSortFields_"
             },
-            "description": "Sort"
+            "description": "Sort the results by identity name in ascending or descending order"
           },
           "pagination": {
             "title": "Pagination",
@@ -2522,14 +2522,14 @@
                 "$ref": "#/components/schemas/PaginationRequestSchema"
               }
             ],
-            "description": "Pagination"
+            "description": "Pagination metadata"
           },
           "expand": {
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/AssetExpansion"
             },
-            "description": "Expand Fields"
+            "description": "Expand fields (to show additional information)"
           },
           "filter": {
             "title": "Filter",
@@ -2538,7 +2538,7 @@
                 "$ref": "#/components/schemas/Chainable"
               }
             ],
-            "description": "Search Assets Filter"
+            "description": "Find assets by their ID on the source system"
           }
         },
         "additionalProperties": false,
@@ -2563,7 +2563,7 @@
                 "$ref": "#/components/schemas/PaginationRequestSchema"
               }
             ],
-            "description": "Pagination"
+            "description": "Pagination metadata"
           },
           "filter": {
             "title": "Filter",
@@ -2612,7 +2612,7 @@
                 "$ref": "#/components/schemas/PaginationRequestSchema"
               }
             ],
-            "description": "Pagination"
+            "description": "Pagination metadata"
           },
           "sort": {
             "title": "Sort",
@@ -2620,7 +2620,7 @@
             "items": {
               "$ref": "#/components/schemas/SortSchema_FieldName_"
             },
-            "description": "Sort"
+            "description": "Sort the results by identity name in ascending or descending order"
           }
         },
         "additionalProperties": false,
@@ -2637,7 +2637,7 @@
                 "$ref": "#/components/schemas/EmailFilter"
               }
             ],
-            "description": "Email."
+            "description": "Find identities by their email address"
           },
           "authomizeId": {
             "title": "Authomizeid",
@@ -2646,7 +2646,7 @@
                 "$ref": "#/components/schemas/IdFilter"
               }
             ],
-            "description": "Authomize ID for the Identity"
+            "description": "Find identities by their Authomize ID"
           }
         },
         "additionalProperties": false,
@@ -2662,7 +2662,7 @@
             "items": {
               "$ref": "#/components/schemas/SortSchema_SearchIdentitiesSortFields_"
             },
-            "description": "Sort"
+            "description": "Sort the results by identity name in ascending or descending order"
           },
           "pagination": {
             "title": "Pagination",
@@ -2671,14 +2671,14 @@
                 "$ref": "#/components/schemas/PaginationRequestSchema"
               }
             ],
-            "description": "Pagination"
+            "description": "Pagination metadata"
           },
           "expand": {
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/IdentityExpansion"
             },
-            "description": "Expand Fields"
+            "description": "Expand the account or tag fields to get additional data on related accounts or related tags"
           },
           "filter": {
             "title": "Filter",
@@ -2687,7 +2687,7 @@
                 "$ref": "#/components/schemas/SearchIdentitiesFilterBody"
               }
             ],
-            "description": "Search Identities Filter"
+            "description": "Search filter options"
           }
         },
         "additionalProperties": false,
@@ -2798,7 +2798,7 @@
             "items": {
               "$ref": "#/components/schemas/SortSchema_SearchIncidentsSortFields_"
             },
-            "description": "Sort"
+            "description": "Sort the results by identity name in ascending or descending order"
           },
           "pagination": {
             "title": "Pagination",
@@ -2807,7 +2807,7 @@
                 "$ref": "#/components/schemas/PaginationRequestSchema"
               }
             ],
-            "description": "Pagination"
+            "description": "Pagination metadata"
           }
         },
         "additionalProperties": false,
@@ -2867,7 +2867,7 @@
                 "$ref": "#/components/schemas/FieldName"
               }
             ],
-            "description": "Sort By Field Name"
+            "description": "Sort the results by field name"
           },
           "order": {
             "title": "Order",
@@ -2876,7 +2876,7 @@
                 "$ref": "#/components/schemas/SortOrder"
               }
             ],
-            "description": "Sort Order",
+            "description": "Sort by ascending or descending order (ascending is the default)",
             "default": "ASC"
           }
         },
@@ -2896,7 +2896,7 @@
                 "$ref": "#/components/schemas/SearchAssetsSortFields"
               }
             ],
-            "description": "Sort By Field Name"
+            "description": "Sort the results by field name"
           },
           "order": {
             "title": "Order",
@@ -2905,7 +2905,7 @@
                 "$ref": "#/components/schemas/SortOrder"
               }
             ],
-            "description": "Sort Order",
+            "description": "Sort by ascending or descending order (ascending is the default)",
             "default": "ASC"
           }
         },
@@ -2925,7 +2925,7 @@
                 "$ref": "#/components/schemas/SearchIdentitiesSortFields"
               }
             ],
-            "description": "Sort By Field Name"
+            "description": "Sort the results by field name"
           },
           "order": {
             "title": "Order",
@@ -2934,7 +2934,7 @@
                 "$ref": "#/components/schemas/SortOrder"
               }
             ],
-            "description": "Sort Order",
+            "description": "Sort by ascending or descending order (ascending is the default)",
             "default": "ASC"
           }
         },
@@ -2954,7 +2954,7 @@
                 "$ref": "#/components/schemas/SearchIncidentsSortFields"
               }
             ],
-            "description": "Sort By Field Name"
+            "description": "Sort the results by field name"
           },
           "order": {
             "title": "Order",
@@ -2963,7 +2963,7 @@
                 "$ref": "#/components/schemas/SortOrder"
               }
             ],
-            "description": "Sort Order",
+            "description": "Sort by ascending or descending order (ascending is the default)",
             "default": "ASC"
           }
         },
@@ -2980,12 +2980,12 @@
           "id": {
             "title": "Id",
             "type": "string",
-            "description": "Unique ID"
+            "description": "Authomize ID of source application"
           },
           "name": {
             "title": "Name",
             "type": "string",
-            "description": "Name"
+            "description": "Name of the asset (for example, application, virtual machine, file, etc.)"
           }
         }
       },
@@ -3142,7 +3142,7 @@
     },
     {
       "name": "Inventory",
-      "description": "Inventory APIs"
+      "description": "Inventory APIs can be used to find identities and assets"
     }
   ]
 }
