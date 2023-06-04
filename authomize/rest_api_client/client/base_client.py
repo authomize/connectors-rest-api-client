@@ -55,7 +55,7 @@ class BaseClient:
     def http_get(self, url, params=None):
         url = self.base_url + url
         response = self.session.get(url, params=params)
-        self._handle_response(response)
+        return self._handle_response(response)
 
     def http_post(self, url: str, body: Optional[str] = None):
         url = self.base_url + url
@@ -64,7 +64,7 @@ class BaseClient:
             headers={'Content-Type': 'application/json'},
             data=body,
         )
-        self._handle_response(response)
+        return self._handle_response(response)
 
     def http_patch(self, url: str, body: Optional[str] = None):
         url = self.base_url + url
@@ -73,9 +73,9 @@ class BaseClient:
             headers={'Content-Type': 'application/json'},
             data=body,
         )
-        self._handle_response(response)
+        return self._handle_response(response)
 
     def http_delete(self, url: str, params=None):
         url = self.base_url + url
         response = self.session.delete(url, params=params)
-        self._handle_response(response)
+        return self._handle_response(response)
