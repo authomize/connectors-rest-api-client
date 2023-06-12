@@ -11,6 +11,37 @@ from typing import Any, List, Optional
 from pydantic import BaseModel, Field, constr
 
 
+class AccessTypes(Enum):
+    Unknown = 'Unknown'
+    All = 'All'
+    Owner = 'Owner'
+    Login = 'Login'
+    Read = 'Read'
+    ReadMetadata = 'ReadMetadata'
+    Write = 'Write'
+    Create = 'Create'
+    Delete = 'Delete'
+    Execute = 'Execute'
+    Enable = 'Enable'
+    Assign = 'Assign'
+    Restore = 'Restore'
+    Import = 'Import'
+    Export = 'Export'
+    Get = 'Get'
+    Set = 'Set'
+    Update = 'Update'
+    Cancel = 'Cancel'
+    Use = 'Use'
+    AllowUse = 'AllowUse'
+    List = 'List'
+    Administrative = 'Administrative'
+    Delegate = 'Delegate'
+    Join = 'Join'
+    Invite = 'Invite'
+    Leave = 'Leave'
+    Share = 'Share'
+
+
 class AccountsAssociationSchema(BaseModel):
     sourceId: constr(min_length=1) = Field(
         ..., description='Source account ID **Mandatory**\n', title='Sourceid'
@@ -50,6 +81,83 @@ class AssetType(Enum):
     Other = 'Other'
 
 
+class AssetTypes(Enum):
+    Resource = 'Resource'
+    File = 'File'
+    Folder = 'Folder'
+    Drive = 'Drive'
+    Site = 'Site'
+    Application = 'Application'
+    Integration = 'Integration'
+    Package = 'Package'
+    Project = 'Project'
+    Cluster = 'Cluster'
+    Dataset = 'Dataset'
+    Subscription = 'Subscription'
+    Table = 'Table'
+    TableRecord = 'TableRecord'
+    Disk = 'Disk'
+    Image = 'Image'
+    Instance = 'Instance'
+    Snapshot = 'Snapshot'
+    Service = 'Service'
+    Topic = 'Topic'
+    Bucket = 'Bucket'
+    BillingAccount = 'BillingAccount'
+    Device = 'Device'
+    Calendar = 'Calendar'
+    Policy = 'Policy'
+    GitRepository = 'GitRepository'
+    Network = 'Network'
+    Vpc = 'Vpc'
+    NetworkInterface = 'NetworkInterface'
+    VirtualMachine = 'VirtualMachine'
+    NetworkSecurityGroup = 'NetworkSecurityGroup'
+    Ticket = 'Ticket'
+    NetworkSubnet = 'NetworkSubnet'
+    NetworkAcl = 'NetworkAcl'
+    RouteTable = 'RouteTable'
+    NetworkAddress = 'NetworkAddress'
+    Secret = 'Secret'
+    Storage = 'Storage'
+    Workspace = 'Workspace'
+    SharedLink = 'SharedLink'
+    Collection = 'Collection'
+    Database = 'Database'
+    ServerlessFunction = 'ServerlessFunction'
+    ServerlessApplication = 'ServerlessApplication'
+    Gateway = 'Gateway'
+    ImageRepository = 'ImageRepository'
+    Resource_BusinessAccount = 'Resource_BusinessAccount'
+    LoadBalancer = 'LoadBalancer'
+    Listener = 'Listener'
+
+
+class AssetsInheritance(BaseModel):
+    fromId: str = Field(..., title='Fromid')
+    toId: str = Field(..., title='Toid')
+
+
+class AvailableConnectorId(Enum):
+    restApiImport = 'restApiImport'
+
+
+class ConnectorStatus(Enum):
+    initializing = 'initializing'
+    validating = 'validating'
+    failure = 'failure'
+    enabled = 'enabled'
+    installable = 'installable'
+    archived = 'archived'
+    disabled = 'disabled'
+    deleted = 'deleted'
+
+
+class ExportResponse(BaseModel):
+    exportId: str = Field(..., title='Exportid')
+    exportUrl: str = Field(..., title='Exporturl')
+
+
 class GroupingType(Enum):
     Group = 'Group'
     VirtualGroup = 'VirtualGroup'
@@ -64,6 +172,26 @@ class GroupingsAssociationSchema(BaseModel):
         description='Grouping Target ID  **Mandatory**. The grouping to associate with.\n',
         title='Targetid',
     )
+
+
+class IdentitiesInheritance(BaseModel):
+    fromId: str = Field(..., title='Fromid')
+    toId: str = Field(..., title='Toid')
+
+
+class IdentityTypes(Enum):
+    Identity = 'Identity'
+    Person = 'Person'
+    User = 'User'
+    Group = 'Group'
+    EntitlementProxy = 'EntitlementProxy'
+    AccessKey = 'AccessKey'
+    ServiceAccount = 'ServiceAccount'
+    Alias = 'Alias'
+    Domain = 'Domain'
+    Organization = 'Organization'
+    TaskPerformer = 'TaskPerformer'
+    BusinessAccount = 'BusinessAccount'
 
 
 class IsAliveResponse(BaseModel):
@@ -126,6 +254,11 @@ class NewAccountsAssociationResponseSchema(BaseModel):
 
 
 class NewAccountsAssociationsListRequestSchema(BaseModel):
+    workflowId: Optional[str] = Field(
+        default='default',
+        description='The `workflowId` parameter can be use to allow an app to run as a set of multiple, different workflows with different configurations.\n\nOnce the data was uploaded using a certain `workflowId`, all other requests, referring to the same data using `GET`/`POST`/`PUT`/`DELETE`, should use the **same** `workflowId`.\n\n**Warning**, this parameter is an advanced feature and should be used with caution.\n\nThe **default** value is `default`.\n',
+        title='Workflowid',
+    )
     data: List[NewAccountsAssociationRequestSchema] = Field(
         ...,
         description='New Accounts Associations',
@@ -208,6 +341,11 @@ class NewAssetRequestSchema(BaseModel):
 
 
 class NewAssetsInheritanceListRequestSchema(BaseModel):
+    workflowId: Optional[str] = Field(
+        default='default',
+        description='The `workflowId` parameter can be use to allow an app to run as a set of multiple, different workflows with different configurations.\n\nOnce the data was uploaded using a certain `workflowId`, all other requests, referring to the same data using `GET`/`POST`/`PUT`/`DELETE`, should use the **same** `workflowId`.\n\n**Warning**, this parameter is an advanced feature and should be used with caution.\n\nThe **default** value is `default`.\n',
+        title='Workflowid',
+    )
     data: List[NewAssetInheritanceRequestSchema] = Field(
         ...,
         description='New Assets Inheritance',
@@ -259,6 +397,11 @@ class NewAssetsInheritanceResponseSchema(BaseModel):
 
 
 class NewAssetsListRequestSchema(BaseModel):
+    workflowId: Optional[str] = Field(
+        default='default',
+        description='The `workflowId` parameter can be use to allow an app to run as a set of multiple, different workflows with different configurations.\n\nOnce the data was uploaded using a certain `workflowId`, all other requests, referring to the same data using `GET`/`POST`/`PUT`/`DELETE`, should use the **same** `workflowId`.\n\n**Warning**, this parameter is an advanced feature and should be used with caution.\n\nThe **default** value is `default`.\n',
+        title='Workflowid',
+    )
     data: List[NewAssetRequestSchema] = Field(
         ..., description='New Assets', max_items=10000, min_items=1, title='Data'
     )
@@ -415,6 +558,11 @@ class NewGroupingsAssociationResponseSchema(BaseModel):
 
 
 class NewGroupingsAssociationsListRequestSchema(BaseModel):
+    workflowId: Optional[str] = Field(
+        default='default',
+        description='The `workflowId` parameter can be use to allow an app to run as a set of multiple, different workflows with different configurations.\n\nOnce the data was uploaded using a certain `workflowId`, all other requests, referring to the same data using `GET`/`POST`/`PUT`/`DELETE`, should use the **same** `workflowId`.\n\n**Warning**, this parameter is an advanced feature and should be used with caution.\n\nThe **default** value is `default`.\n',
+        title='Workflowid',
+    )
     data: List[NewGroupingsAssociationRequestSchema] = Field(
         ...,
         description='New Groupings Associations',
@@ -430,6 +578,11 @@ class NewGroupingsAssociationsListRequestSchema(BaseModel):
 
 
 class NewGroupingsListRequestSchema(BaseModel):
+    workflowId: Optional[str] = Field(
+        default='default',
+        description='The `workflowId` parameter can be use to allow an app to run as a set of multiple, different workflows with different configurations.\n\nOnce the data was uploaded using a certain `workflowId`, all other requests, referring to the same data using `GET`/`POST`/`PUT`/`DELETE`, should use the **same** `workflowId`.\n\n**Warning**, this parameter is an advanced feature and should be used with caution.\n\nThe **default** value is `default`.\n',
+        title='Workflowid',
+    )
     data: List[NewGroupingRequestSchema] = Field(
         ..., description='New Groupings', max_items=10000, min_items=1, title='Data'
     )
@@ -553,6 +706,11 @@ class NewPrivilegeGrantsResponseSchema(BaseModel):
 
 
 class NewPrivilegesGrantsListRequestSchema(BaseModel):
+    workflowId: Optional[str] = Field(
+        default='default',
+        description='The `workflowId` parameter can be use to allow an app to run as a set of multiple, different workflows with different configurations.\n\nOnce the data was uploaded using a certain `workflowId`, all other requests, referring to the same data using `GET`/`POST`/`PUT`/`DELETE`, should use the **same** `workflowId`.\n\n**Warning**, this parameter is an advanced feature and should be used with caution.\n\nThe **default** value is `default`.\n',
+        title='Workflowid',
+    )
     data: List[NewPrivilegeGrantsRequestSchema] = Field(
         ...,
         description='New Privileges Grants',
@@ -582,6 +740,11 @@ class NewPrivilegesResponseSchema(BaseModel):
     data: Optional[Any] = Field(default={}, description='Response data.', title='Data')
 
 
+class NewRestApiConnectorSchema(BaseModel):
+    config: Optional[Dict[str, Any]] = Field(default=None, title='Config')
+    serviceId: constr(min_length=1) = Field(..., title='Serviceid')
+
+
 class NewUserResponseSchema(BaseModel):
     acceptedTimestamp: Optional[datetime] = Field(
         default=None,
@@ -595,6 +758,14 @@ class NewUserResponseSchema(BaseModel):
         title='Numberofacceptedentities',
     )
     data: Optional[Any] = Field(default={}, description='Response data.', title='Data')
+
+
+class Pagination(BaseModel):
+    limit: Optional[int] = Field(default=-1, title='Limit')
+    skip: Optional[int] = Field(default=0, title='Skip')
+    total: Optional[int] = Field(default=-1, title='Total')
+    hasMore: Optional[bool] = Field(default=None, title='Hasmore')
+    search_after: Optional[List] = Field(default=None, title='Search After')
 
 
 class PermissionSourceType(Enum):
@@ -645,6 +816,21 @@ class RequestSubmitResponse(BaseModel):
     requestId: str = Field(..., description='**Request id**', title='Requestid')
 
 
+class RestApiConnectorSchema(BaseModel):
+    config: Optional[Dict[str, Any]] = Field(default=None, title='Config')
+    serviceId: Optional[str] = Field(default='', title='Serviceid')
+    id: str = Field(..., title='Id')
+    createdAt: Optional[datetime] = Field(default=None, title='Createdat')
+    lastSyncedAt: Optional[str] = Field(default=None, title='Lastsyncedat')
+    lastError: Optional[str] = Field(default=None, title='Lasterror')
+    modifiedAt: Optional[datetime] = Field(default=None, title='Modifiedat')
+    status: Optional[ConnectorStatus] = 'disabled'
+    serviceType: str = Field(..., title='Servicetype')
+    availableConnectorId: Optional[AvailableConnectorId] = 'restApiImport'
+    actorType: Optional[str] = Field(default=None, title='Actortype')
+    actorId: Optional[str] = Field(default=None, title='Actorid')
+
+
 class SearchAccountsAssociationsListResponseSchema(BaseModel):
     data: List[AccountsAssociationSchema] = Field(
         ..., description='Accounts Associations', title='Data'
@@ -667,6 +853,29 @@ class SearchPrivilegeGrantsListResponseSchema(BaseModel):
     data: List[PrivilegeGrantSchema] = Field(
         ..., description='Privilege Grants', title='Data'
     )
+
+
+class ServiceDescription(BaseModel):
+    name: str = Field(..., title='Name')
+    icon: Optional[str] = Field(default=None, title='Icon')
+
+
+class SubmitResponse(BaseModel):
+    acceptedTimestamp: Optional[datetime] = Field(
+        default=None,
+        description='**The accepted time of the request**',
+        title='Acceptedtimestamp',
+    )
+
+
+class TransactionStateType(Enum):
+    Applying = 'Applying'
+    Complete = 'Complete'
+    Failed = 'Failed'
+    Ingest = 'Ingest'
+    IngestChunk = 'IngestChunk'
+    PostProcess = 'PostProcess'
+    Queue = 'Queue'
 
 
 class UpdateAppSchema(BaseModel):
@@ -732,6 +941,11 @@ class UpdateAssetRequestSchema(BaseModel):
 
 
 class UpdateAssetsListRequestSchema(BaseModel):
+    workflowId: Optional[str] = Field(
+        default='default',
+        description='The `workflowId` parameter can be use to allow an app to run as a set of multiple, different workflows with different configurations.\n\nOnce the data was uploaded using a certain `workflowId`, all other requests, referring to the same data using `GET`/`POST`/`PUT`/`DELETE`, should use the **same** `workflowId`.\n\n**Warning**, this parameter is an advanced feature and should be used with caution.\n\nThe **default** value is `default`.\n',
+        title='Workflowid',
+    )
     data: List[UpdateAssetRequestSchema] = Field(
         ..., description='Update Assets', max_items=10000, min_items=1, title='Data'
     )
@@ -823,6 +1037,11 @@ class UpdatePrivilegeRequestSchema(BaseModel):
 
 
 class UpdatePrivilegesListRequestSchema(BaseModel):
+    workflowId: Optional[str] = Field(
+        default='default',
+        description='The `workflowId` parameter can be use to allow an app to run as a set of multiple, different workflows with different configurations.\n\nOnce the data was uploaded using a certain `workflowId`, all other requests, referring to the same data using `GET`/`POST`/`PUT`/`DELETE`, should use the **same** `workflowId`.\n\n**Warning**, this parameter is an advanced feature and should be used with caution.\n\nThe **default** value is `default`.\n',
+        title='Workflowid',
+    )
     data: List[UpdatePrivilegeRequestSchema] = Field(
         ..., description='Update Privileges', max_items=10000, min_items=1, title='Data'
     )
@@ -841,6 +1060,27 @@ class ValidationError(BaseModel):
     loc: List[str] = Field(..., title='Location')
     msg: str = Field(..., title='Message')
     type: str = Field(..., title='Error Type')
+
+
+class AccessDescription(BaseModel):
+    fromIdentityId: str = Field(..., title='Fromidentityid')
+    toAssetId: Optional[str] = Field(default=None, title='Toassetid')
+    accessType: AccessTypes
+    accessName: Optional[str] = Field(default=None, title='Accessname')
+
+
+class AssetDescription(BaseModel):
+    id: str = Field(..., title='Id')
+    name: str = Field(..., title='Name')
+    customName: Optional[str] = Field(default=None, title='Customname')
+    type: AssetTypes
+    description: Optional[str] = Field(default=None, title='Description')
+    logoUrl: Optional[str] = Field(default=None, title='Logourl')
+    href: Optional[str] = Field(default=None, title='Href')
+    createdAt: Optional[datetime] = Field(default=None, title='Createdat')
+    isAuxiliary: Optional[bool] = Field(default=None, title='Isauxiliary')
+    service: Optional[str] = Field(default=None, title='Service')
+    isFederated: Optional[bool] = Field(default=None, title='Isfederated')
 
 
 class AssetSchema(BaseModel):
@@ -899,6 +1139,17 @@ class AssetSchema(BaseModel):
     )
 
 
+class BundleTransactionSchema(BaseModel):
+    connectorId: str = Field(..., title='Connectorid')
+    transactionCreatedAt: Optional[datetime] = Field(
+        default=None, title='Transactioncreatedat'
+    )
+    warnings: Optional[List[str]] = Field(default=None, title='Warnings')
+    validations: Optional[Dict[str, Any]] = Field(default=None, title='Validations')
+    id: str = Field(..., title='Id')
+    state: TransactionStateType
+
+
 class GroupingSchema(BaseModel):
     uniqueId: constr(min_length=1) = Field(
         ...,
@@ -949,6 +1200,42 @@ class GroupingSchema(BaseModel):
 
 class HTTPValidationError(BaseModel):
     detail: Optional[List[ValidationError]] = Field(default=None, title='Detail')
+
+
+class IdentityDescription(BaseModel):
+    id: str = Field(..., title='Id')
+    name: Optional[str] = Field(default=None, title='Name')
+    type: IdentityTypes
+    userType: Optional[str] = Field(default=None, title='Usertype')
+    email: Optional[str] = Field(default=None, title='Email')
+    manager: Optional[str] = Field(default=None, title='Manager')
+    title: Optional[str] = Field(default=None, title='Title')
+    department: Optional[str] = Field(default=None, title='Department')
+    description: Optional[str] = Field(default=None, title='Description')
+    href: Optional[str] = Field(default=None, title='Href')
+    createdAt: Optional[datetime] = Field(default=None, title='Createdat')
+    terminationDate: Optional[datetime] = Field(default=None, title='Terminationdate')
+    isExternal: Optional[bool] = Field(default=None, title='Isexternal')
+    isAuxiliary: Optional[bool] = Field(default=None, title='Isauxiliary')
+    hasTwoFactorAuthenticationEnabled: Optional[bool] = Field(
+        default=None, title='Hastwofactorauthenticationenabled'
+    )
+    firstName: Optional[str] = Field(default=None, title='Firstname')
+    lastName: Optional[str] = Field(default=None, title='Lastname')
+    userName: Optional[str] = Field(default=None, title='Username')
+    status: Optional[UserStatus] = None
+    service: Optional[str] = Field(default=None, title='Service')
+    lastLoginAt: Optional[datetime] = Field(default=None, title='Lastloginat')
+    anyoneCanJoinOrLeave: Optional[bool] = Field(
+        default=None, title='Anyonecanjoinorleave'
+    )
+    tags: Optional[List[str]] = Field(default=None, title='Tags')
+    city: Optional[str] = Field(default=None, title='City')
+    country: Optional[str] = Field(default=None, title='Country')
+    division: Optional[str] = Field(default=None, title='Division')
+    employeeNumber: Optional[str] = Field(default=None, title='Employeenumber')
+    personalEmail: Optional[str] = Field(default=None, title='Personalemail')
+    hireDate: Optional[datetime] = Field(default=None, title='Hiredate')
 
 
 class IdentitySchema(BaseModel):
@@ -1020,6 +1307,21 @@ class IdentitySchema(BaseModel):
         description='One or more tags on the user account.\n',
         title='Tags',
     )
+
+
+class ItemsBundleSchema(BaseModel):
+    services: Optional[List[ServiceDescription]] = Field(default=None, title='Services')
+    identities: Optional[List[IdentityDescription]] = Field(
+        default=None, title='Identities'
+    )
+    assets: Optional[List[AssetDescription]] = Field(default=None, title='Assets')
+    inheritanceIdentities: Optional[List[IdentitiesInheritance]] = Field(
+        default=None, title='Inheritanceidentities'
+    )
+    inheritanceAssets: Optional[List[AssetsInheritance]] = Field(
+        default=None, title='Inheritanceassets'
+    )
+    access: Optional[List[AccessDescription]] = Field(default=None, title='Access')
 
 
 class NewIdentityRequestSchema(BaseModel):
@@ -1129,6 +1431,11 @@ class NewPermissionRequestSchema(BaseModel):
 
 
 class NewPermissionsListRequestSchema(BaseModel):
+    workflowId: Optional[str] = Field(
+        default='default',
+        description='The `workflowId` parameter can be use to allow an app to run as a set of multiple, different workflows with different configurations.\n\nOnce the data was uploaded using a certain `workflowId`, all other requests, referring to the same data using `GET`/`POST`/`PUT`/`DELETE`, should use the **same** `workflowId`.\n\n**Warning**, this parameter is an advanced feature and should be used with caution.\n\nThe **default** value is `default`.\n',
+        title='Workflowid',
+    )
     data: List[NewPermissionRequestSchema] = Field(
         ..., description='New Permissions', max_items=10000, min_items=1, title='Data'
     )
@@ -1162,6 +1469,11 @@ class NewPrivilegeRequestSchema(BaseModel):
 
 
 class NewPrivilegesListRequestSchema(BaseModel):
+    workflowId: Optional[str] = Field(
+        default='default',
+        description='The `workflowId` parameter can be use to allow an app to run as a set of multiple, different workflows with different configurations.\n\nOnce the data was uploaded using a certain `workflowId`, all other requests, referring to the same data using `GET`/`POST`/`PUT`/`DELETE`, should use the **same** `workflowId`.\n\n**Warning**, this parameter is an advanced feature and should be used with caution.\n\nThe **default** value is `default`.\n',
+        title='Workflowid',
+    )
     data: List[NewPrivilegeRequestSchema] = Field(
         ..., description='New Privileges', max_items=10000, min_items=1, title='Data'
     )
@@ -1225,6 +1537,11 @@ class NewUserRequestSchema(BaseModel):
 
 
 class NewUsersListRequestSchema(BaseModel):
+    workflowId: Optional[str] = Field(
+        default='default',
+        description='The `workflowId` parameter can be use to allow an app to run as a set of multiple, different workflows with different configurations.\n\nOnce the data was uploaded using a certain `workflowId`, all other requests, referring to the same data using `GET`/`POST`/`PUT`/`DELETE`, should use the **same** `workflowId`.\n\n**Warning**, this parameter is an advanced feature and should be used with caution.\n\nThe **default** value is `default`.\n',
+        title='Workflowid',
+    )
     data: List[NewUserRequestSchema] = Field(
         ..., description='New Users', max_items=10000, min_items=1, title='Data'
     )
@@ -1292,6 +1609,84 @@ class PrivilegeSchema(BaseModel):
     )
 
 
+class RequestsBundleSchema(BaseModel):
+    workflow_id: Optional[str] = Field(
+        default='default',
+        description='The `workflowId` parameter can be use to allow an app to run as a set of multiple, different workflows with different configurations.\n\nOnce the data was uploaded using a certain `workflowId`, all other requests, referring to the same data using `GET`/`POST`/`PUT`/`DELETE`, should use the **same** `workflowId`.\n\n**Warning**, this parameter is an advanced feature and should be used with caution.\n\nThe **default** value is `default`.\n',
+        title='Workflow Id',
+    )
+    delete_app_data: Optional[bool] = Field(
+        default=False,
+        description='The Delete Application Data API is used to delete app data by `{appId}`.',
+        title='Delete App Data',
+    )
+    createdAt: Optional[datetime] = Field(default=None, title='Createdat')
+    new_users: Optional[List[NewUserRequestSchema]] = Field(
+        default=None,
+        description='The Create Users APIs sets up App users(by App ID).',
+        title='New Users',
+    )
+    new_groupings: Optional[List[NewGroupingRequestSchema]] = Field(
+        default=None,
+        description='The Create Groupings API is used to create groups that have access to a particular app.',
+        title='New Groupings',
+    )
+    new_permissions: Optional[List[NewPermissionRequestSchema]] = Field(
+        default=None,
+        description='The Create Permissions API is used to create a set of privileges, assigned to a specific target.\nA permission (also referred to as an "entitlement") is a set of privileges, assigned to a specific target. \nExamples include: file permissions, file shares, GCP entitlements, the actual policies assigning access to roles in AWS, and inline policies.\n',
+        title='New Permissions',
+    )
+    new_privileges: Optional[List[NewPrivilegeRequestSchema]] = Field(
+        default=None,
+        description='The Create Privileges API is used to define privileges that can be associated with assets.\nFor example, Read privileges on a file.\nHere you can define the type of privileges and associate it to assets in the Permission API.\n',
+        title='New Privileges',
+    )
+    new_privileges_grants: Optional[List[NewPrivilegeGrantsRequestSchema]] = Field(
+        default=None,
+        description='The Create Privileges Grants API enables you to establish inheritance between privileges, so that a single privilege contains a set of other privileges. \nFor example, an Administrative privilege that contains read and write privileges.',
+        title='New Privileges Grants',
+    )
+    new_accounts_association: Optional[
+        List[NewAccountsAssociationRequestSchema]
+    ] = Field(
+        default=None,
+        description='The Create Accounts Association API creates account associations between user accounts and groups.',
+        title='New Accounts Association',
+    )
+    new_groupings_association: Optional[
+        List[NewGroupingsAssociationRequestSchema]
+    ] = Field(
+        default=None,
+        description='The Create Groupings Association API creates associations between groups and other groups.\n',
+        title='New Groupings Association',
+    )
+    new_assets: Optional[List[NewAssetRequestSchema]] = Field(
+        default=None,
+        description='The Create Assets API creates assets (including asset data).',
+        title='New Assets',
+    )
+    new_assets_inheritance: Optional[List[NewAssetInheritanceRequestSchema]] = Field(
+        default=None,
+        description='The Create Assets Inheritence API enables you to create a connection between different assets (for example, a folder that contains multiple files).\n',
+        title='New Assets Inheritance',
+    )
+    new_identities: Optional[List[NewIdentityRequestSchema]] = Field(
+        default=None,
+        description='The Create Identities API is used to create identities. \nThe data of the identity from this API is considered "the source of truth" and overrides the identity data from other systems.\n',
+        title='New Identities',
+    )
+    app: Optional[NewAssetRequestSchema] = Field(
+        default=None,
+        description='The Update Application Data API is used to update app data on `{appId}`.\n',
+        title='App',
+    )
+
+
+class RestApiConnectorListSchema(BaseModel):
+    pagination: Pagination
+    data: List[RestApiConnectorSchema] = Field(..., title='Data')
+
+
 class SearchAssetsListResponseSchema(BaseModel):
     data: List[AssetSchema] = Field(..., description='Assets', title='Data')
 
@@ -1312,7 +1707,17 @@ class SearchPrivilegesListResponseSchema(BaseModel):
     data: List[PrivilegeSchema] = Field(..., description='Privileges', title='Data')
 
 
+class TransactionPaginatedSearchSchema(BaseModel):
+    data: List[BundleTransactionSchema] = Field(..., title='Data')
+    pagination: Pagination
+
+
 class UpdateGroupingsListRequestSchema(BaseModel):
+    workflowId: Optional[str] = Field(
+        default='default',
+        description='The `workflowId` parameter can be use to allow an app to run as a set of multiple, different workflows with different configurations.\n\nOnce the data was uploaded using a certain `workflowId`, all other requests, referring to the same data using `GET`/`POST`/`PUT`/`DELETE`, should use the **same** `workflowId`.\n\n**Warning**, this parameter is an advanced feature and should be used with caution.\n\nThe **default** value is `default`.\n',
+        title='Workflowid',
+    )
     data: List[UpdateGroupingsRequestSchema] = Field(
         ...,
         description='List of update user requests.\n',
@@ -1497,7 +1902,74 @@ class UserSchema(BaseModel):
     )
 
 
+class IngestionDataBundleSchema(BaseModel):
+    new_users: Optional[List[NewUserRequestSchema]] = Field(
+        default=None,
+        description='The Create Users APIs sets up App users(by App ID).',
+        title='New Users',
+    )
+    new_groupings: Optional[List[NewGroupingRequestSchema]] = Field(
+        default=None,
+        description='The Create Groupings API is used to create groups that have access to a particular app.',
+        title='New Groupings',
+    )
+    new_permissions: Optional[List[NewPermissionRequestSchema]] = Field(
+        default=None,
+        description='The Create Permissions API is used to create a set of privileges, assigned to a specific target.\nA permission (also referred to as an "entitlement") is a set of privileges, assigned to a specific target. \nExamples include: file permissions, file shares, GCP entitlements, the actual policies assigning access to roles in AWS, and inline policies.\n',
+        title='New Permissions',
+    )
+    new_privileges: Optional[List[NewPrivilegeRequestSchema]] = Field(
+        default=None,
+        description='The Create Privileges API is used to define privileges that can be associated with assets.\nFor example, Read privileges on a file.\nHere you can define the type of privileges and associate it to assets in the Permission API.\n',
+        title='New Privileges',
+    )
+    new_privileges_grants: Optional[List[NewPrivilegeGrantsRequestSchema]] = Field(
+        default=None,
+        description='The Create Privileges Grants API enables you to establish inheritance between privileges, so that a single privilege contains a set of other privileges. \nFor example, an Administrative privilege that contains read and write privileges.',
+        title='New Privileges Grants',
+    )
+    new_accounts_association: Optional[
+        List[NewAccountsAssociationRequestSchema]
+    ] = Field(
+        default=None,
+        description='The Create Accounts Association API creates account associations between user accounts and groups.',
+        title='New Accounts Association',
+    )
+    new_groupings_association: Optional[
+        List[NewGroupingsAssociationRequestSchema]
+    ] = Field(
+        default=None,
+        description='The Create Groupings Association API creates associations between groups and other groups.\n',
+        title='New Groupings Association',
+    )
+    new_assets: Optional[List[NewAssetRequestSchema]] = Field(
+        default=None,
+        description='The Create Assets API creates assets (including asset data).',
+        title='New Assets',
+    )
+    new_assets_inheritance: Optional[List[NewAssetInheritanceRequestSchema]] = Field(
+        default=None,
+        description='The Create Assets Inheritence API enables you to create a connection between different assets (for example, a folder that contains multiple files).\n',
+        title='New Assets Inheritance',
+    )
+    new_identities: Optional[List[NewIdentityRequestSchema]] = Field(
+        default=None,
+        description='The Create Identities API is used to create identities. \nThe data of the identity from this API is considered "the source of truth" and overrides the identity data from other systems.\n',
+        title='New Identities',
+    )
+    app: Optional[NewAssetRequestSchema] = Field(
+        default=None,
+        description='The Update Application Data API is used to update app data on `{appId}`.\n',
+        title='App',
+    )
+
+
 class NewIdentitiesListRequestSchema(BaseModel):
+    workflowId: Optional[str] = Field(
+        default='default',
+        description='The `workflowId` parameter can be use to allow an app to run as a set of multiple, different workflows with different configurations.\n\nOnce the data was uploaded using a certain `workflowId`, all other requests, referring to the same data using `GET`/`POST`/`PUT`/`DELETE`, should use the **same** `workflowId`.\n\n**Warning**, this parameter is an advanced feature and should be used with caution.\n\nThe **default** value is `default`.\n',
+        title='Workflowid',
+    )
     data: List[NewIdentityRequestSchema] = Field(
         ..., description='New Identities', max_items=10000, min_items=1, title='Data'
     )
@@ -1513,6 +1985,11 @@ class SearchUsersListResponseSchema(BaseModel):
 
 
 class UpdateIdentitiesListRequestSchema(BaseModel):
+    workflowId: Optional[str] = Field(
+        default='default',
+        description='The `workflowId` parameter can be use to allow an app to run as a set of multiple, different workflows with different configurations.\n\nOnce the data was uploaded using a certain `workflowId`, all other requests, referring to the same data using `GET`/`POST`/`PUT`/`DELETE`, should use the **same** `workflowId`.\n\n**Warning**, this parameter is an advanced feature and should be used with caution.\n\nThe **default** value is `default`.\n',
+        title='Workflowid',
+    )
     data: List[UpdateIdentityRequestSchema] = Field(
         ...,
         description='List of update identity requests.\n',
@@ -1523,6 +2000,11 @@ class UpdateIdentitiesListRequestSchema(BaseModel):
 
 
 class UpdateUserListRequestSchema(BaseModel):
+    workflowId: Optional[str] = Field(
+        default='default',
+        description='The `workflowId` parameter can be use to allow an app to run as a set of multiple, different workflows with different configurations.\n\nOnce the data was uploaded using a certain `workflowId`, all other requests, referring to the same data using `GET`/`POST`/`PUT`/`DELETE`, should use the **same** `workflowId`.\n\n**Warning**, this parameter is an advanced feature and should be used with caution.\n\nThe **default** value is `default`.\n',
+        title='Workflowid',
+    )
     data: List[UpdateUserRequestSchema] = Field(
         ...,
         description='List of update user requests.\n',
@@ -1530,3 +2012,9 @@ class UpdateUserListRequestSchema(BaseModel):
         min_items=1,
         title='Data',
     )
+
+
+class AllSchemasResponseSchema(BaseModel):
+    v1_bundle_schema: Optional[ItemsBundleSchema] = None
+    v2_bundle_schema: Optional[RequestsBundleSchema] = None
+    v2_data_only_schema: Optional[IngestionDataBundleSchema] = None
