@@ -97,18 +97,6 @@
             "in": "path"
           },
           {
-            "description": "The `workflowId` parameter can be use to allow an app to run as a set of multiple, different workflows with different configurations.\n\nOnce the data was uploaded using a certain `workflowId`, all other requests, referring to the same data using `GET`/`POST`/`PUT`/`DELETE`, should use the **same** `workflowId`.\n\n**Warning**, this parameter is an advanced feature and should be used with caution.\n\nThe **default** value is `default`.\n",
-            "required": false,
-            "schema": {
-              "title": "Workflowid",
-              "type": "string",
-              "description": "The `workflowId` parameter can be use to allow an app to run as a set of multiple, different workflows with different configurations.\n\nOnce the data was uploaded using a certain `workflowId`, all other requests, referring to the same data using `GET`/`POST`/`PUT`/`DELETE`, should use the **same** `workflowId`.\n\n**Warning**, this parameter is an advanced feature and should be used with caution.\n\nThe **default** value is `default`.\n",
-              "default": "default"
-            },
-            "name": "workflowId",
-            "in": "query"
-          },
-          {
             "description": "Delete all the app data lastly updated before the given date.",
             "required": false,
             "schema": {
@@ -117,7 +105,7 @@
               "description": "Delete all the app data lastly updated before the given date.",
               "format": "date-time"
             },
-            "example": "2023-05-31T12:18:31.018274+00:00",
+            "example": "2023-06-12T11:04:31.189262+00:00",
             "name": "modifiedBefore",
             "in": "query"
           }
@@ -3457,12 +3445,6 @@
         ],
         "type": "object",
         "properties": {
-          "workflowId": {
-            "title": "Workflowid",
-            "type": "string",
-            "description": "The `workflowId` parameter can be use to allow an app to run as a set of multiple, different workflows with different configurations.\n\nOnce the data was uploaded using a certain `workflowId`, all other requests, referring to the same data using `GET`/`POST`/`PUT`/`DELETE`, should use the **same** `workflowId`.\n\n**Warning**, this parameter is an advanced feature and should be used with caution.\n\nThe **default** value is `default`.\n",
-            "default": "default"
-          },
           "data": {
             "title": "Data",
             "maxItems": 10000,
@@ -3596,12 +3578,6 @@
         ],
         "type": "object",
         "properties": {
-          "workflowId": {
-            "title": "Workflowid",
-            "type": "string",
-            "description": "The `workflowId` parameter can be use to allow an app to run as a set of multiple, different workflows with different configurations.\n\nOnce the data was uploaded using a certain `workflowId`, all other requests, referring to the same data using `GET`/`POST`/`PUT`/`DELETE`, should use the **same** `workflowId`.\n\n**Warning**, this parameter is an advanced feature and should be used with caution.\n\nThe **default** value is `default`.\n",
-            "default": "default"
-          },
           "data": {
             "title": "Data",
             "maxItems": 10000,
@@ -3710,12 +3686,6 @@
         ],
         "type": "object",
         "properties": {
-          "workflowId": {
-            "title": "Workflowid",
-            "type": "string",
-            "description": "The `workflowId` parameter can be use to allow an app to run as a set of multiple, different workflows with different configurations.\n\nOnce the data was uploaded using a certain `workflowId`, all other requests, referring to the same data using `GET`/`POST`/`PUT`/`DELETE`, should use the **same** `workflowId`.\n\n**Warning**, this parameter is an advanced feature and should be used with caution.\n\nThe **default** value is `default`.\n",
-            "default": "default"
-          },
           "data": {
             "title": "Data",
             "maxItems": 10000,
@@ -4022,12 +3992,6 @@
         ],
         "type": "object",
         "properties": {
-          "workflowId": {
-            "title": "Workflowid",
-            "type": "string",
-            "description": "The `workflowId` parameter can be use to allow an app to run as a set of multiple, different workflows with different configurations.\n\nOnce the data was uploaded using a certain `workflowId`, all other requests, referring to the same data using `GET`/`POST`/`PUT`/`DELETE`, should use the **same** `workflowId`.\n\n**Warning**, this parameter is an advanced feature and should be used with caution.\n\nThe **default** value is `default`.\n",
-            "default": "default"
-          },
           "data": {
             "title": "Data",
             "maxItems": 10000,
@@ -4054,12 +4018,6 @@
         ],
         "type": "object",
         "properties": {
-          "workflowId": {
-            "title": "Workflowid",
-            "type": "string",
-            "description": "The `workflowId` parameter can be use to allow an app to run as a set of multiple, different workflows with different configurations.\n\nOnce the data was uploaded using a certain `workflowId`, all other requests, referring to the same data using `GET`/`POST`/`PUT`/`DELETE`, should use the **same** `workflowId`.\n\n**Warning**, this parameter is an advanced feature and should be used with caution.\n\nThe **default** value is `default`.\n",
-            "default": "default"
-          },
           "data": {
             "title": "Data",
             "maxItems": 10000,
@@ -4086,12 +4044,6 @@
         ],
         "type": "object",
         "properties": {
-          "workflowId": {
-            "title": "Workflowid",
-            "type": "string",
-            "description": "The `workflowId` parameter can be use to allow an app to run as a set of multiple, different workflows with different configurations.\n\nOnce the data was uploaded using a certain `workflowId`, all other requests, referring to the same data using `GET`/`POST`/`PUT`/`DELETE`, should use the **same** `workflowId`.\n\n**Warning**, this parameter is an advanced feature and should be used with caution.\n\nThe **default** value is `default`.\n",
-            "default": "default"
-          },
           "data": {
             "title": "Data",
             "maxItems": 10000,
@@ -4314,7 +4266,8 @@
             "description": "If `true`, it's possible to perform a privilege escalation using the permission.   \nexample: User has Read access to a secret containing credentials of another user.  This allows \nprivilege escalation.\nopposite example: User has Read metadata permission to a secret containing credentials of another user. This *Does NOT* allows \nprivilege escalation.\n\n",
             "default": false
           }
-        }
+        },
+        "description": "New permission request schema"
       },
       "NewPermissionsListRequestSchema": {
         "title": "NewPermissionsListRequestSchema",
@@ -4323,12 +4276,6 @@
         ],
         "type": "object",
         "properties": {
-          "workflowId": {
-            "title": "Workflowid",
-            "type": "string",
-            "description": "The `workflowId` parameter can be use to allow an app to run as a set of multiple, different workflows with different configurations.\n\nOnce the data was uploaded using a certain `workflowId`, all other requests, referring to the same data using `GET`/`POST`/`PUT`/`DELETE`, should use the **same** `workflowId`.\n\n**Warning**, this parameter is an advanced feature and should be used with caution.\n\nThe **default** value is `default`.\n",
-            "default": "default"
-          },
           "data": {
             "title": "Data",
             "maxItems": 10000,
@@ -4614,12 +4561,6 @@
         ],
         "type": "object",
         "properties": {
-          "workflowId": {
-            "title": "Workflowid",
-            "type": "string",
-            "description": "The `workflowId` parameter can be use to allow an app to run as a set of multiple, different workflows with different configurations.\n\nOnce the data was uploaded using a certain `workflowId`, all other requests, referring to the same data using `GET`/`POST`/`PUT`/`DELETE`, should use the **same** `workflowId`.\n\n**Warning**, this parameter is an advanced feature and should be used with caution.\n\nThe **default** value is `default`.\n",
-            "default": "default"
-          },
           "data": {
             "title": "Data",
             "maxItems": 10000,
@@ -4646,12 +4587,6 @@
         ],
         "type": "object",
         "properties": {
-          "workflowId": {
-            "title": "Workflowid",
-            "type": "string",
-            "description": "The `workflowId` parameter can be use to allow an app to run as a set of multiple, different workflows with different configurations.\n\nOnce the data was uploaded using a certain `workflowId`, all other requests, referring to the same data using `GET`/`POST`/`PUT`/`DELETE`, should use the **same** `workflowId`.\n\n**Warning**, this parameter is an advanced feature and should be used with caution.\n\nThe **default** value is `default`.\n",
-            "default": "default"
-          },
           "data": {
             "title": "Data",
             "maxItems": 10000,
@@ -4841,12 +4776,6 @@
         ],
         "type": "object",
         "properties": {
-          "workflowId": {
-            "title": "Workflowid",
-            "type": "string",
-            "description": "The `workflowId` parameter can be use to allow an app to run as a set of multiple, different workflows with different configurations.\n\nOnce the data was uploaded using a certain `workflowId`, all other requests, referring to the same data using `GET`/`POST`/`PUT`/`DELETE`, should use the **same** `workflowId`.\n\n**Warning**, this parameter is an advanced feature and should be used with caution.\n\nThe **default** value is `default`.\n",
-            "default": "default"
-          },
           "data": {
             "title": "Data",
             "maxItems": 10000,
@@ -5072,12 +5001,6 @@
         "title": "RequestsBundleSchema",
         "type": "object",
         "properties": {
-          "workflow_id": {
-            "title": "Workflow Id",
-            "type": "string",
-            "description": "The `workflowId` parameter can be use to allow an app to run as a set of multiple, different workflows with different configurations.\n\nOnce the data was uploaded using a certain `workflowId`, all other requests, referring to the same data using `GET`/`POST`/`PUT`/`DELETE`, should use the **same** `workflowId`.\n\n**Warning**, this parameter is an advanced feature and should be used with caution.\n\nThe **default** value is `default`.\n",
-            "default": "default"
-          },
           "delete_app_data": {
             "title": "Delete App Data",
             "type": "boolean",
@@ -5613,12 +5536,6 @@
         ],
         "type": "object",
         "properties": {
-          "workflowId": {
-            "title": "Workflowid",
-            "type": "string",
-            "description": "The `workflowId` parameter can be use to allow an app to run as a set of multiple, different workflows with different configurations.\n\nOnce the data was uploaded using a certain `workflowId`, all other requests, referring to the same data using `GET`/`POST`/`PUT`/`DELETE`, should use the **same** `workflowId`.\n\n**Warning**, this parameter is an advanced feature and should be used with caution.\n\nThe **default** value is `default`.\n",
-            "default": "default"
-          },
           "data": {
             "title": "Data",
             "maxItems": 10000,
@@ -5639,12 +5556,6 @@
         ],
         "type": "object",
         "properties": {
-          "workflowId": {
-            "title": "Workflowid",
-            "type": "string",
-            "description": "The `workflowId` parameter can be use to allow an app to run as a set of multiple, different workflows with different configurations.\n\nOnce the data was uploaded using a certain `workflowId`, all other requests, referring to the same data using `GET`/`POST`/`PUT`/`DELETE`, should use the **same** `workflowId`.\n\n**Warning**, this parameter is an advanced feature and should be used with caution.\n\nThe **default** value is `default`.\n",
-            "default": "default"
-          },
           "data": {
             "title": "Data",
             "maxItems": 10000,
@@ -5772,12 +5683,6 @@
         ],
         "type": "object",
         "properties": {
-          "workflowId": {
-            "title": "Workflowid",
-            "type": "string",
-            "description": "The `workflowId` parameter can be use to allow an app to run as a set of multiple, different workflows with different configurations.\n\nOnce the data was uploaded using a certain `workflowId`, all other requests, referring to the same data using `GET`/`POST`/`PUT`/`DELETE`, should use the **same** `workflowId`.\n\n**Warning**, this parameter is an advanced feature and should be used with caution.\n\nThe **default** value is `default`.\n",
-            "default": "default"
-          },
           "data": {
             "title": "Data",
             "maxItems": 10000,
@@ -5949,12 +5854,6 @@
         ],
         "type": "object",
         "properties": {
-          "workflowId": {
-            "title": "Workflowid",
-            "type": "string",
-            "description": "The `workflowId` parameter can be use to allow an app to run as a set of multiple, different workflows with different configurations.\n\nOnce the data was uploaded using a certain `workflowId`, all other requests, referring to the same data using `GET`/`POST`/`PUT`/`DELETE`, should use the **same** `workflowId`.\n\n**Warning**, this parameter is an advanced feature and should be used with caution.\n\nThe **default** value is `default`.\n",
-            "default": "default"
-          },
           "data": {
             "title": "Data",
             "maxItems": 10000,
@@ -5975,12 +5874,6 @@
         ],
         "type": "object",
         "properties": {
-          "workflowId": {
-            "title": "Workflowid",
-            "type": "string",
-            "description": "The `workflowId` parameter can be use to allow an app to run as a set of multiple, different workflows with different configurations.\n\nOnce the data was uploaded using a certain `workflowId`, all other requests, referring to the same data using `GET`/`POST`/`PUT`/`DELETE`, should use the **same** `workflowId`.\n\n**Warning**, this parameter is an advanced feature and should be used with caution.\n\nThe **default** value is `default`.\n",
-            "default": "default"
-          },
           "data": {
             "title": "Data",
             "maxItems": 10000,
