@@ -3,7 +3,7 @@
   "info": {
     "title": "Authomize API Reference",
     "description": "Authomize enables users to integrate your applications with Authomize via custom connectors.\n\nYou can use the APIs described in this document to create your connector.\n\nOnce data is uploaded and processed successfully, your custom connector will function in the same way as the connectors created by Authomize.\n\n## How does Authomize work?\nAuthomize works by gathering information about:\n\n· individuals, teams and functions.\n\n· apps, assets and accounts.\n\n· all the relationships between them.\n\n![img.png](https://storagetry1.blob.core.windows.net/public/78d82650-71b0-4909-8444-022aab79add5.png)\n\n## Connector APIs\n\nAuthomize connector APIs enable pushing data into Authomize from external sources.\n\nThese APIs enable data extracted from outside applications (via application APIs) to be delivered to Authomize.\n\nA connector processes extracted application data to transform it into a format compatible with Authomize.\n\n![img_1.png](https://storagetry1.blob.core.windows.net/public/341bf6ef-2e5b-4284-b715-45105ffbf0f8.png)\n\n## Authentication\nTo Authenticate use the API Token, with the format: `Authorization: API_Token`.\n\nAn API Token is a token you provide when making API calls. \n\n\nThe API Token should be included in every request to the API in an `Authorization` header.\n```\ncurl -v -X POST \\n\n     -H \"Authorization: {API_Token}\" \\n\n     ...\n```\n\n## Limits\nRequests cannot exceed a size of 1MB.\n",
-    "version": "4.1.3",
+    "version": "4.1.2",
     "x-logo": {
       "url": "https://static.authomize.com/public/icons/authomize-green.svg"
     }
@@ -662,6 +662,53 @@
           }
         ]
       }
+    },
+    "/v2/inventory/groups/search": {
+      "post": {
+        "tags": [
+          "Inventory"
+        ],
+        "summary": "Search Groups",
+        "description": "Search Group API",
+        "operationId": "search_groups_v2_inventory_groups_search_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SearchGroupsRequestSchema"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaginatedResponseSchema_GroupSchema_"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ]
+      }
     }
   },
   "components": {
@@ -762,7 +809,7 @@
             "items": {
               "$ref": "#/components/schemas/TagSchema"
             },
-            "description": "List of tags associated with the asset"
+            "description": "Tags associated with the account."
           }
         }
       },
@@ -937,7 +984,8 @@
           "lastUsedAt": {
             "title": "Lastusedat",
             "type": "string",
-            "description": "The date (in ISO 8601 format) of the last time that the asset was in use."
+            "description": "The date (in ISO 8601 format) of the last time that the asset was in use.",
+            "format": "date-time"
           },
           "href": {
             "title": "Href",
@@ -1335,50 +1383,6 @@
         ],
         "description": "An enumeration."
       },
-      "Chainable": {
-        "title": "Chainable",
-        "type": "object",
-        "properties": {
-          "originId": {
-            "title": "Originid",
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/OriginIdFilter"
-              }
-            ],
-            "description": "Origin ID of the Asset."
-          },
-          "appId": {
-            "title": "Appid",
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/AppIdFilter"
-              }
-            ],
-            "description": "Find assets by their app ID"
-          },
-          "uniqueId": {
-            "title": "Uniqueid",
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/UniqueIdFilter"
-              }
-            ],
-            "description": "Find assets by their unique ID"
-          },
-          "authomizeId": {
-            "title": "Authomizeid",
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/AssetIdFilter"
-              }
-            ],
-            "description": "Find assets by their Authomize ID"
-          }
-        },
-        "additionalProperties": false,
-        "description": "Base schema for all incoming API requests."
-      },
       "CisV8Standard": {
         "title": "CisV8Standard",
         "enum": [
@@ -1489,6 +1493,109 @@
           "templateName"
         ],
         "description": "An enumeration."
+      },
+      "GroupExpansion": {
+        "title": "GroupExpansion",
+        "enum": [
+          "sourceApp",
+          "tags"
+        ],
+        "type": "string",
+        "description": "An enumeration."
+      },
+      "GroupMembership": {
+        "title": "GroupMembership",
+        "type": "object",
+        "properties": {
+          "actorName": {
+            "title": "Actorname",
+            "type": "string",
+            "description": "Name of the member."
+          },
+          "actorType": {
+            "title": "Actortype",
+            "type": "string",
+            "description": "Type of the member"
+          },
+          "actorAuthomizeId": {
+            "title": "Actorauthomizeid",
+            "type": "string",
+            "description": "Authomizer ID of the member."
+          },
+          "actorOriginId": {
+            "title": "Actororiginid",
+            "type": "string",
+            "description": "Origin ID of the member~"
+          }
+        }
+      },
+      "GroupSchema": {
+        "title": "GroupSchema",
+        "required": [
+          "authomizeId"
+        ],
+        "type": "object",
+        "properties": {
+          "authomizeId": {
+            "title": "Authomizeid",
+            "type": "string",
+            "description": "Authomize ID of the Group."
+          },
+          "name": {
+            "title": "Name",
+            "type": "string",
+            "description": "Name of the Group."
+          },
+          "type": {
+            "title": "Type",
+            "type": "string",
+            "description": "Type of the group."
+          },
+          "incidentsCount": {
+            "title": "Incidentscount",
+            "type": "integer",
+            "description": "Number of incidents associated with the group."
+          },
+          "tags": {
+            "title": "Tags",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TagSchema"
+            },
+            "description": "List of tags associated with the group"
+          },
+          "members": {
+            "title": "Members",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/GroupMembership"
+            },
+            "description": "Entities that have direct access to the group.",
+            "default": []
+          },
+          "sourceApp": {
+            "title": "Sourceapp",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/SourceAppSchema"
+              }
+            ],
+            "description": "Authomize ID of the Group."
+          },
+          "ownerId": {
+            "title": "Ownerid",
+            "type": "string",
+            "description": "Authomize ID of the Group Owner."
+          },
+          "originId": {
+            "title": "Originid",
+            "type": "string"
+          },
+          "uniqueId": {
+            "title": "Uniqueid",
+            "type": "string"
+          }
+        }
       },
       "HTTPValidationError": {
         "title": "HTTPValidationError",
@@ -2040,7 +2147,7 @@
             "title": "Version",
             "type": "string",
             "description": "**version**",
-            "default": "4.1.3"
+            "default": "4.1.2"
           },
           "id": {
             "title": "Id",
@@ -2221,6 +2328,33 @@
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/CampaignsPermissionSchema"
+            },
+            "description": "List of Actual Data"
+          }
+        },
+        "additionalProperties": false
+      },
+      "PaginatedResponseSchema_GroupSchema_": {
+        "title": "PaginatedResponseSchema[GroupSchema]",
+        "required": [
+          "data"
+        ],
+        "type": "object",
+        "properties": {
+          "pagination": {
+            "title": "Pagination",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/PaginationResponseSchema"
+              }
+            ],
+            "description": "Pagination Metadata"
+          },
+          "data": {
+            "title": "Data",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/GroupSchema"
             },
             "description": "List of Actual Data"
           }
@@ -2535,7 +2669,7 @@
             "title": "Filter",
             "allOf": [
               {
-                "$ref": "#/components/schemas/Chainable"
+                "$ref": "#/components/schemas/_class__authomize.external_rest_api.app.routes_schema.inventory.SearchAssetsFilterBody__"
               }
             ],
             "description": "Find assets by their ID on the source system"
@@ -2625,6 +2759,115 @@
         },
         "additionalProperties": false,
         "description": "Base schema for all incoming API requests."
+      },
+      "SearchGroupsAppIdFilter": {
+        "title": "SearchGroupsAppIdFilter",
+        "type": "object",
+        "properties": {
+          "$eq": {
+            "title": "$Eq",
+            "type": "string",
+            "description": "Equals To"
+          }
+        },
+        "additionalProperties": false
+      },
+      "SearchGroupsIdFilter": {
+        "title": "SearchGroupsIdFilter",
+        "type": "object",
+        "properties": {
+          "$in": {
+            "title": "$In",
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "In",
+            "default": []
+          }
+        },
+        "additionalProperties": false
+      },
+      "SearchGroupsOriginIdFilter": {
+        "title": "SearchGroupsOriginIdFilter",
+        "type": "object",
+        "properties": {
+          "$in": {
+            "title": "$In",
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "In",
+            "default": []
+          }
+        },
+        "additionalProperties": false
+      },
+      "SearchGroupsRequestSchema": {
+        "title": "SearchGroupsRequestSchema",
+        "type": "object",
+        "properties": {
+          "sort": {
+            "title": "Sort",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SortSchema_SearchGroupsSortFields_"
+            },
+            "description": "Sort the results by identity name in ascending or descending order"
+          },
+          "pagination": {
+            "title": "Pagination",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/PaginationRequestSchema"
+              }
+            ],
+            "description": "Pagination metadata"
+          },
+          "expand": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/GroupExpansion"
+            },
+            "description": "Expand fields (to show additional information)"
+          },
+          "filter": {
+            "title": "Filter",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/_class__authomize.external_rest_api.app.routes_schema.inventory.SearchGroupsFilterBody__"
+              }
+            ],
+            "description": "Find groups by their ID on the source system"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Base schema for all incoming API requests."
+      },
+      "SearchGroupsSortFields": {
+        "title": "SearchGroupsSortFields",
+        "enum": [
+          "group.name"
+        ],
+        "type": "string",
+        "description": "An enumeration."
+      },
+      "SearchGroupsUniqueIdFilter": {
+        "title": "SearchGroupsUniqueIdFilter",
+        "type": "object",
+        "properties": {
+          "$in": {
+            "title": "$In",
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "In",
+            "default": []
+          }
+        },
+        "additionalProperties": false
       },
       "SearchIdentitiesFilterBody": {
         "title": "SearchIdentitiesFilterBody",
@@ -2911,6 +3154,35 @@
         },
         "additionalProperties": false
       },
+      "SortSchema_SearchGroupsSortFields_": {
+        "title": "SortSchema[SearchGroupsSortFields]",
+        "required": [
+          "fieldName"
+        ],
+        "type": "object",
+        "properties": {
+          "fieldName": {
+            "title": "FieldName",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/SearchGroupsSortFields"
+              }
+            ],
+            "description": "Sort the results by field name"
+          },
+          "order": {
+            "title": "Order",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/SortOrder"
+              }
+            ],
+            "description": "Sort by ascending or descending order (ascending is the default)",
+            "default": "ASC"
+          }
+        },
+        "additionalProperties": false
+      },
       "SortSchema_SearchIdentitiesSortFields_": {
         "title": "SortSchema[SearchIdentitiesSortFields]",
         "required": [
@@ -2993,8 +3265,7 @@
         "title": "TagSchema",
         "required": [
           "id",
-          "name",
-          "description"
+          "name"
         ],
         "type": "object",
         "properties": {
@@ -3117,6 +3388,94 @@
             "type": "string"
           }
         }
+      },
+      "_class__authomize.external_rest_api.app.routes_schema.inventory.SearchAssetsFilterBody__": {
+        "title": "<class 'authomize.external_rest_api.app.routes_schema.inventory.SearchAssetsFilterBody'>",
+        "type": "object",
+        "properties": {
+          "originId": {
+            "title": "Originid",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/OriginIdFilter"
+              }
+            ],
+            "description": "Find assets by their origin ID"
+          },
+          "appId": {
+            "title": "Appid",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/AppIdFilter"
+              }
+            ],
+            "description": "Find assets by their app ID"
+          },
+          "uniqueId": {
+            "title": "Uniqueid",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/UniqueIdFilter"
+              }
+            ],
+            "description": "Find assets by their unique ID"
+          },
+          "authomizeId": {
+            "title": "Authomizeid",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/AssetIdFilter"
+              }
+            ],
+            "description": "Find assets by their Authomize ID"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Base schema for all incoming API requests."
+      },
+      "_class__authomize.external_rest_api.app.routes_schema.inventory.SearchGroupsFilterBody__": {
+        "title": "<class 'authomize.external_rest_api.app.routes_schema.inventory.SearchGroupsFilterBody'>",
+        "type": "object",
+        "properties": {
+          "uniqueId": {
+            "title": "Uniqueid",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/SearchGroupsUniqueIdFilter"
+              }
+            ],
+            "description": "Find groups by their unique ID"
+          },
+          "originId": {
+            "title": "Originid",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/SearchGroupsOriginIdFilter"
+              }
+            ],
+            "description": "Find groups by their origin ID"
+          },
+          "appId": {
+            "title": "Appid",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/SearchGroupsAppIdFilter"
+              }
+            ],
+            "description": "Find groups by their app ID"
+          },
+          "authomizeId": {
+            "title": "Authomizeid",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/SearchGroupsIdFilter"
+              }
+            ],
+            "description": "Find groups by their Authomize ID"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Base schema for all incoming API requests."
       }
     },
     "securitySchemes": {
