@@ -27,7 +27,7 @@ if __name__ == '__main__':
                 'flake8-isort~=4.0',
                 'mypy~=0.910',
                 'pyhamcrest~=2.0',
-                'pytest~=6.2',
+                'pytest~=7.2',
                 'pytest-html~=2.1',
                 'types-requests',
             ],
