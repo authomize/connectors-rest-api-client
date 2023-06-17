@@ -17,7 +17,7 @@ if __name__ == '__main__':
             ],
         },
         install_requires=[
-            'requests~=2.28',
+            'requests~=2.31',
             'api-client-pydantic~=1.2',
         ],
         extras_require={
@@ -29,7 +29,7 @@ if __name__ == '__main__':
                 'pyhamcrest~=2.0',
                 'pytest~=6.2',
                 'pytest-html~=2.1',
-                'types-requests~=2.28.7',
+                'types-requests',
             ],
             'codegen': [
                 'datamodel-code-generator~=0.11',
