@@ -1623,6 +1623,16 @@
             "title": "Uniqueid",
             "type": "string",
             "description": "The unique ID of the group (as provided by the connector)"
+          },
+          "createdAt": {
+            "title": "Createdat",
+            "type": "string",
+            "description": "Type of the group in source system."
+          },
+          "originType": {
+            "title": "Origintype",
+            "type": "string",
+            "description": "Date when group was created."
           }
         }
       },
