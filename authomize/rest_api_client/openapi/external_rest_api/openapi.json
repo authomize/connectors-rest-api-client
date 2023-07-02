@@ -1012,7 +1012,8 @@
           "lastUsedAt": {
             "title": "Lastusedat",
             "type": "string",
-            "description": "The date (in ISO 8601 format) of the last time that the asset was in use."
+            "description": "The date (in ISO 8601 format) of the last time that the asset was in use.",
+            "format": "date-time"
           },
           "href": {
             "title": "Href",
@@ -2883,6 +2884,91 @@
               "$ref": "#/components/schemas/SortSchema_SearchGroupsSortFields_"
             },
             "description": "Sort the results by group's name in ascending or descending order"
+          },
+          "pagination": {
+            "title": "Pagination",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/PaginationRequestSchema"
+              }
+            ],
+            "description": "Pagination metadata"
+          },
+          "expand": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/GroupExpansion"
+            },
+            "description": "Expand fields (to show additional information)"
+          },
+          "filter": {
+            "title": "Filter",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/_class__authomize.external_rest_api.app.routes_schema.inventory.SearchGroupsFilterBody__"
+              }
+            ],
+            "description": "Find groups by their ID on the source system"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Base schema for all incoming API requests."
+      },
+      "SearchGroupsAppIdFilter": {
+        "title": "SearchGroupsAppIdFilter",
+        "type": "object",
+        "properties": {
+          "$eq": {
+            "title": "$Eq",
+            "type": "string",
+            "description": "Equals To"
+          }
+        },
+        "additionalProperties": false
+      },
+      "SearchGroupsIdFilter": {
+        "title": "SearchGroupsIdFilter",
+        "type": "object",
+        "properties": {
+          "$in": {
+            "title": "$In",
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "In",
+            "default": []
+          }
+        },
+        "additionalProperties": false
+      },
+      "SearchGroupsOriginIdFilter": {
+        "title": "SearchGroupsOriginIdFilter",
+        "type": "object",
+        "properties": {
+          "$in": {
+            "title": "$In",
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "In",
+            "default": []
+          }
+        },
+        "additionalProperties": false
+      },
+      "SearchGroupsRequestSchema": {
+        "title": "SearchGroupsRequestSchema",
+        "type": "object",
+        "properties": {
+          "sort": {
+            "title": "Sort",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SortSchema_SearchGroupsSortFields_"
+            },
+            "description": "Sort the results by identity name in ascending or descending order"
           },
           "pagination": {
             "title": "Pagination",
