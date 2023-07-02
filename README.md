@@ -62,9 +62,16 @@ datamodel-codegen --use-default-kwarg --encoding=utf-8 --input authomize/rest_ap
 ```
 
 for external-rest-api:
+1.
 ```
 curl https://apidev.authomize.com/openapi-platform.json | jq --indent 2 . > authomize/rest_api_client/openapi/external_rest_api/openapi.json
 ```
+2.
 ```
-datamodel-codegen --use-default-kwarg --encoding=utf-8 --input authomize/rest_api_client/openapi/external_rest_api/openapi.json --output authomize/rest_api_client/generated/external_rest_api/schemas.py
+datamodel-codegen --use-default-kwarg --encoding=utf-8 --input authomize/rest_api_client/openapi/external_rest_api/openapi.json --output authomize/rest_api_client/generated/external_rest_api
 ```
+The main schema then is created in an `__init__.py` file, and some missing schemas are created inside another file. Then:
+3. Replace the content of `authomize/rest_api_client/generated/external_rest_api/schema.py` from the newly created `__init__.py`
+4. Add the missing schemas from the other file to the end of `schema.py`
+5. Fix the imports / errors in `schema.py`
+6. Remove all the newly created files (leave only `schema.py`)
