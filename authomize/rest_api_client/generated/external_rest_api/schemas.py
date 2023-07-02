@@ -742,7 +742,7 @@ class AssetSchema(BaseModel):
         description='The date (in ISO 8601 format) that the asset was created\n',
         title='Createdat',
     )
-    lastUsedAt: Optional[str] = Field(
+    lastUsedAt: Optional[datetime] = Field(
         default=None,
         description='The date (in ISO 8601 format) of the last time that the asset was in use.',
         title='Lastusedat',
@@ -1023,6 +1023,26 @@ class ReviewerSchema(BaseModel):
     )
 
 
+class SearchAssetsFilterBody(BaseModel):
+    class Config:
+        extra = Extra.forbid
+
+    originId: Optional[OriginIdFilter] = Field(
+        default=None, description='Find assets by their origin ID', title='Originid'
+    )
+    appId: Optional[AppIdFilter] = Field(
+        default=None, description='Find assets by their app ID', title='Appid'
+    )
+    uniqueId: Optional[UniqueIdFilter] = Field(
+        default=None, description='Find assets by their unique ID', title='Uniqueid'
+    )
+    authomizeId: Optional[AssetIdFilter] = Field(
+        default=None,
+        description='Find assets by their Authomize ID',
+        title='Authomizeid',
+    )
+
+
 class SearchAssetsRequestSchema(BaseModel):
     class Config:
         extra = Extra.forbid
@@ -1077,6 +1097,26 @@ class SearchCampaignsRequestSchema(BaseModel):
         default=None,
         description='Sort the results by campaign fields in ascending or descending order',
         title='Sort',
+    )
+
+
+class SearchGroupsFilterBody(BaseModel):
+    class Config:
+        extra = Extra.forbid
+
+    uniqueId: Optional[SearchGroupsUniqueIdFilter] = Field(
+        default=None, description='Find groups by their unique ID', title='Uniqueid'
+    )
+    originId: Optional[SearchGroupsOriginIdFilter] = Field(
+        default=None, description='Find groups by their origin ID', title='Originid'
+    )
+    appId: Optional[SearchGroupsAppIdFilter] = Field(
+        default=None, description='Find groups by their app ID', title='Appid'
+    )
+    authomizeId: Optional[SearchGroupsIdFilter] = Field(
+        default=None,
+        description='Find groups by their Authomize ID',
+        title='Authomizeid',
     )
 
 
