@@ -28,7 +28,6 @@ if __name__ == '__main__':
                 'mypy~=0.910',
                 'pyhamcrest~=2.0',
                 'pytest~=7.2',
-                'pytest-html~=2.1',
                 'types-requests',
             ],
             'codegen': [
