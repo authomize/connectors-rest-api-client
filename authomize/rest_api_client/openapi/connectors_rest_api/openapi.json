@@ -3,7 +3,7 @@
   "info": {
     "title": "Authomize API Reference",
     "description": "Authomize enables users to integrate your applications with Authomize via custom connectors.\n\nYou can use the APIs described in this document to create your connector.\n\nOnce data is uploaded and processed successfully, your custom connector will function in the same way as the connectors created by Authomize.\n\n## How does Authomize work?\nAuthomize works by gathering information about:\n\n· individuals, teams and functions.\n\n· apps, assets and accounts.\n\n· all the relationships between them.\n\n![img.png](https://storagetry1.blob.core.windows.net/public/78d82650-71b0-4909-8444-022aab79add5.png)\n\n## Connector APIs\n\nAuthomize connector APIs enable pushing data into Authomize from external sources.\n\nThese APIs enable data extracted from outside applications (via application APIs) to be delivered to Authomize.\n\nA connector processes extracted application data to transform it into a format compatible with Authomize.\n\n![img_1.png](https://storagetry1.blob.core.windows.net/public/341bf6ef-2e5b-4284-b715-45105ffbf0f8.png)\n\n## Authentication\nTo Authenticate use the API Token, with the format: `Authorization: API_Token`.\n\nAn API Token is a token you provide when making API calls. \n\n\nThe API Token should be included in every request to the API in an `Authorization` header.\n```\ncurl -v -X POST \\n\n     -H \"Authorization: {API_Token}\" \\n\n     ...\n```\n\n## Limits\nRequests cannot exceed a size of 1MB.\n",
-    "version": "4.2.9",
+    "version": "4.3.0",
     "x-logo": {
       "url": "https://static.authomize.com/public/icons/authomize-green.svg"
     }
@@ -114,13 +114,12 @@
             "in": "path"
           },
           {
-            "description": "The `workflowId` parameter can be use to allow an app to run as a set of multiple, different workflows with different configurations.\n\nOnce the data was uploaded using a certain `workflowId`, all other requests, referring to the same data using `GET`/`POST`/`PUT`/`DELETE`, should use the **same** `workflowId`.\n\n**Warning**, this parameter is an advanced feature and should be used with caution.\n\nThe **default** value is `default`.\n",
+            "description": "The `executionId` parameter can be used to allow an app to run as a set of multiple, different executions with different configurations.\n\nOnce the data was uploaded using a certain `executionId`, all other requests, referring to the same data using `GET`/`POST`/`PUT`/`DELETE`, should use the **same** `executionId`.\n\n**Warning**, this parameter is an advanced feature and should be used with caution.\n",
             "required": false,
             "schema": {
               "title": "Executionid",
               "type": "string",
-              "description": "The `workflowId` parameter can be use to allow an app to run as a set of multiple, different workflows with different configurations.\n\nOnce the data was uploaded using a certain `workflowId`, all other requests, referring to the same data using `GET`/`POST`/`PUT`/`DELETE`, should use the **same** `workflowId`.\n\n**Warning**, this parameter is an advanced feature and should be used with caution.\n\nThe **default** value is `default`.\n",
-              "default": "restApiImport"
+              "description": "The `executionId` parameter can be used to allow an app to run as a set of multiple, different executions with different configurations.\n\nOnce the data was uploaded using a certain `executionId`, all other requests, referring to the same data using `GET`/`POST`/`PUT`/`DELETE`, should use the **same** `executionId`.\n\n**Warning**, this parameter is an advanced feature and should be used with caution.\n"
             },
             "name": "executionId",
             "in": "query"
@@ -134,7 +133,7 @@
               "description": "Delete all the app data lastly updated before the given date.",
               "format": "date-time"
             },
-            "example": "2023-06-29T08:44:51.281277+00:00",
+            "example": "2023-07-02T08:30:55.198087+00:00",
             "name": "modifiedBefore",
             "in": "query"
           }
@@ -3477,8 +3476,7 @@
           "executionId": {
             "title": "Executionid",
             "type": "string",
-            "description": "The `workflowId` parameter can be use to allow an app to run as a set of multiple, different workflows with different configurations.\n\nOnce the data was uploaded using a certain `workflowId`, all other requests, referring to the same data using `GET`/`POST`/`PUT`/`DELETE`, should use the **same** `workflowId`.\n\n**Warning**, this parameter is an advanced feature and should be used with caution.\n\nThe **default** value is `default`.\n",
-            "default": "restApiImport"
+            "description": "The `executionId` parameter can be used to allow an app to run as a set of multiple, different executions with different configurations.\n\nOnce the data was uploaded using a certain `executionId`, all other requests, referring to the same data using `GET`/`POST`/`PUT`/`DELETE`, should use the **same** `executionId`.\n\n**Warning**, this parameter is an advanced feature and should be used with caution.\n"
           },
           "data": {
             "title": "Data",
@@ -3616,8 +3614,7 @@
           "executionId": {
             "title": "Executionid",
             "type": "string",
-            "description": "The `workflowId` parameter can be use to allow an app to run as a set of multiple, different workflows with different configurations.\n\nOnce the data was uploaded using a certain `workflowId`, all other requests, referring to the same data using `GET`/`POST`/`PUT`/`DELETE`, should use the **same** `workflowId`.\n\n**Warning**, this parameter is an advanced feature and should be used with caution.\n\nThe **default** value is `default`.\n",
-            "default": "restApiImport"
+            "description": "The `executionId` parameter can be used to allow an app to run as a set of multiple, different executions with different configurations.\n\nOnce the data was uploaded using a certain `executionId`, all other requests, referring to the same data using `GET`/`POST`/`PUT`/`DELETE`, should use the **same** `executionId`.\n\n**Warning**, this parameter is an advanced feature and should be used with caution.\n"
           },
           "data": {
             "title": "Data",
@@ -3730,8 +3727,7 @@
           "executionId": {
             "title": "Executionid",
             "type": "string",
-            "description": "The `workflowId` parameter can be use to allow an app to run as a set of multiple, different workflows with different configurations.\n\nOnce the data was uploaded using a certain `workflowId`, all other requests, referring to the same data using `GET`/`POST`/`PUT`/`DELETE`, should use the **same** `workflowId`.\n\n**Warning**, this parameter is an advanced feature and should be used with caution.\n\nThe **default** value is `default`.\n",
-            "default": "restApiImport"
+            "description": "The `executionId` parameter can be used to allow an app to run as a set of multiple, different executions with different configurations.\n\nOnce the data was uploaded using a certain `executionId`, all other requests, referring to the same data using `GET`/`POST`/`PUT`/`DELETE`, should use the **same** `executionId`.\n\n**Warning**, this parameter is an advanced feature and should be used with caution.\n"
           },
           "data": {
             "title": "Data",
@@ -4042,8 +4038,7 @@
           "executionId": {
             "title": "Executionid",
             "type": "string",
-            "description": "The `workflowId` parameter can be use to allow an app to run as a set of multiple, different workflows with different configurations.\n\nOnce the data was uploaded using a certain `workflowId`, all other requests, referring to the same data using `GET`/`POST`/`PUT`/`DELETE`, should use the **same** `workflowId`.\n\n**Warning**, this parameter is an advanced feature and should be used with caution.\n\nThe **default** value is `default`.\n",
-            "default": "restApiImport"
+            "description": "The `executionId` parameter can be used to allow an app to run as a set of multiple, different executions with different configurations.\n\nOnce the data was uploaded using a certain `executionId`, all other requests, referring to the same data using `GET`/`POST`/`PUT`/`DELETE`, should use the **same** `executionId`.\n\n**Warning**, this parameter is an advanced feature and should be used with caution.\n"
           },
           "data": {
             "title": "Data",
@@ -4074,8 +4069,7 @@
           "executionId": {
             "title": "Executionid",
             "type": "string",
-            "description": "The `workflowId` parameter can be use to allow an app to run as a set of multiple, different workflows with different configurations.\n\nOnce the data was uploaded using a certain `workflowId`, all other requests, referring to the same data using `GET`/`POST`/`PUT`/`DELETE`, should use the **same** `workflowId`.\n\n**Warning**, this parameter is an advanced feature and should be used with caution.\n\nThe **default** value is `default`.\n",
-            "default": "restApiImport"
+            "description": "The `executionId` parameter can be used to allow an app to run as a set of multiple, different executions with different configurations.\n\nOnce the data was uploaded using a certain `executionId`, all other requests, referring to the same data using `GET`/`POST`/`PUT`/`DELETE`, should use the **same** `executionId`.\n\n**Warning**, this parameter is an advanced feature and should be used with caution.\n"
           },
           "data": {
             "title": "Data",
@@ -4106,8 +4100,7 @@
           "executionId": {
             "title": "Executionid",
             "type": "string",
-            "description": "The `workflowId` parameter can be use to allow an app to run as a set of multiple, different workflows with different configurations.\n\nOnce the data was uploaded using a certain `workflowId`, all other requests, referring to the same data using `GET`/`POST`/`PUT`/`DELETE`, should use the **same** `workflowId`.\n\n**Warning**, this parameter is an advanced feature and should be used with caution.\n\nThe **default** value is `default`.\n",
-            "default": "restApiImport"
+            "description": "The `executionId` parameter can be used to allow an app to run as a set of multiple, different executions with different configurations.\n\nOnce the data was uploaded using a certain `executionId`, all other requests, referring to the same data using `GET`/`POST`/`PUT`/`DELETE`, should use the **same** `executionId`.\n\n**Warning**, this parameter is an advanced feature and should be used with caution.\n"
           },
           "data": {
             "title": "Data",
@@ -4343,8 +4336,7 @@
           "executionId": {
             "title": "Executionid",
             "type": "string",
-            "description": "The `workflowId` parameter can be use to allow an app to run as a set of multiple, different workflows with different configurations.\n\nOnce the data was uploaded using a certain `workflowId`, all other requests, referring to the same data using `GET`/`POST`/`PUT`/`DELETE`, should use the **same** `workflowId`.\n\n**Warning**, this parameter is an advanced feature and should be used with caution.\n\nThe **default** value is `default`.\n",
-            "default": "restApiImport"
+            "description": "The `executionId` parameter can be used to allow an app to run as a set of multiple, different executions with different configurations.\n\nOnce the data was uploaded using a certain `executionId`, all other requests, referring to the same data using `GET`/`POST`/`PUT`/`DELETE`, should use the **same** `executionId`.\n\n**Warning**, this parameter is an advanced feature and should be used with caution.\n"
           },
           "data": {
             "title": "Data",
@@ -4634,8 +4626,7 @@
           "executionId": {
             "title": "Executionid",
             "type": "string",
-            "description": "The `workflowId` parameter can be use to allow an app to run as a set of multiple, different workflows with different configurations.\n\nOnce the data was uploaded using a certain `workflowId`, all other requests, referring to the same data using `GET`/`POST`/`PUT`/`DELETE`, should use the **same** `workflowId`.\n\n**Warning**, this parameter is an advanced feature and should be used with caution.\n\nThe **default** value is `default`.\n",
-            "default": "restApiImport"
+            "description": "The `executionId` parameter can be used to allow an app to run as a set of multiple, different executions with different configurations.\n\nOnce the data was uploaded using a certain `executionId`, all other requests, referring to the same data using `GET`/`POST`/`PUT`/`DELETE`, should use the **same** `executionId`.\n\n**Warning**, this parameter is an advanced feature and should be used with caution.\n"
           },
           "data": {
             "title": "Data",
@@ -4666,8 +4657,7 @@
           "executionId": {
             "title": "Executionid",
             "type": "string",
-            "description": "The `workflowId` parameter can be use to allow an app to run as a set of multiple, different workflows with different configurations.\n\nOnce the data was uploaded using a certain `workflowId`, all other requests, referring to the same data using `GET`/`POST`/`PUT`/`DELETE`, should use the **same** `workflowId`.\n\n**Warning**, this parameter is an advanced feature and should be used with caution.\n\nThe **default** value is `default`.\n",
-            "default": "restApiImport"
+            "description": "The `executionId` parameter can be used to allow an app to run as a set of multiple, different executions with different configurations.\n\nOnce the data was uploaded using a certain `executionId`, all other requests, referring to the same data using `GET`/`POST`/`PUT`/`DELETE`, should use the **same** `executionId`.\n\n**Warning**, this parameter is an advanced feature and should be used with caution.\n"
           },
           "data": {
             "title": "Data",
@@ -4861,8 +4851,7 @@
           "executionId": {
             "title": "Executionid",
             "type": "string",
-            "description": "The `workflowId` parameter can be use to allow an app to run as a set of multiple, different workflows with different configurations.\n\nOnce the data was uploaded using a certain `workflowId`, all other requests, referring to the same data using `GET`/`POST`/`PUT`/`DELETE`, should use the **same** `workflowId`.\n\n**Warning**, this parameter is an advanced feature and should be used with caution.\n\nThe **default** value is `default`.\n",
-            "default": "restApiImport"
+            "description": "The `executionId` parameter can be used to allow an app to run as a set of multiple, different executions with different configurations.\n\nOnce the data was uploaded using a certain `executionId`, all other requests, referring to the same data using `GET`/`POST`/`PUT`/`DELETE`, should use the **same** `executionId`.\n\n**Warning**, this parameter is an advanced feature and should be used with caution.\n"
           },
           "data": {
             "title": "Data",
@@ -5092,7 +5081,7 @@
           "execution_id": {
             "title": "Execution Id",
             "type": "string",
-            "description": "The `workflowId` parameter can be use to allow an app to run as a set of multiple, different workflows with different configurations.\n\nOnce the data was uploaded using a certain `workflowId`, all other requests, referring to the same data using `GET`/`POST`/`PUT`/`DELETE`, should use the **same** `workflowId`.\n\n**Warning**, this parameter is an advanced feature and should be used with caution.\n\nThe **default** value is `default`.\n"
+            "description": "The `executionId` parameter can be used to allow an app to run as a set of multiple, different executions with different configurations.\n\nOnce the data was uploaded using a certain `executionId`, all other requests, referring to the same data using `GET`/`POST`/`PUT`/`DELETE`, should use the **same** `executionId`.\n\n**Warning**, this parameter is an advanced feature and should be used with caution.\n"
           },
           "delete_app_data": {
             "title": "Delete App Data",
@@ -5539,7 +5528,7 @@
           "logo_url_sync": {
             "title": "Logo Url Sync",
             "type": "boolean",
-            "description": "documentation.sections.apps.update_data.request.logoUrlSync.doc()"
+            "description": "Ensure that the Application logo is the same as in the integration."
           }
         }
       },
@@ -5637,8 +5626,7 @@
           "executionId": {
             "title": "Executionid",
             "type": "string",
-            "description": "The `workflowId` parameter can be use to allow an app to run as a set of multiple, different workflows with different configurations.\n\nOnce the data was uploaded using a certain `workflowId`, all other requests, referring to the same data using `GET`/`POST`/`PUT`/`DELETE`, should use the **same** `workflowId`.\n\n**Warning**, this parameter is an advanced feature and should be used with caution.\n\nThe **default** value is `default`.\n",
-            "default": "restApiImport"
+            "description": "The `executionId` parameter can be used to allow an app to run as a set of multiple, different executions with different configurations.\n\nOnce the data was uploaded using a certain `executionId`, all other requests, referring to the same data using `GET`/`POST`/`PUT`/`DELETE`, should use the **same** `executionId`.\n\n**Warning**, this parameter is an advanced feature and should be used with caution.\n"
           },
           "data": {
             "title": "Data",
@@ -5663,8 +5651,7 @@
           "executionId": {
             "title": "Executionid",
             "type": "string",
-            "description": "The `workflowId` parameter can be use to allow an app to run as a set of multiple, different workflows with different configurations.\n\nOnce the data was uploaded using a certain `workflowId`, all other requests, referring to the same data using `GET`/`POST`/`PUT`/`DELETE`, should use the **same** `workflowId`.\n\n**Warning**, this parameter is an advanced feature and should be used with caution.\n\nThe **default** value is `default`.\n",
-            "default": "restApiImport"
+            "description": "The `executionId` parameter can be used to allow an app to run as a set of multiple, different executions with different configurations.\n\nOnce the data was uploaded using a certain `executionId`, all other requests, referring to the same data using `GET`/`POST`/`PUT`/`DELETE`, should use the **same** `executionId`.\n\n**Warning**, this parameter is an advanced feature and should be used with caution.\n"
           },
           "data": {
             "title": "Data",
@@ -5796,8 +5783,7 @@
           "executionId": {
             "title": "Executionid",
             "type": "string",
-            "description": "The `workflowId` parameter can be use to allow an app to run as a set of multiple, different workflows with different configurations.\n\nOnce the data was uploaded using a certain `workflowId`, all other requests, referring to the same data using `GET`/`POST`/`PUT`/`DELETE`, should use the **same** `workflowId`.\n\n**Warning**, this parameter is an advanced feature and should be used with caution.\n\nThe **default** value is `default`.\n",
-            "default": "restApiImport"
+            "description": "The `executionId` parameter can be used to allow an app to run as a set of multiple, different executions with different configurations.\n\nOnce the data was uploaded using a certain `executionId`, all other requests, referring to the same data using `GET`/`POST`/`PUT`/`DELETE`, should use the **same** `executionId`.\n\n**Warning**, this parameter is an advanced feature and should be used with caution.\n"
           },
           "data": {
             "title": "Data",
@@ -5973,8 +5959,7 @@
           "executionId": {
             "title": "Executionid",
             "type": "string",
-            "description": "The `workflowId` parameter can be use to allow an app to run as a set of multiple, different workflows with different configurations.\n\nOnce the data was uploaded using a certain `workflowId`, all other requests, referring to the same data using `GET`/`POST`/`PUT`/`DELETE`, should use the **same** `workflowId`.\n\n**Warning**, this parameter is an advanced feature and should be used with caution.\n\nThe **default** value is `default`.\n",
-            "default": "restApiImport"
+            "description": "The `executionId` parameter can be used to allow an app to run as a set of multiple, different executions with different configurations.\n\nOnce the data was uploaded using a certain `executionId`, all other requests, referring to the same data using `GET`/`POST`/`PUT`/`DELETE`, should use the **same** `executionId`.\n\n**Warning**, this parameter is an advanced feature and should be used with caution.\n"
           },
           "data": {
             "title": "Data",
@@ -5999,8 +5984,7 @@
           "executionId": {
             "title": "Executionid",
             "type": "string",
-            "description": "The `workflowId` parameter can be use to allow an app to run as a set of multiple, different workflows with different configurations.\n\nOnce the data was uploaded using a certain `workflowId`, all other requests, referring to the same data using `GET`/`POST`/`PUT`/`DELETE`, should use the **same** `workflowId`.\n\n**Warning**, this parameter is an advanced feature and should be used with caution.\n\nThe **default** value is `default`.\n",
-            "default": "restApiImport"
+            "description": "The `executionId` parameter can be used to allow an app to run as a set of multiple, different executions with different configurations.\n\nOnce the data was uploaded using a certain `executionId`, all other requests, referring to the same data using `GET`/`POST`/`PUT`/`DELETE`, should use the **same** `executionId`.\n\n**Warning**, this parameter is an advanced feature and should be used with caution.\n"
           },
           "data": {
             "title": "Data",
