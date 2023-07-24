@@ -3,7 +3,7 @@
   "info": {
     "title": "Authomize API Reference",
     "description": "Authomize enables users to integrate your applications with Authomize via custom connectors.\n\nYou can use the APIs described in this document to create your connector.\n\nOnce data is uploaded and processed successfully, your custom connector will function in the same way as the connectors created by Authomize.\n\n## How does Authomize work?\nAuthomize works by gathering information about:\n\n· individuals, teams and functions.\n\n· apps, assets and accounts.\n\n· all the relationships between them.\n\n![img.png](https://storagetry1.blob.core.windows.net/public/78d82650-71b0-4909-8444-022aab79add5.png)\n\n## Connector APIs\n\nAuthomize connector APIs enable pushing data into Authomize from external sources.\n\nThese APIs enable data extracted from outside applications (via application APIs) to be delivered to Authomize.\n\nA connector processes extracted application data to transform it into a format compatible with Authomize.\n\n![img_1.png](https://storagetry1.blob.core.windows.net/public/341bf6ef-2e5b-4284-b715-45105ffbf0f8.png)\n\n## Authentication\nTo Authenticate use the API Token, with the format: `Authorization: API_Token`.\n\nAn API Token is a token you provide when making API calls. \n\n\nThe API Token should be included in every request to the API in an `Authorization` header.\n```\ncurl -v -X POST \\n\n     -H \"Authorization: {API_Token}\" \\n\n     ...\n```\n\n## Limits\nRequests cannot exceed a size of 1MB.\n",
-    "version": "4.3.0",
+    "version": "4.3.2",
     "x-logo": {
       "url": "https://static.authomize.com/public/icons/authomize-green.svg"
     }
@@ -569,6 +569,53 @@
         ]
       }
     },
+    "/v2/inventory/accounts/search": {
+      "post": {
+        "tags": [
+          "Inventory"
+        ],
+        "summary": "Search Accounts",
+        "description": "Search Accounts",
+        "operationId": "search_accounts_v2_inventory_accounts_search_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SearchAccountsRequestSchema"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaginatedResponseSchema_AccountSchema_"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ]
+      }
+    },
     "/v2/inventory/identities/search": {
       "post": {
         "tags": [
@@ -594,6 +641,98 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/PaginatedResponseSchema_IdentitySchema_"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ]
+      }
+    },
+    "/v2/inventory/identities/risk": {
+      "post": {
+        "tags": [
+          "Inventory"
+        ],
+        "summary": "Add Identity Risks",
+        "description": "Add takeover risk factors to accounts in the identity",
+        "operationId": "add_identity_risks_v2_inventory_identities_risk_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AddIdentityRisksRequestSchema"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OkResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ]
+      },
+      "delete": {
+        "tags": [
+          "Inventory"
+        ],
+        "summary": "Remove Identity Risks",
+        "description": "Add takeover risk factors to accounts in the identity",
+        "operationId": "remove_identity_risks_v2_inventory_identities_risk_delete",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RemoveIdentityRisksRequestSchema"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OkResponse"
                 }
               }
             }
@@ -731,6 +870,17 @@
         "type": "string",
         "description": "An enumeration."
       },
+      "AccountExpansion": {
+        "title": "AccountExpansion",
+        "enum": [
+          "identity",
+          "sourceApp",
+          "tags",
+          "riskScores"
+        ],
+        "type": "string",
+        "description": "An enumeration."
+      },
       "AccountRiskScore": {
         "title": "AccountRiskScore",
         "type": "object",
@@ -764,7 +914,7 @@
           "authomizeId": {
             "title": "Authomizeid",
             "type": "string",
-            "description": "Unique ID"
+            "description": "Authomize ID of the account"
           },
           "originId": {
             "title": "Originid",
@@ -796,11 +946,6 @@
             "type": "string",
             "description": "Email address of account"
           },
-          "identityId": {
-            "title": "Identityid",
-            "type": "string",
-            "description": "ID of identitiy"
-          },
           "identity": {
             "title": "Identity",
             "allOf": [
@@ -819,10 +964,43 @@
             ],
             "description": "Associated source app "
           },
+          "firstName": {
+            "title": "Firstname",
+            "type": "string",
+            "description": "First name of account"
+          },
+          "lastName": {
+            "title": "Lastname",
+            "type": "string",
+            "description": "Last name of account"
+          },
           "isAdmin": {
             "title": "Isadmin",
             "type": "boolean",
             "description": "Is the account an admin account (Yes or No)"
+          },
+          "status": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/UserStatus"
+              }
+            ],
+            "description": "The account status"
+          },
+          "description": {
+            "title": "Description",
+            "type": "string",
+            "description": "The account description"
+          },
+          "hasMfa": {
+            "title": "Hasmfa",
+            "type": "boolean",
+            "description": "Does the account have MFA enabled (Yes or No)"
+          },
+          "lastLoginAt": {
+            "title": "Lastloginat",
+            "type": "string",
+            "description": "Account Last Logged date"
           },
           "tags": {
             "title": "Tags",
@@ -842,6 +1020,34 @@
             "description": "Risk Scores for the Account."
           }
         }
+      },
+      "AddIdentityRisksRequestSchema": {
+        "title": "AddIdentityRisksRequestSchema",
+        "required": [
+          "risks"
+        ],
+        "type": "object",
+        "properties": {
+          "filter": {
+            "title": "Filter",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/SearchIdentitiesFilterBody"
+              }
+            ],
+            "description": "Search filter options"
+          },
+          "risks": {
+            "title": "Risks",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/RiskFactorIn"
+            },
+            "description": "List of risks to add to the identity"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Base schema for all incoming API requests."
       },
       "AddIncidentCommentRequestSchema": {
         "title": "AddIncidentCommentRequestSchema",
@@ -1012,8 +1218,7 @@
           "lastUsedAt": {
             "title": "Lastusedat",
             "type": "string",
-            "description": "The date (in ISO 8601 format) of the last time that the asset was in use.",
-            "format": "date-time"
+            "description": "The date (in ISO 8601 format) of the last time that the asset was in use."
           },
           "href": {
             "title": "Href",
@@ -1624,6 +1829,16 @@
             "title": "Uniqueid",
             "type": "string",
             "description": "The unique ID of the group (as provided by the connector)"
+          },
+          "createdAt": {
+            "title": "Createdat",
+            "type": "string",
+            "description": "Type of the group in source system."
+          },
+          "originType": {
+            "title": "Origintype",
+            "type": "string",
+            "description": "Date when group was created."
           }
         }
       },
@@ -1679,8 +1894,8 @@
             "type": "integer",
             "description": "Blast Radius Risk Score"
           },
-          "summaryRiskScore": {
-            "title": "Summaryriskscore",
+          "overallRiskScore": {
+            "title": "Overallriskscore",
             "type": "integer",
             "description": "Summary Risk Score"
           }
@@ -2216,7 +2431,7 @@
             "title": "Version",
             "type": "string",
             "description": "**version**",
-            "default": "4.3.0"
+            "default": "4.3.2"
           },
           "id": {
             "title": "Id",
@@ -2306,6 +2521,18 @@
         },
         "additionalProperties": false
       },
+      "OkResponse": {
+        "title": "OkResponse",
+        "type": "object",
+        "properties": {
+          "ok": {
+            "title": "Ok",
+            "type": "boolean",
+            "description": "OK\n",
+            "default": true
+          }
+        }
+      },
       "OriginIdFilter": {
         "title": "OriginIdFilter",
         "type": "object",
@@ -2318,6 +2545,33 @@
             },
             "description": "In",
             "default": []
+          }
+        },
+        "additionalProperties": false
+      },
+      "PaginatedResponseSchema_AccountSchema_": {
+        "title": "PaginatedResponseSchema[AccountSchema]",
+        "required": [
+          "data"
+        ],
+        "type": "object",
+        "properties": {
+          "pagination": {
+            "title": "Pagination",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/PaginationResponseSchema"
+              }
+            ],
+            "description": "Pagination Metadata"
+          },
+          "data": {
+            "title": "Data",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AccountSchema"
+            },
+            "description": "List of Actual Data"
           }
         },
         "additionalProperties": false
@@ -2625,6 +2879,41 @@
           }
         }
       },
+      "RemoveIdentityRisksRequestSchema": {
+        "title": "RemoveIdentityRisksRequestSchema",
+        "required": [
+          "since",
+          "riskTypes"
+        ],
+        "type": "object",
+        "properties": {
+          "filter": {
+            "title": "Filter",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/SearchIdentitiesFilterBody"
+              }
+            ],
+            "description": "Search filter options"
+          },
+          "since": {
+            "title": "Since",
+            "type": "string",
+            "description": "Only remove risks from before this timestamp",
+            "format": "date-time"
+          },
+          "riskTypes": {
+            "title": "Risktypes",
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "List of risks to add to the identity"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Base schema for all incoming API requests."
+      },
       "ReviewStatus": {
         "title": "ReviewStatus",
         "enum": [
@@ -2706,6 +2995,152 @@
           }
         }
       },
+      "RiskFactorIn": {
+        "title": "RiskFactorIn",
+        "required": [
+          "type",
+          "score",
+          "title",
+          "description"
+        ],
+        "type": "object",
+        "properties": {
+          "type": {
+            "title": "Type",
+            "type": "string",
+            "description": "Type should be unique for risk factors on the same account. Different accounts can have the same risk factor type.\n"
+          },
+          "score": {
+            "title": "Score",
+            "minimum": 0,
+            "type": "integer",
+            "description": "The factor non-negative risk score.\n"
+          },
+          "title": {
+            "title": "Title",
+            "type": "string",
+            "description": "The title of the risk factor that should be displayed on the UI.\n"
+          },
+          "description": {
+            "title": "Description",
+            "type": "string",
+            "description": "A longer description of the risk factor that explains how it was calculated, how it works and so on.\n"
+          },
+          "modifiedAt": {
+            "title": "Modifiedat",
+            "type": "string",
+            "description": "Automatically set modification time. Automatically generated.\n",
+            "format": "date-time"
+          }
+        }
+      },
+      "SearchAccountsFilterBody": {
+        "title": "SearchAccountsFilterBody",
+        "type": "object",
+        "properties": {
+          "originId": {
+            "title": "Originid",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/SearchAccountsOriginIdFilter"
+              }
+            ],
+            "description": "Find accounts by their ID in the source system"
+          },
+          "authomizeId": {
+            "title": "Authomizeid",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/SearchAccountsIdFilter"
+              }
+            ],
+            "description": "Find accounts by their Authomize ID"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Base schema for all incoming API requests."
+      },
+      "SearchAccountsIdFilter": {
+        "title": "SearchAccountsIdFilter",
+        "type": "object",
+        "properties": {
+          "$in": {
+            "title": "$In",
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "In",
+            "default": []
+          }
+        },
+        "additionalProperties": false
+      },
+      "SearchAccountsOriginIdFilter": {
+        "title": "SearchAccountsOriginIdFilter",
+        "type": "object",
+        "properties": {
+          "$in": {
+            "title": "$In",
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "In",
+            "default": []
+          }
+        },
+        "additionalProperties": false
+      },
+      "SearchAccountsRequestSchema": {
+        "title": "SearchAccountsRequestSchema",
+        "type": "object",
+        "properties": {
+          "pagination": {
+            "title": "Pagination",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/PaginationRequestSchema"
+              }
+            ],
+            "description": "Pagination metadata"
+          },
+          "expand": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AccountExpansion"
+            },
+            "description": "Expand Fields"
+          },
+          "sort": {
+            "title": "Sort",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SortSchema_SearchAccountsSortFields_"
+            },
+            "description": "Sort the results by account fields in ascending or descending order"
+          },
+          "filter": {
+            "title": "Filter",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/SearchAccountsFilterBody"
+              }
+            ],
+            "description": "Search Accounts Filter"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Base schema for all incoming API requests."
+      },
+      "SearchAccountsSortFields": {
+        "title": "SearchAccountsSortFields",
+        "enum": [
+          "account.name"
+        ],
+        "type": "string",
+        "description": "An enumeration."
+      },
       "SearchAssetsRequestSchema": {
         "title": "SearchAssetsRequestSchema",
         "type": "object",
@@ -2741,7 +3176,7 @@
                 "$ref": "#/components/schemas/_class__authomize.external_rest_api.app.routes_schema.inventory.SearchAssetsFilterBody__"
               }
             ],
-            "description": "Find assets by their ID on the source system"
+            "description": "Search Assets Filter"
           }
         },
         "additionalProperties": false,
@@ -2908,92 +3343,7 @@
                 "$ref": "#/components/schemas/_class__authomize.external_rest_api.app.routes_schema.inventory.SearchGroupsFilterBody__"
               }
             ],
-            "description": "Find groups by their ID on the source system"
-          }
-        },
-        "additionalProperties": false,
-        "description": "Base schema for all incoming API requests."
-      },
-      "SearchGroupsAppIdFilter": {
-        "title": "SearchGroupsAppIdFilter",
-        "type": "object",
-        "properties": {
-          "$eq": {
-            "title": "$Eq",
-            "type": "string",
-            "description": "Equals To"
-          }
-        },
-        "additionalProperties": false
-      },
-      "SearchGroupsIdFilter": {
-        "title": "SearchGroupsIdFilter",
-        "type": "object",
-        "properties": {
-          "$in": {
-            "title": "$In",
-            "type": "array",
-            "items": {
-              "type": "string"
-            },
-            "description": "In",
-            "default": []
-          }
-        },
-        "additionalProperties": false
-      },
-      "SearchGroupsOriginIdFilter": {
-        "title": "SearchGroupsOriginIdFilter",
-        "type": "object",
-        "properties": {
-          "$in": {
-            "title": "$In",
-            "type": "array",
-            "items": {
-              "type": "string"
-            },
-            "description": "In",
-            "default": []
-          }
-        },
-        "additionalProperties": false
-      },
-      "SearchGroupsRequestSchema": {
-        "title": "SearchGroupsRequestSchema",
-        "type": "object",
-        "properties": {
-          "sort": {
-            "title": "Sort",
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/SortSchema_SearchGroupsSortFields_"
-            },
-            "description": "Sort the results by identity name in ascending or descending order"
-          },
-          "pagination": {
-            "title": "Pagination",
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/PaginationRequestSchema"
-              }
-            ],
-            "description": "Pagination metadata"
-          },
-          "expand": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/GroupExpansion"
-            },
-            "description": "Expand fields (to show additional information)"
-          },
-          "filter": {
-            "title": "Filter",
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/_class__authomize.external_rest_api.app.routes_schema.inventory.SearchGroupsFilterBody__"
-              }
-            ],
-            "description": "Find groups by their ID on the source system"
+            "description": "Search Groups Filter"
           }
         },
         "additionalProperties": false,
@@ -3216,8 +3566,7 @@
           "createdAt",
           "updatedAt",
           "severity",
-          "status",
-          "isResolved"
+          "status"
         ],
         "type": "string",
         "description": "An enumeration."
@@ -3262,6 +3611,35 @@
             "allOf": [
               {
                 "$ref": "#/components/schemas/FieldName"
+              }
+            ],
+            "description": "Sort the results by field name"
+          },
+          "order": {
+            "title": "Order",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/SortOrder"
+              }
+            ],
+            "description": "Sort by ascending or descending order (ascending is the default)",
+            "default": "ASC"
+          }
+        },
+        "additionalProperties": false
+      },
+      "SortSchema_SearchAccountsSortFields_": {
+        "title": "SortSchema[SearchAccountsSortFields]",
+        "required": [
+          "fieldName"
+        ],
+        "type": "object",
+        "properties": {
+          "fieldName": {
+            "title": "FieldName",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/SearchAccountsSortFields"
               }
             ],
             "description": "Sort the results by field name"
@@ -3488,34 +3866,44 @@
       "UserSchema": {
         "title": "UserSchema",
         "required": [
-          "userId",
-          "userFirstName",
-          "userLastName",
-          "userEmail"
+          "id"
         ],
         "type": "object",
         "properties": {
-          "userId": {
-            "title": "Userid",
+          "id": {
+            "title": "Id",
             "type": "string",
             "description": "Unique ID"
           },
-          "userFirstName": {
-            "title": "Userfirstname",
+          "firstName": {
+            "title": "Firstname",
             "type": "string",
             "description": "First Name"
           },
-          "userLastName": {
-            "title": "Userlastname",
+          "lastName": {
+            "title": "Lastname",
             "type": "string",
             "description": "Last Name"
           },
-          "userEmail": {
-            "title": "Useremail",
+          "email": {
+            "title": "Email",
             "type": "string",
             "description": "Email"
           }
         }
+      },
+      "UserStatus": {
+        "title": "UserStatus",
+        "enum": [
+          "Deleted",
+          "Disabled",
+          "Enabled",
+          "Staged",
+          "Suspended",
+          "Unknown"
+        ],
+        "type": "string",
+        "description": "An enumeration."
       },
       "ValidationError": {
         "title": "ValidationError",
@@ -3554,7 +3942,7 @@
                 "$ref": "#/components/schemas/OriginIdFilter"
               }
             ],
-            "description": "Find assets by their origin ID"
+            "description": "Find assets by their ID in the source system"
           },
           "appId": {
             "title": "Appid",
@@ -3607,7 +3995,7 @@
                 "$ref": "#/components/schemas/SearchGroupsOriginIdFilter"
               }
             ],
-            "description": "Find groups by their origin ID"
+            "description": "Find groups by their ID in the source system"
           },
           "appId": {
             "title": "Appid",
