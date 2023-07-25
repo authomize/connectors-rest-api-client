@@ -79,4 +79,6 @@ Then:
 ```   
 4. Add the missing schemas from the other file to the end of `schemas.py`
 5. Fix the imports / errors in `schemas.py`
+  for example `from .field_class__authomize.external_rest_api.app.routes_schema import inventory`  
+  should be removed , and all references to inventory updated in the code
 6. Remove all the newly created files (leave only `schemas.py`)

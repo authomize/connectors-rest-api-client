@@ -10,8 +10,6 @@ from typing import List, Optional, Union
 
 from pydantic import BaseModel, Extra, Field, conint, constr
 
-from .field_class__authomize.external_rest_api.app.routes_schema import inventory
-
 
 class AccessByType(Enum):
     account = 'account'
@@ -1196,7 +1194,7 @@ class SearchAssetsRequestSchema(BaseModel):
     expand: Optional[List[AssetExpansion]] = Field(
         default=None, description='Expand fields (to show additional information)'
     )
-    filter: Optional[inventory.SearchAssetsFilterBody] = Field(
+    filter: Optional[SearchAssetsFilterBody] = Field(
         default=None, description='Search Assets Filter', title='Filter'
     )
 
@@ -1251,7 +1249,7 @@ class SearchGroupsRequestSchema(BaseModel):
     expand: Optional[List[GroupExpansion]] = Field(
         default=None, description='Expand fields (to show additional information)'
     )
-    filter: Optional[inventory.SearchGroupsFilterBody] = Field(
+    filter: Optional[SearchGroupsFilterBody] = Field(
         default=None, description='Search Groups Filter', title='Filter'
     )
 
