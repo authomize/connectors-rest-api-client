@@ -3,7 +3,7 @@
   "info": {
     "title": "Authomize API Reference",
     "description": "Authomize enables users to integrate your applications with Authomize via custom connectors.\n\nYou can use the APIs described in this document to create your connector.\n\nOnce data is uploaded and processed successfully, your custom connector will function in the same way as the connectors created by Authomize.\n\n## How does Authomize work?\nAuthomize works by gathering information about:\n\n· individuals, teams and functions.\n\n· apps, assets and accounts.\n\n· all the relationships between them.\n\n![img.png](https://storagetry1.blob.core.windows.net/public/78d82650-71b0-4909-8444-022aab79add5.png)\n\n## Connector APIs\n\nAuthomize connector APIs enable pushing data into Authomize from external sources.\n\nThese APIs enable data extracted from outside applications (via application APIs) to be delivered to Authomize.\n\nA connector processes extracted application data to transform it into a format compatible with Authomize.\n\n![img_1.png](https://storagetry1.blob.core.windows.net/public/341bf6ef-2e5b-4284-b715-45105ffbf0f8.png)\n\n## Authentication\nTo Authenticate use the API Token, with the format: `Authorization: API_Token`.\n\nAn API Token is a token you provide when making API calls. \n\n\nThe API Token should be included in every request to the API in an `Authorization` header.\n```\ncurl -v -X POST \\n\n     -H \"Authorization: {API_Token}\" \\n\n     ...\n```\n\n## Limits\nRequests cannot exceed a size of 1MB.\n",
-    "version": "4.3.2",
+    "version": "4.3.0",
     "x-logo": {
       "url": "https://static.authomize.com/public/icons/authomize-green.svg"
     }
@@ -2431,7 +2431,7 @@
             "title": "Version",
             "type": "string",
             "description": "**version**",
-            "default": "4.3.2"
+            "default": "4.3.0"
           },
           "id": {
             "title": "Id",
@@ -3141,6 +3141,50 @@
         "type": "string",
         "description": "An enumeration."
       },
+      "SearchAssetsFilterBody": {
+        "title": "SearchAssetsFilterBody",
+        "type": "object",
+        "properties": {
+          "originId": {
+            "title": "Originid",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/OriginIdFilter"
+              }
+            ],
+            "description": "Find assets by their ID in the source system"
+          },
+          "appId": {
+            "title": "Appid",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/AppIdFilter"
+              }
+            ],
+            "description": "Find assets by their app ID"
+          },
+          "uniqueId": {
+            "title": "Uniqueid",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/UniqueIdFilter"
+              }
+            ],
+            "description": "Find assets by their unique ID"
+          },
+          "authomizeId": {
+            "title": "Authomizeid",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/AssetIdFilter"
+              }
+            ],
+            "description": "Find assets by their Authomize ID"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Base schema for all incoming API requests."
+      },
       "SearchAssetsRequestSchema": {
         "title": "SearchAssetsRequestSchema",
         "type": "object",
@@ -3173,7 +3217,7 @@
             "title": "Filter",
             "allOf": [
               {
-                "$ref": "#/components/schemas/_class__authomize.external_rest_api.app.routes_schema.inventory.SearchAssetsFilterBody__"
+                "$ref": "#/components/schemas/SearchAssetsFilterBody"
               }
             ],
             "description": "Search Assets Filter"
@@ -3276,6 +3320,50 @@
         },
         "additionalProperties": false
       },
+      "SearchGroupsFilterBody": {
+        "title": "SearchGroupsFilterBody",
+        "type": "object",
+        "properties": {
+          "uniqueId": {
+            "title": "Uniqueid",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/SearchGroupsUniqueIdFilter"
+              }
+            ],
+            "description": "Find groups by their unique ID"
+          },
+          "originId": {
+            "title": "Originid",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/SearchGroupsOriginIdFilter"
+              }
+            ],
+            "description": "Find groups by their ID in the source system"
+          },
+          "appId": {
+            "title": "Appid",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/SearchGroupsAppIdFilter"
+              }
+            ],
+            "description": "Find groups by their app ID"
+          },
+          "authomizeId": {
+            "title": "Authomizeid",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/SearchGroupsIdFilter"
+              }
+            ],
+            "description": "Find groups by their Authomize ID"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Base schema for all incoming API requests."
+      },
       "SearchGroupsIdFilter": {
         "title": "SearchGroupsIdFilter",
         "type": "object",
@@ -3340,7 +3428,7 @@
             "title": "Filter",
             "allOf": [
               {
-                "$ref": "#/components/schemas/_class__authomize.external_rest_api.app.routes_schema.inventory.SearchGroupsFilterBody__"
+                "$ref": "#/components/schemas/SearchGroupsFilterBody"
               }
             ],
             "description": "Search Groups Filter"
@@ -3930,94 +4018,6 @@
             "type": "string"
           }
         }
-      },
-      "_class__authomize.external_rest_api.app.routes_schema.inventory.SearchAssetsFilterBody__": {
-        "title": "<class 'authomize.external_rest_api.app.routes_schema.inventory.SearchAssetsFilterBody'>",
-        "type": "object",
-        "properties": {
-          "originId": {
-            "title": "Originid",
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/OriginIdFilter"
-              }
-            ],
-            "description": "Find assets by their ID in the source system"
-          },
-          "appId": {
-            "title": "Appid",
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/AppIdFilter"
-              }
-            ],
-            "description": "Find assets by their app ID"
-          },
-          "uniqueId": {
-            "title": "Uniqueid",
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/UniqueIdFilter"
-              }
-            ],
-            "description": "Find assets by their unique ID"
-          },
-          "authomizeId": {
-            "title": "Authomizeid",
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/AssetIdFilter"
-              }
-            ],
-            "description": "Find assets by their Authomize ID"
-          }
-        },
-        "additionalProperties": false,
-        "description": "Base schema for all incoming API requests."
-      },
-      "_class__authomize.external_rest_api.app.routes_schema.inventory.SearchGroupsFilterBody__": {
-        "title": "<class 'authomize.external_rest_api.app.routes_schema.inventory.SearchGroupsFilterBody'>",
-        "type": "object",
-        "properties": {
-          "uniqueId": {
-            "title": "Uniqueid",
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/SearchGroupsUniqueIdFilter"
-              }
-            ],
-            "description": "Find groups by their unique ID"
-          },
-          "originId": {
-            "title": "Originid",
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/SearchGroupsOriginIdFilter"
-              }
-            ],
-            "description": "Find groups by their ID in the source system"
-          },
-          "appId": {
-            "title": "Appid",
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/SearchGroupsAppIdFilter"
-              }
-            ],
-            "description": "Find groups by their app ID"
-          },
-          "authomizeId": {
-            "title": "Authomizeid",
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/SearchGroupsIdFilter"
-              }
-            ],
-            "description": "Find groups by their Authomize ID"
-          }
-        },
-        "additionalProperties": false,
-        "description": "Base schema for all incoming API requests."
       }
     },
     "securitySchemes": {
