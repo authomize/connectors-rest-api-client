@@ -49,7 +49,9 @@ pip install authomize-rest-api-client
 ## Making changes to this repository
 
 For code automatically generated from openapi.json using [datamodel-code-generator](https://github.com/koxudaxi/datamodel-code-generator)
-
+```
+pip install -e .[codegen]
+```
 Fetching openapi.json and updating schema.
 
 for connectors-rest-api:
@@ -57,28 +59,13 @@ for connectors-rest-api:
 curl --socks5-hostname 127.0.0.1:1337 http://connectors-rest-api.application.svc:8080/openapi-extended.json | jq --indent 2 . > authomize/rest_api_client/openapi/connectors_rest_api/openapi.json
 ```
 ```
-pip install -e .[codegen]
 datamodel-codegen --use-default-kwarg --encoding=utf-8 --input authomize/rest_api_client/openapi/connectors_rest_api/openapi.json --output authomize/rest_api_client/generated/connectors_rest_api/schemas.py
 ```
 
 for external-rest-api:
-1.
 ```
 curl https://apidev.authomize.com/openapi-platform.json | jq --indent 2 . > authomize/rest_api_client/openapi/external_rest_api/openapi.json
 ```
-2.
 ```
-datamodel-codegen --use-default-kwarg --encoding=utf-8 --input authomize/rest_api_client/openapi/external_rest_api/openapi.json --output authomize/rest_api_client/generated/external_rest_api
+datamodel-codegen --use-default-kwarg --encoding=utf-8 --input authomize/rest_api_client/openapi/external_rest_api/openapi.json --output authomize/rest_api_client/generated/external_rest_api/schemas.py
 ```
-The main schema then is created in an `__init__.py` file, and some missing schemas are created inside another file.  
-Then:
-3. Replace the content of `authomize/rest_api_client/generated/external_rest_api/schemas.py` from the newly created `__init__.py`  
-```
- mv authomize/rest_api_client/generated/external_rest_api/__init__.py authomize/rest_api_client/generated/external_rest_api/schemas.py
- touch authomize/rest_api_client/generated/external_rest_api/__init__.py
-```   
-4. Add the missing schemas from the other file to the end of `schemas.py`
-5. Fix the imports / errors in `schemas.py`
-  for example `from .field_class__authomize.external_rest_api.app.routes_schema import inventory`  
-  should be removed , and all references to inventory updated in the code
-6. Remove all the newly created files (leave only `schemas.py`)
