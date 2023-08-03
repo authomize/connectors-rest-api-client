@@ -3,7 +3,7 @@
   "info": {
     "title": "Authomize API Reference",
     "description": "Authomize enables users to integrate your applications with Authomize via custom connectors.\n\nYou can use the APIs described in this document to create your connector.\n\nOnce data is uploaded and processed successfully, your custom connector will function in the same way as the connectors created by Authomize.\n\n## How does Authomize work?\nAuthomize works by gathering information about:\n\n· individuals, teams and functions.\n\n· apps, assets and accounts.\n\n· all the relationships between them.\n\n![img.png](https://storagetry1.blob.core.windows.net/public/78d82650-71b0-4909-8444-022aab79add5.png)\n\n## Connector APIs\n\nAuthomize connector APIs enable pushing data into Authomize from external sources.\n\nThese APIs enable data extracted from outside applications (via application APIs) to be delivered to Authomize.\n\nA connector processes extracted application data to transform it into a format compatible with Authomize.\n\n![img_1.png](https://storagetry1.blob.core.windows.net/public/341bf6ef-2e5b-4284-b715-45105ffbf0f8.png)\n\n## Authentication\nTo Authenticate use the API Token, with the format: `Authorization: API_Token`.\n\nAn API Token is a token you provide when making API calls. \n\n\nThe API Token should be included in every request to the API in an `Authorization` header.\n```\ncurl -v -X POST \\n\n     -H \"Authorization: {API_Token}\" \\n\n     ...\n```\n\n## Limits\nRequests cannot exceed a size of 1MB.\n",
-    "version": "4.3.4",
+    "version": "4.3.7",
     "x-logo": {
       "url": "https://static.authomize.com/public/icons/authomize-green.svg"
     }
@@ -133,7 +133,7 @@
               "description": "Delete all the app data lastly updated before the given date.",
               "format": "date-time"
             },
-            "example": "2023-07-02T08:30:55.198087+00:00",
+            "example": "2023-08-03T09:27:54.562402+00:00",
             "name": "modifiedBefore",
             "in": "query"
           }
@@ -1355,6 +1355,64 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/NewAssetsResponseSchema"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ]
+      }
+    },
+    "/v2/apps/{appId}/assets/git-repository": {
+      "post": {
+        "tags": [
+          "Assets"
+        ],
+        "summary": "Create Git Repo",
+        "description": "Creates a Git Repository Asset",
+        "operationId": "create_git_repo_v2_apps__appId__assets_git_repository_post",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Appid",
+              "type": "string"
+            },
+            "name": "appId",
+            "in": "path"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/NewGitRepoListRequestSchema"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NewGitRepoResponseSchema"
                 }
               }
             }
@@ -2718,6 +2776,10 @@
             "title": "Connectorid",
             "type": "string"
           },
+          "executionId": {
+            "title": "Executionid",
+            "type": "string"
+          },
           "transactionCreatedAt": {
             "title": "Transactioncreatedat",
             "type": "string",
@@ -3245,6 +3307,14 @@
               "$ref": "#/components/schemas/NewAssetRequestSchema"
             },
             "description": "The Create Assets API creates assets (including asset data)."
+          },
+          "new_git_repos": {
+            "title": "New Git Repos",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/NewGitRepoRequestSchema"
+            },
+            "description": "Creates a Git Repository Asset"
           },
           "new_assets_inheritance": {
             "title": "New Assets Inheritance",
@@ -3797,6 +3867,212 @@
           }
         },
         "description": "New assets response schema"
+      },
+      "NewGitRepoListRequestSchema": {
+        "title": "NewGitRepoListRequestSchema",
+        "required": [
+          "data"
+        ],
+        "type": "object",
+        "properties": {
+          "executionId": {
+            "title": "Executionid",
+            "type": "string",
+            "description": "The `executionId` parameter can be used to allow an app to run as a set of multiple, different executions with different configurations.\n\nOnce the data was uploaded using a certain `executionId`, all other requests, referring to the same data using `GET`/`POST`/`PUT`/`DELETE`, should use the **same** `executionId`.\n\n**Warning**, this parameter is an advanced feature and should be used with caution.\n"
+          },
+          "data": {
+            "title": "Data",
+            "maxItems": 10000,
+            "minItems": 1,
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/NewGitRepoRequestSchema"
+            },
+            "description": "New Git Repos"
+          },
+          "validateOnly": {
+            "title": "Validateonly",
+            "type": "boolean",
+            "description": "Validate the request without uploading the data into the system.",
+            "default": false
+          }
+        },
+        "description": "List request schema"
+      },
+      "NewGitRepoRequestSchema": {
+        "title": "NewGitRepoRequestSchema",
+        "required": [
+          "uniqueId",
+          "name"
+        ],
+        "type": "object",
+        "properties": {
+          "uniqueId": {
+            "title": "Uniqueid",
+            "minLength": 1,
+            "type": "string",
+            "description": "Asset ID. **Mandatory, must be unique.**\n"
+          },
+          "originId": {
+            "title": "Originid",
+            "minLength": 1,
+            "type": "string",
+            "description": "The asset ID in the source system.\nAs opposed to `uniqueId`, it's not mandatory and can be non-unique\n"
+          },
+          "name": {
+            "title": "Name",
+            "minLength": 1,
+            "type": "string",
+            "description": "The name of the asset. The default is the Asset ID. **Mandatory**\n"
+          },
+          "type": {
+            "title": "Type",
+            "enum": [
+              "GitRepository"
+            ],
+            "type": "string",
+            "default": "GitRepository"
+          },
+          "alternativeName": {
+            "title": "Alternativename",
+            "type": "string",
+            "description": "Any alternative name for the resource, or any other representation of the resource, if it exists.\nThe default is `null`.\n"
+          },
+          "originType": {
+            "title": "Origintype",
+            "type": "string",
+            "description": "The asset type in the source system.\nThe default is the canonical type (if not mentioned).\n"
+          },
+          "createdAt": {
+            "title": "Createdat",
+            "type": "string",
+            "description": "The date (in ISO 8601 format) that the asset was created.\nThe default is `null`.\n",
+            "format": "date-time"
+          },
+          "lastUsedAt": {
+            "title": "Lastusedat",
+            "type": "string",
+            "description": "The date (in ISO 8601 format) of the last time that the asset was in use.\nThe default is `null`.\n",
+            "format": "date-time"
+          },
+          "description": {
+            "title": "Description",
+            "type": "string",
+            "description": "A description of the asset (up to 512 characters).\n"
+          },
+          "href": {
+            "title": "Href",
+            "type": "string",
+            "description": "A link to the asset in the source system.\n"
+          },
+          "owner": {
+            "title": "Owner",
+            "type": "string",
+            "description": "The owner ID"
+          },
+          "tags": {
+            "title": "Tags",
+            "type": "array",
+            "items": {
+              "minLength": 1,
+              "type": "string"
+            },
+            "description": "Tags associated with the asset.\n"
+          },
+          "isPrivate": {
+            "title": "Isprivate",
+            "type": "boolean",
+            "description": "Is Repo Private",
+            "default": false
+          },
+          "isArchived": {
+            "title": "Isarchived",
+            "type": "boolean",
+            "description": "Is Repo Archived",
+            "default": false
+          },
+          "hasProtectionRules": {
+            "title": "Hasprotectionrules",
+            "type": "boolean",
+            "description": "Does the Repo have protection rules",
+            "default": false
+          },
+          "mainBranchProtectionRules": {
+            "title": "Mainbranchprotectionrules",
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Protection Rules for main branch",
+            "default": []
+          },
+          "developBranchProtectionRules": {
+            "title": "Developbranchprotectionrules",
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Protection Rules for develop branch",
+            "default": []
+          },
+          "vulnerabilityAlertsEnabled": {
+            "title": "Vulnerabilityalertsenabled",
+            "type": "boolean",
+            "description": "Are alerts for vulnerability enabled or not",
+            "default": false
+          }
+        },
+        "description": "New Git Repo request schema"
+      },
+      "NewGitRepoResponseSchema": {
+        "title": "NewGitRepoResponseSchema",
+        "required": [
+          "requestId",
+          "numberOfAcceptedEntities",
+          "validOwnerIds",
+          "invalidOwnerIds"
+        ],
+        "type": "object",
+        "properties": {
+          "acceptedTimestamp": {
+            "title": "Acceptedtimestamp",
+            "type": "string",
+            "description": "**The accepted time of the request**",
+            "format": "date-time"
+          },
+          "requestId": {
+            "title": "Requestid",
+            "type": "string",
+            "description": "**Request id**"
+          },
+          "numberOfAcceptedEntities": {
+            "title": "Numberofacceptedentities",
+            "type": "integer",
+            "description": "**The number of entities that pass validation and uploaded**"
+          },
+          "data": {
+            "title": "Data",
+            "description": "Response data.",
+            "default": {}
+          },
+          "validOwnerIds": {
+            "title": "Validownerids",
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "List of **valid** owner (user) ids."
+          },
+          "invalidOwnerIds": {
+            "title": "Invalidownerids",
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "List of **invalid** owner (user) ids."
+          }
+        },
+        "description": "New Git repo response schema"
       },
       "NewGroupingRequestSchema": {
         "title": "NewGroupingRequestSchema",
@@ -5078,8 +5354,8 @@
         "title": "RequestsBundleSchema",
         "type": "object",
         "properties": {
-          "execution_id": {
-            "title": "Execution Id",
+          "executionId": {
+            "title": "Executionid",
             "type": "string",
             "description": "The `executionId` parameter can be used to allow an app to run as a set of multiple, different executions with different configurations.\n\nOnce the data was uploaded using a certain `executionId`, all other requests, referring to the same data using `GET`/`POST`/`PUT`/`DELETE`, should use the **same** `executionId`.\n\n**Warning**, this parameter is an advanced feature and should be used with caution.\n"
           },
@@ -5157,6 +5433,14 @@
               "$ref": "#/components/schemas/NewAssetRequestSchema"
             },
             "description": "The Create Assets API creates assets (including asset data)."
+          },
+          "new_git_repos": {
+            "title": "New Git Repos",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/NewGitRepoRequestSchema"
+            },
+            "description": "Creates a Git Repository Asset"
           },
           "new_assets_inheritance": {
             "title": "New Assets Inheritance",
