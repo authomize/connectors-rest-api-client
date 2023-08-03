@@ -14,6 +14,8 @@ from authomize.rest_api_client.generated.connectors_rest_api.schemas import (
     NewAssetsInheritanceResponseSchema,
     NewAssetsListRequestSchema,
     NewAssetsResponseSchema,
+    NewGitRepoListRequestSchema,
+    NewGitRepoResponseSchema,
     NewGroupingResponseSchema,
     NewGroupingsAssociationResponseSchema,
     NewGroupingsAssociationsListRequestSchema,
@@ -380,6 +382,21 @@ class ConnectorsClient(BaseClient):
             raise ValueError('Missing app_id')
         return self.http_post(
             url=f'/v2/apps/{app_id}/assets',
+            body=json.dumps(
+                body,
+                default=pydantic_encoder,
+            ),
+        )
+
+    def create_git_repo(
+        self,
+        app_id: str,
+        body: NewGitRepoListRequestSchema,
+    ) -> NewGitRepoResponseSchema:
+        if not app_id:
+            raise ValueError('Missing app_id')
+        return self.http_post(
+            url=f'/v2/apps/{app_id}/git-repository',
             body=json.dumps(
                 body,
                 default=pydantic_encoder,
