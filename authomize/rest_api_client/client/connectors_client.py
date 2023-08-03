@@ -396,7 +396,7 @@ class ConnectorsClient(BaseClient):
         if not app_id:
             raise ValueError('Missing app_id')
         return self.http_post(
-            url=f'/v2/apps/{app_id}/git-repository',
+            url=f'/v2/apps/{app_id}/assets/git-repository',
             body=json.dumps(
                 body,
                 default=pydantic_encoder,
