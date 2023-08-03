@@ -3,7 +3,7 @@
   "info": {
     "title": "Authomize API Reference",
     "description": "Authomize enables users to integrate your applications with Authomize via custom connectors.\n\nYou can use the APIs described in this document to create your connector.\n\nOnce data is uploaded and processed successfully, your custom connector will function in the same way as the connectors created by Authomize.\n\n## How does Authomize work?\nAuthomize works by gathering information about:\n\n· individuals, teams and functions.\n\n· apps, assets and accounts.\n\n· all the relationships between them.\n\n![img.png](https://storagetry1.blob.core.windows.net/public/78d82650-71b0-4909-8444-022aab79add5.png)\n\n## Connector APIs\n\nAuthomize connector APIs enable pushing data into Authomize from external sources.\n\nThese APIs enable data extracted from outside applications (via application APIs) to be delivered to Authomize.\n\nA connector processes extracted application data to transform it into a format compatible with Authomize.\n\n![img_1.png](https://storagetry1.blob.core.windows.net/public/341bf6ef-2e5b-4284-b715-45105ffbf0f8.png)\n\n## Authentication\nTo Authenticate use the API Token, with the format: `Authorization: API_Token`.\n\nAn API Token is a token you provide when making API calls. \n\n\nThe API Token should be included in every request to the API in an `Authorization` header.\n```\ncurl -v -X POST \\n\n     -H \"Authorization: {API_Token}\" \\n\n     ...\n```\n\n## Limits\nRequests cannot exceed a size of 1MB.\n",
-    "version": "4.3.0",
+    "version": "4.3.7",
     "x-logo": {
       "url": "https://static.authomize.com/public/icons/authomize-green.svg"
     }
@@ -575,7 +575,7 @@
           "Inventory"
         ],
         "summary": "Search Accounts",
-        "description": "Search Accounts",
+        "description": "Find specific accounts on Authomize and get related data such as ID, status and more",
         "operationId": "search_accounts_v2_inventory_accounts_search_post",
         "requestBody": {
           "content": {
@@ -594,6 +594,100 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/PaginatedResponseSchema_AccountSchema_"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ]
+      }
+    },
+    "/v2/inventory/assets/search": {
+      "post": {
+        "tags": [
+          "Inventory"
+        ],
+        "summary": "Search Assets",
+        "description": "Find specific assets on Authomize and get related data (as found on the asset’s Single Entity page)",
+        "operationId": "search_assets_v2_inventory_assets_search_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SearchAssetsRequestSchema"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaginatedResponseSchema_AssetSchema_"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ]
+      }
+    },
+    "/v2/inventory/groups/search": {
+      "post": {
+        "tags": [
+          "Inventory"
+        ],
+        "summary": "Search Groups",
+        "description": "Find specific groups on Authomize and get related data (as found on the group’s Single Entity page)",
+        "operationId": "search_groups_v2_inventory_groups_search_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SearchGroupsRequestSchema"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PaginatedResponseSchema_GroupSchema_"
                 }
               }
             }
@@ -733,100 +827,6 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/OkResponse"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "security": [
-          {
-            "APIKeyHeader": []
-          }
-        ]
-      }
-    },
-    "/v2/inventory/assets/search": {
-      "post": {
-        "tags": [
-          "Inventory"
-        ],
-        "summary": "Search Assets",
-        "description": "Find specific assets on Authomize and get related data (as found on the asset’s Single Entity page)",
-        "operationId": "search_assets_v2_inventory_assets_search_post",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/SearchAssetsRequestSchema"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/PaginatedResponseSchema_AssetSchema_"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "security": [
-          {
-            "APIKeyHeader": []
-          }
-        ]
-      }
-    },
-    "/v2/inventory/groups/search": {
-      "post": {
-        "tags": [
-          "Inventory"
-        ],
-        "summary": "Search Groups",
-        "description": "Find specific groups on Authomize and get related data (as found on the group’s Single Entity page)",
-        "operationId": "search_groups_v2_inventory_groups_search_post",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/SearchGroupsRequestSchema"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/PaginatedResponseSchema_GroupSchema_"
                 }
               }
             }
@@ -1008,7 +1008,8 @@
             "items": {
               "$ref": "#/components/schemas/TagSchema"
             },
-            "description": "Tags associated with the account."
+            "description": "Tags associated with the account.",
+            "default": []
           },
           "riskScore": {
             "title": "Riskscore",
@@ -1246,7 +1247,8 @@
             "items": {
               "$ref": "#/components/schemas/TagSchema"
             },
-            "description": "List of tags associated with the asset"
+            "description": "List of tags associated with the asset",
+            "default": []
           },
           "incidentsCount": {
             "title": "Incidentscount",
@@ -1795,7 +1797,8 @@
             "items": {
               "$ref": "#/components/schemas/TagSchema"
             },
-            "description": "List of tags associated with the group"
+            "description": "List of tags associated with the group",
+            "default": []
           },
           "members": {
             "title": "Members",
@@ -1833,12 +1836,12 @@
           "createdAt": {
             "title": "Createdat",
             "type": "string",
-            "description": "Type of the group in source system."
+            "description": "Date when group was created."
           },
           "originType": {
             "title": "Origintype",
             "type": "string",
-            "description": "Date when group was created."
+            "description": "Type of the group in source system."
           }
         }
       },
@@ -1948,7 +1951,8 @@
             "items": {
               "$ref": "#/components/schemas/TagSchema"
             },
-            "description": "The tags provided for the identity"
+            "description": "The tags provided for the identity",
+            "default": []
           },
           "terminatedAt": {
             "title": "Terminatedat",
@@ -2431,7 +2435,7 @@
             "title": "Version",
             "type": "string",
             "description": "**version**",
-            "default": "4.3.0"
+            "default": "4.3.7"
           },
           "id": {
             "title": "Id",
@@ -2860,7 +2864,8 @@
             "items": {
               "$ref": "#/components/schemas/TagSchema"
             },
-            "description": "The tags provided for the identity"
+            "description": "The tags provided for the identity",
+            "default": []
           },
           "terminatedAt": {
             "title": "Terminatedat",
