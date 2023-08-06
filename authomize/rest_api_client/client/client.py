@@ -15,6 +15,8 @@ from authomize.rest_api_client.generated.connectors_rest_api.schemas import (
     NewAssetsInheritanceResponseSchema,
     NewAssetsListRequestSchema,
     NewAssetsResponseSchema,
+    NewGitRepoListRequestSchema,
+    NewGitRepoResponseSchema,
     NewGroupingResponseSchema,
     NewGroupingsAssociationResponseSchema,
     NewGroupingsAssociationsListRequestSchema,
@@ -42,8 +44,6 @@ from authomize.rest_api_client.generated.connectors_rest_api.schemas import (
     SearchUsersListResponseSchema,
     SubmitResponse,
     UpdateAppSchema,
-    NewGitRepoListRequestSchema,
-    NewGitRepoResponseSchema,
 )
 from authomize.rest_api_client.generated.external_rest_api.schemas import (
     IncidentExpansion,

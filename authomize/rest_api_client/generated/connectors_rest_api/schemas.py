@@ -332,9 +332,7 @@ class NewAssetRequestSchema(BaseModel):
         description='A link to the asset in the source system.\n',
         title='Href',
     )
-    owner: Optional[str] = Field(
-        default=None, description='The owner ID', title='Owner'
-    )
+    owner: Optional[str] = Field(default=None, description='The owner ID', title='Owner')
     tags: Optional[List[constr(min_length=1)]] = Field(
         default=None, description='Tags associated with the asset.\n', title='Tags'
     )
@@ -484,9 +482,7 @@ class NewGitRepoRequestSchema(BaseModel):
         description='A link to the asset in the source system.\n',
         title='Href',
     )
-    owner: Optional[str] = Field(
-        default=None, description='The owner ID', title='Owner'
-    )
+    owner: Optional[str] = Field(default=None, description='The owner ID', title='Owner')
     tags: Optional[List[constr(min_length=1)]] = Field(
         default=None, description='Tags associated with the asset.\n', title='Tags'
     )
@@ -944,9 +940,7 @@ class SearchAccountsAssociationsListResponseSchema(BaseModel):
 
 
 class SearchAssetsInheritanceListResponseSchema(BaseModel):
-    data: List[AssetInheritanceSchema] = Field(
-        ..., description='Assets Inheritance', title='Data'
-    )
+    data: List[AssetInheritanceSchema] = Field(..., description='Assets Inheritance', title='Data')
 
 
 class SearchGroupingsAssociationsListResponseSchema(BaseModel):
@@ -956,9 +950,7 @@ class SearchGroupingsAssociationsListResponseSchema(BaseModel):
 
 
 class SearchPrivilegeGrantsListResponseSchema(BaseModel):
-    data: List[PrivilegeGrantSchema] = Field(
-        ..., description='Privilege Grants', title='Data'
-    )
+    data: List[PrivilegeGrantSchema] = Field(..., description='Privilege Grants', title='Data')
 
 
 class ServiceDescription(BaseModel):
@@ -1048,9 +1040,7 @@ class UpdateAssetRequestSchema(BaseModel):
         description='A link to the asset in the source system.\n',
         title='Href',
     )
-    owner: Optional[str] = Field(
-        default=None, description='The owner ID', title='Owner'
-    )
+    owner: Optional[str] = Field(default=None, description='The owner ID', title='Owner')
     tags: Optional[List[constr(min_length=1)]] = Field(
         default=None, description='Tags associated with the asset.\n', title='Tags'
     )
@@ -1247,9 +1237,7 @@ class AssetSchema(BaseModel):
         description='A link to the asset in the source system.\n',
         title='Href',
     )
-    owner: Optional[str] = Field(
-        default=None, description='The owner ID', title='Owner'
-    )
+    owner: Optional[str] = Field(default=None, description='The owner ID', title='Owner')
     tags: Optional[List[constr(min_length=1)]] = Field(
         default=None, description='Tags associated with the asset.\n', title='Tags'
     )
@@ -1258,9 +1246,7 @@ class AssetSchema(BaseModel):
 class BundleTransactionSchema(BaseModel):
     connectorId: str = Field(..., title='Connectorid')
     executionId: Optional[str] = Field(default=None, title='Executionid')
-    transactionCreatedAt: Optional[datetime] = Field(
-        default=None, title='Transactioncreatedat'
-    )
+    transactionCreatedAt: Optional[datetime] = Field(default=None, title='Transactioncreatedat')
     warnings: Optional[List[str]] = Field(default=None, title='Warnings')
     validations: Optional[Dict[str, Any]] = Field(default=None, title='Validations')
     id: str = Field(..., title='Id')
@@ -1343,9 +1329,7 @@ class IdentityDescription(BaseModel):
     status: Optional[UserStatus] = None
     service: Optional[str] = Field(default=None, title='Service')
     lastLoginAt: Optional[datetime] = Field(default=None, title='Lastloginat')
-    anyoneCanJoinOrLeave: Optional[bool] = Field(
-        default=None, title='Anyonecanjoinorleave'
-    )
+    anyoneCanJoinOrLeave: Optional[bool] = Field(default=None, title='Anyonecanjoinorleave')
     tags: Optional[List[str]] = Field(default=None, title='Tags')
     city: Optional[str] = Field(default=None, title='City')
     country: Optional[str] = Field(default=None, title='Country')
@@ -1398,9 +1382,7 @@ class IdentitySchema(BaseModel):
         description="The identity's division in their organization.\n",
         title='Division',
     )
-    title: Optional[str] = Field(
-        default=None, description="The user's job title.\n", title='Title'
-    )
+    title: Optional[str] = Field(default=None, description="The user's job title.\n", title='Title')
     managerId: Optional[str] = Field(
         default=None, description="The manager identity's ID.\n", title='Managerid'
     )
@@ -1428,9 +1410,7 @@ class IdentitySchema(BaseModel):
 
 class ItemsBundleSchema(BaseModel):
     services: Optional[List[ServiceDescription]] = Field(default=None, title='Services')
-    identities: Optional[List[IdentityDescription]] = Field(
-        default=None, title='Identities'
-    )
+    identities: Optional[List[IdentityDescription]] = Field(default=None, title='Identities')
     assets: Optional[List[AssetDescription]] = Field(default=None, title='Assets')
     inheritanceIdentities: Optional[List[IdentitiesInheritance]] = Field(
         default=None, title='Inheritanceidentities'
@@ -1500,9 +1480,7 @@ class NewIdentityRequestSchema(BaseModel):
         description="The identity's division in their organization.\n",
         title='Division',
     )
-    title: Optional[str] = Field(
-        default=None, description="The user's job title.\n", title='Title'
-    )
+    title: Optional[str] = Field(default=None, description="The user's job title.\n", title='Title')
     managerId: Optional[str] = Field(
         default=None, description="The manager identity's ID.\n", title='Managerid'
     )
@@ -1629,9 +1607,7 @@ class NewUserRequestSchema(BaseModel):
         title='Originid',
     )
     name: Optional[str] = Field(default=None, description='Username\n', title='Name')
-    email: Optional[str] = Field(
-        default=None, description="User's email address.", title='Email'
-    )
+    email: Optional[str] = Field(default=None, description="User's email address.", title='Email')
     firstName: Optional[str] = Field(
         default=None, description="User's first name\n", title='Firstname'
     )
@@ -1779,16 +1755,12 @@ class RequestsBundleSchema(BaseModel):
         description='The Create Privileges Grants API enables you to establish inheritance between privileges, so that a single privilege contains a set of other privileges. \nFor example, an Administrative privilege that contains read and write privileges.',
         title='New Privileges Grants',
     )
-    new_accounts_association: Optional[
-        List[NewAccountsAssociationRequestSchema]
-    ] = Field(
+    new_accounts_association: Optional[List[NewAccountsAssociationRequestSchema]] = Field(
         default=None,
         description='The Create Accounts Association API creates account associations between user accounts and groups.',
         title='New Accounts Association',
     )
-    new_groupings_association: Optional[
-        List[NewGroupingsAssociationRequestSchema]
-    ] = Field(
+    new_groupings_association: Optional[List[NewGroupingsAssociationRequestSchema]] = Field(
         default=None,
         description='The Create Groupings Association API creates associations between groups and other groups.\n',
         title='New Groupings Association',
@@ -1908,9 +1880,7 @@ class UpdateIdentityRequestSchema(BaseModel):
         description="The identity's division in their organization.\n",
         title='Division',
     )
-    title: Optional[str] = Field(
-        default=None, description="The user's job title.\n", title='Title'
-    )
+    title: Optional[str] = Field(default=None, description="The user's job title.\n", title='Title')
     managerId: Optional[str] = Field(
         default=None, description="The manager identity's ID.\n", title='Managerid'
     )
@@ -1948,9 +1918,7 @@ class UpdateUserRequestSchema(BaseModel):
         title='Originid',
     )
     name: Optional[str] = Field(default=None, description='Username\n', title='Name')
-    email: Optional[str] = Field(
-        default=None, description="User's email address.", title='Email'
-    )
+    email: Optional[str] = Field(default=None, description="User's email address.", title='Email')
     firstName: Optional[str] = Field(
         default=None, description="User's first name\n", title='Firstname'
     )
@@ -2000,9 +1968,7 @@ class UserSchema(BaseModel):
         title='Originid',
     )
     name: Optional[str] = Field(default=None, description='Username\n', title='Name')
-    email: Optional[str] = Field(
-        default=None, description="User's email address.", title='Email'
-    )
+    email: Optional[str] = Field(default=None, description="User's email address.", title='Email')
     firstName: Optional[str] = Field(
         default=None, description="User's first name\n", title='Firstname'
     )
@@ -2066,16 +2032,12 @@ class IngestionDataBundleSchema(BaseModel):
         description='The Create Privileges Grants API enables you to establish inheritance between privileges, so that a single privilege contains a set of other privileges. \nFor example, an Administrative privilege that contains read and write privileges.',
         title='New Privileges Grants',
     )
-    new_accounts_association: Optional[
-        List[NewAccountsAssociationRequestSchema]
-    ] = Field(
+    new_accounts_association: Optional[List[NewAccountsAssociationRequestSchema]] = Field(
         default=None,
         description='The Create Accounts Association API creates account associations between user accounts and groups.',
         title='New Accounts Association',
     )
-    new_groupings_association: Optional[
-        List[NewGroupingsAssociationRequestSchema]
-    ] = Field(
+    new_groupings_association: Optional[List[NewGroupingsAssociationRequestSchema]] = Field(
         default=None,
         description='The Create Groupings Association API creates associations between groups and other groups.\n',
         title='New Groupings Association',

@@ -91,9 +91,7 @@ class AppIdFilter(BaseModel):
     class Config:
         extra = Extra.forbid
 
-    field_eq: Optional[str] = Field(
-        default=None, alias='$eq', description='Equals To', title='$Eq'
-    )
+    field_eq: Optional[str] = Field(default=None, alias='$eq', description='Equals To', title='$Eq')
 
 
 class AssetExpansion(Enum):
@@ -105,9 +103,7 @@ class AssetIdFilter(BaseModel):
     class Config:
         extra = Extra.forbid
 
-    field_in: Optional[List[str]] = Field(
-        default=[], alias='$in', description='In', title='$In'
-    )
+    field_in: Optional[List[str]] = Field(default=[], alias='$in', description='In', title='$In')
 
 
 class AttackTacticType(Enum):
@@ -141,9 +137,7 @@ class CampaignStatusFilter(BaseModel):
     class Config:
         extra = Extra.forbid
 
-    field_in: Optional[List[CampaignStatus]] = Field(
-        default=[], alias='$in', description='In'
-    )
+    field_in: Optional[List[CampaignStatus]] = Field(default=[], alias='$in', description='In')
 
 
 class Ccm301Standard(Enum):
@@ -233,9 +227,7 @@ class EmailFilter(BaseModel):
     class Config:
         extra = Extra.forbid
 
-    field_in: Optional[List[str]] = Field(
-        default=[], alias='$in', description='In', title='$In'
-    )
+    field_in: Optional[List[str]] = Field(default=[], alias='$in', description='In', title='$In')
 
 
 class EventStatusType(Enum):
@@ -281,9 +273,7 @@ class IdFilter(BaseModel):
     class Config:
         extra = Extra.forbid
 
-    field_in: Optional[List[str]] = Field(
-        default=[], alias='$in', description='In', title='$In'
-    )
+    field_in: Optional[List[str]] = Field(default=[], alias='$in', description='In', title='$In')
 
 
 class IdentityExpansion(Enum):
@@ -344,27 +334,21 @@ class IncidentsPolicyIdFilter(BaseModel):
     class Config:
         extra = Extra.forbid
 
-    field_eq: Optional[str] = Field(
-        default=None, alias='$eq', description='Equals To', title='$Eq'
-    )
+    field_eq: Optional[str] = Field(default=None, alias='$eq', description='Equals To', title='$Eq')
 
 
 class IncidentsPolicyTempalteIdFilter(BaseModel):
     class Config:
         extra = Extra.forbid
 
-    field_eq: Optional[str] = Field(
-        default=None, alias='$eq', description='Equals To', title='$Eq'
-    )
+    field_eq: Optional[str] = Field(default=None, alias='$eq', description='Equals To', title='$Eq')
 
 
 class IncidentsStatusFilter(BaseModel):
     class Config:
         extra = Extra.forbid
 
-    field_in: Optional[List[EventStatusType]] = Field(
-        default=[], alias='$in', description='In'
-    )
+    field_in: Optional[List[EventStatusType]] = Field(default=[], alias='$in', description='In')
 
 
 class IncidentsUpdatedAtFilter(BaseModel):
@@ -423,9 +407,7 @@ class IsoIec27001Standard(Enum):
 
 
 class MeResponse(BaseModel):
-    version: Optional[str] = Field(
-        default='4.3.7', description='**version**', title='Version'
-    )
+    version: Optional[str] = Field(default='4.3.7', description='**version**', title='Version')
     id: str = Field(..., description='**id**', title='Id')
     tenant: str = Field(..., description='**tenant**', title='Tenant')
 
@@ -445,9 +427,7 @@ class OriginIdFilter(BaseModel):
     class Config:
         extra = Extra.forbid
 
-    field_in: Optional[List[str]] = Field(
-        default=[], alias='$in', description='In', title='$In'
-    )
+    field_in: Optional[List[str]] = Field(default=[], alias='$in', description='In', title='$In')
 
 
 class PaginationRequestSchema(BaseModel):
@@ -530,18 +510,14 @@ class SearchAccountsIdFilter(BaseModel):
     class Config:
         extra = Extra.forbid
 
-    field_in: Optional[List[str]] = Field(
-        default=[], alias='$in', description='In', title='$In'
-    )
+    field_in: Optional[List[str]] = Field(default=[], alias='$in', description='In', title='$In')
 
 
 class SearchAccountsOriginIdFilter(BaseModel):
     class Config:
         extra = Extra.forbid
 
-    field_in: Optional[List[str]] = Field(
-        default=[], alias='$in', description='In', title='$In'
-    )
+    field_in: Optional[List[str]] = Field(default=[], alias='$in', description='In', title='$In')
 
 
 class SearchAccountsSortFields(Enum):
@@ -556,27 +532,21 @@ class SearchGroupsAppIdFilter(BaseModel):
     class Config:
         extra = Extra.forbid
 
-    field_eq: Optional[str] = Field(
-        default=None, alias='$eq', description='Equals To', title='$Eq'
-    )
+    field_eq: Optional[str] = Field(default=None, alias='$eq', description='Equals To', title='$Eq')
 
 
 class SearchGroupsIdFilter(BaseModel):
     class Config:
         extra = Extra.forbid
 
-    field_in: Optional[List[str]] = Field(
-        default=[], alias='$in', description='In', title='$In'
-    )
+    field_in: Optional[List[str]] = Field(default=[], alias='$in', description='In', title='$In')
 
 
 class SearchGroupsOriginIdFilter(BaseModel):
     class Config:
         extra = Extra.forbid
 
-    field_in: Optional[List[str]] = Field(
-        default=[], alias='$in', description='In', title='$In'
-    )
+    field_in: Optional[List[str]] = Field(default=[], alias='$in', description='In', title='$In')
 
 
 class SearchGroupsSortFields(Enum):
@@ -587,9 +557,7 @@ class SearchGroupsUniqueIdFilter(BaseModel):
     class Config:
         extra = Extra.forbid
 
-    field_in: Optional[List[str]] = Field(
-        default=[], alias='$in', description='In', title='$In'
-    )
+    field_in: Optional[List[str]] = Field(default=[], alias='$in', description='In', title='$In')
 
 
 class SearchIdentitiesFilterBody(BaseModel):
@@ -742,9 +710,7 @@ class UniqueIdFilter(BaseModel):
     class Config:
         extra = Extra.forbid
 
-    field_in: Optional[List[str]] = Field(
-        default=[], alias='$in', description='In', title='$In'
-    )
+    field_in: Optional[List[str]] = Field(default=[], alias='$in', description='In', title='$In')
 
 
 class UpdateIncidentRequestSchema(BaseModel):
@@ -768,12 +734,8 @@ class UpdateIncidentRequestSchema(BaseModel):
 
 class UserSchema(BaseModel):
     id: str = Field(..., description='Unique ID', title='Id')
-    firstName: Optional[str] = Field(
-        default=None, description='First Name', title='Firstname'
-    )
-    lastName: Optional[str] = Field(
-        default=None, description='Last Name', title='Lastname'
-    )
+    firstName: Optional[str] = Field(default=None, description='First Name', title='Firstname')
+    lastName: Optional[str] = Field(default=None, description='Last Name', title='Lastname')
     email: Optional[str] = Field(default=None, description='Email', title='Email')
 
 
@@ -806,12 +768,8 @@ class AddIdentityRisksRequestSchema(BaseModel):
 
 class AicpaTsc2017(BaseModel):
     values: List[AicpaTsc2017Standard] = Field(..., description='Values')
-    id: Optional[str] = Field(
-        default='aicpaTsc2017', description='UniqueID', title='Id'
-    )
-    name: Optional[str] = Field(
-        default='SOC 2 (TSC 2017)', description='Name', title='Name'
-    )
+    id: Optional[str] = Field(default='aicpaTsc2017', description='UniqueID', title='Id')
+    name: Optional[str] = Field(default='SOC 2 (TSC 2017)', description='Name', title='Name')
 
 
 class AssetSchema(BaseModel):
@@ -876,9 +834,7 @@ class CampaignPermissionDecisionFilter(BaseModel):
     class Config:
         extra = Extra.forbid
 
-    field_in: Optional[List[Selection]] = Field(
-        default=[], alias='$in', description='In'
-    )
+    field_in: Optional[List[Selection]] = Field(default=[], alias='$in', description='In')
 
 
 class CampaignPermissionsSearchFilterBody(BaseModel):
@@ -896,18 +852,10 @@ class CampaignSchema(BaseModel):
     id: str = Field(..., description='Unique ID of campaign', title='Id')
     name: str = Field(..., description='Name of the campaign', title='Name')
     status: CampaignStatus = Field(..., description='The campaign status')
-    startDate: datetime = Field(
-        ..., description='Date when the campaign starts', title='Startdate'
-    )
-    endDate: datetime = Field(
-        ..., description='Date when campaign ends', title='Enddate'
-    )
-    createdAt: datetime = Field(
-        ..., description='Time of creation of campaign', title='Createdat'
-    )
-    ownerUserId: str = Field(
-        ..., description='User ID of the campaign owner', title='Owneruserid'
-    )
+    startDate: datetime = Field(..., description='Date when the campaign starts', title='Startdate')
+    endDate: datetime = Field(..., description='Date when campaign ends', title='Enddate')
+    createdAt: datetime = Field(..., description='Time of creation of campaign', title='Createdat')
+    ownerUserId: str = Field(..., description='User ID of the campaign owner', title='Owneruserid')
     owner: Optional[UserSchema] = Field(
         default=None, description='User Schema of the campaign owner', title='Owner'
     )
@@ -927,29 +875,19 @@ class CampaignSearchFilterBody(BaseModel):
 class Ccm301(BaseModel):
     values: List[Ccm301Standard] = Field(..., description='Values')
     id: Optional[str] = Field(default='ccm301', description='UniqueID', title='Id')
-    name: Optional[str] = Field(
-        default='CSA STAR (CCM 3.0.1)', description='Name', title='Name'
-    )
+    name: Optional[str] = Field(default='CSA STAR (CCM 3.0.1)', description='Name', title='Name')
 
 
 class Ccm402(BaseModel):
     values: List[Ccm402Standard] = Field(..., description='Values')
     id: Optional[str] = Field(default='ccm402', description='UniqueID', title='Id')
-    name: Optional[str] = Field(
-        default='CSA STAR (CCM 4.0.2)', description='Name', title='Name'
-    )
+    name: Optional[str] = Field(default='CSA STAR (CCM 4.0.2)', description='Name', title='Name')
 
 
 class GroupSchema(BaseModel):
-    authomizeId: str = Field(
-        ..., description='Authomize ID of the Group.', title='Authomizeid'
-    )
-    name: Optional[str] = Field(
-        default=None, description='Name of the Group.', title='Name'
-    )
-    type: Optional[str] = Field(
-        default=None, description='Type of the group.', title='Type'
-    )
+    authomizeId: str = Field(..., description='Authomize ID of the Group.', title='Authomizeid')
+    name: Optional[str] = Field(default=None, description='Name of the Group.', title='Name')
+    type: Optional[str] = Field(default=None, description='Type of the group.', title='Type')
     incidentsCount: Optional[int] = Field(
         default=None,
         description='Number of incidents associated with the group.',
@@ -995,19 +933,13 @@ class HTTPValidationError(BaseModel):
 
 class IncidentEntitiesSchema(BaseModel):
     id: str = Field(..., description='Unique id of entity.', title='Id')
-    name: Optional[str] = Field(
-        default=None, description='Name of entity.', title='Name'
-    )
+    name: Optional[str] = Field(default=None, description='Name of entity.', title='Name')
     object: Union[InventoryObjects, str] = Field(
         ..., description='Identity | Account | Asset', title='Object'
     )
     email: Optional[str] = Field(default=None, description='Email', title='Email')
-    originId: Optional[str] = Field(
-        default=None, description='Origin ID', title='Originid'
-    )
-    originType: Optional[str] = Field(
-        default=None, description='Origin Type', title='Origintype'
-    )
+    originId: Optional[str] = Field(default=None, description='Origin ID', title='Originid')
+    originType: Optional[str] = Field(default=None, description='Origin Type', title='Origintype')
     riskScore: Optional[IdentityRiskScore] = Field(
         default=None, description='Risk Scores', title='Riskscore'
     )
@@ -1017,17 +949,13 @@ class IncidentsSeverityFilter(BaseModel):
     class Config:
         extra = Extra.forbid
 
-    field_in: Optional[List[SeverityType]] = Field(
-        default=[], alias='$in', description='In'
-    )
+    field_in: Optional[List[SeverityType]] = Field(default=[], alias='$in', description='In')
 
 
 class IsoIec27001(BaseModel):
     values: List[IsoIec27001Standard] = Field(..., description='Values')
     id: Optional[str] = Field(default='isoIec27001', description='UniqueID', title='Id')
-    name: Optional[str] = Field(
-        default='ISO/IEC 27001', description='Name', title='Name'
-    )
+    name: Optional[str] = Field(default='ISO/IEC 27001', description='Name', title='Name')
 
 
 class NonPaginatedResponseSchemaCampaignSchema(BaseModel):
@@ -1044,9 +972,7 @@ class PaginatedResponseSchemaAssetSchema(BaseModel):
     pagination: Optional[PaginationResponseSchema] = Field(
         default=None, description='Pagination Metadata', title='Pagination'
     )
-    data: List[AssetSchema] = Field(
-        ..., description='List of Actual Data', title='Data'
-    )
+    data: List[AssetSchema] = Field(..., description='List of Actual Data', title='Data')
 
 
 class PaginatedResponseSchemaCampaignSchema(BaseModel):
@@ -1056,9 +982,7 @@ class PaginatedResponseSchemaCampaignSchema(BaseModel):
     pagination: Optional[PaginationResponseSchema] = Field(
         default=None, description='Pagination Metadata', title='Pagination'
     )
-    data: List[CampaignSchema] = Field(
-        ..., description='List of Actual Data', title='Data'
-    )
+    data: List[CampaignSchema] = Field(..., description='List of Actual Data', title='Data')
 
 
 class PaginatedResponseSchemaGroupSchema(BaseModel):
@@ -1068,19 +992,13 @@ class PaginatedResponseSchemaGroupSchema(BaseModel):
     pagination: Optional[PaginationResponseSchema] = Field(
         default=None, description='Pagination Metadata', title='Pagination'
     )
-    data: List[GroupSchema] = Field(
-        ..., description='List of Actual Data', title='Data'
-    )
+    data: List[GroupSchema] = Field(..., description='List of Actual Data', title='Data')
 
 
 class RawIdentitySchema(BaseModel):
     authomizeId: str = Field(..., description='Unique ID', title='Authomizeid')
-    name: Optional[str] = Field(
-        default=None, description='Name of the identity', title='Name'
-    )
-    title: Optional[str] = Field(
-        default=None, description='Title of the identity', title='Title'
-    )
+    name: Optional[str] = Field(default=None, description='Name of the identity', title='Name')
+    title: Optional[str] = Field(default=None, description='Title of the identity', title='Title')
     department: Optional[str] = Field(
         default=None,
         description='The department in which the identity works',
@@ -1100,9 +1018,7 @@ class RawIdentitySchema(BaseModel):
     terminatedAt: Optional[str] = Field(
         default=None, description='Time of termination', title='Terminatedat'
     )
-    hiredAt: Optional[str] = Field(
-        default=None, description='Hired At', title='Hiredat'
-    )
+    hiredAt: Optional[str] = Field(default=None, description='Hired At', title='Hiredat')
     incidentsCount: Optional[int] = Field(
         default=None,
         description='Number of associated incidents',
@@ -1131,9 +1047,7 @@ class ReviewerSchema(BaseModel):
     lastNotifiedAt: datetime = Field(
         ..., description='Time of last notified', title='Lastnotifiedat'
     )
-    lastActiveAt: datetime = Field(
-        ..., description='Time of last activity', title='Lastactiveat'
-    )
+    lastActiveAt: datetime = Field(..., description='Time of last activity', title='Lastactiveat')
     reviewStatus: Union[ReviewStatus, str] = Field(
         ..., description='Review Status', title='Reviewstatus'
     )
@@ -1166,9 +1080,7 @@ class SearchAccountsRequestSchema(BaseModel):
     pagination: Optional[PaginationRequestSchema] = Field(
         default=None, description='Pagination metadata', title='Pagination'
     )
-    expand: Optional[List[AccountExpansion]] = Field(
-        default=None, description='Expand Fields'
-    )
+    expand: Optional[List[AccountExpansion]] = Field(default=None, description='Expand Fields')
     sort: Optional[List[SortSchemaSearchAccountsSortFields]] = Field(
         default=None,
         description='Sort the results by account fields in ascending or descending order',
@@ -1243,9 +1155,7 @@ class SearchCampaignsRequestSchema(BaseModel):
     filter: Optional[CampaignSearchFilterBody] = Field(
         default=None, description='Status filter', title='Filter'
     )
-    expand: Optional[List[CampaignExpansion]] = Field(
-        default=None, description='Expand Fields'
-    )
+    expand: Optional[List[CampaignExpansion]] = Field(default=None, description='Expand Fields')
     pagination: Optional[PaginationRequestSchema] = Field(
         default=None, description='Pagination metadata', title='Pagination'
     )
@@ -1353,9 +1263,7 @@ class SearchIncidentsRequestSchema(BaseModel):
     filter: Optional[SearchIncidentsFilter] = Field(
         default=None, description='Filter', title='Filter'
     )
-    expand: Optional[List[IncidentExpansion]] = Field(
-        default=None, description='Expend'
-    )
+    expand: Optional[List[IncidentExpansion]] = Field(default=None, description='Expend')
     sort: Optional[List[SortSchemaSearchIncidentsSortFields]] = Field(
         default=None,
         description='Sort the results by incident fields in ascending or descending order',
@@ -1367,9 +1275,7 @@ class SearchIncidentsRequestSchema(BaseModel):
 
 
 class AccountSchema(BaseModel):
-    authomizeId: str = Field(
-        ..., description='Authomize ID of the account', title='Authomizeid'
-    )
+    authomizeId: str = Field(..., description='Authomize ID of the account', title='Authomizeid')
     originId: Optional[str] = Field(
         default=None,
         description='The identifier of the account from the source system.',
@@ -1380,13 +1286,9 @@ class AccountSchema(BaseModel):
         description='Unique ID is an identifier coming from the connector that is unique across all accounts coming from that connector',
         title='Uniqueid',
     )
-    name: Optional[str] = Field(
-        default=None, description='Name of account', title='Name'
-    )
+    name: Optional[str] = Field(default=None, description='Name of account', title='Name')
     type: str = Field(..., description='Type of account', title='Type')
-    isExternal: bool = Field(
-        ..., description='Is account external (Yes or No)', title='Isexternal'
-    )
+    isExternal: bool = Field(..., description='Is account external (Yes or No)', title='Isexternal')
     email: Optional[str] = Field(
         default=None, description='Email address of account', title='Email'
     )
@@ -1429,9 +1331,7 @@ class AccountSchema(BaseModel):
 
 class CampaignsPermissionSchema(BaseModel):
     id: str = Field(..., description='Campaign ID (unique). \n', title='Id')
-    campaignId: str = Field(
-        ..., description='ID of the Campaign.\n', title='Campaignid'
-    )
+    campaignId: str = Field(..., description='ID of the Campaign.\n', title='Campaignid')
     reviewerId: str = Field(..., description='Reviewer ID', title='Reviewerid')
     reviewer: Optional[ReviewerSchema] = Field(
         default=None, description='Details of the reviewer.\n', title='Reviewer'
@@ -1470,12 +1370,8 @@ class CampaignsPermissionSchema(BaseModel):
 
 class IdentitySchema(BaseModel):
     authomizeId: str = Field(..., description='Unique ID', title='Authomizeid')
-    name: Optional[str] = Field(
-        default=None, description='Name of the identity', title='Name'
-    )
-    title: Optional[str] = Field(
-        default=None, description='Title of the identity', title='Title'
-    )
+    name: Optional[str] = Field(default=None, description='Name of the identity', title='Name')
+    title: Optional[str] = Field(default=None, description='Title of the identity', title='Title')
     department: Optional[str] = Field(
         default=None,
         description='The department in which the identity works',
@@ -1495,9 +1391,7 @@ class IdentitySchema(BaseModel):
     terminatedAt: Optional[str] = Field(
         default=None, description='Time of termination', title='Terminatedat'
     )
-    hiredAt: Optional[str] = Field(
-        default=None, description='Hired At', title='Hiredat'
-    )
+    hiredAt: Optional[str] = Field(default=None, description='Hired At', title='Hiredat')
     incidentsCount: Optional[int] = Field(
         default=None,
         description='Number of associated incidents',
@@ -1533,9 +1427,9 @@ class IncidentSchema(BaseModel):
     )
     category: Optional[AlertCategoryType] = Field(default=None, description='Category')
     tactics: Optional[List[AttackTacticType]] = Field(default=[], description='Tactics')
-    compliance: Optional[
-        List[Union[IsoIec27001, AicpaTsc2017, Ccm402, Ccm301, Cisv8]]
-    ] = Field(default=[], description='Compliance', title='Compliance')
+    compliance: Optional[List[Union[IsoIec27001, AicpaTsc2017, Ccm402, Ccm301, Cisv8]]] = Field(
+        default=[], description='Compliance', title='Compliance'
+    )
     techniques: Optional[List[str]] = Field(
         default=[], description='Techniques', title='Techniques'
     )
@@ -1547,21 +1441,15 @@ class IncidentSchema(BaseModel):
         ..., description='The severity of the incident (Low, Medium, High or Critical).'
     )
     policyId: str = Field(..., description='Unique id of policy.', title='Policyid')
-    policy: Optional[PolicySchema] = Field(
-        default=None, description='Policy', title='Policy'
-    )
+    policy: Optional[PolicySchema] = Field(default=None, description='Policy', title='Policy')
     assigneeId: Optional[str] = Field(
         default=None, description='Unique id of assignee.', title='Assigneeid'
     )
-    assignee: Optional[UserSchema] = Field(
-        default=None, description='Assignee', title='Assignee'
-    )
+    assignee: Optional[UserSchema] = Field(default=None, description='Assignee', title='Assignee')
     recommendation: Optional[str] = Field(
         default=None, description='Recommendation', title='Recommendation'
     )
-    description: Optional[str] = Field(
-        default=None, description='Description', title='Description'
-    )
+    description: Optional[str] = Field(default=None, description='Description', title='Description')
     isResolved: bool = Field(..., description='Is Resolved?', title='Isresolved')
     url: str = Field(..., description='URL', title='Url')
 
@@ -1587,9 +1475,7 @@ class PaginatedResponseSchemaAccountSchema(BaseModel):
     pagination: Optional[PaginationResponseSchema] = Field(
         default=None, description='Pagination Metadata', title='Pagination'
     )
-    data: List[AccountSchema] = Field(
-        ..., description='List of Actual Data', title='Data'
-    )
+    data: List[AccountSchema] = Field(..., description='List of Actual Data', title='Data')
 
 
 class PaginatedResponseSchemaCampaignsPermissionSchema(BaseModel):
@@ -1611,9 +1497,7 @@ class PaginatedResponseSchemaIdentitySchema(BaseModel):
     pagination: Optional[PaginationResponseSchema] = Field(
         default=None, description='Pagination Metadata', title='Pagination'
     )
-    data: List[IdentitySchema] = Field(
-        ..., description='List of Actual Data', title='Data'
-    )
+    data: List[IdentitySchema] = Field(..., description='List of Actual Data', title='Data')
 
 
 class PaginatedResponseSchemaIncidentSchema(BaseModel):
@@ -1623,6 +1507,4 @@ class PaginatedResponseSchemaIncidentSchema(BaseModel):
     pagination: Optional[PaginationResponseSchema] = Field(
         default=None, description='Pagination Metadata', title='Pagination'
     )
-    data: List[IncidentSchema] = Field(
-        ..., description='List of Actual Data', title='Data'
-    )
+    data: List[IncidentSchema] = Field(..., description='List of Actual Data', title='Data')
