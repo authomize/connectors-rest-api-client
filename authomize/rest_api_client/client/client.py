@@ -15,6 +15,8 @@ from authomize.rest_api_client.generated.connectors_rest_api.schemas import (
     NewAssetsInheritanceResponseSchema,
     NewAssetsListRequestSchema,
     NewAssetsResponseSchema,
+    NewGitRepoListRequestSchema,
+    NewGitRepoResponseSchema,
     NewGroupingResponseSchema,
     NewGroupingsAssociationResponseSchema,
     NewGroupingsAssociationsListRequestSchema,
@@ -304,6 +306,16 @@ class Client:
         body: NewAssetsListRequestSchema,
     ) -> NewAssetsResponseSchema:
         return self.connectors_client.create_assets(
+            app_id=app_id,
+            body=body,
+        )
+
+    def create_git_repo(
+        self,
+        app_id: str,
+        body: NewGitRepoListRequestSchema,
+    ) -> NewGitRepoResponseSchema:
+        return self.connectors_client.create_git_repo(
             app_id=app_id,
             body=body,
         )
