@@ -484,7 +484,9 @@ class NewGitRepoRequestSchema(BaseModel):
         description='A link to the asset in the source system.\n',
         title='Href',
     )
-    owner: Optional[str] = Field(default=None, description='The owner ID', title='Owner')
+    owner: Optional[str] = Field(
+        default=None, description='The owner ID', title='Owner'
+    )
     tags: Optional[List[constr(min_length=1)]] = Field(
         default=None, description='Tags associated with the asset.\n', title='Tags'
     )
@@ -1255,6 +1257,7 @@ class AssetSchema(BaseModel):
 
 class BundleTransactionSchema(BaseModel):
     connectorId: str = Field(..., title='Connectorid')
+    executionId: Optional[str] = Field(default=None, title='Executionid')
     transactionCreatedAt: Optional[datetime] = Field(
         default=None, title='Transactioncreatedat'
     )
