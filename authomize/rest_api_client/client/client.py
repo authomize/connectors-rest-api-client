@@ -134,10 +134,12 @@ class Client:
         self,
         app_id: str,
         modified_before: Optional[datetime] = None,
+        execution_id: Optional[str] = None,
     ) -> SubmitResponse:
         return self.connectors_client.delete_app_data(
             app_id=app_id,
             modified_before=modified_before,
+            execution_id=execution_id,
         )
 
     def update_app_data(

@@ -109,13 +109,16 @@ class ConnectorsClient(BaseClient):
         self,
         app_id: str,
         modified_before: Optional[datetime] = None,
+        execution_id: Optional[str] = None,
     ) -> SubmitResponse:
         if not app_id:
             raise ValueError('Missing app_id')
-        date_filter = ''
+        params = {}
         if modified_before:
-            date_filter = f'?modifiedBefore={str(modified_before)}'
-        return self.http_delete(url=f"/v2/apps/{app_id}/data{date_filter}")
+            params['modifiedBefore'] = str(modified_before)
+        if execution_id:
+            params['executionId'] = execution_id
+        return self.http_delete(url=f"/v2/apps/{app_id}/data", params=params)
 
     def update_app_data(
         self,
