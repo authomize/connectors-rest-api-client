@@ -1,7 +1,6 @@
 import json
 from datetime import datetime
 from typing import Optional
-from urllib.parse import urlencode
 
 from pydantic.json import pydantic_encoder
 
