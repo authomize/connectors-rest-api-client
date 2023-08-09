@@ -119,10 +119,7 @@ class ConnectorsClient(BaseClient):
             params['modifiedBefore'] = str(modified_before)
         if execution_id:
             params['executionId'] = execution_id
-        query = urlencode(params)
-        if query:
-            query = f'?{query}'
-        return self.http_delete(url=f"/v2/apps/{app_id}/data{query}")
+        return self.http_delete(url=f"/v2/apps/{app_id}/data", params=params)
 
     def update_app_data(
         self,
