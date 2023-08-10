@@ -8,4 +8,4 @@ class AuthomizeApiConfiguration(BaseSettings):
     """
 
     auth_token: str = Field(..., env="AUTHOMIZE_API_TOKEN")
-    api_url: str = Field(..., env="AUTHOMIZE_REST_API_URL")
+    api_url: str = Field(..., env="AUTHOMIZE_REST_API_EXTERNAL_URL")
