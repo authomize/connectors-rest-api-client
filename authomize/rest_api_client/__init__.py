@@ -5,12 +5,12 @@ from authomize.rest_api_client.generated.connectors_rest_api.schemas import (
     AssetDescription,
     AssetsInheritance,
     AssetTypes,
-    AuthomizeRestApiClientGeneratedConnectorsRestApiSchemasUserStatus,
     IdentitiesInheritance,
     IdentityDescription,
     IdentityTypes,
     ItemsBundleSchema,
     ServiceDescription,
+    UserStatus,
 )
 
 __all__ = [
@@ -22,7 +22,7 @@ __all__ = [
     'AssetsInheritance',
     'AccessDescription',
     'AccessTypes',
-    'AuthomizeRestApiClientGeneratedConnectorsRestApiSchemasUserStatus',
+    'UserStatus',
     'IdentityTypes',
     'AssetTypes',
 ]
