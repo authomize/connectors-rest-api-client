@@ -3,7 +3,7 @@
   "info": {
     "title": "Authomize API Reference",
     "description": "Authomize enables users to integrate your applications with Authomize via custom connectors.\n\nYou can use the APIs described in this document to create your connector.\n\nOnce data is uploaded and processed successfully, your custom connector will function in the same way as the connectors created by Authomize.\n\n## How does Authomize work?\nAuthomize works by gathering information about:\n\n· individuals, teams and functions.\n\n· apps, assets and accounts.\n\n· all the relationships between them.\n\n![img.png](https://storagetry1.blob.core.windows.net/public/78d82650-71b0-4909-8444-022aab79add5.png)\n\n## Connector APIs\n\nAuthomize connector APIs enable pushing data into Authomize from external sources.\n\nThese APIs enable data extracted from outside applications (via application APIs) to be delivered to Authomize.\n\nA connector processes extracted application data to transform it into a format compatible with Authomize.\n\n![img_1.png](https://storagetry1.blob.core.windows.net/public/341bf6ef-2e5b-4284-b715-45105ffbf0f8.png)\n\n## Authentication\nTo Authenticate use the API Token, with the format: `Authorization: API_Token`.\n\nAn API Token is a token you provide when making API calls. \n\n\nThe API Token should be included in every request to the API in an `Authorization` header.\n```\ncurl -v -X POST \\n\n     -H \"Authorization: {API_Token}\" \\n\n     ...\n```\n\n## Limits\nRequests cannot exceed a size of 1MB.\n",
-    "version": "4.3.12",
+    "version": "4.3.13",
     "x-logo": {
       "url": "https://static.authomize.com/public/icons/authomize-green.svg"
     }
@@ -461,7 +461,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/CampaignModel"
+                  "$ref": "#/components/schemas/CreateCampaignResponseSchema"
                 }
               }
             }
@@ -1320,22 +1320,6 @@
         ],
         "description": "An enumeration."
       },
-      "CampaignDiffOptions": {
-        "title": "CampaignDiffOptions",
-        "type": "object",
-        "properties": {
-          "excludeEntitlementsReviewedInLastDays": {
-            "title": "Excludeentitlementsreviewedinlastdays",
-            "maximum": 365,
-            "minimum": 10,
-            "type": "integer"
-          },
-          "previousCampaignOptions": {
-            "$ref": "#/components/schemas/PreviousCampaignOptions"
-          }
-        },
-        "additionalProperties": false
-      },
       "CampaignExpansion": {
         "title": "CampaignExpansion",
         "enum": [
@@ -1343,173 +1327,6 @@
         ],
         "type": "string",
         "description": "An enumeration."
-      },
-      "CampaignFailureType": {
-        "title": "CampaignFailureType",
-        "enum": [
-          "CommonFailure",
-          "EmptyQuery",
-          "QueryError",
-          "EntitlementLimitExceeded"
-        ],
-        "description": "An enumeration."
-      },
-      "CampaignModel": {
-        "title": "CampaignModel",
-        "required": [
-          "name",
-          "startDate",
-          "endDate",
-          "reviewerType",
-          "includeMemberships",
-          "id"
-        ],
-        "type": "object",
-        "properties": {
-          "name": {
-            "title": "Name",
-            "type": "string"
-          },
-          "startDate": {
-            "title": "Startdate",
-            "type": "string",
-            "format": "date-time"
-          },
-          "endDate": {
-            "title": "Enddate",
-            "type": "string",
-            "format": "date-time"
-          },
-          "reviewerType": {
-            "$ref": "#/components/schemas/ReviewerType"
-          },
-          "fallbackReviewerUserId": {
-            "title": "Fallbackrevieweruserid",
-            "type": "string"
-          },
-          "ownerUserId": {
-            "title": "Owneruserid",
-            "type": "string"
-          },
-          "includeMemberships": {
-            "$ref": "#/components/schemas/IncludeMembershipsOptions"
-          },
-          "templateName": {
-            "title": "Templatename",
-            "type": "string"
-          },
-          "resourcesScopeIds": {
-            "title": "Resourcesscopeids",
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
-          },
-          "identitiesScopeId": {
-            "title": "Identitiesscopeid",
-            "type": "string"
-          },
-          "parentIdentitiesScopeId": {
-            "title": "Parentidentitiesscopeid",
-            "type": "string"
-          },
-          "excludeBirthrightGroups": {
-            "title": "Excludebirthrightgroups",
-            "type": "boolean"
-          },
-          "manualMembershipsOnly": {
-            "title": "Manualmembershipsonly",
-            "type": "boolean"
-          },
-          "minMembershipGrantDate": {
-            "title": "Minmembershipgrantdate",
-            "type": "string",
-            "format": "date-time"
-          },
-          "minEntitlementGrantDate": {
-            "title": "Minentitlementgrantdate",
-            "type": "string",
-            "format": "date-time"
-          },
-          "adminPrivilegesOnly": {
-            "title": "Adminprivilegesonly",
-            "type": "boolean"
-          },
-          "summary": {
-            "title": "Summary",
-            "type": "object"
-          },
-          "selectedApps": {
-            "title": "Selectedapps",
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
-          },
-          "createdFromCampaignDiffOptions": {
-            "$ref": "#/components/schemas/CampaignDiffOptions"
-          },
-          "includeIndirectGroupRelation": {
-            "title": "Includeindirectgrouprelation",
-            "type": "boolean"
-          },
-          "includeIndirectResourceRelation": {
-            "title": "Includeindirectresourcerelation",
-            "type": "boolean"
-          },
-          "includeFederated": {
-            "title": "Includefederated",
-            "type": "boolean"
-          },
-          "allowOwnerSelfReview": {
-            "title": "Allowownerselfreview",
-            "type": "boolean"
-          },
-          "dynamicScopeId": {
-            "title": "Dynamicscopeid",
-            "type": "string"
-          },
-          "status": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/CampaignStatus"
-              }
-            ],
-            "default": "initializing"
-          },
-          "isDeleted": {
-            "title": "Isdeleted",
-            "type": "boolean",
-            "default": false
-          },
-          "createdAt": {
-            "title": "Createdat",
-            "type": "string",
-            "format": "date-time"
-          },
-          "campaignDiffOptions": {
-            "$ref": "#/components/schemas/CampaignDiffOptions"
-          },
-          "primaryCampaignId": {
-            "title": "Primarycampaignid",
-            "type": "string"
-          },
-          "createdByDuplicationEvent": {
-            "title": "Createdbyduplicationevent",
-            "type": "boolean"
-          },
-          "id": {
-            "title": "Id",
-            "type": "string"
-          },
-          "failureType": {
-            "$ref": "#/components/schemas/CampaignFailureType"
-          },
-          "reviewersCompleted": {
-            "title": "Reviewerscompleted",
-            "type": "boolean"
-          }
-        }
       },
       "CampaignPermissionDecisionFilter": {
         "title": "CampaignPermissionDecisionFilter",
@@ -1920,143 +1737,99 @@
         "additionalProperties": false,
         "description": "Base schema for all incoming API requests."
       },
-      "CreateCampaignDiffOptions": {
-        "title": "CreateCampaignDiffOptions",
-        "type": "object",
-        "properties": {
-          "excludeEntitlementsReviewedInLastDays": {
-            "title": "Excludeentitlementsreviewedinlastdays",
-            "maximum": 365,
-            "minimum": 10,
-            "type": "integer"
-          }
-        },
-        "additionalProperties": false
-      },
       "CreateCampaignRequestSchema": {
         "title": "CreateCampaignRequestSchema",
         "required": [
           "name",
           "startDate",
-          "endDate",
-          "reviewerType",
-          "fallbackReviewerUserId"
+          "endDate"
         ],
         "type": "object",
         "properties": {
           "name": {
             "title": "Name",
-            "type": "string"
+            "type": "string",
+            "description": "Name"
           },
           "startDate": {
             "title": "Startdate",
             "type": "string",
+            "description": "Start date",
             "format": "date-time"
           },
           "endDate": {
             "title": "Enddate",
             "type": "string",
+            "description": "End date",
             "format": "date-time"
-          },
-          "reviewerType": {
-            "$ref": "#/components/schemas/ReviewerType"
           },
           "fallbackReviewerUserId": {
             "title": "Fallbackrevieweruserid",
-            "type": "string"
-          },
-          "ownerUserId": {
-            "title": "Owneruserid",
             "type": "string",
-            "description": "Default: `UserId` connected to the current API-Token."
+            "description": "Default: `UserId` connected to the current API-Token. \n Fallback reviewer user ID."
+          }
+        }
+      },
+      "CreateCampaignResponseSchema": {
+        "title": "CreateCampaignResponseSchema",
+        "required": [
+          "id",
+          "name",
+          "startDate",
+          "endDate"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "title": "Id",
+            "type": "string",
+            "description": "Id"
           },
-          "includeMemberships": {
-            "title": "IncludeMemberships",
+          "name": {
+            "title": "Name",
+            "type": "string",
+            "description": "Name"
+          },
+          "startDate": {
+            "title": "Startdate",
+            "type": "string",
+            "description": "Start date",
+            "format": "date-time"
+          },
+          "endDate": {
+            "title": "Enddate",
+            "type": "string",
+            "description": "End date",
+            "format": "date-time"
+          },
+          "fallbackReviewerUserId": {
+            "title": "Fallbackrevieweruserid",
+            "type": "string",
+            "description": "Default: `UserId` connected to the current API-Token. \n Fallback reviewer user ID."
+          },
+          "status": {
+            "title": "status",
             "allOf": [
               {
-                "$ref": "#/components/schemas/IncludeMembershipsOptions"
+                "$ref": "#/components/schemas/CampaignStatus"
               }
             ],
-            "default": "Exclude"
+            "description": "status",
+            "default": "initializing"
           },
-          "templateName": {
-            "title": "Templatename",
+          "isDeleted": {
+            "title": "Isdeleted",
+            "type": "boolean",
+            "description": "Is deleted",
+            "default": false
+          },
+          "createdAt": {
+            "title": "Createdat",
             "type": "string",
-            "default": "Custom Campaign"
-          },
-          "resourcesScopeIds": {
-            "title": "Resourcesscopeids",
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
-          },
-          "identitiesScopeId": {
-            "title": "Identitiesscopeid",
-            "type": "string"
-          },
-          "parentIdentitiesScopeId": {
-            "title": "Parentidentitiesscopeid",
-            "type": "string"
-          },
-          "excludeBirthrightGroups": {
-            "title": "Excludebirthrightgroups",
-            "type": "boolean"
-          },
-          "manualMembershipsOnly": {
-            "title": "Manualmembershipsonly",
-            "type": "boolean"
-          },
-          "minMembershipGrantDate": {
-            "title": "Minmembershipgrantdate",
-            "type": "string",
+            "description": "Created at",
             "format": "date-time"
-          },
-          "minEntitlementGrantDate": {
-            "title": "Minentitlementgrantdate",
-            "type": "string",
-            "format": "date-time"
-          },
-          "adminPrivilegesOnly": {
-            "title": "Adminprivilegesonly",
-            "type": "boolean"
-          },
-          "summary": {
-            "title": "Summary",
-            "type": "object"
-          },
-          "selectedApps": {
-            "title": "Selectedapps",
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
-          },
-          "campaignDiffOptions": {
-            "$ref": "#/components/schemas/CreateCampaignDiffOptions"
-          },
-          "includeIndirectGroupRelation": {
-            "title": "Includeindirectgrouprelation",
-            "type": "boolean"
-          },
-          "includeIndirectResourceRelation": {
-            "title": "Includeindirectresourcerelation",
-            "type": "boolean"
-          },
-          "includeFederated": {
-            "title": "Includefederated",
-            "type": "boolean"
-          },
-          "allowOwnerSelfReview": {
-            "title": "Allowownerselfreview",
-            "type": "boolean"
-          },
-          "dynamicScopeId": {
-            "title": "Dynamicscopeid",
-            "type": "string"
           }
-        },
-        "additionalProperties": false
+        }
       },
       "EmailFilter": {
         "title": "EmailFilter",
@@ -2712,15 +2485,6 @@
         },
         "additionalProperties": false
       },
-      "IncludeMembershipsOptions": {
-        "title": "IncludeMembershipsOptions",
-        "enum": [
-          "Include",
-          "Exclude",
-          "Only"
-        ],
-        "description": "An enumeration."
-      },
       "InventoryObjects": {
         "title": "InventoryObjects",
         "enum": [
@@ -2812,7 +2576,7 @@
             "title": "Version",
             "type": "string",
             "description": "**version**",
-            "default": "4.3.12"
+            "default": "4.3.13"
           },
           "id": {
             "title": "Id",
@@ -3194,22 +2958,6 @@
           }
         }
       },
-      "PreviousCampaignOptions": {
-        "title": "PreviousCampaignOptions",
-        "type": "object",
-        "properties": {
-          "excludeReviewedEntitlements": {
-            "title": "Excludereviewedentitlements",
-            "type": "boolean",
-            "default": false
-          },
-          "campaignKey": {
-            "title": "Campaignkey",
-            "type": "string"
-          }
-        },
-        "additionalProperties": false
-      },
       "RawIdentitySchema": {
         "title": "RawIdentitySchema",
         "required": [
@@ -3392,17 +3140,6 @@
             "description": "User Schema of the reviewer"
           }
         }
-      },
-      "ReviewerType": {
-        "title": "ReviewerType",
-        "enum": [
-          "directOwner",
-          "appOwner",
-          "manager",
-          "selfAttestation",
-          "fallbackReviewer"
-        ],
-        "description": "An enumeration."
       },
       "RiskFactorIn": {
         "title": "RiskFactorIn",
