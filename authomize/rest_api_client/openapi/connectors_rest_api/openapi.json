@@ -3,7 +3,7 @@
   "info": {
     "title": "Authomize API Reference",
     "description": "Authomize enables users to integrate your applications with Authomize via custom connectors.\n\nYou can use the APIs described in this document to create your connector.\n\nOnce data is uploaded and processed successfully, your custom connector will function in the same way as the connectors created by Authomize.\n\n## How does Authomize work?\nAuthomize works by gathering information about:\n\n· individuals, teams and functions.\n\n· apps, assets and accounts.\n\n· all the relationships between them.\n\n![img.png](https://storagetry1.blob.core.windows.net/public/78d82650-71b0-4909-8444-022aab79add5.png)\n\n## Connector APIs\n\nAuthomize connector APIs enable pushing data into Authomize from external sources.\n\nThese APIs enable data extracted from outside applications (via application APIs) to be delivered to Authomize.\n\nA connector processes extracted application data to transform it into a format compatible with Authomize.\n\n![img_1.png](https://storagetry1.blob.core.windows.net/public/341bf6ef-2e5b-4284-b715-45105ffbf0f8.png)\n\n## Authentication\nTo Authenticate use the API Token, with the format: `Authorization: API_Token`.\n\nAn API Token is a token you provide when making API calls. \n\n\nThe API Token should be included in every request to the API in an `Authorization` header.\n```\ncurl -v -X POST \\n\n     -H \"Authorization: {API_Token}\" \\n\n     ...\n```\n\n## Limits\nRequests cannot exceed a size of 1MB.\n",
-    "version": "4.3.12",
+    "version": "4.3.15",
     "x-logo": {
       "url": "https://static.authomize.com/public/icons/authomize-green.svg"
     }
@@ -116,7 +116,7 @@
               "description": "Delete all the app data lastly updated before the given date.",
               "format": "date-time"
             },
-            "example": "2023-08-31T14:46:52.471626+00:00",
+            "example": "2023-09-14T06:47:02.917203+00:00",
             "name": "modifiedBefore",
             "in": "query"
           }
@@ -380,13 +380,13 @@
         ]
       }
     },
-    "/v2/apps/{appId}/accounts/service-accounts": {
+    "/v2/apps/{appId}/accounts/non-humanIdentities": {
       "get": {
         "tags": [
           "Accounts"
         ],
         "summary": "Search Service Accounts",
-        "operationId": "search_service_accounts_v2_apps__appId__accounts_service_accounts_get",
+        "operationId": "search_service_accounts_v2_apps__appId__accounts_non_humanIdentities_get",
         "parameters": [
           {
             "required": true,
@@ -444,7 +444,7 @@
         ],
         "summary": "Create Service Account",
         "description": "Create Service Accounts",
-        "operationId": "create_service_account_v2_apps__appId__accounts_service_accounts_post",
+        "operationId": "create_service_account_v2_apps__appId__accounts_non_humanIdentities_post",
         "parameters": [
           {
             "required": true,
@@ -500,7 +500,7 @@
         ],
         "summary": "Patch Identities",
         "description": "The Patch Service Accounts API is used to edit user data.\nWhen editing service account data, any combination of fields can be updated at a time.\nThe uniqueId is required and can't be changed.\nOnly the fields that are supplied will be affected by the PATCH request (others will be unchanged).\n",
-        "operationId": "patch_identities_v2_apps__appId__accounts_service_accounts_patch",
+        "operationId": "patch_identities_v2_apps__appId__accounts_non_humanIdentities_patch",
         "parameters": [
           {
             "required": true,
@@ -2864,6 +2864,18 @@
             "title": "Data",
             "description": "Response data.",
             "default": {}
+          },
+          "isInventoryPopulated": {
+            "title": "Isinventorypopulated",
+            "type": "boolean",
+            "description": "Is inventory populated",
+            "default": false
+          },
+          "isCampaignPopulated": {
+            "title": "Iscampaignpopulated",
+            "type": "boolean",
+            "description": "Is campaign populated",
+            "default": false
           }
         }
       },
@@ -2968,6 +2980,18 @@
             "title": "Data",
             "description": "Response data.",
             "default": {}
+          },
+          "isInventoryPopulated": {
+            "title": "Isinventorypopulated",
+            "type": "boolean",
+            "description": "Is inventory populated",
+            "default": false
+          },
+          "isCampaignPopulated": {
+            "title": "Iscampaignpopulated",
+            "type": "boolean",
+            "description": "Is campaign populated",
+            "default": false
           }
         }
       },
@@ -6247,25 +6271,17 @@
         "title": "PrivilegeType",
         "enum": [
           "Administrative",
-          "Unknown",
-          "Read",
-          "ReadMetadata",
-          "Write",
-          "Create",
-          "Delete",
-          "Execute",
-          "Enable",
-          "Assign",
-          "Restore",
-          "Import",
-          "Export",
-          "Update",
-          "Cancel",
-          "Use",
-          "Delegate",
-          "Join",
-          "Invite",
-          "Share"
+          "Login",
+          "Data Create",
+          "Metadata Create",
+          "Data Read",
+          "Metadata Read",
+          "Data Write",
+          "Metadata Write",
+          "Data Update",
+          "Metadata Update",
+          "Data Delete",
+          "Metadata Delete"
         ],
         "description": "An enumeration."
       },
