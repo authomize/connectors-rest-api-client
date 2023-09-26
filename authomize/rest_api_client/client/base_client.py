@@ -49,7 +49,7 @@ class BaseClient:
                 'url': response.url,
                 'message': 'Unexpected response from API',
                 'raw': response.content,
-            }
+            },
         )
 
     def http_get(self, url, params=None):

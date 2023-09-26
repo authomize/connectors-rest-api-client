@@ -116,7 +116,7 @@
               "description": "Delete all the app data lastly updated before the given date.",
               "format": "date-time"
             },
-            "example": "2023-09-14T08:27:29.324372+00:00",
+            "example": "2023-09-21T10:43:08.952104+00:00",
             "name": "modifiedBefore",
             "in": "query"
           }
@@ -1883,7 +1883,7 @@
           "Campaign"
         ],
         "summary": "Add Campaign Permissions [Beta]",
-        "description": "**[Beta]**",
+        "description": "The API is used to add all the campaign privileges that need to be reviewed and the reviewers details via API",
         "operationId": "add_campaign_permissions_v2_apps__appId__campaigns__campaignId__permissions_post",
         "parameters": [
           {
@@ -1950,7 +1950,7 @@
           "Campaign"
         ],
         "summary": "Add Campaign Memberships [Beta]",
-        "description": "**[Beta]**",
+        "description": "The API is used to add all the campaign membership (such as membership in groups) that need to be reviewed and the reviewers details via API",
         "operationId": "add_campaign_memberships_v2_apps__appId__campaigns__campaignId__memberships_post",
         "parameters": [
           {
@@ -2788,7 +2788,7 @@
             "items": {
               "$ref": "#/components/schemas/AddCampaignMembershipsRequestSchema"
             },
-            "description": "Add campaign memberships."
+            "description": "New Campaign Memberships."
           },
           "validateOnly": {
             "title": "Validateonly",
@@ -2801,20 +2801,20 @@
       "AddCampaignMembershipsRequestSchema": {
         "title": "AddCampaignMembershipsRequestSchema",
         "required": [
-          "user",
+          "account",
           "reviewer",
-          "grouping"
+          "group"
         ],
         "type": "object",
         "properties": {
-          "user": {
-            "title": "User",
+          "account": {
+            "title": "Account",
             "allOf": [
               {
-                "$ref": "#/components/schemas/CampaignUserSchema"
+                "$ref": "#/components/schemas/CampaignAccountSchema"
               }
             ],
-            "description": "User."
+            "description": "Account to be reviewed."
           },
           "reviewer": {
             "title": "Reviewer",
@@ -2825,14 +2825,14 @@
             ],
             "description": "Reviewer."
           },
-          "grouping": {
-            "title": "Grouping",
+          "group": {
+            "title": "Group",
             "allOf": [
               {
                 "$ref": "#/components/schemas/CampaignGroupingSchema"
               }
             ],
-            "description": "Grouping."
+            "description": "The group to be reviewed."
           }
         }
       },
@@ -2894,7 +2894,7 @@
             "items": {
               "$ref": "#/components/schemas/AddCampaignPermissionsRequestSchema"
             },
-            "description": "Add campaign permissions."
+            "description": "New Campaign Permissions."
           },
           "validateOnly": {
             "title": "Validateonly",
@@ -2907,21 +2907,21 @@
       "AddCampaignPermissionsRequestSchema": {
         "title": "AddCampaignPermissionsRequestSchema",
         "required": [
-          "user",
+          "account",
           "reviewer",
           "privilege",
           "asset"
         ],
         "type": "object",
         "properties": {
-          "user": {
-            "title": "User",
+          "account": {
+            "title": "Account",
             "allOf": [
               {
-                "$ref": "#/components/schemas/CampaignUserSchema"
+                "$ref": "#/components/schemas/CampaignAccountSchema"
               }
             ],
-            "description": "User."
+            "description": "Account to be reviewed."
           },
           "reviewer": {
             "title": "Reviewer",
@@ -2939,7 +2939,7 @@
                 "$ref": "#/components/schemas/CampaignPrivilegeSchema"
               }
             ],
-            "description": "Privilege."
+            "description": "Privilege to be reviewed."
           },
           "asset": {
             "title": "Asset",
@@ -2948,7 +2948,7 @@
                 "$ref": "#/components/schemas/CampaignAssetSchema"
               }
             ],
-            "description": "Asset."
+            "description": "Asset to be reviewed."
           }
         }
       },
@@ -3316,215 +3316,17 @@
         },
         "description": "API response schema"
       },
-      "CampaignAssetSchema": {
-        "title": "CampaignAssetSchema",
+      "CampaignAccountSchema": {
+        "title": "CampaignAccountSchema",
         "required": [
-          "uniqueId",
-          "name"
-        ],
-        "type": "object",
-        "properties": {
-          "uniqueId": {
-            "title": "Uniqueid",
-            "minLength": 1,
-            "type": "string",
-            "description": "Asset ID. **Mandatory, must be unique.**\n"
-          },
-          "originId": {
-            "title": "Originid",
-            "minLength": 1,
-            "type": "string",
-            "description": "The asset ID in the source system.\nAs opposed to `uniqueId`, it's not mandatory and can be non-unique\n"
-          },
-          "name": {
-            "title": "Name",
-            "minLength": 1,
-            "type": "string",
-            "description": "The name of the asset. The default is the Asset ID. **Mandatory**\n"
-          },
-          "type": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/AssetType"
-              }
-            ],
-            "description": "The asset types that are supported by Authomize **Mandatory**\n\nPermitted values:\n\n   •\t`Application` (federation) \n   •\t`Database`\n   •\t`Drive`\n   •\t`File`\n   •\t`Folder`\n   •\t`GitRepository`\n   •\t`Integration`\n   •\t`Project`\n   •\t`Site`\n   •\t`Table`\n   •\t`Ticket`\n   •\t`VirtualMachine`\n   •\t`Other`\n\nIf the asset type does not exist use `Other`.\n",
-            "default": "Other"
-          },
-          "alternativeName": {
-            "title": "Alternativename",
-            "type": "string",
-            "description": "Any alternative name for the resource, or any other representation of the resource, if it exists.\nThe default is `null`.\n"
-          },
-          "originType": {
-            "title": "Origintype",
-            "type": "string",
-            "description": "The asset type in the source system.\nThe default is the canonical type (if not mentioned).\n"
-          },
-          "createdAt": {
-            "title": "Createdat",
-            "type": "string",
-            "description": "The date (in ISO 8601 format) that the asset was created.\nThe default is `null`.\n",
-            "format": "date-time"
-          },
-          "lastUsedAt": {
-            "title": "Lastusedat",
-            "type": "string",
-            "description": "The date (in ISO 8601 format) of the last time that the asset was in use.\nThe default is `null`.\n",
-            "format": "date-time"
-          },
-          "description": {
-            "title": "Description",
-            "type": "string",
-            "description": "A description of the asset (up to 512 characters).\n"
-          },
-          "href": {
-            "title": "Href",
-            "type": "string",
-            "description": "A link to the asset in the source system.\n"
-          },
-          "tags": {
-            "title": "Tags",
-            "type": "array",
-            "items": {
-              "minLength": 1,
-              "type": "string"
-            },
-            "description": "Tags associated with the asset.\n"
-          }
-        }
-      },
-      "CampaignGroupingSchema": {
-        "title": "CampaignGroupingSchema",
-        "required": [
-          "uniqueId",
-          "name"
-        ],
-        "type": "object",
-        "properties": {
-          "uniqueId": {
-            "title": "Uniqueid",
-            "minLength": 1,
-            "type": "string",
-            "description": "\nGrouping ID. **Mandatory, must be unique.**\n"
-          },
-          "originId": {
-            "title": "Originid",
-            "minLength": 1,
-            "type": "string",
-            "description": "The groupping ID in the source system.\nAs opposed to `uniqueId`, it's not mandatory and can be non-unique\n"
-          },
-          "name": {
-            "title": "Name",
-            "minLength": 1,
-            "type": "string",
-            "description": "The name of the grouping. The default is the ID field. **Mandatory**\n"
-          },
-          "alternativeName": {
-            "title": "Alternativename",
-            "maxLength": 256,
-            "type": "string",
-            "description": "Alias of the grouping."
-          },
-          "originType": {
-            "title": "Origintype",
-            "type": "string",
-            "description": "The name of the type of grouping in the source system. The default is `Group`. Example: Group/Alias/AWS Role\n"
-          },
-          "isRole": {
-            "title": "Isrole",
-            "type": "boolean",
-            "description": "If `Role`, the grouping represents a role in the source application and the name of the role is the grouping `name`.\n\nThe default is `False`.\n",
-            "default": false
-          },
-          "anyoneCanJoinOrLeave": {
-            "title": "Anyonecanjoinorleave",
-            "type": "boolean",
-            "description": "Must be either `ture` or `false`.\nWhen set to `true` users can give themselves membership in this grouping without the grouping's managers' or owners' permission. \nExamples include public groups (M365), Google Groups with specific flags, ...\nValid only when `groupingType = Group`\n",
-            "default": false
-          },
-          "tags": {
-            "title": "Tags",
-            "type": "array",
-            "items": {
-              "minLength": 1,
-              "type": "string"
-            },
-            "description": "Tags on the access grouping.\n"
-          }
-        }
-      },
-      "CampaignPrivilegeSchema": {
-        "title": "CampaignPrivilegeSchema",
-        "required": [
-          "uniqueId",
-          "type",
-          "originName"
-        ],
-        "type": "object",
-        "properties": {
-          "uniqueId": {
-            "title": "Uniqueid",
-            "minLength": 1,
-            "type": "string",
-            "description": "Privilege ID.\n\nIf not defined, set as originName. **Mandatory, must be unique.**\n"
-          },
-          "originId": {
-            "title": "Originid",
-            "minLength": 1,
-            "type": "string",
-            "description": "The privilege ID in the source system.\nAs opposed to `uniqueId`, it's not mandatory and can be non-unique\n"
-          },
-          "type": {
-            "allOf": [
-              {
-                "$ref": "#/components/schemas/PrivilegeType"
-              }
-            ],
-            "description": "The \"canonical\" privilege types that are supported by Authomize off-the-shelf: **Mandatory**\n\nPermitted values: \n   •\t`Administrative`\n   •\t`Login`\n   •\t`Data Read`\n   •\t`Metadata Read`\n   •\t`Data Write`\n   •\t`Metadata Write`\n   •\t`Data Create`\n   •\t`Metadata Create`\n   •\t`Data Delete`\n   •\t`Metadata Delete`\n\n"
-          },
-          "originName": {
-            "title": "Originname",
-            "type": "string",
-            "description": "The privilege name in the source system."
-          }
-        }
-      },
-      "CampaignReviewerSchema": {
-        "title": "CampaignReviewerSchema",
-        "required": [
-          "email"
-        ],
-        "type": "object",
-        "properties": {
-          "email": {
-            "title": "Email",
-            "type": "string",
-            "description": "User's work email address.\n"
-          },
-          "firstName": {
-            "title": "Firstname",
-            "type": "string",
-            "description": "User's first name\n"
-          },
-          "lastName": {
-            "title": "Lastname",
-            "type": "string",
-            "description": "The user's last name.\n"
-          }
-        }
-      },
-      "CampaignUserSchema": {
-        "title": "CampaignUserSchema",
-        "required": [
-          "uniqueId",
+          "id",
           "name",
           "email"
         ],
         "type": "object",
         "properties": {
-          "uniqueId": {
-            "title": "Uniqueid",
+          "id": {
+            "title": "Id",
             "minLength": 1,
             "type": "string",
             "description": "User's Account ID. **Mandatory, must be unique.**\n"
@@ -3603,6 +3405,182 @@
               "type": "string"
             },
             "description": "One or more tags on the user account.\n"
+          }
+        }
+      },
+      "CampaignAssetSchema": {
+        "title": "CampaignAssetSchema",
+        "required": [
+          "id",
+          "name"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "title": "Id",
+            "minLength": 1,
+            "type": "string",
+            "description": "Asset ID. **Mandatory, must be unique.**\n"
+          },
+          "originId": {
+            "title": "Originid",
+            "minLength": 1,
+            "type": "string",
+            "description": "The asset ID in the source system.\nAs opposed to `uniqueId`, it's not mandatory and can be non-unique\n"
+          },
+          "name": {
+            "title": "Name",
+            "minLength": 1,
+            "type": "string",
+            "description": "The name of the asset. The default is the Asset ID. **Mandatory**\n"
+          },
+          "type": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/AssetType"
+              }
+            ],
+            "description": "The asset types that are supported by Authomize **Mandatory**\n\nPermitted values:\n\n   •\t`Application` (federation) \n   •\t`Database`\n   •\t`Drive`\n   •\t`File`\n   •\t`Folder`\n   •\t`GitRepository`\n   •\t`Integration`\n   •\t`Project`\n   •\t`Site`\n   •\t`Table`\n   •\t`Ticket`\n   •\t`VirtualMachine`\n   •\t`Other`\n\nIf the asset type does not exist use `Other`.\n",
+            "default": "Other"
+          },
+          "originType": {
+            "title": "Origintype",
+            "type": "string",
+            "description": "The asset type in the source system.\nThe default is the canonical type (if not mentioned).\n"
+          },
+          "createdAt": {
+            "title": "Createdat",
+            "type": "string",
+            "description": "The date (in ISO 8601 format) that the asset was created.\nThe default is `null`.\n",
+            "format": "date-time"
+          },
+          "lastUsedAt": {
+            "title": "Lastusedat",
+            "type": "string",
+            "description": "The date (in ISO 8601 format) of the last time that the asset was in use.\nThe default is `null`.\n",
+            "format": "date-time"
+          },
+          "description": {
+            "title": "Description",
+            "type": "string",
+            "description": "A description of the asset (up to 512 characters).\n"
+          },
+          "href": {
+            "title": "Href",
+            "type": "string",
+            "description": "A link to the asset in the source system.\n"
+          },
+          "tags": {
+            "title": "Tags",
+            "type": "array",
+            "items": {
+              "minLength": 1,
+              "type": "string"
+            },
+            "description": "Tags associated with the asset.\n"
+          }
+        }
+      },
+      "CampaignGroupingSchema": {
+        "title": "CampaignGroupingSchema",
+        "required": [
+          "id",
+          "name"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "title": "Id",
+            "minLength": 1,
+            "type": "string",
+            "description": "\nGrouping ID. **Mandatory, must be unique.**\n"
+          },
+          "originId": {
+            "title": "Originid",
+            "minLength": 1,
+            "type": "string",
+            "description": "The groupping ID in the source system.\nAs opposed to `uniqueId`, it's not mandatory and can be non-unique\n"
+          },
+          "name": {
+            "title": "Name",
+            "minLength": 1,
+            "type": "string",
+            "description": "The name of the grouping. The default is the ID field. **Mandatory**\n"
+          },
+          "alternativeName": {
+            "title": "Alternativename",
+            "maxLength": 256,
+            "type": "string",
+            "description": "Alias of the grouping."
+          },
+          "tags": {
+            "title": "Tags",
+            "type": "array",
+            "items": {
+              "minLength": 1,
+              "type": "string"
+            },
+            "description": "Tags on the access grouping.\n"
+          }
+        }
+      },
+      "CampaignPrivilegeSchema": {
+        "title": "CampaignPrivilegeSchema",
+        "required": [
+          "id",
+          "type",
+          "originName"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "title": "Id",
+            "minLength": 1,
+            "type": "string",
+            "description": "Privilege ID.\n\nIf not defined, set as originName. **Mandatory, must be unique.**\n"
+          },
+          "originId": {
+            "title": "Originid",
+            "minLength": 1,
+            "type": "string",
+            "description": "The privilege ID in the source system.\nAs opposed to `uniqueId`, it's not mandatory and can be non-unique\n"
+          },
+          "type": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/PrivilegeType"
+              }
+            ],
+            "description": "The \"canonical\" privilege types that are supported by Authomize off-the-shelf: **Mandatory**\n\nPermitted values: \n   •\t`Administrative`\n   •\t`Login`\n   •\t`Data Read`\n   •\t`Metadata Read`\n   •\t`Data Write`\n   •\t`Metadata Write`\n   •\t`Data Create`\n   •\t`Metadata Create`\n   •\t`Data Delete`\n   •\t`Metadata Delete`\n\n"
+          },
+          "originName": {
+            "title": "Originname",
+            "type": "string",
+            "description": "The privilege name in the source system."
+          }
+        }
+      },
+      "CampaignReviewerSchema": {
+        "title": "CampaignReviewerSchema",
+        "required": [
+          "email"
+        ],
+        "type": "object",
+        "properties": {
+          "email": {
+            "title": "Email",
+            "type": "string",
+            "description": "User's work email address.\n"
+          },
+          "firstName": {
+            "title": "Firstname",
+            "type": "string",
+            "description": "User's first name\n"
+          },
+          "lastName": {
+            "title": "Lastname",
+            "type": "string",
+            "description": "The user's last name.\n"
           }
         }
       },
@@ -6271,25 +6249,17 @@
         "title": "PrivilegeType",
         "enum": [
           "Administrative",
-          "Unknown",
-          "Read",
-          "ReadMetadata",
-          "Write",
-          "Create",
-          "Delete",
-          "Execute",
-          "Enable",
-          "Assign",
-          "Restore",
-          "Import",
-          "Export",
-          "Update",
-          "Cancel",
-          "Use",
-          "Delegate",
-          "Join",
-          "Invite",
-          "Share"
+          "Login",
+          "Data Create",
+          "Metadata Create",
+          "Data Read",
+          "Metadata Read",
+          "Data Write",
+          "Metadata Write",
+          "Data Update",
+          "Metadata Update",
+          "Data Delete",
+          "Metadata Delete"
         ],
         "description": "An enumeration."
       },
