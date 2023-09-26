@@ -128,7 +128,7 @@ class ConnectorsClient(BaseClient):
         if not app_id:
             raise ValueError('Missing app_id')
         return self.http_patch(
-            url=f"/v2/apps/{app_id}", body=json.dumps(body, default=pydantic_encoder)
+            url=f"/v2/apps/{app_id}", body=json.dumps(body, default=pydantic_encoder),
         )
 
     def search_users(
