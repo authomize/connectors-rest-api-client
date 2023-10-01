@@ -59,7 +59,7 @@ for connectors-rest-api:
 curl --socks5-hostname 127.0.0.1:1337 http://connectors-rest-api.application.svc:8080/openapi-extended.json | jq --indent 2 . > authomize/rest_api_client/openapi/connectors_rest_api/openapi.json
 ```
 ```
-datamodel-codegen --use-default-kwarg --encoding=utf-8 --input authomize/rest_api_client/openapi/connectors_rest_api/openapi.json --output authomize/rest_api_client/generated/connectors_rest_api/schemas.py
+datamodel-codegen --use-default-kwarg --input authomize/rest_api_client/openapi/connectors_rest_api/openapi.json --output authomize/rest_api_client/generated/connectors_rest_api/schemas.py
 ```
 
 for external-rest-api:
