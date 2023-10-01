@@ -2,7 +2,7 @@
   "openapi": "3.0.2",
   "info": {
     "title": "Authomize API Reference",
-    "description": "Authomize enables users to integrate your applications with Authomize via custom connectors.\n\nYou can use the APIs described in this document to create your connector.\n\nOnce data is uploaded and processed successfully, your custom connector will function in the same way as the connectors created by Authomize.\n\n## How does Authomize work?\nAuthomize works by gathering information about:\n\n\u00C2\u00B7 individuals, teams and functions.\n\n\u00C2\u00B7 apps, assets and accounts.\n\n\u00C2\u00B7 all the relationships between them.\n\n![img.png](https://storagetry1.blob.core.windows.net/public/78d82650-71b0-4909-8444-022aab79add5.png)\n\n## Connector APIs\n\nAuthomize connector APIs enable pushing data into Authomize from external sources.\n\nThese APIs enable data extracted from outside applications (via application APIs) to be delivered to Authomize.\n\nA connector processes extracted application data to transform it into a format compatible with Authomize.\n\n![img_1.png](https://storagetry1.blob.core.windows.net/public/341bf6ef-2e5b-4284-b715-45105ffbf0f8.png)\n\n## Authentication\nTo Authenticate use the API Token, with the format: `Authorization: API_Token`.\n\nAn API Token is a token you provide when making API calls. \n\n\nThe API Token should be included in every request to the API in an `Authorization` header.\n```\ncurl -v -X POST \\n\n     -H \"Authorization: {API_Token}\" \\n\n     ...\n```\n\n## Limits\nRequests cannot exceed a size of 1MB.\n",
+    "description": "Authomize enables users to integrate your applications with Authomize via custom connectors.\n\nYou can use the APIs described in this document to create your connector.\n\nOnce data is uploaded and processed successfully, your custom connector will function in the same way as the connectors created by Authomize.\n\n## How does Authomize work?\nAuthomize works by gathering information about:\n\nÂ· individuals, teams and functions.\n\nÂ· apps, assets and accounts.\n\nÂ· all the relationships between them.\n\n![img.png](https://storagetry1.blob.core.windows.net/public/78d82650-71b0-4909-8444-022aab79add5.png)\n\n## Connector APIs\n\nAuthomize connector APIs enable pushing data into Authomize from external sources.\n\nThese APIs enable data extracted from outside applications (via application APIs) to be delivered to Authomize.\n\nA connector processes extracted application data to transform it into a format compatible with Authomize.\n\n![img_1.png](https://storagetry1.blob.core.windows.net/public/341bf6ef-2e5b-4284-b715-45105ffbf0f8.png)\n\n## Authentication\nTo Authenticate use the API Token, with the format: `Authorization: API_Token`.\n\nAn API Token is a token you provide when making API calls. \n\n\nThe API Token should be included in every request to the API in an `Authorization` header.\n```\ncurl -v -X POST \\n\n     -H \"Authorization: {API_Token}\" \\n\n     ...\n```\n\n## Limits\nRequests cannot exceed a size of 1MB.\n",
     "version": "4.3.12",
     "x-logo": {
       "url": "https://static.authomize.com/public/icons/authomize-green.svg"
@@ -71,8 +71,7 @@
             "description": "Successful Response",
             "content": {
               "application/json": {
-                "schema": {
-                }
+                "schema": {}
               }
             }
           }
@@ -2011,10 +2010,746 @@
           }
         ]
       }
+    },
+    "/v1/me": {
+      "get": {
+        "tags": [
+          "v1"
+        ],
+        "summary": "Me",
+        "description": "API status.",
+        "operationId": "me_v1_me_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MeResponse"
+                }
+              }
+            }
+          }
+        },
+        "deprecated": true,
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ]
+      }
+    },
+    "/v1/connectors/{connectorId}": {
+      "get": {
+        "tags": [
+          "v1"
+        ],
+        "summary": "Retrieve",
+        "description": "Retrieve connector by {connectorId}.",
+        "operationId": "retrieve_v1_connectors__connectorId__get",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Connectorid",
+              "type": "string"
+            },
+            "name": "connectorId",
+            "in": "path"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RestApiConnectorSchema"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "deprecated": true,
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ]
+      }
+    },
+    "/v1/connectors": {
+      "get": {
+        "tags": [
+          "v1"
+        ],
+        "summary": "Search",
+        "description": "Search connectors.",
+        "operationId": "search_v1_connectors_get",
+        "parameters": [
+          {
+            "required": false,
+            "schema": {
+              "title": "Limit",
+              "type": "integer",
+              "default": 20
+            },
+            "name": "limit",
+            "in": "query"
+          },
+          {
+            "required": false,
+            "schema": {
+              "title": "Skip",
+              "type": "integer",
+              "default": 0
+            },
+            "name": "skip",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RestApiConnectorListSchema"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "deprecated": true,
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ]
+      },
+      "post": {
+        "tags": [
+          "v1"
+        ],
+        "summary": "Post",
+        "description": "Create new connector.",
+        "operationId": "post_v1_connectors_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/NewRestApiConnectorSchema"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RestApiConnectorSchema"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "deprecated": true,
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ]
+      }
+    },
+    "/v1/connectors/{connectorId}/transactions": {
+      "get": {
+        "tags": [
+          "v1"
+        ],
+        "summary": "Search",
+        "description": "Search transactions of a connector.",
+        "operationId": "search_v1_connectors__connectorId__transactions_get",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Connectorid",
+              "type": "string"
+            },
+            "name": "connectorId",
+            "in": "path"
+          },
+          {
+            "required": false,
+            "schema": {
+              "title": "Limit",
+              "type": "integer",
+              "default": 20
+            },
+            "name": "limit",
+            "in": "query"
+          },
+          {
+            "required": false,
+            "schema": {
+              "title": "Skip",
+              "type": "integer",
+              "default": 0
+            },
+            "name": "skip",
+            "in": "query"
+          },
+          {
+            "required": false,
+            "schema": {
+              "$ref": "#/components/schemas/TransactionStateType"
+            },
+            "name": "state",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TransactionPaginatedSearchSchema"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "deprecated": true,
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ]
+      },
+      "post": {
+        "tags": [
+          "v1"
+        ],
+        "summary": "Create",
+        "description": "Create new transaction of a connector.",
+        "operationId": "create_v1_connectors__connectorId__transactions_post",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Connectorid",
+              "type": "string"
+            },
+            "name": "connectorId",
+            "in": "path"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BundleTransactionSchema"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "deprecated": true,
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ]
+      }
+    },
+    "/v1/connectors/{connectorId}/transactions/{transactionId}": {
+      "get": {
+        "tags": [
+          "v1"
+        ],
+        "summary": "Retrieve",
+        "description": "Retrieve transaction of a connector by {transactionId}.",
+        "operationId": "retrieve_v1_connectors__connectorId__transactions__transactionId__get",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Connectorid",
+              "type": "string"
+            },
+            "name": "connectorId",
+            "in": "path"
+          },
+          {
+            "required": true,
+            "schema": {
+              "title": "Transactionid",
+              "type": "string"
+            },
+            "name": "transactionId",
+            "in": "path"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BundleTransactionSchema"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "deprecated": true,
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ]
+      },
+      "delete": {
+        "tags": [
+          "v1"
+        ],
+        "summary": "Delete Transaction",
+        "description": "Delete transaction of a connector by {transactionId}.",
+        "operationId": "delete_transaction_v1_connectors__connectorId__transactions__transactionId__delete",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Connectorid",
+              "type": "string"
+            },
+            "name": "connectorId",
+            "in": "path"
+          },
+          {
+            "required": true,
+            "schema": {
+              "title": "Transactionid",
+              "type": "string"
+            },
+            "name": "transactionId",
+            "in": "path"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "deprecated": true,
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ]
+      }
+    },
+    "/v1/connectors/{connectorId}/transactions/{transactionId}/apply": {
+      "post": {
+        "tags": [
+          "v1"
+        ],
+        "summary": "Apply",
+        "description": "Apply a transaction.",
+        "operationId": "apply_v1_connectors__connectorId__transactions__transactionId__apply_post",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Connectorid",
+              "type": "string"
+            },
+            "name": "connectorId",
+            "in": "path"
+          },
+          {
+            "required": true,
+            "schema": {
+              "title": "Transactionid",
+              "type": "string"
+            },
+            "name": "transactionId",
+            "in": "path"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BundleTransactionSchema"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "deprecated": true,
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ]
+      }
+    },
+    "/v1/connectors/{connectorId}/transactions/{transactionId}/items": {
+      "post": {
+        "tags": [
+          "v1"
+        ],
+        "summary": "Items",
+        "description": "Append items to transaction.",
+        "operationId": "items_v1_connectors__connectorId__transactions__transactionId__items_post",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Connectorid",
+              "type": "string"
+            },
+            "name": "connectorId",
+            "in": "path"
+          },
+          {
+            "required": true,
+            "schema": {
+              "title": "Transactionid",
+              "type": "string"
+            },
+            "name": "transactionId",
+            "in": "path"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ItemsBundleSchema"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SubmitResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "deprecated": true,
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ]
+      }
+    },
+    "/v1/connectors/{connectorId}/export/{exportId}": {
+      "get": {
+        "tags": [
+          "v1"
+        ],
+        "summary": "Retrieve",
+        "description": "Download link to the connector data in archive of csv forms.",
+        "operationId": "retrieve_v1_connectors__connectorId__export__exportId__get",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Connectorid",
+              "type": "string"
+            },
+            "name": "connectorId",
+            "in": "path"
+          },
+          {
+            "required": true,
+            "schema": {
+              "title": "Exportid",
+              "type": "string"
+            },
+            "name": "exportId",
+            "in": "path"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExportResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "deprecated": true,
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ]
+      }
+    },
+    "/v1/connectors/{connectorId}/export": {
+      "get": {
+        "tags": [
+          "v1"
+        ],
+        "summary": "Search",
+        "description": "Download link to the connector data in archive of csv forms.",
+        "operationId": "search_v1_connectors__connectorId__export_get",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Connectorid",
+              "type": "string"
+            },
+            "name": "connectorId",
+            "in": "path"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "title": "Response Search V1 Connectors  Connectorid  Export Get",
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ExportResponse"
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "deprecated": true,
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ]
+      }
+    },
+    "/schemas": {
+      "get": {
+        "tags": [
+          "extended_schemas"
+        ],
+        "summary": "Create Groupings",
+        "operationId": "create_groupings_schemas_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AllSchemasResponseSchema"
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
     "schemas": {
+      "AccessDescription": {
+        "title": "AccessDescription",
+        "required": [
+          "fromIdentityId",
+          "accessType"
+        ],
+        "type": "object",
+        "properties": {
+          "fromIdentityId": {
+            "title": "Fromidentityid",
+            "type": "string"
+          },
+          "toAssetId": {
+            "title": "Toassetid",
+            "type": "string"
+          },
+          "accessType": {
+            "$ref": "#/components/schemas/AccessTypes"
+          },
+          "accessName": {
+            "title": "Accessname",
+            "type": "string"
+          }
+        }
+      },
+      "AccessTypes": {
+        "title": "AccessTypes",
+        "enum": [
+          "Unknown",
+          "All",
+          "Owner",
+          "Login",
+          "Read",
+          "ReadMetadata",
+          "Write",
+          "Create",
+          "Delete",
+          "Execute",
+          "Enable",
+          "Assign",
+          "Restore",
+          "Import",
+          "Export",
+          "Get",
+          "Set",
+          "Update",
+          "Cancel",
+          "Use",
+          "AllowUse",
+          "List",
+          "Administrative",
+          "Delegate",
+          "Join",
+          "Invite",
+          "Leave",
+          "Share"
+        ],
+        "description": "An enumeration."
+      },
       "AccountsAssociationSchema": {
         "title": "AccountsAssociationSchema",
         "required": [
@@ -2128,8 +2863,7 @@
           "data": {
             "title": "Data",
             "description": "Response data.",
-            "default": {
-            }
+            "default": {}
           },
           "isInventoryPopulated": {
             "title": "Isinventorypopulated",
@@ -2245,8 +2979,7 @@
           "data": {
             "title": "Data",
             "description": "Response data.",
-            "default": {
-            }
+            "default": {}
           },
           "isInventoryPopulated": {
             "title": "Isinventorypopulated",
@@ -2259,6 +2992,76 @@
             "type": "boolean",
             "description": "Is campaign populated",
             "default": false
+          }
+        }
+      },
+      "AllSchemasResponseSchema": {
+        "title": "AllSchemasResponseSchema",
+        "type": "object",
+        "properties": {
+          "v1_bundle_schema": {
+            "$ref": "#/components/schemas/ItemsBundleSchema"
+          },
+          "v2_bundle_schema": {
+            "$ref": "#/components/schemas/RequestsBundleSchema"
+          },
+          "v2_data_only_schema": {
+            "$ref": "#/components/schemas/IngestionDataBundleSchema"
+          }
+        }
+      },
+      "AssetDescription": {
+        "title": "AssetDescription",
+        "required": [
+          "id",
+          "name",
+          "type"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "title": "Id",
+            "type": "string"
+          },
+          "name": {
+            "title": "Name",
+            "type": "string"
+          },
+          "customName": {
+            "title": "Customname",
+            "type": "string"
+          },
+          "type": {
+            "$ref": "#/components/schemas/AssetTypes"
+          },
+          "description": {
+            "title": "Description",
+            "type": "string"
+          },
+          "logoUrl": {
+            "title": "Logourl",
+            "type": "string"
+          },
+          "href": {
+            "title": "Href",
+            "type": "string"
+          },
+          "createdAt": {
+            "title": "Createdat",
+            "type": "string",
+            "format": "date-time"
+          },
+          "isAuxiliary": {
+            "title": "Isauxiliary",
+            "type": "boolean"
+          },
+          "service": {
+            "title": "Service",
+            "type": "string"
+          },
+          "isFederated": {
+            "title": "Isfederated",
+            "type": "boolean"
           }
         }
       },
@@ -2317,7 +3120,7 @@
                 "$ref": "#/components/schemas/AssetType"
               }
             ],
-            "description": "The asset types that are supported by Authomize **Mandatory**\n\nPermitted values:\n\n   \u00E2\u20AC\u00A2\t`Application` (federation) \n   \u00E2\u20AC\u00A2\t`Database`\n   \u00E2\u20AC\u00A2\t`Drive`\n   \u00E2\u20AC\u00A2\t`File`\n   \u00E2\u20AC\u00A2\t`Folder`\n   \u00E2\u20AC\u00A2\t`GitRepository`\n   \u00E2\u20AC\u00A2\t`Integration`\n   \u00E2\u20AC\u00A2\t`Project`\n   \u00E2\u20AC\u00A2\t`Site`\n   \u00E2\u20AC\u00A2\t`Table`\n   \u00E2\u20AC\u00A2\t`Ticket`\n   \u00E2\u20AC\u00A2\t`VirtualMachine`\n   \u00E2\u20AC\u00A2\t`Other`\n\nIf the asset type does not exist use `Other`.\n",
+            "description": "The asset types that are supported by Authomize **Mandatory**\n\nPermitted values:\n\n   â€¢\t`Application` (federation) \n   â€¢\t`Database`\n   â€¢\t`Drive`\n   â€¢\t`File`\n   â€¢\t`Folder`\n   â€¢\t`GitRepository`\n   â€¢\t`Integration`\n   â€¢\t`Project`\n   â€¢\t`Site`\n   â€¢\t`Table`\n   â€¢\t`Ticket`\n   â€¢\t`VirtualMachine`\n   â€¢\t`Other`\n\nIf the asset type does not exist use `Other`.\n",
             "default": "Other"
           },
           "alternativeName": {
@@ -2390,6 +3193,129 @@
         "type": "string",
         "description": "An enumeration."
       },
+      "AssetTypes": {
+        "title": "AssetTypes",
+        "enum": [
+          "Resource",
+          "File",
+          "Folder",
+          "Drive",
+          "Site",
+          "Application",
+          "Integration",
+          "Package",
+          "Project",
+          "Cluster",
+          "Dataset",
+          "Subscription",
+          "Table",
+          "TableRecord",
+          "Disk",
+          "Image",
+          "Instance",
+          "Snapshot",
+          "Service",
+          "Topic",
+          "Bucket",
+          "BillingAccount",
+          "Device",
+          "Calendar",
+          "Policy",
+          "GitRepository",
+          "Network",
+          "Vpc",
+          "NetworkInterface",
+          "VirtualMachine",
+          "NetworkSecurityGroup",
+          "Ticket",
+          "NetworkSubnet",
+          "NetworkAcl",
+          "RouteTable",
+          "NetworkAddress",
+          "Secret",
+          "Storage",
+          "Workspace",
+          "SharedLink",
+          "Collection",
+          "Database",
+          "ServerlessFunction",
+          "ServerlessApplication",
+          "Gateway",
+          "ImageRepository",
+          "Resource_BusinessAccount",
+          "LoadBalancer",
+          "Listener"
+        ],
+        "description": "An enumeration."
+      },
+      "AssetsInheritance": {
+        "title": "AssetsInheritance",
+        "required": [
+          "fromId",
+          "toId"
+        ],
+        "type": "object",
+        "properties": {
+          "fromId": {
+            "title": "Fromid",
+            "type": "string"
+          },
+          "toId": {
+            "title": "Toid",
+            "type": "string"
+          }
+        }
+      },
+      "AvailableConnectorId": {
+        "title": "AvailableConnectorId",
+        "enum": [
+          "restApiImport"
+        ],
+        "description": "An enumeration."
+      },
+      "BundleTransactionSchema": {
+        "title": "BundleTransactionSchema",
+        "required": [
+          "connectorId",
+          "id",
+          "state"
+        ],
+        "type": "object",
+        "properties": {
+          "connectorId": {
+            "title": "Connectorid",
+            "type": "string"
+          },
+          "executionId": {
+            "title": "Executionid",
+            "type": "string"
+          },
+          "transactionCreatedAt": {
+            "title": "Transactioncreatedat",
+            "type": "string",
+            "format": "date-time"
+          },
+          "warnings": {
+            "title": "Warnings",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "validations": {
+            "title": "Validations",
+            "type": "object"
+          },
+          "id": {
+            "title": "Id",
+            "type": "string"
+          },
+          "state": {
+            "$ref": "#/components/schemas/TransactionStateType"
+          }
+        },
+        "description": "API response schema"
+      },
       "CampaignAssetSchema": {
         "title": "CampaignAssetSchema",
         "required": [
@@ -2422,7 +3348,7 @@
                 "$ref": "#/components/schemas/AssetType"
               }
             ],
-            "description": "The asset types that are supported by Authomize **Mandatory**\n\nPermitted values:\n\n   \u00E2\u20AC\u00A2\t`Application` (federation) \n   \u00E2\u20AC\u00A2\t`Database`\n   \u00E2\u20AC\u00A2\t`Drive`\n   \u00E2\u20AC\u00A2\t`File`\n   \u00E2\u20AC\u00A2\t`Folder`\n   \u00E2\u20AC\u00A2\t`GitRepository`\n   \u00E2\u20AC\u00A2\t`Integration`\n   \u00E2\u20AC\u00A2\t`Project`\n   \u00E2\u20AC\u00A2\t`Site`\n   \u00E2\u20AC\u00A2\t`Table`\n   \u00E2\u20AC\u00A2\t`Ticket`\n   \u00E2\u20AC\u00A2\t`VirtualMachine`\n   \u00E2\u20AC\u00A2\t`Other`\n\nIf the asset type does not exist use `Other`.\n",
+            "description": "The asset types that are supported by Authomize **Mandatory**\n\nPermitted values:\n\n   â€¢\t`Application` (federation) \n   â€¢\t`Database`\n   â€¢\t`Drive`\n   â€¢\t`File`\n   â€¢\t`Folder`\n   â€¢\t`GitRepository`\n   â€¢\t`Integration`\n   â€¢\t`Project`\n   â€¢\t`Site`\n   â€¢\t`Table`\n   â€¢\t`Ticket`\n   â€¢\t`VirtualMachine`\n   â€¢\t`Other`\n\nIf the asset type does not exist use `Other`.\n",
             "default": "Other"
           },
           "alternativeName": {
@@ -2555,7 +3481,7 @@
                 "$ref": "#/components/schemas/PrivilegeType"
               }
             ],
-            "description": "The \"canonical\" privilege types that are supported by Authomize off-the-shelf: **Mandatory**\n\nPermitted values: \n   \u00E2\u20AC\u00A2\t`Administrative`\n   \u00E2\u20AC\u00A2\t`Unknown`\n   \u00E2\u20AC\u00A2\t`Read`\n   \u00E2\u20AC\u00A2\t`ReadMetadata`\n   \u00E2\u20AC\u00A2\t`Write`\n   \u00E2\u20AC\u00A2\t`Create`\n   \u00E2\u20AC\u00A2\t`Delete`\n   \u00E2\u20AC\u00A2\t`Execute`\n   \u00E2\u20AC\u00A2\t`Enable`\n   \u00E2\u20AC\u00A2\t`Assign`\n   \u00E2\u20AC\u00A2\t`Restore`\n   \u00E2\u20AC\u00A2\t`Import`\n   \u00E2\u20AC\u00A2\t`Export`\n   \u00E2\u20AC\u00A2\t`Update`\n   \u00E2\u20AC\u00A2\t`Cancel`\n   \u00E2\u20AC\u00A2\t`Use`\n   \u00E2\u20AC\u00A2\t`Delegate`\n   \u00E2\u20AC\u00A2\t`Join`\n   \u00E2\u20AC\u00A2\t`Invite`\n   \u00E2\u20AC\u00A2\t`Share`\n\nIf the privilege type does not exist use `Unknown` or `Use`.\n"
+            "description": "The \"canonical\" privilege types that are supported by Authomize off-the-shelf: **Mandatory**\n\nPermitted values: \n   â€¢\t`Administrative`\n   â€¢\t`Unknown`\n   â€¢\t`Read`\n   â€¢\t`ReadMetadata`\n   â€¢\t`Write`\n   â€¢\t`Create`\n   â€¢\t`Delete`\n   â€¢\t`Execute`\n   â€¢\t`Enable`\n   â€¢\t`Assign`\n   â€¢\t`Restore`\n   â€¢\t`Import`\n   â€¢\t`Export`\n   â€¢\t`Update`\n   â€¢\t`Cancel`\n   â€¢\t`Use`\n   â€¢\t`Delegate`\n   â€¢\t`Join`\n   â€¢\t`Invite`\n   â€¢\t`Share`\n\nIf the privilege type does not exist use `Unknown` or `Use`.\n"
           },
           "originName": {
             "title": "Originname",
@@ -2680,6 +3606,38 @@
           }
         }
       },
+      "ConnectorStatus": {
+        "title": "ConnectorStatus",
+        "enum": [
+          "initializing",
+          "validating",
+          "failure",
+          "enabled",
+          "installable",
+          "archived",
+          "disabled",
+          "deleted"
+        ],
+        "description": "An enumeration."
+      },
+      "ExportResponse": {
+        "title": "ExportResponse",
+        "required": [
+          "exportId",
+          "exportUrl"
+        ],
+        "type": "object",
+        "properties": {
+          "exportId": {
+            "title": "Exportid",
+            "type": "string"
+          },
+          "exportUrl": {
+            "title": "Exporturl",
+            "type": "string"
+          }
+        }
+      },
       "GroupingSchema": {
         "title": "GroupingSchema",
         "required": [
@@ -2799,6 +3757,158 @@
           }
         }
       },
+      "IdentitiesInheritance": {
+        "title": "IdentitiesInheritance",
+        "required": [
+          "fromId",
+          "toId"
+        ],
+        "type": "object",
+        "properties": {
+          "fromId": {
+            "title": "Fromid",
+            "type": "string"
+          },
+          "toId": {
+            "title": "Toid",
+            "type": "string"
+          }
+        }
+      },
+      "IdentityDescription": {
+        "title": "IdentityDescription",
+        "required": [
+          "id",
+          "type"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "title": "Id",
+            "type": "string"
+          },
+          "name": {
+            "title": "Name",
+            "type": "string"
+          },
+          "type": {
+            "$ref": "#/components/schemas/IdentityTypes"
+          },
+          "subType": {
+            "$ref": "#/components/schemas/IdentitySubTypes"
+          },
+          "userType": {
+            "title": "Usertype",
+            "type": "string"
+          },
+          "email": {
+            "title": "Email",
+            "type": "string"
+          },
+          "manager": {
+            "title": "Manager",
+            "type": "string"
+          },
+          "title": {
+            "title": "Title",
+            "type": "string"
+          },
+          "department": {
+            "title": "Department",
+            "type": "string"
+          },
+          "description": {
+            "title": "Description",
+            "type": "string"
+          },
+          "href": {
+            "title": "Href",
+            "type": "string"
+          },
+          "createdAt": {
+            "title": "Createdat",
+            "type": "string",
+            "format": "date-time"
+          },
+          "terminationDate": {
+            "title": "Terminationdate",
+            "type": "string",
+            "format": "date-time"
+          },
+          "isExternal": {
+            "title": "Isexternal",
+            "type": "boolean"
+          },
+          "isAuxiliary": {
+            "title": "Isauxiliary",
+            "type": "boolean"
+          },
+          "hasTwoFactorAuthenticationEnabled": {
+            "title": "Hastwofactorauthenticationenabled",
+            "type": "boolean"
+          },
+          "firstName": {
+            "title": "Firstname",
+            "type": "string"
+          },
+          "lastName": {
+            "title": "Lastname",
+            "type": "string"
+          },
+          "userName": {
+            "title": "Username",
+            "type": "string"
+          },
+          "status": {
+            "$ref": "#/components/schemas/UserStatus"
+          },
+          "service": {
+            "title": "Service",
+            "type": "string"
+          },
+          "lastLoginAt": {
+            "title": "Lastloginat",
+            "type": "string",
+            "format": "date-time"
+          },
+          "anyoneCanJoinOrLeave": {
+            "title": "Anyonecanjoinorleave",
+            "type": "boolean"
+          },
+          "tags": {
+            "title": "Tags",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "city": {
+            "title": "City",
+            "type": "string"
+          },
+          "country": {
+            "title": "Country",
+            "type": "string"
+          },
+          "division": {
+            "title": "Division",
+            "type": "string"
+          },
+          "employeeNumber": {
+            "title": "Employeenumber",
+            "type": "string"
+          },
+          "personalEmail": {
+            "title": "Personalemail",
+            "type": "string"
+          },
+          "hireDate": {
+            "title": "Hiredate",
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
       "IdentitySchema": {
         "title": "IdentitySchema",
         "required": [
@@ -2915,6 +4025,143 @@
         },
         "description": "Identity schema"
       },
+      "IdentitySubTypes": {
+        "title": "IdentitySubTypes",
+        "enum": [
+          "ServiceAccount",
+          "Workload",
+          "ApplicationPrincipal"
+        ],
+        "description": "An enumeration."
+      },
+      "IdentityTypes": {
+        "title": "IdentityTypes",
+        "enum": [
+          "Identity",
+          "Person",
+          "User",
+          "Group",
+          "EntitlementProxy",
+          "AccessKey",
+          "ServiceAccount",
+          "Alias",
+          "Domain",
+          "Organization",
+          "BusinessAccount",
+          "TaskPerformer"
+        ],
+        "description": "An enumeration."
+      },
+      "IngestionDataBundleSchema": {
+        "title": "IngestionDataBundleSchema",
+        "type": "object",
+        "properties": {
+          "new_users": {
+            "title": "New Users",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/NewUserRequestSchema"
+            },
+            "description": "The Create Users APIs sets up App users(by App ID)."
+          },
+          "new_groupings": {
+            "title": "New Groupings",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/NewGroupingRequestSchema"
+            },
+            "description": "The Create Groupings API is used to create groups that have access to a particular app."
+          },
+          "new_permissions": {
+            "title": "New Permissions",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/NewPermissionRequestSchema"
+            },
+            "description": "The Create Permissions API is used to create a set of privileges, assigned to a specific target.\nA permission (also referred to as an \"entitlement\") is a set of privileges, assigned to a specific target. \nExamples include: file permissions, file shares, GCP entitlements, the actual policies assigning access to roles in AWS, and inline policies.\n"
+          },
+          "new_privileges": {
+            "title": "New Privileges",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/NewPrivilegeRequestSchema"
+            },
+            "description": "The Create Privileges API is used to define privileges that can be associated with assets.\nFor example, Read privileges on a file.\nHere you can define the type of privileges and associate it to assets in the Permission API.\n"
+          },
+          "new_privileges_grants": {
+            "title": "New Privileges Grants",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/NewPrivilegeGrantsRequestSchema"
+            },
+            "description": "The Create Privileges Grants API enables you to establish inheritance between privileges, so that a single privilege contains a set of other privileges. \nFor example, an Administrative privilege that contains read and write privileges."
+          },
+          "new_accounts_association": {
+            "title": "New Accounts Association",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/NewAccountsAssociationRequestSchema"
+            },
+            "description": "The Create Accounts Association API creates account associations between user accounts and groups."
+          },
+          "new_groupings_association": {
+            "title": "New Groupings Association",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/NewGroupingsAssociationRequestSchema"
+            },
+            "description": "The Create Groupings Association API creates associations between groups and other groups.\n"
+          },
+          "new_assets": {
+            "title": "New Assets",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/NewAssetRequestSchema"
+            },
+            "description": "The Create Assets API creates assets (including asset data)."
+          },
+          "new_git_repos": {
+            "title": "New Git Repos",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/NewGitRepoRequestSchema"
+            },
+            "description": "Creates a Git Repository Asset"
+          },
+          "new_assets_inheritance": {
+            "title": "New Assets Inheritance",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/NewAssetInheritanceRequestSchema"
+            },
+            "description": "The Create Assets Inheritence API enables you to create a connection between different assets (for example, a folder that contains multiple files).\n"
+          },
+          "new_identities": {
+            "title": "New Identities",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/NewIdentityRequestSchema"
+            },
+            "description": "The Create Identities API is used to create identities. \nThe data of the identity from this API is considered \"the source of truth\" and overrides the identity data from other systems.\n"
+          },
+          "new_service_accounts": {
+            "title": "New Service Accounts",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/NewServiceAccountRequestSchema"
+            }
+          },
+          "app": {
+            "title": "App",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/NewAssetRequestSchema"
+              }
+            ],
+            "description": "The Update Application Data API is used to update app data on `{appId}`.\n"
+          }
+        }
+      },
       "IsAliveResponse": {
         "title": "IsAliveResponse",
         "required": [
@@ -2926,6 +4173,54 @@
             "title": "Isalive",
             "type": "boolean",
             "description": "**isAlive**"
+          }
+        }
+      },
+      "ItemsBundleSchema": {
+        "title": "ItemsBundleSchema",
+        "type": "object",
+        "properties": {
+          "services": {
+            "title": "Services",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ServiceDescription"
+            }
+          },
+          "identities": {
+            "title": "Identities",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/IdentityDescription"
+            }
+          },
+          "assets": {
+            "title": "Assets",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AssetDescription"
+            }
+          },
+          "inheritanceIdentities": {
+            "title": "Inheritanceidentities",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/IdentitiesInheritance"
+            }
+          },
+          "inheritanceAssets": {
+            "title": "Inheritanceassets",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AssetsInheritance"
+            }
+          },
+          "access": {
+            "title": "Access",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AccessDescription"
+            }
           }
         }
       },
@@ -3055,8 +4350,7 @@
               }
             ],
             "description": "Response data.",
-            "default": {
-            }
+            "default": {}
           }
         },
         "description": "New accounts associations response schema"
@@ -3147,7 +4441,7 @@
                 "$ref": "#/components/schemas/AssetType"
               }
             ],
-            "description": "The asset types that are supported by Authomize **Mandatory**\n\nPermitted values:\n\n   \u00E2\u20AC\u00A2\t`Application` (federation) \n   \u00E2\u20AC\u00A2\t`Database`\n   \u00E2\u20AC\u00A2\t`Drive`\n   \u00E2\u20AC\u00A2\t`File`\n   \u00E2\u20AC\u00A2\t`Folder`\n   \u00E2\u20AC\u00A2\t`GitRepository`\n   \u00E2\u20AC\u00A2\t`Integration`\n   \u00E2\u20AC\u00A2\t`Project`\n   \u00E2\u20AC\u00A2\t`Site`\n   \u00E2\u20AC\u00A2\t`Table`\n   \u00E2\u20AC\u00A2\t`Ticket`\n   \u00E2\u20AC\u00A2\t`VirtualMachine`\n   \u00E2\u20AC\u00A2\t`Other`\n\nIf the asset type does not exist use `Other`.\n",
+            "description": "The asset types that are supported by Authomize **Mandatory**\n\nPermitted values:\n\n   â€¢\t`Application` (federation) \n   â€¢\t`Database`\n   â€¢\t`Drive`\n   â€¢\t`File`\n   â€¢\t`Folder`\n   â€¢\t`GitRepository`\n   â€¢\t`Integration`\n   â€¢\t`Project`\n   â€¢\t`Site`\n   â€¢\t`Table`\n   â€¢\t`Ticket`\n   â€¢\t`VirtualMachine`\n   â€¢\t`Other`\n\nIf the asset type does not exist use `Other`.\n",
             "default": "Other"
           },
           "alternativeName": {
@@ -3307,8 +4601,7 @@
               }
             ],
             "description": "Response data.",
-            "default": {
-            }
+            "default": {}
           }
         },
         "description": "New assets inheritance response schema"
@@ -3373,8 +4666,7 @@
           "data": {
             "title": "Data",
             "description": "Response data.",
-            "default": {
-            }
+            "default": {}
           },
           "validOwnerIds": {
             "title": "Validownerids",
@@ -3580,8 +4872,7 @@
           "data": {
             "title": "Data",
             "description": "Response data.",
-            "default": {
-            }
+            "default": {}
           },
           "validOwnerIds": {
             "title": "Validownerids",
@@ -3706,8 +4997,7 @@
           "data": {
             "title": "Data",
             "description": "Response data.",
-            "default": {
-            }
+            "default": {}
           },
           "validOwnerIds": {
             "title": "Validownerids",
@@ -3828,8 +5118,7 @@
               }
             ],
             "description": "Response data.",
-            "default": {
-            }
+            "default": {}
           }
         },
         "description": "New groupings associations response schema"
@@ -4070,8 +5359,7 @@
           "data": {
             "title": "Data",
             "description": "Response data.",
-            "default": {
-            }
+            "default": {}
           }
         },
         "description": "New identity response schema"
@@ -4277,8 +5565,7 @@
               }
             ],
             "description": "Response data.",
-            "default": {
-            }
+            "default": {}
           }
         },
         "description": "New permissions response schema"
@@ -4383,8 +5670,7 @@
               }
             ],
             "description": "Response data.",
-            "default": {
-            }
+            "default": {}
           }
         },
         "description": "New privilege grants response schema"
@@ -4415,7 +5701,7 @@
                 "$ref": "#/components/schemas/PrivilegeType"
               }
             ],
-            "description": "The \"canonical\" privilege types that are supported by Authomize off-the-shelf: **Mandatory**\n\nPermitted values: \n   \u00E2\u20AC\u00A2\t`Administrative`\n   \u00E2\u20AC\u00A2\t`Unknown`\n   \u00E2\u20AC\u00A2\t`Read`\n   \u00E2\u20AC\u00A2\t`ReadMetadata`\n   \u00E2\u20AC\u00A2\t`Write`\n   \u00E2\u20AC\u00A2\t`Create`\n   \u00E2\u20AC\u00A2\t`Delete`\n   \u00E2\u20AC\u00A2\t`Execute`\n   \u00E2\u20AC\u00A2\t`Enable`\n   \u00E2\u20AC\u00A2\t`Assign`\n   \u00E2\u20AC\u00A2\t`Restore`\n   \u00E2\u20AC\u00A2\t`Import`\n   \u00E2\u20AC\u00A2\t`Export`\n   \u00E2\u20AC\u00A2\t`Update`\n   \u00E2\u20AC\u00A2\t`Cancel`\n   \u00E2\u20AC\u00A2\t`Use`\n   \u00E2\u20AC\u00A2\t`Delegate`\n   \u00E2\u20AC\u00A2\t`Join`\n   \u00E2\u20AC\u00A2\t`Invite`\n   \u00E2\u20AC\u00A2\t`Share`\n\nIf the privilege type does not exist use `Unknown` or `Use`.\n"
+            "description": "The \"canonical\" privilege types that are supported by Authomize off-the-shelf: **Mandatory**\n\nPermitted values: \n   â€¢\t`Administrative`\n   â€¢\t`Unknown`\n   â€¢\t`Read`\n   â€¢\t`ReadMetadata`\n   â€¢\t`Write`\n   â€¢\t`Create`\n   â€¢\t`Delete`\n   â€¢\t`Execute`\n   â€¢\t`Enable`\n   â€¢\t`Assign`\n   â€¢\t`Restore`\n   â€¢\t`Import`\n   â€¢\t`Export`\n   â€¢\t`Update`\n   â€¢\t`Cancel`\n   â€¢\t`Use`\n   â€¢\t`Delegate`\n   â€¢\t`Join`\n   â€¢\t`Invite`\n   â€¢\t`Share`\n\nIf the privilege type does not exist use `Unknown` or `Use`.\n"
           },
           "originName": {
             "title": "Originname",
@@ -4514,11 +5800,28 @@
           "data": {
             "title": "Data",
             "description": "Response data.",
-            "default": {
-            }
+            "default": {}
           }
         },
         "description": "New privileges response schema"
+      },
+      "NewRestApiConnectorSchema": {
+        "title": "NewRestApiConnectorSchema",
+        "required": [
+          "serviceId"
+        ],
+        "type": "object",
+        "properties": {
+          "config": {
+            "title": "Config",
+            "type": "object"
+          },
+          "serviceId": {
+            "title": "Serviceid",
+            "minLength": 1,
+            "type": "string"
+          }
+        }
       },
       "NewServiceAccountListRequestSchema": {
         "title": "NewServiceAccountListRequestSchema",
@@ -4662,8 +5965,7 @@
           "data": {
             "title": "Data",
             "description": "Response data.",
-            "default": {
-            }
+            "default": {}
           }
         }
       },
@@ -4785,8 +6087,7 @@
           "data": {
             "title": "Data",
             "description": "Response data.",
-            "default": {
-            }
+            "default": {}
           }
         },
         "description": "New users response schema"
@@ -4821,6 +6122,37 @@
           }
         },
         "description": "List request schema"
+      },
+      "Pagination": {
+        "title": "Pagination",
+        "type": "object",
+        "properties": {
+          "limit": {
+            "title": "Limit",
+            "type": "integer",
+            "default": -1
+          },
+          "skip": {
+            "title": "Skip",
+            "type": "integer",
+            "default": 0
+          },
+          "total": {
+            "title": "Total",
+            "type": "integer",
+            "default": -1
+          },
+          "hasMore": {
+            "title": "Hasmore",
+            "type": "boolean"
+          },
+          "search_after": {
+            "title": "Search After",
+            "type": "array",
+            "items": {}
+          }
+        },
+        "description": "Base schema for pagination"
       },
       "PermissionSchema": {
         "title": "PermissionSchema",
@@ -4937,7 +6269,7 @@
                 "$ref": "#/components/schemas/PrivilegeType"
               }
             ],
-            "description": "The \"canonical\" privilege types that are supported by Authomize off-the-shelf: **Mandatory**\n\nPermitted values: \n   \u00E2\u20AC\u00A2\t`Administrative`\n   \u00E2\u20AC\u00A2\t`Unknown`\n   \u00E2\u20AC\u00A2\t`Read`\n   \u00E2\u20AC\u00A2\t`ReadMetadata`\n   \u00E2\u20AC\u00A2\t`Write`\n   \u00E2\u20AC\u00A2\t`Create`\n   \u00E2\u20AC\u00A2\t`Delete`\n   \u00E2\u20AC\u00A2\t`Execute`\n   \u00E2\u20AC\u00A2\t`Enable`\n   \u00E2\u20AC\u00A2\t`Assign`\n   \u00E2\u20AC\u00A2\t`Restore`\n   \u00E2\u20AC\u00A2\t`Import`\n   \u00E2\u20AC\u00A2\t`Export`\n   \u00E2\u20AC\u00A2\t`Update`\n   \u00E2\u20AC\u00A2\t`Cancel`\n   \u00E2\u20AC\u00A2\t`Use`\n   \u00E2\u20AC\u00A2\t`Delegate`\n   \u00E2\u20AC\u00A2\t`Join`\n   \u00E2\u20AC\u00A2\t`Invite`\n   \u00E2\u20AC\u00A2\t`Share`\n\nIf the privilege type does not exist use `Unknown` or `Use`.\n"
+            "description": "The \"canonical\" privilege types that are supported by Authomize off-the-shelf: **Mandatory**\n\nPermitted values: \n   â€¢\t`Administrative`\n   â€¢\t`Unknown`\n   â€¢\t`Read`\n   â€¢\t`ReadMetadata`\n   â€¢\t`Write`\n   â€¢\t`Create`\n   â€¢\t`Delete`\n   â€¢\t`Execute`\n   â€¢\t`Enable`\n   â€¢\t`Assign`\n   â€¢\t`Restore`\n   â€¢\t`Import`\n   â€¢\t`Export`\n   â€¢\t`Update`\n   â€¢\t`Cancel`\n   â€¢\t`Use`\n   â€¢\t`Delegate`\n   â€¢\t`Join`\n   â€¢\t`Invite`\n   â€¢\t`Share`\n\nIf the privilege type does not exist use `Unknown` or `Use`.\n"
           },
           "originName": {
             "title": "Originname",
@@ -4990,6 +6322,221 @@
             "title": "Requestid",
             "type": "string",
             "description": "**Request id**"
+          }
+        }
+      },
+      "RequestsBundleSchema": {
+        "title": "RequestsBundleSchema",
+        "type": "object",
+        "properties": {
+          "executionId": {
+            "title": "Executionid",
+            "type": "string",
+            "description": "The `executionId` parameter can be used to allow an app to run as a set of multiple, different executions with different configurations.\n\nOnce the data was uploaded using a certain `executionId`, all other requests, referring to the same data using `GET`/`POST`/`PUT`/`DELETE`, should use the **same** `executionId`.\n\n**Warning**, this parameter is an advanced feature and should be used with caution.\n"
+          },
+          "delete_app_data": {
+            "title": "Delete App Data",
+            "type": "boolean",
+            "description": "The Delete Application Data API is used to delete app data by `{appId}`.",
+            "default": false
+          },
+          "createdAt": {
+            "title": "Createdat",
+            "type": "string",
+            "format": "date-time"
+          },
+          "new_users": {
+            "title": "New Users",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/NewUserRequestSchema"
+            },
+            "description": "The Create Users APIs sets up App users(by App ID)."
+          },
+          "new_groupings": {
+            "title": "New Groupings",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/NewGroupingRequestSchema"
+            },
+            "description": "The Create Groupings API is used to create groups that have access to a particular app."
+          },
+          "new_permissions": {
+            "title": "New Permissions",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/NewPermissionRequestSchema"
+            },
+            "description": "The Create Permissions API is used to create a set of privileges, assigned to a specific target.\nA permission (also referred to as an \"entitlement\") is a set of privileges, assigned to a specific target. \nExamples include: file permissions, file shares, GCP entitlements, the actual policies assigning access to roles in AWS, and inline policies.\n"
+          },
+          "new_privileges": {
+            "title": "New Privileges",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/NewPrivilegeRequestSchema"
+            },
+            "description": "The Create Privileges API is used to define privileges that can be associated with assets.\nFor example, Read privileges on a file.\nHere you can define the type of privileges and associate it to assets in the Permission API.\n"
+          },
+          "new_privileges_grants": {
+            "title": "New Privileges Grants",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/NewPrivilegeGrantsRequestSchema"
+            },
+            "description": "The Create Privileges Grants API enables you to establish inheritance between privileges, so that a single privilege contains a set of other privileges. \nFor example, an Administrative privilege that contains read and write privileges."
+          },
+          "new_accounts_association": {
+            "title": "New Accounts Association",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/NewAccountsAssociationRequestSchema"
+            },
+            "description": "The Create Accounts Association API creates account associations between user accounts and groups."
+          },
+          "new_groupings_association": {
+            "title": "New Groupings Association",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/NewGroupingsAssociationRequestSchema"
+            },
+            "description": "The Create Groupings Association API creates associations between groups and other groups.\n"
+          },
+          "new_assets": {
+            "title": "New Assets",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/NewAssetRequestSchema"
+            },
+            "description": "The Create Assets API creates assets (including asset data)."
+          },
+          "new_git_repos": {
+            "title": "New Git Repos",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/NewGitRepoRequestSchema"
+            },
+            "description": "Creates a Git Repository Asset"
+          },
+          "new_assets_inheritance": {
+            "title": "New Assets Inheritance",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/NewAssetInheritanceRequestSchema"
+            },
+            "description": "The Create Assets Inheritence API enables you to create a connection between different assets (for example, a folder that contains multiple files).\n"
+          },
+          "new_identities": {
+            "title": "New Identities",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/NewIdentityRequestSchema"
+            },
+            "description": "The Create Identities API is used to create identities. \nThe data of the identity from this API is considered \"the source of truth\" and overrides the identity data from other systems.\n"
+          },
+          "new_service_accounts": {
+            "title": "New Service Accounts",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/NewServiceAccountRequestSchema"
+            }
+          },
+          "app": {
+            "title": "App",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/NewAssetRequestSchema"
+              }
+            ],
+            "description": "The Update Application Data API is used to update app data on `{appId}`.\n"
+          }
+        }
+      },
+      "RestApiConnectorListSchema": {
+        "title": "RestApiConnectorListSchema",
+        "required": [
+          "pagination",
+          "data"
+        ],
+        "type": "object",
+        "properties": {
+          "pagination": {
+            "$ref": "#/components/schemas/Pagination"
+          },
+          "data": {
+            "title": "Data",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/RestApiConnectorSchema"
+            }
+          }
+        }
+      },
+      "RestApiConnectorSchema": {
+        "title": "RestApiConnectorSchema",
+        "required": [
+          "id",
+          "serviceType"
+        ],
+        "type": "object",
+        "properties": {
+          "config": {
+            "title": "Config",
+            "type": "object"
+          },
+          "serviceId": {
+            "title": "Serviceid",
+            "type": "string",
+            "default": ""
+          },
+          "id": {
+            "title": "Id",
+            "type": "string"
+          },
+          "createdAt": {
+            "title": "Createdat",
+            "type": "string",
+            "format": "date-time"
+          },
+          "lastSyncedAt": {
+            "title": "Lastsyncedat",
+            "type": "string"
+          },
+          "lastError": {
+            "title": "Lasterror",
+            "type": "string"
+          },
+          "modifiedAt": {
+            "title": "Modifiedat",
+            "type": "string",
+            "format": "date-time"
+          },
+          "status": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/ConnectorStatus"
+              }
+            ],
+            "default": "disabled"
+          },
+          "serviceType": {
+            "title": "Servicetype",
+            "type": "string"
+          },
+          "availableConnectorId": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/AvailableConnectorId"
+              }
+            ],
+            "default": "restApiImport"
+          },
+          "actorType": {
+            "title": "Actortype",
+            "type": "string"
+          },
+          "actorId": {
+            "title": "Actorid",
+            "type": "string"
           }
         }
       },
@@ -5286,6 +6833,68 @@
         ],
         "description": "An enumeration."
       },
+      "ServiceDescription": {
+        "title": "ServiceDescription",
+        "required": [
+          "name"
+        ],
+        "type": "object",
+        "properties": {
+          "name": {
+            "title": "Name",
+            "type": "string"
+          },
+          "icon": {
+            "title": "Icon",
+            "type": "string"
+          }
+        }
+      },
+      "SubmitResponse": {
+        "title": "SubmitResponse",
+        "type": "object",
+        "properties": {
+          "acceptedTimestamp": {
+            "title": "Acceptedtimestamp",
+            "type": "string",
+            "description": "**The accepted time of the request**",
+            "format": "date-time"
+          }
+        }
+      },
+      "TransactionPaginatedSearchSchema": {
+        "title": "TransactionPaginatedSearchSchema",
+        "required": [
+          "data",
+          "pagination"
+        ],
+        "type": "object",
+        "properties": {
+          "data": {
+            "title": "Data",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/BundleTransactionSchema"
+            }
+          },
+          "pagination": {
+            "$ref": "#/components/schemas/Pagination"
+          }
+        }
+      },
+      "TransactionStateType": {
+        "title": "TransactionStateType",
+        "enum": [
+          "Applying",
+          "Complete",
+          "Failed",
+          "Ingest",
+          "IngestChunk",
+          "PostProcess",
+          "Queue"
+        ],
+        "description": "An enumeration."
+      },
       "UpdateAppSchema": {
         "title": "UpdateAppSchema",
         "type": "object",
@@ -5339,7 +6948,7 @@
                 "$ref": "#/components/schemas/AssetType"
               }
             ],
-            "description": "The asset types that are supported by Authomize **Mandatory**\n\nPermitted values:\n\n   \u00E2\u20AC\u00A2\t`Application` (federation) \n   \u00E2\u20AC\u00A2\t`Database`\n   \u00E2\u20AC\u00A2\t`Drive`\n   \u00E2\u20AC\u00A2\t`File`\n   \u00E2\u20AC\u00A2\t`Folder`\n   \u00E2\u20AC\u00A2\t`GitRepository`\n   \u00E2\u20AC\u00A2\t`Integration`\n   \u00E2\u20AC\u00A2\t`Project`\n   \u00E2\u20AC\u00A2\t`Site`\n   \u00E2\u20AC\u00A2\t`Table`\n   \u00E2\u20AC\u00A2\t`Ticket`\n   \u00E2\u20AC\u00A2\t`VirtualMachine`\n   \u00E2\u20AC\u00A2\t`Other`\n\nIf the asset type does not exist use `Other`.\n",
+            "description": "The asset types that are supported by Authomize **Mandatory**\n\nPermitted values:\n\n   â€¢\t`Application` (federation) \n   â€¢\t`Database`\n   â€¢\t`Drive`\n   â€¢\t`File`\n   â€¢\t`Folder`\n   â€¢\t`GitRepository`\n   â€¢\t`Integration`\n   â€¢\t`Project`\n   â€¢\t`Site`\n   â€¢\t`Table`\n   â€¢\t`Ticket`\n   â€¢\t`VirtualMachine`\n   â€¢\t`Other`\n\nIf the asset type does not exist use `Other`.\n",
             "default": "Other"
           },
           "alternativeName": {
@@ -5543,8 +7152,7 @@
           "data": {
             "title": "Data",
             "description": "Response data.",
-            "default": {
-            }
+            "default": {}
           }
         },
         "description": "Update user response schema"
@@ -5715,7 +7323,7 @@
                 "$ref": "#/components/schemas/PrivilegeType"
               }
             ],
-            "description": "The \"canonical\" privilege types that are supported by Authomize off-the-shelf: **Mandatory**\n\nPermitted values: \n   \u00E2\u20AC\u00A2\t`Administrative`\n   \u00E2\u20AC\u00A2\t`Unknown`\n   \u00E2\u20AC\u00A2\t`Read`\n   \u00E2\u20AC\u00A2\t`ReadMetadata`\n   \u00E2\u20AC\u00A2\t`Write`\n   \u00E2\u20AC\u00A2\t`Create`\n   \u00E2\u20AC\u00A2\t`Delete`\n   \u00E2\u20AC\u00A2\t`Execute`\n   \u00E2\u20AC\u00A2\t`Enable`\n   \u00E2\u20AC\u00A2\t`Assign`\n   \u00E2\u20AC\u00A2\t`Restore`\n   \u00E2\u20AC\u00A2\t`Import`\n   \u00E2\u20AC\u00A2\t`Export`\n   \u00E2\u20AC\u00A2\t`Update`\n   \u00E2\u20AC\u00A2\t`Cancel`\n   \u00E2\u20AC\u00A2\t`Use`\n   \u00E2\u20AC\u00A2\t`Delegate`\n   \u00E2\u20AC\u00A2\t`Join`\n   \u00E2\u20AC\u00A2\t`Invite`\n   \u00E2\u20AC\u00A2\t`Share`\n\nIf the privilege type does not exist use `Unknown` or `Use`.\n"
+            "description": "The \"canonical\" privilege types that are supported by Authomize off-the-shelf: **Mandatory**\n\nPermitted values: \n   â€¢\t`Administrative`\n   â€¢\t`Unknown`\n   â€¢\t`Read`\n   â€¢\t`ReadMetadata`\n   â€¢\t`Write`\n   â€¢\t`Create`\n   â€¢\t`Delete`\n   â€¢\t`Execute`\n   â€¢\t`Enable`\n   â€¢\t`Assign`\n   â€¢\t`Restore`\n   â€¢\t`Import`\n   â€¢\t`Export`\n   â€¢\t`Update`\n   â€¢\t`Cancel`\n   â€¢\t`Use`\n   â€¢\t`Delegate`\n   â€¢\t`Join`\n   â€¢\t`Invite`\n   â€¢\t`Share`\n\nIf the privilege type does not exist use `Unknown` or `Use`.\n"
           },
           "originName": {
             "title": "Originname",
@@ -6146,6 +7754,14 @@
     {
       "name": "Identities",
       "description": "The Identities APIs are used for getting, creating and editing Identities."
+    },
+    {
+      "name": "v1",
+      "description": "v1 routes"
+    },
+    {
+      "name": "extended_schemas",
+      "description": "Extended schemas"
     }
   ]
 }
