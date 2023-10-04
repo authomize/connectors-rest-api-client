@@ -116,7 +116,7 @@
               "description": "Delete all the app data lastly updated before the given date.",
               "format": "date-time"
             },
-            "example": "2023-10-04T06:56:55.856922+00:00",
+            "example": "2023-10-04T07:17:03.240191+00:00",
             "name": "modifiedBefore",
             "in": "query"
           }
@@ -2788,7 +2788,7 @@
             "items": {
               "$ref": "#/components/schemas/AddCampaignMembershipsRequestSchema"
             },
-            "description": "The API is used to add all the campaign membership (such as membership in groups) that need to be reviewed and the reviewers details via API"
+            "description": "Add campaign memberships."
           },
           "validateOnly": {
             "title": "Validateonly",
@@ -2832,7 +2832,7 @@
                 "$ref": "#/components/schemas/CampaignGroupingSchema"
               }
             ],
-            "description": "The group to be reviewed."
+            "description": "Grouping."
           }
         }
       },
@@ -2894,7 +2894,7 @@
             "items": {
               "$ref": "#/components/schemas/AddCampaignPermissionsRequestSchema"
             },
-            "description": "The API is used to add all the campaign privileges that need to be reviewed and the reviewers details via API"
+            "description": "Add campaign permissions."
           },
           "validateOnly": {
             "title": "Validateonly",
@@ -2939,7 +2939,7 @@
                 "$ref": "#/components/schemas/CampaignPrivilegeSchema"
               }
             ],
-            "description": "Privilege to be reviewed."
+            "description": "Privilege."
           },
           "asset": {
             "title": "Asset",
@@ -2948,7 +2948,7 @@
                 "$ref": "#/components/schemas/CampaignAssetSchema"
               }
             ],
-            "description": "Asset to be reviewed."
+            "description": "Asset."
           }
         }
       },
@@ -3481,7 +3481,7 @@
                 "$ref": "#/components/schemas/DeprecatedPrivilegeType"
               }
             ],
-            "description": "The \"canonical\" privilege types that are supported by Authomize off-the-shelf: **Mandatory**\n\nPermitted values: \n   •\t`Administrative`\n   •\t`Unknown`\n   •\t`Read`\n   •\t`ReadMetadata`\n   •\t`Write`\n   •\t`Create`\n   •\t`Delete`\n   •\t`Execute`\n   •\t`Enable`\n   •\t`Assign`\n   •\t`Restore`\n   •\t`Import`\n   •\t`Export`\n   •\t`Update`\n   •\t`Cancel`\n   •\t`Use`\n   •\t`Delegate`\n   •\t`Join`\n   •\t`Invite`\n   •\t`Share`\n\n"
+            "description": "The \"canonical\" privilege types that are supported by Authomize off-the-shelf:\n\nPermitted values: \n   •\t`Administrative`\n   •\t`Unknown`\n   •\t`Read`\n   •\t`ReadMetadata`\n   •\t`Write`\n   •\t`Create`\n   •\t`Delete`\n   •\t`Execute`\n   •\t`Enable`\n   •\t`Assign`\n   •\t`Restore`\n   •\t`Import`\n   •\t`Export`\n   •\t`Update`\n   •\t`Cancel`\n   •\t`Use`\n   •\t`Delegate`\n   •\t`Join`\n   •\t`Invite`\n   •\t`Share`\n\n"
           },
           "originName": {
             "title": "Originname",
@@ -5714,7 +5714,7 @@
                 "$ref": "#/components/schemas/DeprecatedPrivilegeType"
               }
             ],
-            "description": "The \"canonical\" privilege types that are supported by Authomize off-the-shelf: **Mandatory**\n\nPermitted values: \n   •\t`Administrative`\n   •\t`Unknown`\n   •\t`Read`\n   •\t`ReadMetadata`\n   •\t`Write`\n   •\t`Create`\n   •\t`Delete`\n   •\t`Execute`\n   •\t`Enable`\n   •\t`Assign`\n   •\t`Restore`\n   •\t`Import`\n   •\t`Export`\n   •\t`Update`\n   •\t`Cancel`\n   •\t`Use`\n   •\t`Delegate`\n   •\t`Join`\n   •\t`Invite`\n   •\t`Share`\n\n",
+            "description": "The \"canonical\" privilege types that are supported by Authomize off-the-shelf:\n\nPermitted values: \n   •\t`Administrative`\n   •\t`Unknown`\n   •\t`Read`\n   •\t`ReadMetadata`\n   •\t`Write`\n   •\t`Create`\n   •\t`Delete`\n   •\t`Execute`\n   •\t`Enable`\n   •\t`Assign`\n   •\t`Restore`\n   •\t`Import`\n   •\t`Export`\n   •\t`Update`\n   •\t`Cancel`\n   •\t`Use`\n   •\t`Delegate`\n   •\t`Join`\n   •\t`Invite`\n   •\t`Share`\n\n",
             "deprecated": true
           },
           "privilegeType": {
@@ -5723,7 +5723,7 @@
                 "$ref": "#/components/schemas/PrivilegeType"
               }
             ],
-            "description": "The \"canonical\" privilege types that are supported by Authomize off-the-shelf: **Mandatory**\n\nPermitted values: \n   •\t`Administrative`\n   •\t`Login`\n   •\t`Data Read`\n   •\t`Metadata Read`\n   •\t`Data Write`\n   •\t`Metadata Write`\n   •\t`Data Create`\n   •\t`Metadata Create`\n   •\t`Data Delete`\n   •\t`Metadata Delete`\n"
+            "description": "The \"canonical\" privilege types that are supported by Authomize off-the-shelf:\n\nPermitted values: \n   •\t`Administrative`\n   •\t`Login`\n   •\t`Data Read`\n   •\t`Metadata Read`\n   •\t`Data Write`\n   •\t`Metadata Write`\n   •\t`Data Create`\n   •\t`Metadata Create`\n   •\t`Data Delete`\n   •\t`Metadata Delete`\n"
           },
           "originName": {
             "title": "Originname",
@@ -6290,7 +6290,7 @@
                 "$ref": "#/components/schemas/DeprecatedPrivilegeType"
               }
             ],
-            "description": "The \"canonical\" privilege types that are supported by Authomize off-the-shelf: **Mandatory**\n\nPermitted values: \n   •\t`Administrative`\n   •\t`Unknown`\n   •\t`Read`\n   •\t`ReadMetadata`\n   •\t`Write`\n   •\t`Create`\n   •\t`Delete`\n   •\t`Execute`\n   •\t`Enable`\n   •\t`Assign`\n   •\t`Restore`\n   •\t`Import`\n   •\t`Export`\n   •\t`Update`\n   •\t`Cancel`\n   •\t`Use`\n   •\t`Delegate`\n   •\t`Join`\n   •\t`Invite`\n   •\t`Share`\n\n",
+            "description": "The \"canonical\" privilege types that are supported by Authomize off-the-shelf:\n\nPermitted values: \n   •\t`Administrative`\n   •\t`Unknown`\n   •\t`Read`\n   •\t`ReadMetadata`\n   •\t`Write`\n   •\t`Create`\n   •\t`Delete`\n   •\t`Execute`\n   •\t`Enable`\n   •\t`Assign`\n   •\t`Restore`\n   •\t`Import`\n   •\t`Export`\n   •\t`Update`\n   •\t`Cancel`\n   •\t`Use`\n   •\t`Delegate`\n   •\t`Join`\n   •\t`Invite`\n   •\t`Share`\n\n",
             "deprecated": true
           },
           "privilegeType": {
@@ -6299,7 +6299,7 @@
                 "$ref": "#/components/schemas/PrivilegeType"
               }
             ],
-            "description": "The \"canonical\" privilege types that are supported by Authomize off-the-shelf: **Mandatory**\n\nPermitted values: \n   •\t`Administrative`\n   •\t`Login`\n   •\t`Data Read`\n   •\t`Metadata Read`\n   •\t`Data Write`\n   •\t`Metadata Write`\n   •\t`Data Create`\n   •\t`Metadata Create`\n   •\t`Data Delete`\n   •\t`Metadata Delete`\n"
+            "description": "The \"canonical\" privilege types that are supported by Authomize off-the-shelf:\n\nPermitted values: \n   •\t`Administrative`\n   •\t`Login`\n   •\t`Data Read`\n   •\t`Metadata Read`\n   •\t`Data Write`\n   •\t`Metadata Write`\n   •\t`Data Create`\n   •\t`Metadata Create`\n   •\t`Data Delete`\n   •\t`Metadata Delete`\n"
           },
           "originName": {
             "title": "Originname",
@@ -7345,7 +7345,7 @@
                 "$ref": "#/components/schemas/DeprecatedPrivilegeType"
               }
             ],
-            "description": "The \"canonical\" privilege types that are supported by Authomize off-the-shelf: **Mandatory**\n\nPermitted values: \n   •\t`Administrative`\n   •\t`Unknown`\n   •\t`Read`\n   •\t`ReadMetadata`\n   •\t`Write`\n   •\t`Create`\n   •\t`Delete`\n   •\t`Execute`\n   •\t`Enable`\n   •\t`Assign`\n   •\t`Restore`\n   •\t`Import`\n   •\t`Export`\n   •\t`Update`\n   •\t`Cancel`\n   •\t`Use`\n   •\t`Delegate`\n   •\t`Join`\n   •\t`Invite`\n   •\t`Share`\n\n"
+            "description": "The \"canonical\" privilege types that are supported by Authomize off-the-shelf:\n\nPermitted values: \n   •\t`Administrative`\n   •\t`Unknown`\n   •\t`Read`\n   •\t`ReadMetadata`\n   •\t`Write`\n   •\t`Create`\n   •\t`Delete`\n   •\t`Execute`\n   •\t`Enable`\n   •\t`Assign`\n   •\t`Restore`\n   •\t`Import`\n   •\t`Export`\n   •\t`Update`\n   •\t`Cancel`\n   •\t`Use`\n   •\t`Delegate`\n   •\t`Join`\n   •\t`Invite`\n   •\t`Share`\n\n"
           },
           "originName": {
             "title": "Originname",
