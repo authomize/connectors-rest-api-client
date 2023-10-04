@@ -2,8 +2,8 @@
   "openapi": "3.0.2",
   "info": {
     "title": "Authomize API Reference",
-    "description": "Authomize enables users to integrate your applications with Authomize via custom connectors.\n\nYou can use the APIs described in this document to create your connector.\n\nOnce data is uploaded and processed successfully, your custom connector will function in the same way as the connectors created by Authomize.\n\n## How does Authomize work?\nAuthomize works by gathering information about:\n\nÂ· individuals, teams and functions.\n\nÂ· apps, assets and accounts.\n\nÂ· all the relationships between them.\n\n![img.png](https://storagetry1.blob.core.windows.net/public/78d82650-71b0-4909-8444-022aab79add5.png)\n\n## Connector APIs\n\nAuthomize connector APIs enable pushing data into Authomize from external sources.\n\nThese APIs enable data extracted from outside applications (via application APIs) to be delivered to Authomize.\n\nA connector processes extracted application data to transform it into a format compatible with Authomize.\n\n![img_1.png](https://storagetry1.blob.core.windows.net/public/341bf6ef-2e5b-4284-b715-45105ffbf0f8.png)\n\n## Authentication\nTo Authenticate use the API Token, with the format: `Authorization: API_Token`.\n\nAn API Token is a token you provide when making API calls. \n\n\nThe API Token should be included in every request to the API in an `Authorization` header.\n```\ncurl -v -X POST \\n\n     -H \"Authorization: {API_Token}\" \\n\n     ...\n```\n\n## Limits\nRequests cannot exceed a size of 1MB.\n",
-    "version": "4.3.12",
+    "description": "Authomize enables users to integrate your applications with Authomize via custom connectors.\n\nYou can use the APIs described in this document to create your connector.\n\nOnce data is uploaded and processed successfully, your custom connector will function in the same way as the connectors created by Authomize.\n\n## How does Authomize work?\nAuthomize works by gathering information about:\n\n· individuals, teams and functions.\n\n· apps, assets and accounts.\n\n· all the relationships between them.\n\n![img.png](https://storagetry1.blob.core.windows.net/public/78d82650-71b0-4909-8444-022aab79add5.png)\n\n## Connector APIs\n\nAuthomize connector APIs enable pushing data into Authomize from external sources.\n\nThese APIs enable data extracted from outside applications (via application APIs) to be delivered to Authomize.\n\nA connector processes extracted application data to transform it into a format compatible with Authomize.\n\n![img_1.png](https://storagetry1.blob.core.windows.net/public/341bf6ef-2e5b-4284-b715-45105ffbf0f8.png)\n\n## Authentication\nTo Authenticate use the API Token, with the format: `Authorization: API_Token`.\n\nAn API Token is a token you provide when making API calls. \n\n\nThe API Token should be included in every request to the API in an `Authorization` header.\n```\ncurl -v -X POST \\n\n     -H \"Authorization: {API_Token}\" \\n\n     ...\n```\n\n## Limits\nRequests cannot exceed a size of 1MB.\n",
+    "version": "4.3.16",
     "x-logo": {
       "url": "https://static.authomize.com/public/icons/authomize-green.svg"
     }
@@ -116,7 +116,7 @@
               "description": "Delete all the app data lastly updated before the given date.",
               "format": "date-time"
             },
-            "example": "2023-10-01T15:00:30.493021+00:00",
+            "example": "2023-10-04T06:56:55.856922+00:00",
             "name": "modifiedBefore",
             "in": "query"
           }
@@ -380,13 +380,13 @@
         ]
       }
     },
-    "/v2/apps/{appId}/accounts/nonHumanIdentities": {
+    "/v2/apps/{appId}/accounts/non-humanIdentities": {
       "get": {
         "tags": [
           "Accounts"
         ],
         "summary": "Search Service Accounts",
-        "operationId": "search_service_accounts_v2_apps__appId__accounts_nonHumanIdentities_get",
+        "operationId": "search_service_accounts_v2_apps__appId__accounts_non_humanIdentities_get",
         "parameters": [
           {
             "required": true,
@@ -444,7 +444,7 @@
         ],
         "summary": "Create Service Account",
         "description": "Create Service Accounts",
-        "operationId": "create_service_account_v2_apps__appId__accounts_nonHumanIdentities_post",
+        "operationId": "create_service_account_v2_apps__appId__accounts_non_humanIdentities_post",
         "parameters": [
           {
             "required": true,
@@ -500,7 +500,7 @@
         ],
         "summary": "Patch Identities",
         "description": "The Patch Service Accounts API is used to edit user data.\nWhen editing service account data, any combination of fields can be updated at a time.\nThe uniqueId is required and can't be changed.\nOnly the fields that are supplied will be affected by the PATCH request (others will be unchanged).\n",
-        "operationId": "patch_identities_v2_apps__appId__accounts_nonHumanIdentities_patch",
+        "operationId": "patch_identities_v2_apps__appId__accounts_non_humanIdentities_patch",
         "parameters": [
           {
             "required": true,
@@ -2788,7 +2788,7 @@
             "items": {
               "$ref": "#/components/schemas/AddCampaignMembershipsRequestSchema"
             },
-            "description": "Add campaign memberships."
+            "description": "The API is used to add all the campaign membership (such as membership in groups) that need to be reviewed and the reviewers details via API"
           },
           "validateOnly": {
             "title": "Validateonly",
@@ -2832,7 +2832,7 @@
                 "$ref": "#/components/schemas/CampaignGroupingSchema"
               }
             ],
-            "description": "Grouping."
+            "description": "The group to be reviewed."
           }
         }
       },
@@ -2894,7 +2894,7 @@
             "items": {
               "$ref": "#/components/schemas/AddCampaignPermissionsRequestSchema"
             },
-            "description": "Add campaign permissions."
+            "description": "The API is used to add all the campaign privileges that need to be reviewed and the reviewers details via API"
           },
           "validateOnly": {
             "title": "Validateonly",
@@ -2939,7 +2939,7 @@
                 "$ref": "#/components/schemas/CampaignPrivilegeSchema"
               }
             ],
-            "description": "Privilege."
+            "description": "Privilege to be reviewed."
           },
           "asset": {
             "title": "Asset",
@@ -2948,7 +2948,7 @@
                 "$ref": "#/components/schemas/CampaignAssetSchema"
               }
             ],
-            "description": "Asset."
+            "description": "Asset to be reviewed."
           }
         }
       },
@@ -3120,7 +3120,7 @@
                 "$ref": "#/components/schemas/AssetType"
               }
             ],
-            "description": "The asset types that are supported by Authomize **Mandatory**\n\nPermitted values:\n\n   â€¢\t`Application` (federation) \n   â€¢\t`Database`\n   â€¢\t`Drive`\n   â€¢\t`File`\n   â€¢\t`Folder`\n   â€¢\t`GitRepository`\n   â€¢\t`Integration`\n   â€¢\t`Project`\n   â€¢\t`Site`\n   â€¢\t`Table`\n   â€¢\t`Ticket`\n   â€¢\t`VirtualMachine`\n   â€¢\t`Other`\n\nIf the asset type does not exist use `Other`.\n",
+            "description": "The asset types that are supported by Authomize **Mandatory**\n\nPermitted values:\n\n   •\t`Application` (federation) \n   •\t`Database`\n   •\t`Drive`\n   •\t`File`\n   •\t`Folder`\n   •\t`GitRepository`\n   •\t`Integration`\n   •\t`Project`\n   •\t`Site`\n   •\t`Table`\n   •\t`Ticket`\n   •\t`VirtualMachine`\n   •\t`Other`\n\nIf the asset type does not exist use `Other`.\n",
             "default": "Other"
           },
           "alternativeName": {
@@ -3348,7 +3348,7 @@
                 "$ref": "#/components/schemas/AssetType"
               }
             ],
-            "description": "The asset types that are supported by Authomize **Mandatory**\n\nPermitted values:\n\n   â€¢\t`Application` (federation) \n   â€¢\t`Database`\n   â€¢\t`Drive`\n   â€¢\t`File`\n   â€¢\t`Folder`\n   â€¢\t`GitRepository`\n   â€¢\t`Integration`\n   â€¢\t`Project`\n   â€¢\t`Site`\n   â€¢\t`Table`\n   â€¢\t`Ticket`\n   â€¢\t`VirtualMachine`\n   â€¢\t`Other`\n\nIf the asset type does not exist use `Other`.\n",
+            "description": "The asset types that are supported by Authomize **Mandatory**\n\nPermitted values:\n\n   •\t`Application` (federation) \n   •\t`Database`\n   •\t`Drive`\n   •\t`File`\n   •\t`Folder`\n   •\t`GitRepository`\n   •\t`Integration`\n   •\t`Project`\n   •\t`Site`\n   •\t`Table`\n   •\t`Ticket`\n   •\t`VirtualMachine`\n   •\t`Other`\n\nIf the asset type does not exist use `Other`.\n",
             "default": "Other"
           },
           "alternativeName": {
@@ -3478,10 +3478,10 @@
           "type": {
             "allOf": [
               {
-                "$ref": "#/components/schemas/PrivilegeType"
+                "$ref": "#/components/schemas/DeprecatedPrivilegeType"
               }
             ],
-            "description": "The \"canonical\" privilege types that are supported by Authomize off-the-shelf: **Mandatory**\n\nPermitted values: \n   â€¢\t`Administrative`\n   â€¢\t`Unknown`\n   â€¢\t`Read`\n   â€¢\t`ReadMetadata`\n   â€¢\t`Write`\n   â€¢\t`Create`\n   â€¢\t`Delete`\n   â€¢\t`Execute`\n   â€¢\t`Enable`\n   â€¢\t`Assign`\n   â€¢\t`Restore`\n   â€¢\t`Import`\n   â€¢\t`Export`\n   â€¢\t`Update`\n   â€¢\t`Cancel`\n   â€¢\t`Use`\n   â€¢\t`Delegate`\n   â€¢\t`Join`\n   â€¢\t`Invite`\n   â€¢\t`Share`\n\nIf the privilege type does not exist use `Unknown` or `Use`.\n"
+            "description": "The \"canonical\" privilege types that are supported by Authomize off-the-shelf: **Mandatory**\n\nPermitted values: \n   •\t`Administrative`\n   •\t`Unknown`\n   •\t`Read`\n   •\t`ReadMetadata`\n   •\t`Write`\n   •\t`Create`\n   •\t`Delete`\n   •\t`Execute`\n   •\t`Enable`\n   •\t`Assign`\n   •\t`Restore`\n   •\t`Import`\n   •\t`Export`\n   •\t`Update`\n   •\t`Cancel`\n   •\t`Use`\n   •\t`Delegate`\n   •\t`Join`\n   •\t`Invite`\n   •\t`Share`\n\n"
           },
           "originName": {
             "title": "Originname",
@@ -3617,6 +3617,32 @@
           "archived",
           "disabled",
           "deleted"
+        ],
+        "description": "An enumeration."
+      },
+      "DeprecatedPrivilegeType": {
+        "title": "DeprecatedPrivilegeType",
+        "enum": [
+          "Administrative",
+          "Unknown",
+          "Read",
+          "ReadMetadata",
+          "Write",
+          "Create",
+          "Delete",
+          "Execute",
+          "Enable",
+          "Assign",
+          "Restore",
+          "Import",
+          "Export",
+          "Update",
+          "Cancel",
+          "Use",
+          "Delegate",
+          "Join",
+          "Invite",
+          "Share"
         ],
         "description": "An enumeration."
       },
@@ -3793,9 +3819,6 @@
           },
           "type": {
             "$ref": "#/components/schemas/IdentityTypes"
-          },
-          "subType": {
-            "$ref": "#/components/schemas/IdentitySubTypes"
           },
           "userType": {
             "title": "Usertype",
@@ -4025,15 +4048,6 @@
         },
         "description": "Identity schema"
       },
-      "IdentitySubTypes": {
-        "title": "IdentitySubTypes",
-        "enum": [
-          "ServiceAccount",
-          "Workload",
-          "ApplicationPrincipal"
-        ],
-        "description": "An enumeration."
-      },
       "IdentityTypes": {
         "title": "IdentityTypes",
         "enum": [
@@ -4047,8 +4061,8 @@
           "Alias",
           "Domain",
           "Organization",
-          "BusinessAccount",
-          "TaskPerformer"
+          "TaskPerformer",
+          "BusinessAccount"
         ],
         "description": "An enumeration."
       },
@@ -4441,7 +4455,7 @@
                 "$ref": "#/components/schemas/AssetType"
               }
             ],
-            "description": "The asset types that are supported by Authomize **Mandatory**\n\nPermitted values:\n\n   â€¢\t`Application` (federation) \n   â€¢\t`Database`\n   â€¢\t`Drive`\n   â€¢\t`File`\n   â€¢\t`Folder`\n   â€¢\t`GitRepository`\n   â€¢\t`Integration`\n   â€¢\t`Project`\n   â€¢\t`Site`\n   â€¢\t`Table`\n   â€¢\t`Ticket`\n   â€¢\t`VirtualMachine`\n   â€¢\t`Other`\n\nIf the asset type does not exist use `Other`.\n",
+            "description": "The asset types that are supported by Authomize **Mandatory**\n\nPermitted values:\n\n   •\t`Application` (federation) \n   •\t`Database`\n   •\t`Drive`\n   •\t`File`\n   •\t`Folder`\n   •\t`GitRepository`\n   •\t`Integration`\n   •\t`Project`\n   •\t`Site`\n   •\t`Table`\n   •\t`Ticket`\n   •\t`VirtualMachine`\n   •\t`Other`\n\nIf the asset type does not exist use `Other`.\n",
             "default": "Other"
           },
           "alternativeName": {
@@ -5678,8 +5692,7 @@
       "NewPrivilegeRequestSchema": {
         "title": "NewPrivilegeRequestSchema",
         "required": [
-          "uniqueId",
-          "type"
+          "uniqueId"
         ],
         "type": "object",
         "properties": {
@@ -5698,10 +5711,19 @@
           "type": {
             "allOf": [
               {
+                "$ref": "#/components/schemas/DeprecatedPrivilegeType"
+              }
+            ],
+            "description": "The \"canonical\" privilege types that are supported by Authomize off-the-shelf: **Mandatory**\n\nPermitted values: \n   •\t`Administrative`\n   •\t`Unknown`\n   •\t`Read`\n   •\t`ReadMetadata`\n   •\t`Write`\n   •\t`Create`\n   •\t`Delete`\n   •\t`Execute`\n   •\t`Enable`\n   •\t`Assign`\n   •\t`Restore`\n   •\t`Import`\n   •\t`Export`\n   •\t`Update`\n   •\t`Cancel`\n   •\t`Use`\n   •\t`Delegate`\n   •\t`Join`\n   •\t`Invite`\n   •\t`Share`\n\n",
+            "deprecated": true
+          },
+          "privilegeType": {
+            "allOf": [
+              {
                 "$ref": "#/components/schemas/PrivilegeType"
               }
             ],
-            "description": "The \"canonical\" privilege types that are supported by Authomize off-the-shelf: **Mandatory**\n\nPermitted values: \n   â€¢\t`Administrative`\n   â€¢\t`Unknown`\n   â€¢\t`Read`\n   â€¢\t`ReadMetadata`\n   â€¢\t`Write`\n   â€¢\t`Create`\n   â€¢\t`Delete`\n   â€¢\t`Execute`\n   â€¢\t`Enable`\n   â€¢\t`Assign`\n   â€¢\t`Restore`\n   â€¢\t`Import`\n   â€¢\t`Export`\n   â€¢\t`Update`\n   â€¢\t`Cancel`\n   â€¢\t`Use`\n   â€¢\t`Delegate`\n   â€¢\t`Join`\n   â€¢\t`Invite`\n   â€¢\t`Share`\n\nIf the privilege type does not exist use `Unknown` or `Use`.\n"
+            "description": "The \"canonical\" privilege types that are supported by Authomize off-the-shelf: **Mandatory**\n\nPermitted values: \n   •\t`Administrative`\n   •\t`Login`\n   •\t`Data Read`\n   •\t`Metadata Read`\n   •\t`Data Write`\n   •\t`Metadata Write`\n   •\t`Data Create`\n   •\t`Metadata Create`\n   •\t`Data Delete`\n   •\t`Metadata Delete`\n"
           },
           "originName": {
             "title": "Originname",
@@ -6246,8 +6268,7 @@
       "PrivilegeSchema": {
         "title": "PrivilegeSchema",
         "required": [
-          "uniqueId",
-          "type"
+          "uniqueId"
         ],
         "type": "object",
         "properties": {
@@ -6266,10 +6287,19 @@
           "type": {
             "allOf": [
               {
+                "$ref": "#/components/schemas/DeprecatedPrivilegeType"
+              }
+            ],
+            "description": "The \"canonical\" privilege types that are supported by Authomize off-the-shelf: **Mandatory**\n\nPermitted values: \n   •\t`Administrative`\n   •\t`Unknown`\n   •\t`Read`\n   •\t`ReadMetadata`\n   •\t`Write`\n   •\t`Create`\n   •\t`Delete`\n   •\t`Execute`\n   •\t`Enable`\n   •\t`Assign`\n   •\t`Restore`\n   •\t`Import`\n   •\t`Export`\n   •\t`Update`\n   •\t`Cancel`\n   •\t`Use`\n   •\t`Delegate`\n   •\t`Join`\n   •\t`Invite`\n   •\t`Share`\n\n",
+            "deprecated": true
+          },
+          "privilegeType": {
+            "allOf": [
+              {
                 "$ref": "#/components/schemas/PrivilegeType"
               }
             ],
-            "description": "The \"canonical\" privilege types that are supported by Authomize off-the-shelf: **Mandatory**\n\nPermitted values: \n   â€¢\t`Administrative`\n   â€¢\t`Unknown`\n   â€¢\t`Read`\n   â€¢\t`ReadMetadata`\n   â€¢\t`Write`\n   â€¢\t`Create`\n   â€¢\t`Delete`\n   â€¢\t`Execute`\n   â€¢\t`Enable`\n   â€¢\t`Assign`\n   â€¢\t`Restore`\n   â€¢\t`Import`\n   â€¢\t`Export`\n   â€¢\t`Update`\n   â€¢\t`Cancel`\n   â€¢\t`Use`\n   â€¢\t`Delegate`\n   â€¢\t`Join`\n   â€¢\t`Invite`\n   â€¢\t`Share`\n\nIf the privilege type does not exist use `Unknown` or `Use`.\n"
+            "description": "The \"canonical\" privilege types that are supported by Authomize off-the-shelf: **Mandatory**\n\nPermitted values: \n   •\t`Administrative`\n   •\t`Login`\n   •\t`Data Read`\n   •\t`Metadata Read`\n   •\t`Data Write`\n   •\t`Metadata Write`\n   •\t`Data Create`\n   •\t`Metadata Create`\n   •\t`Data Delete`\n   •\t`Metadata Delete`\n"
           },
           "originName": {
             "title": "Originname",
@@ -6283,25 +6313,17 @@
         "title": "PrivilegeType",
         "enum": [
           "Administrative",
-          "Unknown",
-          "Read",
-          "ReadMetadata",
-          "Write",
-          "Create",
-          "Delete",
-          "Execute",
-          "Enable",
-          "Assign",
-          "Restore",
-          "Import",
-          "Export",
-          "Update",
-          "Cancel",
-          "Use",
-          "Delegate",
-          "Join",
-          "Invite",
-          "Share"
+          "Login",
+          "Data Create",
+          "Metadata Create",
+          "Data Read",
+          "Metadata Read",
+          "Data Write",
+          "Metadata Write",
+          "Data Update",
+          "Metadata Update",
+          "Data Delete",
+          "Metadata Delete"
         ],
         "description": "An enumeration."
       },
@@ -6948,7 +6970,7 @@
                 "$ref": "#/components/schemas/AssetType"
               }
             ],
-            "description": "The asset types that are supported by Authomize **Mandatory**\n\nPermitted values:\n\n   â€¢\t`Application` (federation) \n   â€¢\t`Database`\n   â€¢\t`Drive`\n   â€¢\t`File`\n   â€¢\t`Folder`\n   â€¢\t`GitRepository`\n   â€¢\t`Integration`\n   â€¢\t`Project`\n   â€¢\t`Site`\n   â€¢\t`Table`\n   â€¢\t`Ticket`\n   â€¢\t`VirtualMachine`\n   â€¢\t`Other`\n\nIf the asset type does not exist use `Other`.\n",
+            "description": "The asset types that are supported by Authomize **Mandatory**\n\nPermitted values:\n\n   •\t`Application` (federation) \n   •\t`Database`\n   •\t`Drive`\n   •\t`File`\n   •\t`Folder`\n   •\t`GitRepository`\n   •\t`Integration`\n   •\t`Project`\n   •\t`Site`\n   •\t`Table`\n   •\t`Ticket`\n   •\t`VirtualMachine`\n   •\t`Other`\n\nIf the asset type does not exist use `Other`.\n",
             "default": "Other"
           },
           "alternativeName": {
@@ -7320,10 +7342,10 @@
           "type": {
             "allOf": [
               {
-                "$ref": "#/components/schemas/PrivilegeType"
+                "$ref": "#/components/schemas/DeprecatedPrivilegeType"
               }
             ],
-            "description": "The \"canonical\" privilege types that are supported by Authomize off-the-shelf: **Mandatory**\n\nPermitted values: \n   â€¢\t`Administrative`\n   â€¢\t`Unknown`\n   â€¢\t`Read`\n   â€¢\t`ReadMetadata`\n   â€¢\t`Write`\n   â€¢\t`Create`\n   â€¢\t`Delete`\n   â€¢\t`Execute`\n   â€¢\t`Enable`\n   â€¢\t`Assign`\n   â€¢\t`Restore`\n   â€¢\t`Import`\n   â€¢\t`Export`\n   â€¢\t`Update`\n   â€¢\t`Cancel`\n   â€¢\t`Use`\n   â€¢\t`Delegate`\n   â€¢\t`Join`\n   â€¢\t`Invite`\n   â€¢\t`Share`\n\nIf the privilege type does not exist use `Unknown` or `Use`.\n"
+            "description": "The \"canonical\" privilege types that are supported by Authomize off-the-shelf: **Mandatory**\n\nPermitted values: \n   •\t`Administrative`\n   •\t`Unknown`\n   •\t`Read`\n   •\t`ReadMetadata`\n   •\t`Write`\n   •\t`Create`\n   •\t`Delete`\n   •\t`Execute`\n   •\t`Enable`\n   •\t`Assign`\n   •\t`Restore`\n   •\t`Import`\n   •\t`Export`\n   •\t`Update`\n   •\t`Cancel`\n   •\t`Use`\n   •\t`Delegate`\n   •\t`Join`\n   •\t`Invite`\n   •\t`Share`\n\n"
           },
           "originName": {
             "title": "Originname",
