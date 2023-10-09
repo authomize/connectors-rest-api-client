@@ -7,6 +7,8 @@ from authomize.rest_api_client.client.base_client import AUTHOMIZE_API_URL
 from authomize.rest_api_client.client.connectors_client import ConnectorsClient
 from authomize.rest_api_client.client.platform_client import PlatformClient
 from authomize.rest_api_client.generated.connectors_rest_api.schemas import (
+    AddCampaignPermissionsListRequestSchema,
+    AddCampaignPermissionsResponseSchema,
     BundleTransactionSchema,
     ItemsBundleSchema,
     NewAccountsAssociationResponseSchema,
@@ -370,4 +372,16 @@ class Client:
         return self.platform_client.retrieve_incident(
             incident_id=incident_id,
             expand=expand,
+        )
+
+    def add_campaign_permissions(
+        self,
+        app_id: str,
+        campaign_id: str,
+        body: AddCampaignPermissionsListRequestSchema,
+    ) -> AddCampaignPermissionsResponseSchema:
+        return self.connectors_client.add_campaign_permissions(
+            app_id=app_id,
+            campaign_id=campaign_id,
+            body=body,
         )
