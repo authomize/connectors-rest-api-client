@@ -6,6 +6,8 @@ from pydantic.json import pydantic_encoder
 
 from authomize.rest_api_client.client.base_client import BaseClient
 from authomize.rest_api_client.generated.connectors_rest_api.schemas import (
+    AddCampaignPermissionsListRequestSchema,
+    AddCampaignPermissionsResponseSchema,
     BundleTransactionSchema,
     ItemsBundleSchema,
     NewAccountsAssociationResponseSchema,
@@ -43,8 +45,6 @@ from authomize.rest_api_client.generated.connectors_rest_api.schemas import (
     SearchUsersListResponseSchema,
     SubmitResponse,
     UpdateAppSchema,
-    AddCampaignPermissionsResponseSchema,
-    AddCampaignPermissionsListRequestSchema,
 )
 
 

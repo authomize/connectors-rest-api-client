@@ -7,6 +7,8 @@ from authomize.rest_api_client.client.base_client import AUTHOMIZE_API_URL
 from authomize.rest_api_client.client.connectors_client import ConnectorsClient
 from authomize.rest_api_client.client.platform_client import PlatformClient
 from authomize.rest_api_client.generated.connectors_rest_api.schemas import (
+    AddCampaignPermissionsListRequestSchema,
+    AddCampaignPermissionsResponseSchema,
     BundleTransactionSchema,
     ItemsBundleSchema,
     NewAccountsAssociationResponseSchema,
@@ -44,8 +46,6 @@ from authomize.rest_api_client.generated.connectors_rest_api.schemas import (
     SearchUsersListResponseSchema,
     SubmitResponse,
     UpdateAppSchema,
-    AddCampaignPermissionsListRequestSchema,
-    AddCampaignPermissionsResponseSchema,
 )
 from authomize.rest_api_client.generated.external_rest_api.schemas import (
     IncidentExpansion,
