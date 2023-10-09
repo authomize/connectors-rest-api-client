@@ -44,6 +44,8 @@ from authomize.rest_api_client.generated.connectors_rest_api.schemas import (
     SearchUsersListResponseSchema,
     SubmitResponse,
     UpdateAppSchema,
+    AddCampaignPermissionsListRequestSchema,
+    AddCampaignPermissionsResponseSchema,
 )
 from authomize.rest_api_client.generated.external_rest_api.schemas import (
     IncidentExpansion,
@@ -370,4 +372,16 @@ class Client:
         return self.platform_client.retrieve_incident(
             incident_id=incident_id,
             expand=expand,
+        )
+
+    def add_campaign_permissions(
+        self,
+        app_id: str,
+        campaign_id: str,
+        body: AddCampaignPermissionsListRequestSchema,
+    ) -> AddCampaignPermissionsResponseSchema:
+        return self.connectors_client.add_campaign_permissions(
+            app_id=app_id,
+            campaign_id=campaign_id,
+            body=body,
         )

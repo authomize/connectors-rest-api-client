@@ -3,7 +3,7 @@
   "info": {
     "title": "Authomize API Reference",
     "description": "Authomize enables users to integrate your applications with Authomize via custom connectors.\n\nYou can use the APIs described in this document to create your connector.\n\nOnce data is uploaded and processed successfully, your custom connector will function in the same way as the connectors created by Authomize.\n\n## How does Authomize work?\nAuthomize works by gathering information about:\n\n· individuals, teams and functions.\n\n· apps, assets and accounts.\n\n· all the relationships between them.\n\n![img.png](https://storagetry1.blob.core.windows.net/public/78d82650-71b0-4909-8444-022aab79add5.png)\n\n## Connector APIs\n\nAuthomize connector APIs enable pushing data into Authomize from external sources.\n\nThese APIs enable data extracted from outside applications (via application APIs) to be delivered to Authomize.\n\nA connector processes extracted application data to transform it into a format compatible with Authomize.\n\n![img_1.png](https://storagetry1.blob.core.windows.net/public/341bf6ef-2e5b-4284-b715-45105ffbf0f8.png)\n\n## Authentication\nTo Authenticate use the API Token, with the format: `Authorization: API_Token`.\n\nAn API Token is a token you provide when making API calls. \n\n\nThe API Token should be included in every request to the API in an `Authorization` header.\n```\ncurl -v -X POST \\n\n     -H \"Authorization: {API_Token}\" \\n\n     ...\n```\n\n## Limits\nRequests cannot exceed a size of 1MB.\n",
-    "version": "4.3.16",
+    "version": "4.3.18",
     "x-logo": {
       "url": "https://static.authomize.com/public/icons/authomize-green.svg"
     }
@@ -116,7 +116,7 @@
               "description": "Delete all the app data lastly updated before the given date.",
               "format": "date-time"
             },
-            "example": "2023-10-05T12:38:55.084015+00:00",
+            "example": "2023-10-08T11:13:03.158064+00:00",
             "name": "modifiedBefore",
             "in": "query"
           }
@@ -1877,79 +1877,13 @@
         ]
       }
     },
-    "/v2/apps/{appId}/campaigns/{campaignId}/permissions/csv": {
-      "post": {
-        "tags": [
-          "Campaign"
-        ],
-        "summary": "Add Campaign Permissions via CSV [Beta]",
-        "operationId": "add_campaign_permissions_via_csv_v2_apps__appId__campaigns__campaignId__permissions_csv_post",
-        "parameters": [
-          {
-            "required": true,
-            "schema": {
-              "title": "Campaignid",
-              "type": "string"
-            },
-            "name": "campaignId",
-            "in": "path"
-          },
-          {
-            "required": true,
-            "schema": {
-              "title": "Appid",
-              "type": "string"
-            },
-            "name": "appId",
-            "in": "path"
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "multipart/form-data": {
-              "schema": {
-                "$ref": "#/components/schemas/Body_add_campaign_permissions_via_csv_v2_apps__appId__campaigns__campaignId__permissions_csv_post"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/AddCampaignPermissionsResponseSchema"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "security": [
-          {
-            "APIKeyHeader": []
-          }
-        ]
-      }
-    },
     "/v2/apps/{appId}/campaigns/{campaignId}/permissions": {
       "post": {
         "tags": [
           "Campaign"
         ],
         "summary": "Add Campaign Permissions [Beta]",
-        "description": "Add campaign permissions.",
+        "description": "The API is used to add all the campaign privileges that need to be reviewed and the reviewers details via API",
         "operationId": "add_campaign_permissions_v2_apps__appId__campaigns__campaignId__permissions_post",
         "parameters": [
           {
@@ -2016,7 +1950,7 @@
           "Campaign"
         ],
         "summary": "Add Campaign Memberships [Beta]",
-        "description": "Add campaign memberships.",
+        "description": "The API is used to add all the campaign membership (such as membership in groups) that need to be reviewed and the reviewers details via API",
         "operationId": "add_campaign_memberships_v2_apps__appId__campaigns__campaignId__memberships_post",
         "parameters": [
           {
@@ -2898,7 +2832,7 @@
                 "$ref": "#/components/schemas/CampaignGroupingSchema"
               }
             ],
-            "description": "Grouping."
+            "description": "The group to be reviewed."
           }
         }
       },
@@ -3005,7 +2939,7 @@
                 "$ref": "#/components/schemas/CampaignPrivilegeSchema"
               }
             ],
-            "description": "Privilege."
+            "description": "Privilege to be reviewed."
           },
           "asset": {
             "title": "Asset",
@@ -3014,7 +2948,7 @@
                 "$ref": "#/components/schemas/CampaignAssetSchema"
               }
             ],
-            "description": "Asset."
+            "description": "Asset to be reviewed."
           }
         }
       },
@@ -3339,20 +3273,6 @@
         ],
         "description": "An enumeration."
       },
-      "Body_add_campaign_permissions_via_csv_v2_apps__appId__campaigns__campaignId__permissions_csv_post": {
-        "title": "Body_add_campaign_permissions_via_csv_v2_apps__appId__campaigns__campaignId__permissions_csv_post",
-        "required": [
-          "file"
-        ],
-        "type": "object",
-        "properties": {
-          "file": {
-            "title": "File",
-            "type": "string",
-            "format": "binary"
-          }
-        }
-      },
       "BundleTransactionSchema": {
         "title": "BundleTransactionSchema",
         "required": [
@@ -3631,7 +3551,7 @@
                 "$ref": "#/components/schemas/PrivilegeType"
               }
             ],
-            "description": "The \"canonical\" privilege types that are supported by Authomize off-the-shelf:\n\nPermitted values: \n   •\t`Administrative`\n   •\t`Unknown`\n   •\t`Read`\n   •\t`ReadMetadata`\n   •\t`Write`\n   •\t`Create`\n   •\t`Delete`\n   •\t`Execute`\n   •\t`Enable`\n   •\t`Assign`\n   •\t`Restore`\n   •\t`Import`\n   •\t`Export`\n   •\t`Update`\n   •\t`Cancel`\n   •\t`Use`\n   •\t`Delegate`\n   •\t`Join`\n   •\t`Invite`\n   •\t`Share`\n\n"
+            "description": "The \"canonical\" privilege types that are supported by Authomize off-the-shelf: **Mandatory**\n\nPermitted values: \n   •\t`Administrative`\n   •\t`Login`\n   •\t`Data Read`\n   •\t`Metadata Read`\n   •\t`Data Write`\n   •\t`Metadata Write`\n   •\t`Data Create`\n   •\t`Metadata Create`\n   •\t`Data Delete`\n   •\t`Metadata Delete`\n\n"
           },
           "originName": {
             "title": "Originname",
@@ -5759,7 +5679,7 @@
                 "$ref": "#/components/schemas/PrivilegeType"
               }
             ],
-            "description": "The \"canonical\" privilege types that are supported by Authomize off-the-shelf:\n\nPermitted values: \n   •\t`Administrative`\n   •\t`Unknown`\n   •\t`Read`\n   •\t`ReadMetadata`\n   •\t`Write`\n   •\t`Create`\n   •\t`Delete`\n   •\t`Execute`\n   •\t`Enable`\n   •\t`Assign`\n   •\t`Restore`\n   •\t`Import`\n   •\t`Export`\n   •\t`Update`\n   •\t`Cancel`\n   •\t`Use`\n   •\t`Delegate`\n   •\t`Join`\n   •\t`Invite`\n   •\t`Share`\n\n"
+            "description": "The \"canonical\" privilege types that are supported by Authomize off-the-shelf: **Mandatory**\n\nPermitted values: \n   •\t`Administrative`\n   •\t`Login`\n   •\t`Data Read`\n   •\t`Metadata Read`\n   •\t`Data Write`\n   •\t`Metadata Write`\n   •\t`Data Create`\n   •\t`Metadata Create`\n   •\t`Data Delete`\n   •\t`Metadata Delete`\n\n"
           },
           "originName": {
             "title": "Originname",
@@ -6327,7 +6247,7 @@
                 "$ref": "#/components/schemas/PrivilegeType"
               }
             ],
-            "description": "The \"canonical\" privilege types that are supported by Authomize off-the-shelf:\n\nPermitted values: \n   •\t`Administrative`\n   •\t`Unknown`\n   •\t`Read`\n   •\t`ReadMetadata`\n   •\t`Write`\n   •\t`Create`\n   •\t`Delete`\n   •\t`Execute`\n   •\t`Enable`\n   •\t`Assign`\n   •\t`Restore`\n   •\t`Import`\n   •\t`Export`\n   •\t`Update`\n   •\t`Cancel`\n   •\t`Use`\n   •\t`Delegate`\n   •\t`Join`\n   •\t`Invite`\n   •\t`Share`\n\n"
+            "description": "The \"canonical\" privilege types that are supported by Authomize off-the-shelf: **Mandatory**\n\nPermitted values: \n   •\t`Administrative`\n   •\t`Login`\n   •\t`Data Read`\n   •\t`Metadata Read`\n   •\t`Data Write`\n   •\t`Metadata Write`\n   •\t`Data Create`\n   •\t`Metadata Create`\n   •\t`Data Delete`\n   •\t`Metadata Delete`\n\n"
           },
           "originName": {
             "title": "Originname",
@@ -7381,7 +7301,7 @@
                 "$ref": "#/components/schemas/PrivilegeType"
               }
             ],
-            "description": "The \"canonical\" privilege types that are supported by Authomize off-the-shelf:\n\nPermitted values: \n   •\t`Administrative`\n   •\t`Unknown`\n   •\t`Read`\n   •\t`ReadMetadata`\n   •\t`Write`\n   •\t`Create`\n   •\t`Delete`\n   •\t`Execute`\n   •\t`Enable`\n   •\t`Assign`\n   •\t`Restore`\n   •\t`Import`\n   •\t`Export`\n   •\t`Update`\n   •\t`Cancel`\n   •\t`Use`\n   •\t`Delegate`\n   •\t`Join`\n   •\t`Invite`\n   •\t`Share`\n\n"
+            "description": "The \"canonical\" privilege types that are supported by Authomize off-the-shelf: **Mandatory**\n\nPermitted values: \n   •\t`Administrative`\n   •\t`Login`\n   •\t`Data Read`\n   •\t`Metadata Read`\n   •\t`Data Write`\n   •\t`Metadata Write`\n   •\t`Data Create`\n   •\t`Metadata Create`\n   •\t`Data Delete`\n   •\t`Metadata Delete`\n\n"
           },
           "originName": {
             "title": "Originname",

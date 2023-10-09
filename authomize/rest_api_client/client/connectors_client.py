@@ -43,6 +43,8 @@ from authomize.rest_api_client.generated.connectors_rest_api.schemas import (
     SearchUsersListResponseSchema,
     SubmitResponse,
     UpdateAppSchema,
+    AddCampaignPermissionsResponseSchema,
+    AddCampaignPermissionsListRequestSchema,
 )
 
 
@@ -460,6 +462,22 @@ class ConnectorsClient(BaseClient):
             raise ValueError('Missing app_id')
         return self.http_post(
             url=f'/v2/apps/{app_id}/identities',
+            body=json.dumps(
+                body,
+                default=pydantic_encoder,
+            ),
+        )
+
+    def add_campaign_permissions(
+            self,
+            app_id: str,
+            campaign_id: str,
+            body: AddCampaignPermissionsListRequestSchema,
+    ) -> AddCampaignPermissionsResponseSchema:
+        if not (app_id or campaign_id):
+            raise ValueError('Missing campaign_id/app_id')
+        return self.http_post(
+            url=f"/v2/apps/{app_id}/campaigns/{campaign_id}/permissions",
             body=json.dumps(
                 body,
                 default=pydantic_encoder,
