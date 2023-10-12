@@ -7,6 +7,8 @@ from authomize.rest_api_client.client.base_client import AUTHOMIZE_API_URL
 from authomize.rest_api_client.client.connectors_client import ConnectorsClient
 from authomize.rest_api_client.client.platform_client import PlatformClient
 from authomize.rest_api_client.generated.connectors_rest_api.schemas import (
+    AddCampaignMembershipsListRequestSchema,
+    AddCampaignMembershipsResponseSchema,
     AddCampaignPermissionsListRequestSchema,
     AddCampaignPermissionsResponseSchema,
     BundleTransactionSchema,
@@ -381,6 +383,18 @@ class Client:
         body: AddCampaignPermissionsListRequestSchema,
     ) -> AddCampaignPermissionsResponseSchema:
         return self.connectors_client.add_campaign_permissions(
+            app_id=app_id,
+            campaign_id=campaign_id,
+            body=body,
+        )
+
+    def add_campaign_memberships(
+        self,
+        app_id: str,
+        campaign_id: str,
+        body: AddCampaignMembershipsListRequestSchema,
+    ) -> AddCampaignMembershipsResponseSchema:
+        return self.connectors_client.add_campaign_memberships(
             app_id=app_id,
             campaign_id=campaign_id,
             body=body,
