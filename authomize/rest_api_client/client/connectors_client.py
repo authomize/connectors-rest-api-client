@@ -6,6 +6,8 @@ from pydantic.json import pydantic_encoder
 
 from authomize.rest_api_client.client.base_client import BaseClient
 from authomize.rest_api_client.generated.connectors_rest_api.schemas import (
+    AddCampaignMembershipsListRequestSchema,
+    AddCampaignMembershipsResponseSchema,
     AddCampaignPermissionsListRequestSchema,
     AddCampaignPermissionsResponseSchema,
     BundleTransactionSchema,
@@ -478,6 +480,22 @@ class ConnectorsClient(BaseClient):
             raise ValueError('Missing campaign_id/app_id')
         return self.http_post(
             url=f"/v2/apps/{app_id}/campaigns/{campaign_id}/permissions",
+            body=json.dumps(
+                body,
+                default=pydantic_encoder,
+            ),
+        )
+
+    def add_campaign_memberships(
+            self,
+            app_id: str,
+            campaign_id: str,
+            body: AddCampaignMembershipsListRequestSchema,
+    ) -> AddCampaignMembershipsResponseSchema:
+        if not (app_id or campaign_id):
+            raise ValueError('Missing campaign_id/app_id')
+        return self.http_post(
+            url=f"/v2/apps/{app_id}/campaigns/{campaign_id}/memberships",
             body=json.dumps(
                 body,
                 default=pydantic_encoder,
