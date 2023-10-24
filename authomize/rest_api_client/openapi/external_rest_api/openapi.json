@@ -2803,8 +2803,8 @@
         },
         "additionalProperties": false
       },
-      "IncidentsPredefinedPolicyTemplateIdFilter": {
-        "title": "IncidentsPredefinedPolicyTemplateIdFilter",
+      "IncidentsPolicyTempalteIdFilter": {
+        "title": "IncidentsPolicyTempalteIdFilter",
         "type": "object",
         "properties": {
           "$eq": {
@@ -3416,7 +3416,7 @@
         "required": [
           "id",
           "name",
-          "predefinedTemplateId"
+          "templateId"
         ],
         "type": "object",
         "properties": {
@@ -3430,10 +3430,10 @@
             "type": "string",
             "description": "Name of policy."
           },
-          "predefinedTemplateId": {
-            "title": "Predefinedtemplateid",
+          "templateId": {
+            "title": "Templateid",
             "type": "string",
-            "description": "Predefined Template ID"
+            "description": "Template ID"
           }
         }
       },
@@ -3596,8 +3596,8 @@
         "properties": {
           "score": {
             "title": "Score",
-            "maximum": 100,
-            "minimum": 0,
+            "maximum": 100.0,
+            "minimum": 0.0,
             "type": "integer",
             "description": "The risk score can be an integer between 0 and 100."
           },
@@ -4280,14 +4280,14 @@
             ],
             "description": "Policy Id "
           },
-          "predefinedPolicyTemplateId": {
-            "title": "Predefinedpolicytemplateid",
+          "policyTemplateId": {
+            "title": "Policytemplateid",
             "allOf": [
               {
-                "$ref": "#/components/schemas/IncidentsPredefinedPolicyTemplateIdFilter"
+                "$ref": "#/components/schemas/IncidentsPolicyTempalteIdFilter"
               }
             ],
-            "description": "Predefined Policy Template ID"
+            "description": "Policy Template ID"
           },
           "isResolved": {
             "title": "Isresolved",
