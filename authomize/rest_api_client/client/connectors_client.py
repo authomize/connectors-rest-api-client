@@ -132,7 +132,8 @@ class ConnectorsClient(BaseClient):
         if not app_id:
             raise ValueError('Missing app_id')
         return self.http_patch(
-            url=f"/v2/apps/{app_id}", body=json.dumps(body, default=pydantic_encoder),
+            url=f"/v2/apps/{app_id}",
+            body=json.dumps(body, default=pydantic_encoder),
         )
 
     def search_users(
@@ -471,10 +472,10 @@ class ConnectorsClient(BaseClient):
         )
 
     def add_campaign_permissions(
-            self,
-            app_id: str,
-            campaign_id: str,
-            body: AddCampaignPermissionsListRequestSchema,
+        self,
+        app_id: str,
+        campaign_id: str,
+        body: AddCampaignPermissionsListRequestSchema,
     ) -> AddCampaignPermissionsResponseSchema:
         if not (app_id or campaign_id):
             raise ValueError('Missing campaign_id/app_id')
@@ -487,10 +488,10 @@ class ConnectorsClient(BaseClient):
         )
 
     def add_campaign_memberships(
-            self,
-            app_id: str,
-            campaign_id: str,
-            body: AddCampaignMembershipsListRequestSchema,
+        self,
+        app_id: str,
+        campaign_id: str,
+        body: AddCampaignMembershipsListRequestSchema,
     ) -> AddCampaignMembershipsResponseSchema:
         if not (app_id or campaign_id):
             raise ValueError('Missing campaign_id/app_id')
