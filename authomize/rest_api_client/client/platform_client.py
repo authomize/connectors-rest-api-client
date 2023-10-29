@@ -2,6 +2,8 @@ from typing import Optional
 
 from authomize.rest_api_client.client.base_client import BaseClient
 from authomize.rest_api_client.generated.external_rest_api.schemas import (
+    CreateCampaignRequestSchema,
+    CreateCampaignResponseSchema,
     IncidentExpansion,
     IsAliveResponse,
     MeResponse,
@@ -36,3 +38,12 @@ class PlatformClient(BaseClient):
                 expand=expand,
             )
         return self.http_get(f'/v2/incidents/{incident_id}', params=params)
+
+    def create_campaign(
+        self,
+        body: CreateCampaignRequestSchema,
+    ) -> CreateCampaignResponseSchema:
+        return self.http_post(
+            '/v2/campaigns',
+            body=body.json(),
+        )

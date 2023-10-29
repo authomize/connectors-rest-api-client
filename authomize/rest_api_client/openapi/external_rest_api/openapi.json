@@ -3,7 +3,7 @@
   "info": {
     "title": "Authomize API Reference",
     "description": "Authomize enables users to integrate your applications with Authomize via custom connectors.\n\nYou can use the APIs described in this document to create your connector.\n\nOnce data is uploaded and processed successfully, your custom connector will function in the same way as the connectors created by Authomize.\n\n## How does Authomize work?\nAuthomize works by gathering information about:\n\n· individuals, teams and functions.\n\n· apps, assets and accounts.\n\n· all the relationships between them.\n\n![img.png](https://storagetry1.blob.core.windows.net/public/78d82650-71b0-4909-8444-022aab79add5.png)\n\n## Connector APIs\n\nAuthomize connector APIs enable pushing data into Authomize from external sources.\n\nThese APIs enable data extracted from outside applications (via application APIs) to be delivered to Authomize.\n\nA connector processes extracted application data to transform it into a format compatible with Authomize.\n\n![img_1.png](https://storagetry1.blob.core.windows.net/public/341bf6ef-2e5b-4284-b715-45105ffbf0f8.png)\n\n## Authentication\nTo Authenticate use the API Token, with the format: `Authorization: API_Token`.\n\nAn API Token is a token you provide when making API calls. \n\n\nThe API Token should be included in every request to the API in an `Authorization` header.\n```\ncurl -v -X POST \\n\n     -H \"Authorization: {API_Token}\" \\n\n     ...\n```\n\n## Limits\nRequests cannot exceed a size of 1MB.\n",
-    "version": "4.3.13",
+    "version": "4.5.0",
     "x-logo": {
       "url": "https://static.authomize.com/public/icons/authomize-green.svg"
     }
@@ -556,14 +556,14 @@
         ]
       }
     },
-    "/v2/campaigns/{campaign_id}/permissions/search": {
+    "/v2/campaigns/{campaign_id}/report/search": {
       "post": {
         "tags": [
           "Campaign"
         ],
-        "summary": "Search Campaign Permissions",
-        "description": "The Search Campaign Permissions API gets the permissions (keep or revoke) associated with a specific campaign.\n",
-        "operationId": "search_campaign_permissions_v2_campaigns__campaign_id__permissions_search_post",
+        "summary": "Search Campaign Report",
+        "description": "The API is used to list all permissions that were reviewed in an access review campaign with their decisions keep or revoke.\n",
+        "operationId": "search_campaign_report_v2_campaigns__campaign_id__report_search_post",
         "parameters": [
           {
             "description": "Unique ID of the Campaign",
@@ -604,6 +604,33 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ]
+      }
+    },
+    "/v2/inventory/sourceApps": {
+      "get": {
+        "tags": [
+          "Inventory"
+        ],
+        "summary": "Search Source Apps",
+        "description": "Get a list of all source app names and their IDs",
+        "operationId": "search_source_apps_v2_inventory_sourceApps_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NonPaginatedResponseSchema_SearchSourceAppsResponseSchema_"
                 }
               }
             }
@@ -810,7 +837,7 @@
           "Inventory"
         ],
         "summary": "Add Identity Risks",
-        "description": "Add takeover risk factors to accounts in the identity",
+        "description": "The API adds custom risk score for the Identity and all of his associated accounts.",
         "operationId": "add_identity_risks_v2_inventory_identities_risk_post",
         "requestBody": {
           "content": {
@@ -855,7 +882,7 @@
           "Inventory"
         ],
         "summary": "Remove Identity Risks",
-        "description": "Add takeover risk factors to accounts in the identity",
+        "description": "The API is used to delete the risk factors that were added via the `Add Identity Risk` API.",
         "operationId": "remove_identity_risks_v2_inventory_identities_risk_delete",
         "requestBody": {
           "content": {
@@ -899,24 +926,6 @@
   },
   "components": {
     "schemas": {
-      "AccessByType": {
-        "title": "AccessByType",
-        "enum": [
-          "account",
-          "grouping"
-        ],
-        "type": "string",
-        "description": "An enumeration."
-      },
-      "AccessToType": {
-        "title": "AccessToType",
-        "enum": [
-          "asset",
-          "grouping"
-        ],
-        "type": "string",
-        "description": "An enumeration."
-      },
       "AccountExpansion": {
         "title": "AccountExpansion",
         "enum": [
@@ -1068,6 +1077,18 @@
             "description": "Risk Scores for the Account."
           }
         }
+      },
+      "AccountSourceAppIdFilter": {
+        "title": "AccountSourceAppIdFilter",
+        "type": "object",
+        "properties": {
+          "$eq": {
+            "title": "$Eq",
+            "type": "string",
+            "description": "Equals To"
+          }
+        },
+        "additionalProperties": false
       },
       "AddIdentityRisksRequestSchema": {
         "title": "AddIdentityRisksRequestSchema",
@@ -1320,6 +1341,21 @@
         ],
         "description": "An enumeration."
       },
+      "BlastRadiusRiskFilter": {
+        "title": "BlastRadiusRiskFilter",
+        "type": "object",
+        "properties": {
+          "$in": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/RiskSeverity"
+            },
+            "description": "In",
+            "default": []
+          }
+        },
+        "additionalProperties": false
+      },
       "CampaignExpansion": {
         "title": "CampaignExpansion",
         "enum": [
@@ -1354,7 +1390,7 @@
                 "$ref": "#/components/schemas/CampaignPermissionDecisionFilter"
               }
             ],
-            "description": "Reviewer decisions (keep, revoke or null).\n"
+            "description": "Reviewer decisions (keep, revoke, change or null).\n"
           }
         },
         "additionalProperties": false,
@@ -1471,33 +1507,249 @@
         },
         "additionalProperties": false
       },
-      "CampaignsPermissionSchema": {
-        "title": "CampaignsPermissionSchema",
+      "CampaignsPermissionAccountSchema": {
+        "title": "CampaignsPermissionAccountSchema",
         "required": [
-          "id",
-          "campaignId",
-          "reviewerId",
-          "actorId",
-          "actorType",
-          "targetId",
-          "targetType"
+          "id"
         ],
         "type": "object",
         "properties": {
           "id": {
             "title": "Id",
             "type": "string",
-            "description": "Campaign ID (unique). \n"
+            "description": "Account ID."
           },
+          "name": {
+            "title": "Name",
+            "type": "string",
+            "description": "Name of the account."
+          },
+          "uniqueId": {
+            "title": "Uniqueid",
+            "type": "string",
+            "description": "Account ID (unique)."
+          },
+          "isExternal": {
+            "title": "Isexternal",
+            "type": "boolean",
+            "description": "Whether the account is external or not."
+          },
+          "type": {
+            "title": "Type",
+            "type": "string",
+            "description": "Account type."
+          },
+          "email": {
+            "title": "Email",
+            "type": "string",
+            "description": "Email of the account."
+          },
+          "status": {
+            "title": "Status",
+            "type": "string",
+            "description": "Account status."
+          },
+          "distinctIdentity": {
+            "title": "Distinctidentity",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/CampaignsPermissionDistinctIdentitySchema"
+              }
+            ],
+            "description": "Distinct identity of the account."
+          },
+          "sourceApp": {
+            "title": "Sourceapp",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/CampaignsPermissionSourceAppSchema"
+              }
+            ],
+            "description": "Source app of the account."
+          },
+          "tags": {
+            "title": "Tags",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CampaignsPermissionTagSchema"
+            },
+            "description": "Account tags.",
+            "default": []
+          }
+        }
+      },
+      "CampaignsPermissionAssetSchema": {
+        "title": "CampaignsPermissionAssetSchema",
+        "required": [
+          "id"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "title": "Id",
+            "type": "string",
+            "description": "Asset ID."
+          },
+          "type": {
+            "title": "Type",
+            "type": "string",
+            "description": "Asset type."
+          },
+          "externalType": {
+            "title": "Externaltype",
+            "type": "string",
+            "description": "External type of the asset."
+          },
+          "name": {
+            "title": "Name",
+            "type": "string",
+            "description": "Name of the asset."
+          },
+          "sourceApp": {
+            "title": "Sourceapp",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/CampaignsPermissionSourceAppSchema"
+              }
+            ],
+            "description": "Source app of the asset."
+          },
+          "tags": {
+            "title": "Tags",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CampaignsPermissionTagSchema"
+            },
+            "description": "Asset tags.",
+            "default": []
+          }
+        }
+      },
+      "CampaignsPermissionDistinctIdentitySchema": {
+        "title": "CampaignsPermissionDistinctIdentitySchema",
+        "required": [
+          "id"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "title": "Id",
+            "type": "string",
+            "description": "Distinct identity ID."
+          },
+          "name": {
+            "title": "Name",
+            "type": "string",
+            "description": "Name of the distinct identity."
+          },
+          "title": {
+            "title": "Title",
+            "type": "string",
+            "description": "Distinct identity title."
+          },
+          "department": {
+            "title": "Department",
+            "type": "string",
+            "description": "Department of the distinct identity."
+          }
+        }
+      },
+      "CampaignsPermissionGroupSchema": {
+        "title": "CampaignsPermissionGroupSchema",
+        "required": [
+          "id"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "title": "Id",
+            "type": "string",
+            "description": "Group ID."
+          },
+          "name": {
+            "title": "Name",
+            "type": "string",
+            "description": "Group name."
+          },
+          "sourceApp": {
+            "title": "Sourceapp",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/CampaignsPermissionSourceAppSchema"
+              }
+            ],
+            "description": "Source app of the group."
+          },
+          "tags": {
+            "title": "Tags",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CampaignsPermissionTagSchema"
+            },
+            "description": "Group tags.",
+            "default": []
+          }
+        }
+      },
+      "CampaignsPermissionPrivilegeSchema": {
+        "title": "CampaignsPermissionPrivilegeSchema",
+        "required": [
+          "id"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "title": "Id",
+            "type": "string",
+            "description": "Privilege Id."
+          },
+          "originType": {
+            "title": "Origintype",
+            "type": "string",
+            "description": "Origin type of the privilege."
+          },
+          "type": {
+            "title": "Type",
+            "type": "string",
+            "description": "Privilege type."
+          },
+          "sourceApp": {
+            "title": "Sourceapp",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/CampaignsPermissionSourceAppSchema"
+              }
+            ],
+            "description": "Source app of the privilege."
+          },
+          "tags": {
+            "title": "Tags",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CampaignsPermissionTagSchema"
+            },
+            "description": "Privilege tags.",
+            "default": []
+          }
+        }
+      },
+      "CampaignsPermissionSchema": {
+        "title": "CampaignsPermissionSchema",
+        "required": [
+          "campaignId",
+          "campaignName"
+        ],
+        "type": "object",
+        "properties": {
           "campaignId": {
             "title": "Campaignid",
             "type": "string",
-            "description": "ID of the Campaign.\n"
+            "description": "Campaign ID.\n"
           },
-          "reviewerId": {
-            "title": "Reviewerid",
+          "campaignName": {
+            "title": "Campaignname",
             "type": "string",
-            "description": "Reviewer ID"
+            "description": "Campaign name.\n"
           },
           "reviewer": {
             "title": "Reviewer",
@@ -1508,49 +1760,97 @@
             ],
             "description": "Details of the reviewer.\n"
           },
-          "actorId": {
-            "title": "Actorid",
-            "type": "string",
-            "description": "Actor ID (Account or Grouping ID) that their access was reviewed. \n"
-          },
-          "actorType": {
+          "selection": {
             "allOf": [
               {
-                "$ref": "#/components/schemas/AccessByType"
+                "$ref": "#/components/schemas/EntitlementSelections"
               }
             ],
-            "description": "Type of entity that was reviewed, can be Account or Grouping.\n"
+            "description": "Reviewer decisions (keep, revoke, change or null).\n"
           },
-          "targetId": {
-            "title": "Targetid",
+          "reason": {
+            "title": "Reason",
             "type": "string",
-            "description": "Target ID (Asset or Grouping ID) that the access to was reviewed, for example a database the access to was reviewed.  \n"
+            "description": "Reviewer decision for keeping or revoking or requesting permission change for the reviewed access.  \n"
           },
-          "targetType": {
+          "account": {
+            "title": "Account",
             "allOf": [
               {
-                "$ref": "#/components/schemas/AccessToType"
+                "$ref": "#/components/schemas/CampaignsPermissionAccountSchema"
               }
             ],
-            "description": "Assets or grouping that the access to was reviewed.  \n"
+            "description": "Account that their access was reviewed. \n"
           },
-          "privilegeId": {
-            "title": "Privilegeid",
-            "type": "string",
-            "description": "ID of the privileges that was reviewed. \n"
-          },
-          "decision": {
+          "asset": {
+            "title": "Asset",
             "allOf": [
               {
-                "$ref": "#/components/schemas/Selection"
+                "$ref": "#/components/schemas/CampaignsPermissionAssetSchema"
               }
             ],
-            "description": "Reviewer decisions (keep, revoke or null).\n"
+            "description": "Asset that the access to was reviewed."
           },
-          "decisionReason": {
-            "title": "Decisionreason",
+          "group": {
+            "title": "Group",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/CampaignsPermissionGroupSchema"
+              }
+            ],
+            "description": "Group that the access to was reviewed."
+          },
+          "privilege": {
+            "title": "Privilege",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/CampaignsPermissionPrivilegeSchema"
+              }
+            ],
+            "description": "Privilege that was reviewed. \n"
+          }
+        }
+      },
+      "CampaignsPermissionSourceAppSchema": {
+        "title": "CampaignsPermissionSourceAppSchema",
+        "required": [
+          "id"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "title": "Id",
             "type": "string",
-            "description": "Reviewer decision for keeping or revoking the reviewed access.  \n"
+            "description": "Source app ID."
+          },
+          "name": {
+            "title": "Name",
+            "type": "string",
+            "description": "Source app name."
+          },
+          "sourceAppType": {
+            "title": "Sourceapptype",
+            "type": "string",
+            "description": "Source app type."
+          }
+        }
+      },
+      "CampaignsPermissionTagSchema": {
+        "title": "CampaignsPermissionTagSchema",
+        "required": [
+          "id"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "title": "Id",
+            "type": "string",
+            "description": "Tag ID."
+          },
+          "name": {
+            "title": "Name",
+            "type": "string",
+            "description": "Name of the tag."
           }
         }
       },
@@ -1831,6 +2131,19 @@
           }
         }
       },
+      "DateFilterAllowedValues": {
+        "title": "DateFilterAllowedValues",
+        "enum": [
+          "Yesterday",
+          "Last Week",
+          "Last Month",
+          "Last 3 Months",
+          "Last 6 Months",
+          "Last Year"
+        ],
+        "type": "string",
+        "description": "An enumeration."
+      },
       "EmailFilter": {
         "title": "EmailFilter",
         "type": "object",
@@ -1846,6 +2159,15 @@
           }
         },
         "additionalProperties": false
+      },
+      "EntitlementSelections": {
+        "title": "EntitlementSelections",
+        "enum": [
+          "keep",
+          "revoke",
+          "change"
+        ],
+        "description": "An enumeration."
       },
       "EventStatusType": {
         "title": "EventStatusType",
@@ -1999,6 +2321,21 @@
           }
         }
       },
+      "HiredAtFilter": {
+        "title": "HiredAtFilter",
+        "type": "object",
+        "properties": {
+          "$eq": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/DateFilterAllowedValues"
+              }
+            ],
+            "description": "Equals To"
+          }
+        },
+        "additionalProperties": false
+      },
       "IdFilter": {
         "title": "IdFilter",
         "type": "object",
@@ -2008,6 +2345,51 @@
             "type": "array",
             "items": {
               "type": "string"
+            },
+            "description": "In",
+            "default": []
+          }
+        },
+        "additionalProperties": false
+      },
+      "IdentitiesBlastRadiusRiskFilter": {
+        "title": "IdentitiesBlastRadiusRiskFilter",
+        "type": "object",
+        "properties": {
+          "$in": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/RiskSeverity"
+            },
+            "description": "In",
+            "default": []
+          }
+        },
+        "additionalProperties": false
+      },
+      "IdentitiesOverallRisk": {
+        "title": "IdentitiesOverallRisk",
+        "type": "object",
+        "properties": {
+          "$in": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/RiskSeverity"
+            },
+            "description": "In",
+            "default": []
+          }
+        },
+        "additionalProperties": false
+      },
+      "IdentitiesTakeoverRiskFilter": {
+        "title": "IdentitiesTakeoverRiskFilter",
+        "type": "object",
+        "properties": {
+          "$in": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/RiskSeverity"
             },
             "description": "In",
             "default": []
@@ -2183,6 +2565,15 @@
               }
             ],
             "description": "Risk Scores"
+          },
+          "sourceApp": {
+            "title": "Sourceapp",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/SourceAppSchema"
+              }
+            ],
+            "description": "Applications"
           }
         }
       },
@@ -2511,6 +2902,30 @@
           }
         }
       },
+      "IsExternalFilter": {
+        "title": "IsExternalFilter",
+        "type": "object",
+        "properties": {
+          "$eq": {
+            "title": "$Eq",
+            "type": "boolean",
+            "description": "Equals To"
+          }
+        },
+        "additionalProperties": false
+      },
+      "IsMFAEnabledFilter": {
+        "title": "IsMFAEnabledFilter",
+        "type": "object",
+        "properties": {
+          "$eq": {
+            "title": "$Eq",
+            "type": "boolean",
+            "description": "Equals To"
+          }
+        },
+        "additionalProperties": false
+      },
       "IsoIec27001": {
         "title": "IsoIec27001",
         "required": [
@@ -2564,6 +2979,21 @@
         ],
         "description": "An enumeration."
       },
+      "LastLoginAtFilter": {
+        "title": "LastLoginAtFilter",
+        "type": "object",
+        "properties": {
+          "$eq": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/DateFilterAllowedValues"
+              }
+            ],
+            "description": "Equals To"
+          }
+        },
+        "additionalProperties": false
+      },
       "MeResponse": {
         "title": "MeResponse",
         "required": [
@@ -2576,7 +3006,7 @@
             "title": "Version",
             "type": "string",
             "description": "**version**",
-            "default": "4.3.13"
+            "default": "4.5.0"
           },
           "id": {
             "title": "Id",
@@ -2599,9 +3029,15 @@
         "properties": {
           "data": {
             "title": "Data",
-            "allOf": [
+            "anyOf": [
               {
                 "$ref": "#/components/schemas/CampaignSchema"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/CampaignSchema"
+                }
               }
             ],
             "description": "Actual Data"
@@ -2618,9 +3054,15 @@
         "properties": {
           "data": {
             "title": "Data",
-            "allOf": [
+            "anyOf": [
               {
                 "$ref": "#/components/schemas/CommentSchema"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/CommentSchema"
+                }
               }
             ],
             "description": "Actual Data"
@@ -2637,9 +3079,15 @@
         "properties": {
           "data": {
             "title": "Data",
-            "allOf": [
+            "anyOf": [
               {
                 "$ref": "#/components/schemas/IncidentSchema"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/IncidentSchema"
+                }
               }
             ],
             "description": "Actual Data"
@@ -2656,9 +3104,40 @@
         "properties": {
           "data": {
             "title": "Data",
-            "allOf": [
+            "anyOf": [
               {
                 "$ref": "#/components/schemas/ReviewerSchema"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/ReviewerSchema"
+                }
+              }
+            ],
+            "description": "Actual Data"
+          }
+        },
+        "additionalProperties": false
+      },
+      "NonPaginatedResponseSchema_SearchSourceAppsResponseSchema_": {
+        "title": "NonPaginatedResponseSchema[SearchSourceAppsResponseSchema]",
+        "required": [
+          "data"
+        ],
+        "type": "object",
+        "properties": {
+          "data": {
+            "title": "Data",
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/SearchSourceAppsResponseSchema"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/SearchSourceAppsResponseSchema"
+                }
               }
             ],
             "description": "Actual Data"
@@ -3028,8 +3507,7 @@
       "RemoveIdentityRisksRequestSchema": {
         "title": "RemoveIdentityRisksRequestSchema",
         "required": [
-          "since",
-          "riskTypes"
+          "since"
         ],
         "type": "object",
         "properties": {
@@ -3045,16 +3523,8 @@
           "since": {
             "title": "Since",
             "type": "string",
-            "description": "Only remove risks from before this timestamp",
+            "description": "Delete the risk score data lastly updated before the given date.",
             "format": "date-time"
-          },
-          "riskTypes": {
-            "title": "Risktypes",
-            "type": "array",
-            "items": {
-              "type": "string"
-            },
-            "description": "List of risks to add to the identity"
           }
         },
         "additionalProperties": false,
@@ -3082,36 +3552,15 @@
       "ReviewerSchema": {
         "title": "ReviewerSchema",
         "required": [
-          "userId",
-          "campaignId",
-          "lastNotifiedAt",
-          "lastActiveAt",
-          "reviewStatus",
-          "id"
+          "id",
+          "reviewStatus"
         ],
         "type": "object",
         "properties": {
-          "userId": {
-            "title": "Userid",
+          "id": {
+            "title": "Id",
             "type": "string",
-            "description": "User ID of the Reviewer"
-          },
-          "campaignId": {
-            "title": "Campaignid",
-            "type": "string",
-            "description": "Campaign ID"
-          },
-          "lastNotifiedAt": {
-            "title": "Lastnotifiedat",
-            "type": "string",
-            "description": "Time of last notified",
-            "format": "date-time"
-          },
-          "lastActiveAt": {
-            "title": "Lastactiveat",
-            "type": "string",
-            "description": "Time of last activity",
-            "format": "date-time"
+            "description": "Unique ID"
           },
           "reviewStatus": {
             "title": "Reviewstatus",
@@ -3124,11 +3573,6 @@
               }
             ],
             "description": "Review Status"
-          },
-          "id": {
-            "title": "Id",
-            "type": "string",
-            "description": "Unique ID"
           },
           "user": {
             "title": "User",
@@ -3144,23 +3588,18 @@
       "RiskFactorIn": {
         "title": "RiskFactorIn",
         "required": [
-          "type",
           "score",
           "title",
           "description"
         ],
         "type": "object",
         "properties": {
-          "type": {
-            "title": "Type",
-            "type": "string",
-            "description": "Type should be unique for risk factors on the same account. Different accounts can have the same risk factor type.\n"
-          },
           "score": {
             "title": "Score",
-            "minimum": 0,
+            "maximum": 100.0,
+            "minimum": 0.0,
             "type": "integer",
-            "description": "The factor non-negative risk score.\n"
+            "description": "The risk score can be an integer between 0 and 100."
           },
           "title": {
             "title": "Title",
@@ -3170,7 +3609,7 @@
           "description": {
             "title": "Description",
             "type": "string",
-            "description": "A longer description of the risk factor that explains how it was calculated, how it works and so on.\n"
+            "description": "Description of the risk score parameter."
           },
           "modifiedAt": {
             "title": "Modifiedat",
@@ -3179,6 +3618,17 @@
             "format": "date-time"
           }
         }
+      },
+      "RiskSeverity": {
+        "title": "RiskSeverity",
+        "enum": [
+          "Critical",
+          "High",
+          "Medium",
+          "Low"
+        ],
+        "type": "string",
+        "description": "An enumeration."
       },
       "SearchAccountsFilterBody": {
         "title": "SearchAccountsFilterBody",
@@ -3201,6 +3651,60 @@
               }
             ],
             "description": "Find accounts by their Authomize ID"
+          },
+          "blastRadiusRisk": {
+            "title": "Blastradiusrisk",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/BlastRadiusRiskFilter"
+              }
+            ],
+            "description": "The blast radius present the impact of an account to be taken over, based on the access and type of access the account have."
+          },
+          "isExternal": {
+            "title": "Isexternal",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/IsExternalFilter"
+              }
+            ],
+            "description": "Is the account external or internal."
+          },
+          "isMfaEnabled": {
+            "title": "Ismfaenabled",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/IsMFAEnabledFilter"
+              }
+            ],
+            "description": "Is MFA enabled or disabled."
+          },
+          "lastLoginAt": {
+            "title": "Lastloginat",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/LastLoginAtFilter"
+              }
+            ],
+            "description": "Date of the last login in a specific application."
+          },
+          "sourceAppId": {
+            "title": "Sourceappid",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/AccountSourceAppIdFilter"
+              }
+            ],
+            "description": "The ID of the source application."
+          },
+          "takeoverRisk": {
+            "title": "Takeoverrisk",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/TakeoverRiskFilter"
+              }
+            ],
+            "description": "The account takeover risk presents the probability that an account will be taken over by an external identity."
           }
         },
         "additionalProperties": false,
@@ -3628,6 +4132,51 @@
               }
             ],
             "description": "Find identities by their Authomize ID"
+          },
+          "blastRadiusRisk": {
+            "title": "Blastradiusrisk",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/IdentitiesBlastRadiusRiskFilter"
+              }
+            ],
+            "description": "The blast radius present the impact of the identity to be taken over, based on the access and type of access the account have."
+          },
+          "takeoverRisk": {
+            "title": "Takeoverrisk",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/IdentitiesTakeoverRiskFilter"
+              }
+            ],
+            "description": "The account takeover risk presents the probability that the identity to be taken over by an external identity."
+          },
+          "overallRisk": {
+            "title": "Overallrisk",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/IdentitiesOverallRisk"
+              }
+            ],
+            "description": "The overall risk score of the identity, based on the blast radius and account take over risk."
+          },
+          "hiredAt": {
+            "title": "Hiredat",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/HiredAtFilter"
+              }
+            ],
+            "description": "Date of hired."
+          },
+          "terminatedAt": {
+            "title": "Terminatedat",
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/TerminatedAtFilter"
+              }
+            ],
+            "description": "Date of termination."
           }
         },
         "additionalProperties": false,
@@ -3804,6 +4353,31 @@
         ],
         "type": "string",
         "description": "An enumeration."
+      },
+      "SearchSourceAppsResponseSchema": {
+        "title": "SearchSourceAppsResponseSchema",
+        "required": [
+          "authomizeId",
+          "uniqueId"
+        ],
+        "type": "object",
+        "properties": {
+          "authomizeId": {
+            "title": "Authomizeid",
+            "type": "string",
+            "description": "Authomize ID of source application"
+          },
+          "uniqueId": {
+            "title": "Uniqueid",
+            "type": "string",
+            "description": "The unique ID of the asset (as provided by the connector)"
+          },
+          "name": {
+            "title": "Name",
+            "type": "string",
+            "description": "Name of the asset (for example, application, virtual machine, file, etc.)"
+          }
+        }
       },
       "Selection": {
         "title": "Selection",
@@ -4053,6 +4627,37 @@
           }
         }
       },
+      "TakeoverRiskFilter": {
+        "title": "TakeoverRiskFilter",
+        "type": "object",
+        "properties": {
+          "$in": {
+            "title": "$In",
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "In",
+            "default": []
+          }
+        },
+        "additionalProperties": false
+      },
+      "TerminatedAtFilter": {
+        "title": "TerminatedAtFilter",
+        "type": "object",
+        "properties": {
+          "$eq": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/DateFilterAllowedValues"
+              }
+            ],
+            "description": "Equals To"
+          }
+        },
+        "additionalProperties": false
+      },
       "UniqueIdFilter": {
         "title": "UniqueIdFilter",
         "type": "object",
@@ -4109,6 +4714,11 @@
             "title": "Id",
             "type": "string",
             "description": "Unique ID"
+          },
+          "name": {
+            "title": "Name",
+            "type": "string",
+            "description": "Name"
           },
           "firstName": {
             "title": "Firstname",
