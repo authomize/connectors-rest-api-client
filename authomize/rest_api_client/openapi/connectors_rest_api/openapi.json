@@ -3322,8 +3322,7 @@
         "title": "CampaignAccountSchema",
         "required": [
           "id",
-          "name",
-          "email"
+          "name"
         ],
         "type": "object",
         "properties": {
