@@ -58,30 +58,10 @@
         ]
       }
     },
-    "/v2/apps/files/template": {
-      "get": {
-        "tags": [
-          "Apps"
-        ],
-        "summary": "Get File Template",
-        "description": "The Get File Template API downloads a template file for file-provider based on the REST API schema.",
-        "operationId": "get_file_template_v2_apps_files_template_get",
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {}
-              }
-            }
-          }
-        }
-      }
-    },
     "/v2/apps/{appId}/data": {
       "delete": {
         "tags": [
-          "Apps"
+          "Connectors"
         ],
         "summary": "Delete Application Data",
         "description": "The Delete Application Data API is used to delete app data by `{appId}`.",
@@ -153,7 +133,7 @@
     "/v2/apps/{appId}": {
       "patch": {
         "tags": [
-          "Apps"
+          "Connectors"
         ],
         "summary": "Update Application Data",
         "description": "The Update Application Data API is used to update app data on `{appId}`.\n",
@@ -211,7 +191,7 @@
     "/v2/apps/{appId}/accounts/users": {
       "get": {
         "tags": [
-          "Accounts"
+          "Connectors"
         ],
         "summary": "Search Users",
         "description": "The Search Users APIs lists users of an App (by App ID).",
@@ -269,7 +249,7 @@
       },
       "post": {
         "tags": [
-          "Accounts"
+          "Connectors"
         ],
         "summary": "Create Users",
         "description": "The Create Users APIs sets up App users(by App ID).",
@@ -325,7 +305,7 @@
       },
       "patch": {
         "tags": [
-          "Accounts"
+          "Connectors"
         ],
         "summary": "Patch Users",
         "description": "The Patch Users API is used to edit user data.\nWhen editing user data, any combination of fields can be updated at a time.\nThe uniqueId is required and can't be changed.\nOnly the fields that are supplied will be affected by the PATCH request (others will be unchanged).\n",
@@ -383,7 +363,7 @@
     "/v2/apps/{appId}/accounts/nonHumanIdentities": {
       "get": {
         "tags": [
-          "Accounts"
+          "Connectors"
         ],
         "summary": "Search Service Accounts",
         "operationId": "search_service_accounts_v2_apps__appId__accounts_nonHumanIdentities_get",
@@ -440,7 +420,7 @@
       },
       "post": {
         "tags": [
-          "Accounts"
+          "Connectors"
         ],
         "summary": "Create Service Account",
         "description": "Create Service Accounts",
@@ -496,7 +476,7 @@
       },
       "patch": {
         "tags": [
-          "Accounts"
+          "Connectors"
         ],
         "summary": "Patch Identities",
         "description": "The Patch Service Accounts API is used to edit user data.\nWhen editing service account data, any combination of fields can be updated at a time.\nThe uniqueId is required and can't be changed.\nOnly the fields that are supplied will be affected by the PATCH request (others will be unchanged).\n",
@@ -554,7 +534,7 @@
     "/v2/apps/{appId}/access/grouping": {
       "get": {
         "tags": [
-          "Access"
+          "Connectors"
         ],
         "summary": "Search Groupings",
         "description": "The Search Grouping API is used to get a list of groups that have access to a particular app.",
@@ -612,7 +592,7 @@
       },
       "post": {
         "tags": [
-          "Access"
+          "Connectors"
         ],
         "summary": "Create Groupings",
         "description": "The Create Groupings API is used to create groups that have access to a particular app.",
@@ -668,7 +648,7 @@
       },
       "patch": {
         "tags": [
-          "Access"
+          "Connectors"
         ],
         "summary": "Patch Groupings",
         "description": "The Patch Groupings API is used to edit grouping data. \nWhen editing grouping data, any combination of fields can be updated at a time. \nThe uniqueId is required and can't be changed. \nOnly the fields that are supplied will be affected by the PATCH request (others will be unchanged). ",
@@ -726,7 +706,7 @@
     "/v2/apps/{appId}/access/permissions": {
       "get": {
         "tags": [
-          "Access"
+          "Connectors"
         ],
         "summary": "Search Permissions",
         "description": "The Search Permissions API is used to list the privileges, assigned to a specific target.\nA permission (also referred to as an \"entitlement\") is a set of privileges, assigned to a specific target. \nExamples include: file permissions, file shares, GCP entitlements, the actual policies assigning access to roles in AWS, and inline policies. \n",
@@ -784,7 +764,7 @@
       },
       "post": {
         "tags": [
-          "Access"
+          "Connectors"
         ],
         "summary": "Create Permissions",
         "description": "The Create Permissions API is used to create a set of privileges, assigned to a specific target.\nA permission (also referred to as an \"entitlement\") is a set of privileges, assigned to a specific target. \nExamples include: file permissions, file shares, GCP entitlements, the actual policies assigning access to roles in AWS, and inline policies.\n",
@@ -842,7 +822,7 @@
     "/v2/apps/{appId}/privileges": {
       "get": {
         "tags": [
-          "Privileges"
+          "Connectors"
         ],
         "summary": "Search Privileges",
         "description": "The Search Privileges API gets all the privileges from a particular date until now. ",
@@ -900,7 +880,7 @@
       },
       "post": {
         "tags": [
-          "Privileges"
+          "Connectors"
         ],
         "summary": "Create Privileges",
         "description": "The Create Privileges API is used to define privileges that can be associated with assets.\nFor example, Read privileges on a file.\nHere you can define the type of privileges and associate it to assets in the Permission API.\n",
@@ -956,7 +936,7 @@
       },
       "patch": {
         "tags": [
-          "Privileges"
+          "Connectors"
         ],
         "summary": "Patch Privileges",
         "description": "Patch Privileges API is used to update privilege data.\nWhen editing privilege data, any combination of fields can be updated at a time.\nA uniqueId is required and can't be changed.\nOnly the fields that are supplied will be affected by the PATCH request (others will be unchanged).",
@@ -1014,7 +994,7 @@
     "/v2/apps/{appId}/privileges/grants": {
       "get": {
         "tags": [
-          "Privileges"
+          "Connectors"
         ],
         "summary": "Search Privileges Grants",
         "description": "The Search Privileges Grants API lists the privileges granted (for example: admin privileges can read, write, view).",
@@ -1072,7 +1052,7 @@
       },
       "post": {
         "tags": [
-          "Privileges"
+          "Connectors"
         ],
         "summary": "Create Privileges Grants",
         "description": "The Create Privileges Grants API enables you to establish inheritance between privileges, so that a single privilege contains a set of other privileges. \nFor example, an Administrative privilege that contains read and write privileges.",
@@ -1130,7 +1110,7 @@
     "/v2/apps/{appId}/association/accounts": {
       "get": {
         "tags": [
-          "Association"
+          "Connectors"
         ],
         "summary": "Search Accounts Association",
         "description": "The Search Accounts Association API gets a list of account associations between user accounts and groups.",
@@ -1188,7 +1168,7 @@
       },
       "post": {
         "tags": [
-          "Association"
+          "Connectors"
         ],
         "summary": "Create Accounts Association",
         "description": "The Create Accounts Association API creates account associations between user accounts and groups.",
@@ -1246,7 +1226,7 @@
     "/v2/apps/{appId}/association/groupings": {
       "get": {
         "tags": [
-          "Association"
+          "Connectors"
         ],
         "summary": "Search Groupings Association",
         "description": "The Search Groupings Association API gets a list of associations between groups and other groups.",
@@ -1304,7 +1284,7 @@
       },
       "post": {
         "tags": [
-          "Association"
+          "Connectors"
         ],
         "summary": "Create Groupings Association",
         "description": "The Create Groupings Association API creates associations between groups and other groups.\n",
@@ -1362,7 +1342,7 @@
     "/v2/apps/{appId}/assets": {
       "get": {
         "tags": [
-          "Assets"
+          "Connectors"
         ],
         "summary": "Search Assets",
         "description": "The Search Assets API gets a list of all assets (including asset data).",
@@ -1420,7 +1400,7 @@
       },
       "post": {
         "tags": [
-          "Assets"
+          "Connectors"
         ],
         "summary": "Create Assets",
         "description": "The Create Assets API creates assets (including asset data).",
@@ -1476,7 +1456,7 @@
       },
       "patch": {
         "tags": [
-          "Assets"
+          "Connectors"
         ],
         "summary": "Patch Assets",
         "description": "The Patch Assets API is used to edit assets (including asset data).\nWhen editing asset data, any combination of fields can be updated at a time.\nThe uniqueId is required and can't be changed.\nOnly the fields that are supplied are affected by the PATCH request (others are unchanged).\n",
@@ -1534,7 +1514,7 @@
     "/v2/apps/{appId}/assets/git-repository": {
       "post": {
         "tags": [
-          "Assets"
+          "Connectors"
         ],
         "summary": "Create Git Repo",
         "description": "Creates a Git Repository Asset",
@@ -1592,7 +1572,7 @@
     "/v2/apps/{appId}/assets/inheritance": {
       "get": {
         "tags": [
-          "Assets"
+          "Connectors"
         ],
         "summary": "Search Assets Inheritance",
         "description": "The Search Assets Inheritance API gets all the assets related to the source asset (for examples, all files in a folder).",
@@ -1650,7 +1630,7 @@
       },
       "post": {
         "tags": [
-          "Assets"
+          "Connectors"
         ],
         "summary": "Create Assets Inheritance",
         "description": "The Create Assets Inheritence API enables you to create a connection between different assets (for example, a folder that contains multiple files).\n",
@@ -1708,7 +1688,7 @@
     "/v2/apps/{appId}/identities": {
       "get": {
         "tags": [
-          "Identities"
+          "Connectors"
         ],
         "summary": "Search Identities",
         "description": "The Search Identities API gets all identities and their data.",
@@ -1766,7 +1746,7 @@
       },
       "post": {
         "tags": [
-          "Identities"
+          "Connectors"
         ],
         "summary": "Create Identities",
         "description": "The Create Identities API is used to create identities. \nThe data of the identity from this API is considered \"the source of truth\" and overrides the identity data from other systems.\n",
@@ -1822,7 +1802,7 @@
       },
       "patch": {
         "tags": [
-          "Identities"
+          "Connectors"
         ],
         "summary": "Patch Identities",
         "description": "The Patch Identities API is used to edit identity data.\nWhen editing identity data, any combination of fields can be updated at a time.\nThe uniqueId is required and can't be changed.\nOnly the fields that are supplied will be affected by the PATCH request (others will be unchanged).\n",
@@ -1880,6 +1860,7 @@
     "/v2/apps/{appId}/campaigns/{campaignId}/permissions": {
       "post": {
         "tags": [
+          "Connectors",
           "Campaign"
         ],
         "summary": "Add Campaign Permissions [Beta]",
@@ -1947,6 +1928,7 @@
     "/v2/apps/{appId}/campaigns/{campaignId}/memberships": {
       "post": {
         "tags": [
+          "Connectors",
           "Campaign"
         ],
         "summary": "Add Campaign Memberships [Beta]",
@@ -2000,6 +1982,31 @@
                 "schema": {
                   "$ref": "#/components/schemas/HTTPValidationError"
                 }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ]
+      }
+    },
+    "/v2/v2/apps/files/template": {
+      "get": {
+        "tags": [
+          "Connectors"
+        ],
+        "summary": "Get File Template",
+        "description": "The Get File Template API downloads a template file for file-provider based on the REST API schema.",
+        "operationId": "get_file_template_v2_v2_apps_files_template_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
               }
             }
           }
@@ -4341,11 +4348,6 @@
         ],
         "type": "object",
         "properties": {
-          "executionId": {
-            "title": "Executionid",
-            "type": "string",
-            "description": "The `executionId` parameter can be used to allow an app to run as a set of multiple, different executions with different configurations.\n\nOnce the data was uploaded using a certain `executionId`, all other requests, referring to the same data using `GET`/`POST`/`PUT`/`DELETE`, should use the **same** `executionId`.\n\n**Warning**, this parameter is an advanced feature and should be used with caution.\n"
-          },
           "data": {
             "title": "Data",
             "maxItems": 10000,
@@ -4355,12 +4357,6 @@
               "$ref": "#/components/schemas/NewAccountsAssociationRequestSchema"
             },
             "description": "New Accounts Associations"
-          },
-          "validateOnly": {
-            "title": "Validateonly",
-            "type": "boolean",
-            "description": "Validate the request without uploading the data into the system.",
-            "default": false
           }
         },
         "description": "List request schema"
@@ -4479,11 +4475,6 @@
         ],
         "type": "object",
         "properties": {
-          "executionId": {
-            "title": "Executionid",
-            "type": "string",
-            "description": "The `executionId` parameter can be used to allow an app to run as a set of multiple, different executions with different configurations.\n\nOnce the data was uploaded using a certain `executionId`, all other requests, referring to the same data using `GET`/`POST`/`PUT`/`DELETE`, should use the **same** `executionId`.\n\n**Warning**, this parameter is an advanced feature and should be used with caution.\n"
-          },
           "data": {
             "title": "Data",
             "maxItems": 10000,
@@ -4493,12 +4484,6 @@
               "$ref": "#/components/schemas/NewAssetInheritanceRequestSchema"
             },
             "description": "New Assets Inheritance"
-          },
-          "validateOnly": {
-            "title": "Validateonly",
-            "type": "boolean",
-            "description": "Validate the request without uploading the data into the system.",
-            "default": false
           }
         },
         "description": "List request schema"
@@ -4592,11 +4577,6 @@
         ],
         "type": "object",
         "properties": {
-          "executionId": {
-            "title": "Executionid",
-            "type": "string",
-            "description": "The `executionId` parameter can be used to allow an app to run as a set of multiple, different executions with different configurations.\n\nOnce the data was uploaded using a certain `executionId`, all other requests, referring to the same data using `GET`/`POST`/`PUT`/`DELETE`, should use the **same** `executionId`.\n\n**Warning**, this parameter is an advanced feature and should be used with caution.\n"
-          },
           "data": {
             "title": "Data",
             "maxItems": 10000,
@@ -4606,12 +4586,6 @@
               "$ref": "#/components/schemas/NewAssetRequestSchema"
             },
             "description": "New Assets"
-          },
-          "validateOnly": {
-            "title": "Validateonly",
-            "type": "boolean",
-            "description": "Validate the request without uploading the data into the system.",
-            "default": false
           }
         },
         "description": "List request schema"
@@ -4673,11 +4647,6 @@
         ],
         "type": "object",
         "properties": {
-          "executionId": {
-            "title": "Executionid",
-            "type": "string",
-            "description": "The `executionId` parameter can be used to allow an app to run as a set of multiple, different executions with different configurations.\n\nOnce the data was uploaded using a certain `executionId`, all other requests, referring to the same data using `GET`/`POST`/`PUT`/`DELETE`, should use the **same** `executionId`.\n\n**Warning**, this parameter is an advanced feature and should be used with caution.\n"
-          },
           "data": {
             "title": "Data",
             "maxItems": 10000,
@@ -4687,12 +4656,6 @@
               "$ref": "#/components/schemas/NewGitRepoRequestSchema"
             },
             "description": "New Git Repos"
-          },
-          "validateOnly": {
-            "title": "Validateonly",
-            "type": "boolean",
-            "description": "Validate the request without uploading the data into the system.",
-            "default": false
           }
         },
         "description": "List request schema"
@@ -5109,11 +5072,6 @@
         ],
         "type": "object",
         "properties": {
-          "executionId": {
-            "title": "Executionid",
-            "type": "string",
-            "description": "The `executionId` parameter can be used to allow an app to run as a set of multiple, different executions with different configurations.\n\nOnce the data was uploaded using a certain `executionId`, all other requests, referring to the same data using `GET`/`POST`/`PUT`/`DELETE`, should use the **same** `executionId`.\n\n**Warning**, this parameter is an advanced feature and should be used with caution.\n"
-          },
           "data": {
             "title": "Data",
             "maxItems": 10000,
@@ -5123,12 +5081,6 @@
               "$ref": "#/components/schemas/NewGroupingsAssociationRequestSchema"
             },
             "description": "New Groupings Associations"
-          },
-          "validateOnly": {
-            "title": "Validateonly",
-            "type": "boolean",
-            "description": "Validate the request without uploading the data into the system.",
-            "default": false
           }
         },
         "description": "List request schema"
@@ -5140,11 +5092,6 @@
         ],
         "type": "object",
         "properties": {
-          "executionId": {
-            "title": "Executionid",
-            "type": "string",
-            "description": "The `executionId` parameter can be used to allow an app to run as a set of multiple, different executions with different configurations.\n\nOnce the data was uploaded using a certain `executionId`, all other requests, referring to the same data using `GET`/`POST`/`PUT`/`DELETE`, should use the **same** `executionId`.\n\n**Warning**, this parameter is an advanced feature and should be used with caution.\n"
-          },
           "data": {
             "title": "Data",
             "maxItems": 10000,
@@ -5154,12 +5101,6 @@
               "$ref": "#/components/schemas/NewGroupingRequestSchema"
             },
             "description": "New Groupings"
-          },
-          "validateOnly": {
-            "title": "Validate Only\n",
-            "type": "boolean",
-            "description": "Validate the request without uploading the data into the system.",
-            "default": false
           }
         },
         "description": "List request schema"
@@ -5171,11 +5112,6 @@
         ],
         "type": "object",
         "properties": {
-          "executionId": {
-            "title": "Executionid",
-            "type": "string",
-            "description": "The `executionId` parameter can be used to allow an app to run as a set of multiple, different executions with different configurations.\n\nOnce the data was uploaded using a certain `executionId`, all other requests, referring to the same data using `GET`/`POST`/`PUT`/`DELETE`, should use the **same** `executionId`.\n\n**Warning**, this parameter is an advanced feature and should be used with caution.\n"
-          },
           "data": {
             "title": "Data",
             "maxItems": 10000,
@@ -5185,12 +5121,6 @@
               "$ref": "#/components/schemas/NewIdentityRequestSchema"
             },
             "description": "New Identities"
-          },
-          "validateOnly": {
-            "title": "Validateonly",
-            "type": "boolean",
-            "description": "Validate the request without uploading the data into the system.",
-            "default": false
           }
         },
         "description": "List request schema"
@@ -5407,11 +5337,6 @@
         ],
         "type": "object",
         "properties": {
-          "executionId": {
-            "title": "Executionid",
-            "type": "string",
-            "description": "The `executionId` parameter can be used to allow an app to run as a set of multiple, different executions with different configurations.\n\nOnce the data was uploaded using a certain `executionId`, all other requests, referring to the same data using `GET`/`POST`/`PUT`/`DELETE`, should use the **same** `executionId`.\n\n**Warning**, this parameter is an advanced feature and should be used with caution.\n"
-          },
           "data": {
             "title": "Data",
             "maxItems": 10000,
@@ -5421,12 +5346,6 @@
               "$ref": "#/components/schemas/NewPermissionRequestSchema"
             },
             "description": "New Permissions"
-          },
-          "validateOnly": {
-            "title": "Validate Only\n",
-            "type": "boolean",
-            "description": "Validate the request without uploading the data into the system.",
-            "default": false
           }
         },
         "description": "List request schema"
@@ -5723,11 +5642,6 @@
         ],
         "type": "object",
         "properties": {
-          "executionId": {
-            "title": "Executionid",
-            "type": "string",
-            "description": "The `executionId` parameter can be used to allow an app to run as a set of multiple, different executions with different configurations.\n\nOnce the data was uploaded using a certain `executionId`, all other requests, referring to the same data using `GET`/`POST`/`PUT`/`DELETE`, should use the **same** `executionId`.\n\n**Warning**, this parameter is an advanced feature and should be used with caution.\n"
-          },
           "data": {
             "title": "Data",
             "maxItems": 10000,
@@ -5737,12 +5651,6 @@
               "$ref": "#/components/schemas/NewPrivilegeGrantsRequestSchema"
             },
             "description": "New Privileges Grants"
-          },
-          "validateOnly": {
-            "title": "Validateonly",
-            "type": "boolean",
-            "description": "Validate the request without uploading the data into the system.",
-            "default": false
           }
         },
         "description": "List request schema"
@@ -5754,11 +5662,6 @@
         ],
         "type": "object",
         "properties": {
-          "executionId": {
-            "title": "Executionid",
-            "type": "string",
-            "description": "The `executionId` parameter can be used to allow an app to run as a set of multiple, different executions with different configurations.\n\nOnce the data was uploaded using a certain `executionId`, all other requests, referring to the same data using `GET`/`POST`/`PUT`/`DELETE`, should use the **same** `executionId`.\n\n**Warning**, this parameter is an advanced feature and should be used with caution.\n"
-          },
           "data": {
             "title": "Data",
             "maxItems": 10000,
@@ -5768,12 +5671,6 @@
               "$ref": "#/components/schemas/NewPrivilegeRequestSchema"
             },
             "description": "New Privileges"
-          },
-          "validateOnly": {
-            "title": "Validateonly",
-            "type": "boolean",
-            "description": "Validate the request without uploading the data into the system.",
-            "default": false
           }
         },
         "description": "List request schema"
@@ -5835,11 +5732,6 @@
         ],
         "type": "object",
         "properties": {
-          "executionId": {
-            "title": "Executionid",
-            "type": "string",
-            "description": "The `executionId` parameter can be used to allow an app to run as a set of multiple, different executions with different configurations.\n\nOnce the data was uploaded using a certain `executionId`, all other requests, referring to the same data using `GET`/`POST`/`PUT`/`DELETE`, should use the **same** `executionId`.\n\n**Warning**, this parameter is an advanced feature and should be used with caution.\n"
-          },
           "data": {
             "title": "Data",
             "maxItems": 10000,
@@ -5849,12 +5741,6 @@
               "$ref": "#/components/schemas/NewServiceAccountRequestSchema"
             },
             "description": "Create Service Accounts"
-          },
-          "validateOnly": {
-            "title": "Validateonly",
-            "type": "boolean",
-            "description": "Validate the request without uploading the data into the system.",
-            "default": false
           }
         }
       },
@@ -6104,11 +5990,6 @@
         ],
         "type": "object",
         "properties": {
-          "executionId": {
-            "title": "Executionid",
-            "type": "string",
-            "description": "The `executionId` parameter can be used to allow an app to run as a set of multiple, different executions with different configurations.\n\nOnce the data was uploaded using a certain `executionId`, all other requests, referring to the same data using `GET`/`POST`/`PUT`/`DELETE`, should use the **same** `executionId`.\n\n**Warning**, this parameter is an advanced feature and should be used with caution.\n"
-          },
           "data": {
             "title": "Data",
             "maxItems": 10000,
@@ -6118,12 +5999,6 @@
               "$ref": "#/components/schemas/NewUserRequestSchema"
             },
             "description": "New Users"
-          },
-          "validateOnly": {
-            "title": "Validateonly",
-            "type": "boolean",
-            "description": "Validate the request without uploading the data into the system.",
-            "default": false
           }
         },
         "description": "List request schema"
@@ -6912,11 +6787,6 @@
         "title": "UpdateAppSchema",
         "type": "object",
         "properties": {
-          "executionId": {
-            "title": "Executionid",
-            "type": "string",
-            "description": "The `executionId` parameter can be used to allow an app to run as a set of multiple, different executions with different configurations.\n\nOnce the data was uploaded using a certain `executionId`, all other requests, referring to the same data using `GET`/`POST`/`PUT`/`DELETE`, should use the **same** `executionId`.\n\n**Warning**, this parameter is an advanced feature and should be used with caution.\n"
-          },
           "name": {
             "title": "Name",
             "type": "string",
@@ -7020,11 +6890,6 @@
         ],
         "type": "object",
         "properties": {
-          "executionId": {
-            "title": "Executionid",
-            "type": "string",
-            "description": "The `executionId` parameter can be used to allow an app to run as a set of multiple, different executions with different configurations.\n\nOnce the data was uploaded using a certain `executionId`, all other requests, referring to the same data using `GET`/`POST`/`PUT`/`DELETE`, should use the **same** `executionId`.\n\n**Warning**, this parameter is an advanced feature and should be used with caution.\n"
-          },
           "data": {
             "title": "Data",
             "maxItems": 10000,
@@ -7045,11 +6910,6 @@
         ],
         "type": "object",
         "properties": {
-          "executionId": {
-            "title": "Executionid",
-            "type": "string",
-            "description": "The `executionId` parameter can be used to allow an app to run as a set of multiple, different executions with different configurations.\n\nOnce the data was uploaded using a certain `executionId`, all other requests, referring to the same data using `GET`/`POST`/`PUT`/`DELETE`, should use the **same** `executionId`.\n\n**Warning**, this parameter is an advanced feature and should be used with caution.\n"
-          },
           "data": {
             "title": "Data",
             "maxItems": 10000,
@@ -7177,11 +7037,6 @@
         ],
         "type": "object",
         "properties": {
-          "executionId": {
-            "title": "Executionid",
-            "type": "string",
-            "description": "The `executionId` parameter can be used to allow an app to run as a set of multiple, different executions with different configurations.\n\nOnce the data was uploaded using a certain `executionId`, all other requests, referring to the same data using `GET`/`POST`/`PUT`/`DELETE`, should use the **same** `executionId`.\n\n**Warning**, this parameter is an advanced feature and should be used with caution.\n"
-          },
           "data": {
             "title": "Data",
             "maxItems": 10000,
@@ -7353,11 +7208,6 @@
         ],
         "type": "object",
         "properties": {
-          "executionId": {
-            "title": "Executionid",
-            "type": "string",
-            "description": "The `executionId` parameter can be used to allow an app to run as a set of multiple, different executions with different configurations.\n\nOnce the data was uploaded using a certain `executionId`, all other requests, referring to the same data using `GET`/`POST`/`PUT`/`DELETE`, should use the **same** `executionId`.\n\n**Warning**, this parameter is an advanced feature and should be used with caution.\n"
-          },
           "data": {
             "title": "Data",
             "maxItems": 10000,
@@ -7378,11 +7228,6 @@
         ],
         "type": "object",
         "properties": {
-          "executionId": {
-            "title": "Executionid",
-            "type": "string",
-            "description": "The `executionId` parameter can be used to allow an app to run as a set of multiple, different executions with different configurations.\n\nOnce the data was uploaded using a certain `executionId`, all other requests, referring to the same data using `GET`/`POST`/`PUT`/`DELETE`, should use the **same** `executionId`.\n\n**Warning**, this parameter is an advanced feature and should be used with caution.\n"
-          },
           "data": {
             "title": "Data",
             "maxItems": 10000,
@@ -7488,11 +7333,6 @@
         ],
         "type": "object",
         "properties": {
-          "executionId": {
-            "title": "Executionid",
-            "type": "string",
-            "description": "The `executionId` parameter can be used to allow an app to run as a set of multiple, different executions with different configurations.\n\nOnce the data was uploaded using a certain `executionId`, all other requests, referring to the same data using `GET`/`POST`/`PUT`/`DELETE`, should use the **same** `executionId`.\n\n**Warning**, this parameter is an advanced feature and should be used with caution.\n"
-          },
           "data": {
             "title": "Data",
             "maxItems": 10000,
@@ -7741,32 +7581,8 @@
       "description": "The status of the API.\n"
     },
     {
-      "name": "Apps",
-      "description": "The Apps APIs are used for application level actions such as geting file templates and deleting application data.\n"
-    },
-    {
-      "name": "Accounts",
-      "description": "Each account is associated with a specific application.\nAccount APIs are used to find, create and edit account data.\n"
-    },
-    {
-      "name": "Access",
-      "description": "Access is a way to relate between accounts, roles and assets.\nAccess APIs can be used to get a list of groups (including the users in each group), to create groups and to edit groups."
-    },
-    {
-      "name": "Privileges",
-      "description": "The Privileges APIs are used to get, create and edit privileges that enable access to assets."
-    },
-    {
-      "name": "Association",
-      "description": "Association APIs can be used to search and create account associations and group associations. "
-    },
-    {
-      "name": "Assets",
-      "description": "The Assets API is used to get, create and edit assets (files, folders, drives, applications ...)."
-    },
-    {
-      "name": "Identities",
-      "description": "The Identities APIs are used for getting, creating and editing Identities."
+      "name": "Connectors",
+      "description": "Connectors API are used to create or edit data involving `Accounts`, `Access`, `Privileges`, `Associations`, `Assets` and `Identities`"
     },
     {
       "name": "v1",
