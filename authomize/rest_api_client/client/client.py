@@ -50,11 +50,12 @@ from authomize.rest_api_client.generated.connectors_rest_api.schemas import (
     UpdateAppSchema,
 )
 from authomize.rest_api_client.generated.external_rest_api.schemas import (
+    CampaignExpansion,
     CreateCampaignRequestSchema,
     CreateCampaignResponseSchema,
     IncidentExpansion,
     IsAliveResponse,
-    MeResponse, CampaignExpansion,
+    MeResponse,
 )
 
 

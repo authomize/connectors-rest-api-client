@@ -2,12 +2,14 @@ from typing import Optional
 
 from authomize.rest_api_client.client.base_client import BaseClient
 from authomize.rest_api_client.generated.external_rest_api.schemas import (
+    CampaignExpansion,
     CreateCampaignRequestSchema,
     CreateCampaignResponseSchema,
     IncidentExpansion,
     IsAliveResponse,
     MeResponse,
-    NonPaginatedResponseSchemaIncidentSchema, CampaignExpansion, NonPaginatedResponseSchemaCampaignSchema,
+    NonPaginatedResponseSchemaCampaignSchema,
+    NonPaginatedResponseSchemaIncidentSchema,
 )
 
 
