@@ -50,6 +50,7 @@ from authomize.rest_api_client.generated.connectors_rest_api.schemas import (
     UpdateAppSchema,
 )
 from authomize.rest_api_client.generated.external_rest_api.schemas import (
+    CampaignExpansion,
     CreateCampaignRequestSchema,
     CreateCampaignResponseSchema,
     IncidentExpansion,
@@ -407,3 +408,13 @@ class Client:
         body: CreateCampaignRequestSchema,
     ) -> CreateCampaignResponseSchema:
         return self.platform_client.create_campaign(body)
+
+    def retrieve_campaign(
+        self,
+        campaign_id: str,
+        expand: Optional[list[CampaignExpansion]] = None,
+    ):
+        return self.platform_client.retrieve_campaign(
+            campaign_id=campaign_id,
+            expand=expand,
+        )
