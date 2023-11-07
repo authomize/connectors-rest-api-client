@@ -51,9 +51,7 @@ class PlatformClient(BaseClient):
         )
 
     def retrieve_campaign(
-        self,
-        campaign_id: str,
-        expand: Optional[list[CampaignExpansion]] = None
+        self, campaign_id: str, expand: Optional[list[CampaignExpansion]] = None
     ) -> NonPaginatedResponseSchemaCampaignSchema:
         if not campaign_id:
             raise ValueError('Missing campaign_id')
