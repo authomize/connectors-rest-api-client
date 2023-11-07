@@ -1883,7 +1883,7 @@
           "Campaign"
         ],
         "summary": "Add Campaign Permissions [Beta]",
-        "description": "Add campaign permissions.",
+        "description": "The API is used to add all the campaign privileges that need to be reviewed and the reviewers details via API",
         "operationId": "add_campaign_permissions_v2_apps__appId__campaigns__campaignId__permissions_post",
         "parameters": [
           {
@@ -1950,7 +1950,7 @@
           "Campaign"
         ],
         "summary": "Add Campaign Memberships [Beta]",
-        "description": "Add campaign memberships.",
+        "description": "The API is used to add all the campaign membership (such as membership in groups) that need to be reviewed and the reviewers details via API",
         "operationId": "add_campaign_memberships_v2_apps__appId__campaigns__campaignId__memberships_post",
         "parameters": [
           {
@@ -2832,7 +2832,7 @@
                 "$ref": "#/components/schemas/CampaignGroupingSchema"
               }
             ],
-            "description": "Grouping."
+            "description": "The group to be reviewed."
           }
         }
       },
@@ -2939,7 +2939,7 @@
                 "$ref": "#/components/schemas/CampaignPrivilegeSchema"
               }
             ],
-            "description": "Privilege."
+            "description": "Privilege to be reviewed."
           },
           "asset": {
             "title": "Asset",
@@ -2948,7 +2948,7 @@
                 "$ref": "#/components/schemas/CampaignAssetSchema"
               }
             ],
-            "description": "Asset."
+            "description": "Asset to be reviewed."
           }
         }
       },
@@ -3552,7 +3552,7 @@
                 "$ref": "#/components/schemas/PrivilegeType"
               }
             ],
-            "description": "The \"canonical\" privilege types that are supported by Authomize off-the-shelf:\n\nPermitted values: \n   •\t`Administrative`\n   •\t`Unknown`\n   •\t`Read`\n   •\t`ReadMetadata`\n   •\t`Write`\n   •\t`Create`\n   •\t`Delete`\n   •\t`Execute`\n   •\t`Enable`\n   •\t`Assign`\n   •\t`Restore`\n   •\t`Import`\n   •\t`Export`\n   •\t`Update`\n   •\t`Cancel`\n   •\t`Use`\n   •\t`Delegate`\n   •\t`Join`\n   •\t`Invite`\n   •\t`Share`\n\n"
+            "description": "The \"canonical\" privilege types that are supported by Authomize off-the-shelf:\n\nPermitted values: \n   •\t`Administrative`\n   •\t`Login`\n   •\t`Data Read`\n   •\t`Metadata Read`\n   •\t`Data Write`\n   •\t`Metadata Write`\n   •\t`Data Create`\n   •\t`Metadata Create`\n   •\t`Data Delete`\n   •\t`Metadata Delete`\n\n"
           },
           "originName": {
             "title": "Originname",
@@ -5679,7 +5679,7 @@
                 "$ref": "#/components/schemas/PrivilegeType"
               }
             ],
-            "description": "The \"canonical\" privilege types that are supported by Authomize off-the-shelf:\n\nPermitted values: \n   •\t`Administrative`\n   •\t`Unknown`\n   •\t`Read`\n   •\t`ReadMetadata`\n   •\t`Write`\n   •\t`Create`\n   •\t`Delete`\n   •\t`Execute`\n   •\t`Enable`\n   •\t`Assign`\n   •\t`Restore`\n   •\t`Import`\n   •\t`Export`\n   •\t`Update`\n   •\t`Cancel`\n   •\t`Use`\n   •\t`Delegate`\n   •\t`Join`\n   •\t`Invite`\n   •\t`Share`\n\n",
+            "description": "The \"canonical\" privilege types that are supported by Authomize off-the-shelf:\n\nPermitted values: \n   •\t`Administrative`\n   •\t`Login`\n   •\t`Data Read`\n   •\t`Metadata Read`\n   •\t`Data Write`\n   •\t`Metadata Write`\n   •\t`Data Create`\n   •\t`Metadata Create`\n   •\t`Data Delete`\n   •\t`Metadata Delete`\n\n",
             "deprecated": true
           },
           "privilegeType": {
@@ -5688,7 +5688,7 @@
                 "$ref": "#/components/schemas/NewPrivilegeType"
               }
             ],
-            "description": "The \"canonical\" privilege types that are supported by Authomize off-the-shelf:\n\nPermitted values: \n   •\t`Administrative`\n   •\t`Login`\n   •\t`Data Read`\n   •\t`Metadata Read`\n   •\t`Data Write`\n   •\t`Metadata Write`\n   •\t`Data Create`\n   •\t`Metadata Create`\n   •\t`Data Delete`\n   •\t`Metadata Delete`\n"
+            "description": "The \"canonical\" privilege types that are supported by Authomize off-the-shelf:\n\nPermitted values: \n   •\t`Administrative`\n   •\t`Data Read`\n   •\t`Metadata Read`\n   •\t`Data Write`\n   •\t`Metadata Write`\n   •\t`Data Create`\n   •\t`Metadata Create`\n   •\t`Data Delete`\n   •\t`Metadata Delete`\n"
           },
           "originName": {
             "title": "Originname",
@@ -5702,7 +5702,6 @@
         "title": "NewPrivilegeType",
         "enum": [
           "Administrative",
-          "Login",
           "Data Create",
           "Metadata Create",
           "Data Read",
@@ -6273,7 +6272,7 @@
                 "$ref": "#/components/schemas/PrivilegeType"
               }
             ],
-            "description": "The \"canonical\" privilege types that are supported by Authomize off-the-shelf:\n\nPermitted values: \n   •\t`Administrative`\n   •\t`Unknown`\n   •\t`Read`\n   •\t`ReadMetadata`\n   •\t`Write`\n   •\t`Create`\n   •\t`Delete`\n   •\t`Execute`\n   •\t`Enable`\n   •\t`Assign`\n   •\t`Restore`\n   •\t`Import`\n   •\t`Export`\n   •\t`Update`\n   •\t`Cancel`\n   •\t`Use`\n   •\t`Delegate`\n   •\t`Join`\n   •\t`Invite`\n   •\t`Share`\n\n",
+            "description": "The \"canonical\" privilege types that are supported by Authomize off-the-shelf:\n\nPermitted values: \n   •\t`Administrative`\n   •\t`Login`\n   •\t`Data Read`\n   •\t`Metadata Read`\n   •\t`Data Write`\n   •\t`Metadata Write`\n   •\t`Data Create`\n   •\t`Metadata Create`\n   •\t`Data Delete`\n   •\t`Metadata Delete`\n\n",
             "deprecated": true
           },
           "privilegeType": {
@@ -6282,7 +6281,7 @@
                 "$ref": "#/components/schemas/NewPrivilegeType"
               }
             ],
-            "description": "The \"canonical\" privilege types that are supported by Authomize off-the-shelf:\n\nPermitted values: \n   •\t`Administrative`\n   •\t`Login`\n   •\t`Data Read`\n   •\t`Metadata Read`\n   •\t`Data Write`\n   •\t`Metadata Write`\n   •\t`Data Create`\n   •\t`Metadata Create`\n   •\t`Data Delete`\n   •\t`Metadata Delete`\n"
+            "description": "The \"canonical\" privilege types that are supported by Authomize off-the-shelf:\n\nPermitted values: \n   •\t`Administrative`\n   •\t`Data Read`\n   •\t`Metadata Read`\n   •\t`Data Write`\n   •\t`Metadata Write`\n   •\t`Data Create`\n   •\t`Metadata Create`\n   •\t`Data Delete`\n   •\t`Metadata Delete`\n"
           },
           "originName": {
             "title": "Originname",
@@ -7336,7 +7335,7 @@
                 "$ref": "#/components/schemas/PrivilegeType"
               }
             ],
-            "description": "The \"canonical\" privilege types that are supported by Authomize off-the-shelf:\n\nPermitted values: \n   •\t`Administrative`\n   •\t`Unknown`\n   •\t`Read`\n   •\t`ReadMetadata`\n   •\t`Write`\n   •\t`Create`\n   •\t`Delete`\n   •\t`Execute`\n   •\t`Enable`\n   •\t`Assign`\n   •\t`Restore`\n   •\t`Import`\n   •\t`Export`\n   •\t`Update`\n   •\t`Cancel`\n   •\t`Use`\n   •\t`Delegate`\n   •\t`Join`\n   •\t`Invite`\n   •\t`Share`\n\n"
+            "description": "The \"canonical\" privilege types that are supported by Authomize off-the-shelf:\n\nPermitted values: \n   •\t`Administrative`\n   •\t`Login`\n   •\t`Data Read`\n   •\t`Metadata Read`\n   •\t`Data Write`\n   •\t`Metadata Write`\n   •\t`Data Create`\n   •\t`Metadata Create`\n   •\t`Data Delete`\n   •\t`Metadata Delete`\n\n"
           },
           "originName": {
             "title": "Originname",
