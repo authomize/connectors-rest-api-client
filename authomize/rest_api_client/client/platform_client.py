@@ -7,7 +7,7 @@ from authomize.rest_api_client.generated.external_rest_api.schemas import (
     IncidentExpansion,
     IsAliveResponse,
     MeResponse,
-    NonPaginatedResponseSchemaIncidentSchema,
+    NonPaginatedResponseSchemaIncidentSchema, CampaignExpansion, NonPaginatedResponseSchemaCampaignSchema,
 )
 
 
@@ -47,3 +47,17 @@ class PlatformClient(BaseClient):
             '/v2/campaigns',
             body=body.json(),
         )
+
+    def retrieve_campaign(
+        self,
+        campaign_id: str,
+        expand: Optional[list[CampaignExpansion]] = None
+    ) -> NonPaginatedResponseSchemaCampaignSchema:
+        if not campaign_id:
+            raise ValueError('Missing campaign_id')
+        params = None
+        if expand:
+            params = dict(
+                expand=expand,
+            )
+        return self.http_get(f'/v2/campaigns/{campaign_id}', params=params)

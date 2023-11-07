@@ -54,7 +54,7 @@ from authomize.rest_api_client.generated.external_rest_api.schemas import (
     CreateCampaignResponseSchema,
     IncidentExpansion,
     IsAliveResponse,
-    MeResponse,
+    MeResponse, CampaignExpansion,
 )
 
 
@@ -407,3 +407,13 @@ class Client:
         body: CreateCampaignRequestSchema,
     ) -> CreateCampaignResponseSchema:
         return self.platform_client.create_campaign(body)
+
+    def retrieve_campaign(
+        self,
+        campaign_id: str,
+        expand: Optional[list[CampaignExpansion]] = None,
+    ):
+        return self.platform_client.retrieve_campaign(
+            campaign_id=campaign_id,
+            expand=expand,
+        )
