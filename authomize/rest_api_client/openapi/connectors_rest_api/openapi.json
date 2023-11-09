@@ -1883,7 +1883,7 @@
           "Campaign"
         ],
         "summary": "Add Campaign Permissions [Beta]",
-        "description": "Add campaign permissions.",
+        "description": "The API is used to add all the campaign privileges that need to be reviewed and the reviewers details via API",
         "operationId": "add_campaign_permissions_v2_apps__appId__campaigns__campaignId__permissions_post",
         "parameters": [
           {
@@ -1950,7 +1950,7 @@
           "Campaign"
         ],
         "summary": "Add Campaign Memberships [Beta]",
-        "description": "Add campaign memberships.",
+        "description": "The API is used to add all the campaign membership (such as membership in groups) that need to be reviewed and the reviewers details via API",
         "operationId": "add_campaign_memberships_v2_apps__appId__campaigns__campaignId__memberships_post",
         "parameters": [
           {
@@ -1989,6 +1989,260 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/AddCampaignMembershipsResponseSchema"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ]
+      }
+    },
+    "/v2/apps/connectors": {
+      "get": {
+        "tags": [
+          "Connector"
+        ],
+        "summary": "Search",
+        "description": "Search connectors.",
+        "operationId": "search_v2_apps_connectors_get",
+        "parameters": [
+          {
+            "required": false,
+            "schema": {
+              "title": "Limit",
+              "type": "integer",
+              "default": 20
+            },
+            "name": "limit",
+            "in": "query"
+          },
+          {
+            "required": false,
+            "schema": {
+              "title": "Skip",
+              "type": "integer",
+              "default": 0
+            },
+            "name": "skip",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RestApiConnectorListSchema"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ]
+      },
+      "post": {
+        "tags": [
+          "Connector"
+        ],
+        "summary": "Post",
+        "description": "Create new connector.",
+        "operationId": "post_v2_apps_connectors_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/NewRestApiConnectorSchema"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RestApiConnectorSchema"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ]
+      }
+    },
+    "/v2/apps/connectors/{connectorId}": {
+      "get": {
+        "tags": [
+          "Connector"
+        ],
+        "summary": "Retrieve",
+        "description": "Retrieve connector by {connectorId}.",
+        "operationId": "retrieve_v2_apps_connectors__connectorId__get",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Connectorid",
+              "type": "string"
+            },
+            "name": "connectorId",
+            "in": "path"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RestApiConnectorSchema"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ]
+      },
+      "delete": {
+        "tags": [
+          "Connector"
+        ],
+        "summary": "Delete Connector",
+        "description": "Remove connector by {connectorId} along with its data.",
+        "operationId": "delete_connector_v2_apps_connectors__connectorId__delete",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Connectorid",
+              "type": "string"
+            },
+            "name": "connectorId",
+            "in": "path"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RequestSubmitResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ]
+      },
+      "patch": {
+        "tags": [
+          "Connector"
+        ],
+        "summary": "Update Connector",
+        "description": "Update an existing connector.",
+        "operationId": "update_connector_v2_apps_connectors__connectorId__patch",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Connectorid",
+              "type": "string"
+            },
+            "name": "connectorId",
+            "in": "path"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateRestApiConnectorSchema"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RestApiConnectorSchema"
                 }
               }
             }
@@ -2832,7 +3086,7 @@
                 "$ref": "#/components/schemas/CampaignGroupingSchema"
               }
             ],
-            "description": "Grouping."
+            "description": "The group to be reviewed."
           }
         }
       },
@@ -2939,7 +3193,7 @@
                 "$ref": "#/components/schemas/CampaignPrivilegeSchema"
               }
             ],
-            "description": "Privilege."
+            "description": "Privilege to be reviewed."
           },
           "asset": {
             "title": "Asset",
@@ -2948,7 +3202,7 @@
                 "$ref": "#/components/schemas/CampaignAssetSchema"
               }
             ],
-            "description": "Asset."
+            "description": "Asset to be reviewed."
           }
         }
       },
@@ -3552,7 +3806,7 @@
                 "$ref": "#/components/schemas/PrivilegeType"
               }
             ],
-            "description": "The \"canonical\" privilege types that are supported by Authomize off-the-shelf:\n\nPermitted values: \n   •\t`Administrative`\n   •\t`Unknown`\n   •\t`Read`\n   •\t`ReadMetadata`\n   •\t`Write`\n   •\t`Create`\n   •\t`Delete`\n   •\t`Execute`\n   •\t`Enable`\n   •\t`Assign`\n   •\t`Restore`\n   •\t`Import`\n   •\t`Export`\n   •\t`Update`\n   •\t`Cancel`\n   •\t`Use`\n   •\t`Delegate`\n   •\t`Join`\n   •\t`Invite`\n   •\t`Share`\n\n"
+            "description": "The \"canonical\" privilege types that are supported by Authomize off-the-shelf:\n\nPermitted values: \n   •\t`Administrative`\n   •\t`Login`\n   •\t`Data Read`\n   •\t`Metadata Read`\n   •\t`Data Write`\n   •\t`Metadata Write`\n   •\t`Data Create`\n   •\t`Metadata Create`\n   •\t`Data Delete`\n   •\t`Metadata Delete`\n\n"
           },
           "originName": {
             "title": "Originname",
@@ -3585,6 +3839,18 @@
           }
         }
       },
+      "ConnectorExecutionStatus": {
+        "title": "ConnectorExecutionStatus",
+        "enum": [
+          "Error",
+          "Fetching",
+          "ForceFetching",
+          "Initializing",
+          "Synced"
+        ],
+        "type": "string",
+        "description": "An enumeration."
+      },
       "ConnectorStatus": {
         "title": "ConnectorStatus",
         "enum": [
@@ -3598,6 +3864,24 @@
           "deleted"
         ],
         "description": "An enumeration."
+      },
+      "ExecutionState": {
+        "title": "ExecutionState",
+        "required": [
+          "status",
+          "date"
+        ],
+        "type": "object",
+        "properties": {
+          "status": {
+            "$ref": "#/components/schemas/ConnectorExecutionStatus"
+          },
+          "date": {
+            "title": "Date",
+            "type": "string",
+            "format": "date-time"
+          }
+        }
       },
       "ExportResponse": {
         "title": "ExportResponse",
@@ -4140,6 +4424,20 @@
             "description": "The Update Application Data API is used to update app data on `{appId}`.\n"
           }
         }
+      },
+      "IntegrationInternalStatus": {
+        "title": "IntegrationInternalStatus",
+        "enum": [
+          "archived",
+          "deleted",
+          "enabled",
+          "failure",
+          "initializing",
+          "installable",
+          "validating"
+        ],
+        "type": "string",
+        "description": "An enumeration."
       },
       "IsAliveResponse": {
         "title": "IsAliveResponse",
@@ -5679,7 +5977,7 @@
                 "$ref": "#/components/schemas/PrivilegeType"
               }
             ],
-            "description": "The \"canonical\" privilege types that are supported by Authomize off-the-shelf:\n\nPermitted values: \n   •\t`Administrative`\n   •\t`Unknown`\n   •\t`Read`\n   •\t`ReadMetadata`\n   •\t`Write`\n   •\t`Create`\n   •\t`Delete`\n   •\t`Execute`\n   •\t`Enable`\n   •\t`Assign`\n   •\t`Restore`\n   •\t`Import`\n   •\t`Export`\n   •\t`Update`\n   •\t`Cancel`\n   •\t`Use`\n   •\t`Delegate`\n   •\t`Join`\n   •\t`Invite`\n   •\t`Share`\n\n",
+            "description": "The \"canonical\" privilege types that are supported by Authomize off-the-shelf:\n\nPermitted values: \n   •\t`Administrative`\n   •\t`Login`\n   •\t`Data Read`\n   •\t`Metadata Read`\n   •\t`Data Write`\n   •\t`Metadata Write`\n   •\t`Data Create`\n   •\t`Metadata Create`\n   •\t`Data Delete`\n   •\t`Metadata Delete`\n\n",
             "deprecated": true
           },
           "privilegeType": {
@@ -5688,7 +5986,7 @@
                 "$ref": "#/components/schemas/NewPrivilegeType"
               }
             ],
-            "description": "The \"canonical\" privilege types that are supported by Authomize off-the-shelf:\n\nPermitted values: \n   •\t`Administrative`\n   •\t`Login`\n   •\t`Data Read`\n   •\t`Metadata Read`\n   •\t`Data Write`\n   •\t`Metadata Write`\n   •\t`Data Create`\n   •\t`Metadata Create`\n   •\t`Data Delete`\n   •\t`Metadata Delete`\n"
+            "description": "The \"canonical\" privilege types that are supported by Authomize off-the-shelf:\n\nPermitted values: \n   •\t`Administrative`\n   •\t`Data Read`\n   •\t`Metadata Read`\n   •\t`Data Write`\n   •\t`Metadata Write`\n   •\t`Data Create`\n   •\t`Metadata Create`\n   •\t`Data Delete`\n   •\t`Metadata Delete`\n"
           },
           "originName": {
             "title": "Originname",
@@ -6273,7 +6571,7 @@
                 "$ref": "#/components/schemas/PrivilegeType"
               }
             ],
-            "description": "The \"canonical\" privilege types that are supported by Authomize off-the-shelf:\n\nPermitted values: \n   •\t`Administrative`\n   •\t`Unknown`\n   •\t`Read`\n   •\t`ReadMetadata`\n   •\t`Write`\n   •\t`Create`\n   •\t`Delete`\n   •\t`Execute`\n   •\t`Enable`\n   •\t`Assign`\n   •\t`Restore`\n   •\t`Import`\n   •\t`Export`\n   •\t`Update`\n   •\t`Cancel`\n   •\t`Use`\n   •\t`Delegate`\n   •\t`Join`\n   •\t`Invite`\n   •\t`Share`\n\n",
+            "description": "The \"canonical\" privilege types that are supported by Authomize off-the-shelf:\n\nPermitted values: \n   •\t`Administrative`\n   •\t`Login`\n   •\t`Data Read`\n   •\t`Metadata Read`\n   •\t`Data Write`\n   •\t`Metadata Write`\n   •\t`Data Create`\n   •\t`Metadata Create`\n   •\t`Data Delete`\n   •\t`Metadata Delete`\n\n",
             "deprecated": true
           },
           "privilegeType": {
@@ -6282,7 +6580,7 @@
                 "$ref": "#/components/schemas/NewPrivilegeType"
               }
             ],
-            "description": "The \"canonical\" privilege types that are supported by Authomize off-the-shelf:\n\nPermitted values: \n   •\t`Administrative`\n   •\t`Login`\n   •\t`Data Read`\n   •\t`Metadata Read`\n   •\t`Data Write`\n   •\t`Metadata Write`\n   •\t`Data Create`\n   •\t`Metadata Create`\n   •\t`Data Delete`\n   •\t`Metadata Delete`\n"
+            "description": "The \"canonical\" privilege types that are supported by Authomize off-the-shelf:\n\nPermitted values: \n   •\t`Administrative`\n   •\t`Data Read`\n   •\t`Metadata Read`\n   •\t`Data Write`\n   •\t`Metadata Write`\n   •\t`Data Create`\n   •\t`Metadata Create`\n   •\t`Data Delete`\n   •\t`Metadata Delete`\n"
           },
           "originName": {
             "title": "Originname",
@@ -7336,7 +7634,7 @@
                 "$ref": "#/components/schemas/PrivilegeType"
               }
             ],
-            "description": "The \"canonical\" privilege types that are supported by Authomize off-the-shelf:\n\nPermitted values: \n   •\t`Administrative`\n   •\t`Unknown`\n   •\t`Read`\n   •\t`ReadMetadata`\n   •\t`Write`\n   •\t`Create`\n   •\t`Delete`\n   •\t`Execute`\n   •\t`Enable`\n   •\t`Assign`\n   •\t`Restore`\n   •\t`Import`\n   •\t`Export`\n   •\t`Update`\n   •\t`Cancel`\n   •\t`Use`\n   •\t`Delegate`\n   •\t`Join`\n   •\t`Invite`\n   •\t`Share`\n\n"
+            "description": "The \"canonical\" privilege types that are supported by Authomize off-the-shelf:\n\nPermitted values: \n   •\t`Administrative`\n   •\t`Login`\n   •\t`Data Read`\n   •\t`Metadata Read`\n   •\t`Data Write`\n   •\t`Metadata Write`\n   •\t`Data Create`\n   •\t`Metadata Create`\n   •\t`Data Delete`\n   •\t`Metadata Delete`\n\n"
           },
           "originName": {
             "title": "Originname",
@@ -7370,6 +7668,58 @@
           }
         },
         "description": "List request schema"
+      },
+      "UpdateRestApiConnectorSchema": {
+        "title": "UpdateRestApiConnectorSchema",
+        "type": "object",
+        "properties": {
+          "config": {
+            "title": "Config",
+            "type": "object"
+          },
+          "status": {
+            "$ref": "#/components/schemas/IntegrationInternalStatus"
+          },
+          "execution_state": {
+            "$ref": "#/components/schemas/ExecutionState"
+          },
+          "owner_id": {
+            "title": "Owner Id",
+            "type": "string"
+          },
+          "display_name": {
+            "title": "Display Name",
+            "type": "string"
+          },
+          "set_name": {
+            "title": "Set Name",
+            "type": "string"
+          },
+          "owner_email": {
+            "title": "Owner Email",
+            "type": "string"
+          },
+          "logo_file_name": {
+            "title": "Logo File Name",
+            "type": "string"
+          },
+          "logo_storage_id": {
+            "title": "Logo Storage Id",
+            "type": "string"
+          },
+          "logo_url": {
+            "title": "Logo Url",
+            "type": "string"
+          },
+          "schedule_task_definitions": {
+            "title": "Schedule Task Definitions",
+            "type": "object"
+          },
+          "additional_properties": {
+            "title": "Additional Properties",
+            "type": "object"
+          }
+        }
       },
       "UpdateServiceAccountListRequestSchema": {
         "title": "UpdateServiceAccountListRequestSchema",
@@ -7767,6 +8117,10 @@
     {
       "name": "Identities",
       "description": "The Identities APIs are used for getting, creating and editing Identities."
+    },
+    {
+      "name": "Connector",
+      "description": "Connector Routes"
     },
     {
       "name": "v1",
