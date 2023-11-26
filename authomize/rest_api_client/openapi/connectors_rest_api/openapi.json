@@ -3,7 +3,7 @@
   "info": {
     "title": "Authomize API Reference",
     "description": "Authomize enables users to integrate your applications with Authomize via custom connectors.\n\nYou can use the APIs described in this document to create your connector.\n\nOnce data is uploaded and processed successfully, your custom connector will function in the same way as the connectors created by Authomize.\n\n## How does Authomize work?\nAuthomize works by gathering information about:\n\n· individuals, teams and functions.\n\n· apps, assets and accounts.\n\n· all the relationships between them.\n\n![img.png](https://storagetry1.blob.core.windows.net/public/78d82650-71b0-4909-8444-022aab79add5.png)\n\n## Connector APIs\n\nAuthomize connector APIs enable pushing data into Authomize from external sources.\n\nThese APIs enable data extracted from outside applications (via application APIs) to be delivered to Authomize.\n\nA connector processes extracted application data to transform it into a format compatible with Authomize.\n\n![img_1.png](https://storagetry1.blob.core.windows.net/public/341bf6ef-2e5b-4284-b715-45105ffbf0f8.png)\n\n## Authentication\nTo Authenticate use the API Token, with the format: `Authorization: API_Token`.\n\nAn API Token is a token you provide when making API calls. \n\n\nThe API Token should be included in every request to the API in an `Authorization` header.\n```\ncurl -v -X POST \\n\n     -H \"Authorization: {API_Token}\" \\n\n     ...\n```\n\n## Limits\nRequests cannot exceed a size of 1MB.\n",
-    "version": "4.5.4",
+    "version": "4.6.0",
     "x-logo": {
       "url": "https://static.authomize.com/public/icons/authomize-green.svg"
     }
@@ -119,14 +119,210 @@
         ]
       }
     },
+    "/v2/apps": {
+      "get": {
+        "tags": [
+          "Connectors"
+        ],
+        "summary": "Search Apps",
+        "description": "Search Apps.",
+        "operationId": "search_apps_v2_apps_get",
+        "parameters": [
+          {
+            "required": false,
+            "schema": {
+              "title": "Limit",
+              "type": "integer",
+              "default": 20
+            },
+            "name": "limit",
+            "in": "query"
+          },
+          {
+            "required": false,
+            "schema": {
+              "title": "Skip",
+              "type": "integer",
+              "default": 0
+            },
+            "name": "skip",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AppListSchema"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ]
+      },
+      "post": {
+        "tags": [
+          "Connectors"
+        ],
+        "summary": "Create App",
+        "description": "Create new app.",
+        "operationId": "create_app_v2_apps_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/NewAppSchema"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AppSchema"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ]
+      }
+    },
     "/v2/apps/{appId}": {
+      "get": {
+        "tags": [
+          "Connectors"
+        ],
+        "summary": "Retrieve App",
+        "description": "Retrieve App by {appId}.",
+        "operationId": "retrieve_app_v2_apps__appId__get",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Appid",
+              "type": "string"
+            },
+            "name": "appId",
+            "in": "path"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AppSchema"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ]
+      },
+      "delete": {
+        "tags": [
+          "Connectors"
+        ],
+        "summary": "Delete App",
+        "description": "Delete App by {appId} along with its data.",
+        "operationId": "delete_app_v2_apps__appId__delete",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "title": "Appid",
+              "type": "string"
+            },
+            "name": "appId",
+            "in": "path"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RequestSubmitResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "APIKeyHeader": []
+          }
+        ]
+      },
       "patch": {
         "tags": [
           "Connectors"
         ],
-        "summary": "Update Application Data",
-        "description": "The Update Application Data API is used to update app data on `{appId}`.\n",
-        "operationId": "update_application_data_v2_apps__appId__patch",
+        "summary": "Update App",
+        "description": "Update an existing App.",
+        "operationId": "update_app_v2_apps__appId__patch",
         "parameters": [
           {
             "required": true,
@@ -154,7 +350,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/RequestSubmitResponse"
+                  "$ref": "#/components/schemas/AppSchema"
                 }
               }
             }
@@ -1982,260 +2178,6 @@
         ]
       }
     },
-    "/v2/apps/connectors": {
-      "get": {
-        "tags": [
-          "Connectors"
-        ],
-        "summary": "Search Connectors",
-        "description": "Search connectors.",
-        "operationId": "search_connectors_v2_apps_connectors_get",
-        "parameters": [
-          {
-            "required": false,
-            "schema": {
-              "title": "Limit",
-              "type": "integer",
-              "default": 20
-            },
-            "name": "limit",
-            "in": "query"
-          },
-          {
-            "required": false,
-            "schema": {
-              "title": "Skip",
-              "type": "integer",
-              "default": 0
-            },
-            "name": "skip",
-            "in": "query"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ConnectorListSchema"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "security": [
-          {
-            "APIKeyHeader": []
-          }
-        ]
-      },
-      "post": {
-        "tags": [
-          "Connectors"
-        ],
-        "summary": "Create Connector",
-        "description": "Create new connector.",
-        "operationId": "create_connector_v2_apps_connectors_post",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/NewConnectorSchema"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ConnectorSchema"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "security": [
-          {
-            "APIKeyHeader": []
-          }
-        ]
-      }
-    },
-    "/v2/apps/connectors/{connectorId}": {
-      "get": {
-        "tags": [
-          "Connectors"
-        ],
-        "summary": "Retrieve Connector",
-        "description": "Retrieve connector by {connectorId}.",
-        "operationId": "retrieve_connector_v2_apps_connectors__connectorId__get",
-        "parameters": [
-          {
-            "required": true,
-            "schema": {
-              "title": "Connectorid",
-              "type": "string"
-            },
-            "name": "connectorId",
-            "in": "path"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ConnectorSchema"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "security": [
-          {
-            "APIKeyHeader": []
-          }
-        ]
-      },
-      "delete": {
-        "tags": [
-          "Connectors"
-        ],
-        "summary": "Delete Connector",
-        "description": "Remove connector by {connectorId} along with its data.",
-        "operationId": "delete_connector_v2_apps_connectors__connectorId__delete",
-        "parameters": [
-          {
-            "required": true,
-            "schema": {
-              "title": "Connectorid",
-              "type": "string"
-            },
-            "name": "connectorId",
-            "in": "path"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/RequestSubmitResponse"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "security": [
-          {
-            "APIKeyHeader": []
-          }
-        ]
-      },
-      "patch": {
-        "tags": [
-          "Connectors"
-        ],
-        "summary": "Update Connector",
-        "description": "Update an existing connector.",
-        "operationId": "update_connector_v2_apps_connectors__connectorId__patch",
-        "parameters": [
-          {
-            "required": true,
-            "schema": {
-              "title": "Connectorid",
-              "type": "string"
-            },
-            "name": "connectorId",
-            "in": "path"
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/UpdateConnectorSchema"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "description": "Successful Response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ConnectorSchema"
-                }
-              }
-            }
-          },
-          "422": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            }
-          }
-        },
-        "security": [
-          {
-            "APIKeyHeader": []
-          }
-        ]
-      }
-    },
     "/v2/v2/apps/files/template": {
       "get": {
         "tags": [
@@ -3260,6 +3202,55 @@
           }
         }
       },
+      "AppListSchema": {
+        "title": "AppListSchema",
+        "required": [
+          "pagination",
+          "data"
+        ],
+        "type": "object",
+        "properties": {
+          "pagination": {
+            "$ref": "#/components/schemas/Pagination"
+          },
+          "data": {
+            "title": "Data",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AppSchema"
+            }
+          }
+        }
+      },
+      "AppSchema": {
+        "title": "AppSchema",
+        "required": [
+          "id",
+          "createdAt",
+          "modifiedAt"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "title": "Id",
+            "type": "string"
+          },
+          "createdAt": {
+            "title": "Createdat",
+            "type": "string",
+            "format": "date-time"
+          },
+          "modifiedAt": {
+            "title": "Modifiedat",
+            "type": "string",
+            "format": "date-time"
+          },
+          "integrationName": {
+            "title": "Integrationname",
+            "type": "string"
+          }
+        }
+      },
       "AssetDescription": {
         "title": "AssetDescription",
         "required": [
@@ -3828,55 +3819,6 @@
             "title": "Lastname",
             "type": "string",
             "description": "The user's last name.\n"
-          }
-        }
-      },
-      "ConnectorListSchema": {
-        "title": "ConnectorListSchema",
-        "required": [
-          "pagination",
-          "data"
-        ],
-        "type": "object",
-        "properties": {
-          "pagination": {
-            "$ref": "#/components/schemas/Pagination"
-          },
-          "data": {
-            "title": "Data",
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/ConnectorSchema"
-            }
-          }
-        }
-      },
-      "ConnectorSchema": {
-        "title": "ConnectorSchema",
-        "required": [
-          "id",
-          "createdAt",
-          "modifiedAt"
-        ],
-        "type": "object",
-        "properties": {
-          "id": {
-            "title": "Id",
-            "type": "string"
-          },
-          "createdAt": {
-            "title": "Createdat",
-            "type": "string",
-            "format": "date-time"
-          },
-          "modifiedAt": {
-            "title": "Modifiedat",
-            "type": "string",
-            "format": "date-time"
-          },
-          "integrationName": {
-            "title": "Integrationname",
-            "type": "string"
           }
         }
       },
@@ -4649,6 +4591,16 @@
         },
         "description": "List request schema"
       },
+      "NewAppSchema": {
+        "title": "NewAppSchema",
+        "type": "object",
+        "properties": {
+          "integrationName": {
+            "title": "Integrationname",
+            "type": "string"
+          }
+        }
+      },
       "NewAssetInheritanceRequestSchema": {
         "title": "NewAssetInheritanceRequestSchema",
         "required": [
@@ -4927,16 +4879,6 @@
           }
         },
         "description": "New assets response schema"
-      },
-      "NewConnectorSchema": {
-        "title": "NewConnectorSchema",
-        "type": "object",
-        "properties": {
-          "integrationName": {
-            "title": "Integrationname",
-            "type": "string"
-          }
-        }
       },
       "NewGitRepoListRequestSchema": {
         "title": "NewGitRepoListRequestSchema",
@@ -7084,11 +7026,6 @@
             "title": "Name",
             "type": "string",
             "description": "The name of the Application.\n"
-          },
-          "logo_url_sync": {
-            "title": "Logo Url Sync",
-            "type": "boolean",
-            "description": "Ensure that the Application logo is the same as in the integration."
           }
         }
       },
@@ -7195,16 +7132,6 @@
           }
         },
         "description": "List request schema"
-      },
-      "UpdateConnectorSchema": {
-        "title": "UpdateConnectorSchema",
-        "type": "object",
-        "properties": {
-          "integrationName": {
-            "title": "Integrationname",
-            "type": "string"
-          }
-        }
       },
       "UpdateGroupingsListRequestSchema": {
         "title": "UpdateGroupingsListRequestSchema",
