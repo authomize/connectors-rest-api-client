@@ -1002,7 +1002,6 @@ class Pagination(BaseModel):
     skip: Optional[int] = Field(default=0, title='Skip')
     total: Optional[int] = Field(default=-1, title='Total')
     hasMore: Optional[bool] = Field(default=None, title='Hasmore')
-    search_after: Optional[List] = Field(default=None, title='Search After')
 
 
 class PermissionSourceType(Enum):

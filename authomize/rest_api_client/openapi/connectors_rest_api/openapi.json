@@ -6256,11 +6256,6 @@
           "hasMore": {
             "title": "Hasmore",
             "type": "boolean"
-          },
-          "search_after": {
-            "title": "Search After",
-            "type": "array",
-            "items": {}
           }
         },
         "description": "Base schema for pagination"
