@@ -5852,7 +5852,6 @@
         "title": "NewPrivilegeType",
         "enum": [
           "Administrative",
-          "Login",
           "Data Create",
           "Metadata Create",
           "Data Read",

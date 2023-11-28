@@ -2,6 +2,7 @@
 #   filename:  openapi.json
 #   timestamp: 2023-11-28T07:11:10+00:00
 
+
 from __future__ import annotations
 
 from datetime import datetime
@@ -924,7 +925,6 @@ class NewPrivilegeGrantsResponseSchema(BaseModel):
 
 class NewPrivilegeType(Enum):
     Administrative = 'Administrative'
-    Login = 'Login'
     Data_Create = 'Data Create'
     Metadata_Create = 'Metadata Create'
     Data_Read = 'Data Read'
