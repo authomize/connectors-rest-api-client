@@ -6,36 +6,27 @@ An automatically generated python client for the Authomize API.
 ```python
 import os
 
-from authomize.rest_api_client import (
-    AccessDescription,
-    AssetDescription,
-    AssetsInheritance,
-    Client,
-    IdentitiesInheritance,
-    IdentityDescription,
-    IdentityTypes,
-    ItemsBundleSchema,
-    ServiceDescription,
+from authomize.rest_api_client import Client
+from authomize.rest_api_client.generated.connectors_rest_api.schemas import (
+    NewUserRequestSchema,
+    NewUsersListRequestSchema,
 )
 
 # Create a client using your Authomize secret Token
 client = Client(auth_token=os.environ['AUTHOMIZE_TOKEN'])
 # Using an existing connector
-connector_id = os.environ['AUTHOMIZE_CONNECTOR_ID']
+app_id = os.environ['AUTHOMIZE_APP_ID']
 # Sanity test for Login
 me = client.me()
-# Create a new transaction
-transaction = client.create_transaction(connector_id)
 # Insert some typed items
-client.extend_transaction_items(connector_id, transaction.id, ItemsBundleSchema(
-    services=[],
-    identities=[IdentityDescription(id='i0', name='John Smith', type=IdentityTypes.User.value)],
-    assets=[],
-    inheritanceIdentities=[],
-    inheritanceAssets=[],
-    access=[]
-))
-client.apply_transaction(connector_id, transaction.id)
+client.create_users(
+    app_id,
+    NewUsersListRequestSchema(
+        data=[
+            NewUserRequestSchema(uniqueId='i0', name='John Smith', email='john.smith@example.com')
+        ]
+    ),
+)
 ```
 
 ## Installing
