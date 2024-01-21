@@ -3,7 +3,7 @@
   "info": {
     "title": "Authomize API Reference",
     "description": "Authomize enables users to integrate your applications with Authomize via custom connectors.\n\nYou can use the APIs described in this document to create your connector.\n\nOnce data is uploaded and processed successfully, your custom connector will function in the same way as the connectors created by Authomize.\n\n## How does Authomize work?\nAuthomize works by gathering information about:\n\n· individuals, teams and functions.\n\n· apps, assets and accounts.\n\n· all the relationships between them.\n\n![img.png](https://storagetry1.blob.core.windows.net/public/78d82650-71b0-4909-8444-022aab79add5.png)\n\n## Connector APIs\n\nAuthomize connector APIs enable pushing data into Authomize from external sources.\n\nThese APIs enable data extracted from outside applications (via application APIs) to be delivered to Authomize.\n\nA connector processes extracted application data to transform it into a format compatible with Authomize.\n\n![img_1.png](https://storagetry1.blob.core.windows.net/public/341bf6ef-2e5b-4284-b715-45105ffbf0f8.png)\n\n## Authentication\nTo Authenticate use the API Token, with the format: `Authorization: API_Token`.\n\nAn API Token is a token you provide when making API calls. \n\n\nThe API Token should be included in every request to the API in an `Authorization` header.\n```\ncurl -v -X POST \\n\n     -H \"Authorization: {API_Token}\" \\n\n     ...\n```\n\n## Limits\nRequests cannot exceed a size of 1MB.\n",
-    "version": "4.6.7",
+    "version": "4.6.8",
     "x-logo": {
       "url": "https://static.authomize.com/public/icons/authomize-green.svg"
     }
@@ -2048,7 +2048,7 @@
           "Connectors",
           "Campaign"
         ],
-        "summary": "Add Campaign Permissions [Beta]",
+        "summary": "Add Access Policies [Beta]",
         "description": "The API is used to add all the campaign privileges that need to be reviewed and the reviewers details via API",
         "operationId": "add_campaign_permissions_v2_apps__appId__campaigns__campaignId__permissions_post",
         "parameters": [
@@ -3586,12 +3586,6 @@
         ],
         "type": "object",
         "properties": {
-          "uniqueId": {
-            "title": "Uniqueid",
-            "minLength": 1,
-            "type": "string",
-            "description": "User's Account ID. **Mandatory, must be unique.**\n"
-          },
           "originId": {
             "title": "Originid",
             "minLength": 1,
@@ -3666,6 +3660,12 @@
               "type": "string"
             },
             "description": "One or more tags on the user account.\n"
+          },
+          "uniqueId": {
+            "title": "Uniqueid",
+            "minLength": 1,
+            "type": "string",
+            "description": "User's Account ID. **Mandatory, must be unique.**\n"
           }
         }
       },
@@ -3750,17 +3750,11 @@
       "CampaignGroupingSchema": {
         "title": "CampaignGroupingSchema",
         "required": [
-          "id",
-          "name"
+          "name",
+          "id"
         ],
         "type": "object",
         "properties": {
-          "id": {
-            "title": "Id",
-            "minLength": 1,
-            "type": "string",
-            "description": "\nGrouping ID. **Mandatory, must be unique.**\n"
-          },
           "originId": {
             "title": "Originid",
             "minLength": 1,
@@ -3787,22 +3781,23 @@
               "type": "string"
             },
             "description": "Tags on the access grouping.\n"
+          },
+          "id": {
+            "title": "Id",
+            "minLength": 1,
+            "type": "string",
+            "description": "\nGrouping ID. **Mandatory, must be unique.**\n"
           }
         }
       },
       "CampaignPrivilegeSchema": {
         "title": "CampaignPrivilegeSchema",
         "required": [
+          "originName",
           "uniqueId"
         ],
         "type": "object",
         "properties": {
-          "uniqueId": {
-            "title": "Uniqueid",
-            "minLength": 1,
-            "type": "string",
-            "description": "Privilege ID.\n\nIf not defined, set as originName. **Mandatory, must be unique.**\n"
-          },
           "originId": {
             "title": "Originid",
             "minLength": 1,
@@ -3821,6 +3816,12 @@
             "title": "Originname",
             "type": "string",
             "description": "The privilege name in the source system."
+          },
+          "uniqueId": {
+            "title": "Uniqueid",
+            "minLength": 1,
+            "type": "string",
+            "description": "Privilege ID.\n\nIf not defined, set as originName. **Mandatory, must be unique.**\n"
           }
         }
       },
@@ -5899,16 +5900,11 @@
       "NewPrivilegeRequestSchema": {
         "title": "NewPrivilegeRequestSchema",
         "required": [
+          "originName",
           "uniqueId"
         ],
         "type": "object",
         "properties": {
-          "uniqueId": {
-            "title": "Uniqueid",
-            "minLength": 1,
-            "type": "string",
-            "description": "Privilege ID.\n\nIf not defined, set as originName. **Mandatory, must be unique.**\n"
-          },
           "originId": {
             "title": "Originid",
             "minLength": 1,
@@ -5928,13 +5924,19 @@
             "type": "string",
             "description": "The privilege name in the source system."
           },
+          "uniqueId": {
+            "title": "Uniqueid",
+            "minLength": 1,
+            "type": "string",
+            "description": "Privilege ID.\n\nIf not defined, set as originName. **Mandatory, must be unique.**\n"
+          },
           "type": {
             "allOf": [
               {
                 "$ref": "#/components/schemas/PrivilegeType"
               }
             ],
-            "description": "The \"canonical\" privilege types that are supported by Authomize off-the-shelf:\n\nPermitted values: \n   •\t`Administrative`\n   •\t`Login`\n   •\t`Data Read`\n   •\t`Metadata Read`\n   •\t`Data Write`\n   •\t`Metadata Write`\n   •\t`Data Create`\n   •\t`Metadata Create`\n   •\t`Data Delete`\n   •\t`Metadata Delete`\n\n",
+            "description": "This Field is depreciated. Please use privilegeType Field instead.\n\nThe \"canonical\" privilege types that are supported by Authomize off-the-shelf:\n\nPermitted values: \n   •\t`Administrative`\n   •\t`Login`\n   •\t`Data Read`\n   •\t`Metadata Read`\n   •\t`Data Write`\n   •\t`Metadata Write`\n   •\t`Data Create`\n   •\t`Metadata Create`\n   •\t`Data Delete`\n   •\t`Metadata Delete`\n\n",
             "deprecated": true
           }
         },
@@ -6189,12 +6191,6 @@
         ],
         "type": "object",
         "properties": {
-          "uniqueId": {
-            "title": "Uniqueid",
-            "minLength": 1,
-            "type": "string",
-            "description": "User's Account ID. **Mandatory, must be unique.**\n"
-          },
           "originId": {
             "title": "Originid",
             "minLength": 1,
@@ -6269,6 +6265,12 @@
               "type": "string"
             },
             "description": "One or more tags on the user account.\n"
+          },
+          "uniqueId": {
+            "title": "Uniqueid",
+            "minLength": 1,
+            "type": "string",
+            "description": "User's Account ID. **Mandatory, must be unique.**\n"
           },
           "customProperties": {
             "title": "Customproperties",
@@ -6452,16 +6454,11 @@
       "PrivilegeSchema": {
         "title": "PrivilegeSchema",
         "required": [
+          "originName",
           "uniqueId"
         ],
         "type": "object",
         "properties": {
-          "uniqueId": {
-            "title": "Uniqueid",
-            "minLength": 1,
-            "type": "string",
-            "description": "Privilege ID.\n\nIf not defined, set as originName. **Mandatory, must be unique.**\n"
-          },
           "originId": {
             "title": "Originid",
             "minLength": 1,
@@ -6481,13 +6478,19 @@
             "type": "string",
             "description": "The privilege name in the source system."
           },
+          "uniqueId": {
+            "title": "Uniqueid",
+            "minLength": 1,
+            "type": "string",
+            "description": "Privilege ID.\n\nIf not defined, set as originName. **Mandatory, must be unique.**\n"
+          },
           "type": {
             "allOf": [
               {
                 "$ref": "#/components/schemas/PrivilegeType"
               }
             ],
-            "description": "The \"canonical\" privilege types that are supported by Authomize off-the-shelf:\n\nPermitted values: \n   •\t`Administrative`\n   •\t`Login`\n   •\t`Data Read`\n   •\t`Metadata Read`\n   •\t`Data Write`\n   •\t`Metadata Write`\n   •\t`Data Create`\n   •\t`Metadata Create`\n   •\t`Data Delete`\n   •\t`Metadata Delete`\n\n",
+            "description": "This Field is depreciated. Please use privilegeType Field instead.\n\nThe \"canonical\" privilege types that are supported by Authomize off-the-shelf:\n\nPermitted values: \n   •\t`Administrative`\n   •\t`Login`\n   •\t`Data Read`\n   •\t`Metadata Read`\n   •\t`Data Write`\n   •\t`Metadata Write`\n   •\t`Data Create`\n   •\t`Metadata Create`\n   •\t`Data Delete`\n   •\t`Metadata Delete`\n\n",
             "deprecated": true
           }
         },
@@ -7530,7 +7533,7 @@
                 "$ref": "#/components/schemas/PrivilegeType"
               }
             ],
-            "description": "The \"canonical\" privilege types that are supported by Authomize off-the-shelf:\n\nPermitted values: \n   •\t`Administrative`\n   •\t`Login`\n   •\t`Data Read`\n   •\t`Metadata Read`\n   •\t`Data Write`\n   •\t`Metadata Write`\n   •\t`Data Create`\n   •\t`Metadata Create`\n   •\t`Data Delete`\n   •\t`Metadata Delete`\n\n"
+            "description": "This Field is depreciated. Please use privilegeType Field instead.\n\nThe \"canonical\" privilege types that are supported by Authomize off-the-shelf:\n\nPermitted values: \n   •\t`Administrative`\n   •\t`Login`\n   •\t`Data Read`\n   •\t`Metadata Read`\n   •\t`Data Write`\n   •\t`Metadata Write`\n   •\t`Data Create`\n   •\t`Metadata Create`\n   •\t`Data Delete`\n   •\t`Metadata Delete`\n\n"
           },
           "originName": {
             "title": "Originname",
@@ -7692,12 +7695,6 @@
         ],
         "type": "object",
         "properties": {
-          "uniqueId": {
-            "title": "Uniqueid",
-            "minLength": 1,
-            "type": "string",
-            "description": "User's Account ID. **Mandatory, must be unique.**\n"
-          },
           "originId": {
             "title": "Originid",
             "minLength": 1,
@@ -7772,6 +7769,12 @@
               "type": "string"
             },
             "description": "One or more tags on the user account.\n"
+          },
+          "uniqueId": {
+            "title": "Uniqueid",
+            "minLength": 1,
+            "type": "string",
+            "description": "User's Account ID. **Mandatory, must be unique.**\n"
           },
           "customProperties": {
             "title": "Customproperties",
@@ -7792,12 +7795,6 @@
         ],
         "type": "object",
         "properties": {
-          "uniqueId": {
-            "title": "Uniqueid",
-            "minLength": 1,
-            "type": "string",
-            "description": "User's Account ID. **Mandatory, must be unique.**\n"
-          },
           "originId": {
             "title": "Originid",
             "minLength": 1,
@@ -7872,6 +7869,12 @@
               "type": "string"
             },
             "description": "One or more tags on the user account.\n"
+          },
+          "uniqueId": {
+            "title": "Uniqueid",
+            "minLength": 1,
+            "type": "string",
+            "description": "User's Account ID. **Mandatory, must be unique.**\n"
           },
           "customProperties": {
             "title": "Customproperties",
